@@ -1,4 +1,4 @@
-import { getVideos } from './videoServices'
+import { getVideos } from '../services/videoServices'
 
 describe('getVideos', () => {
   it('receives an array', () => {

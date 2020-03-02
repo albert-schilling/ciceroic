@@ -30,3 +30,8 @@ firebase
 videos
 public/videos
 src/videos
+
+data
+
+cypress
+cypress.json
