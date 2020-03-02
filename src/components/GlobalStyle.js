@@ -16,6 +16,10 @@ const NewGlobalStyle = createGlobalStyle`
   :root {
     font-size: 20px;
     font-family: sans-serif, Arial, Helvetica;
+    --primary-bg-color: navy;
+    --primary-font-color: #111;
+    --secondary-font-color: #fff;
+    color: var(--primary-font-color);
   }
   body {
     margin: 0;
