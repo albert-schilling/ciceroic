@@ -2,8 +2,8 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import App from './App'
 
-test('renders "React Boilerplate"', () => {
+test('renders "Ciceroic"', () => {
   const { getByText } = render(<App />)
-  const linkElement = getByText(/React Boilerplate/i)
+  const linkElement = getByText(/Ciceroic/i)
   expect(linkElement).toBeInTheDocument()
 })

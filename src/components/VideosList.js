@@ -2,39 +2,69 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function VideosList({ videos }) {
-  const resPath =
-    'file:///Users/albertschilling/Projects/capstone-project/videos/'
+  const resPath = '/videos/'
 
   return (
-    <>
+    <VideosListStyled>
       {videos.map(video => {
-        // import videoUrl from `${resPath} + ${video.filename}`
         return (
-          <VideoCardStyled key={videos.id}>
-            <video width="200px" height="200px">
+          <VideoCard key={video.id}>
+            <video controls width="100%" height="auto">
               <source src={resPath + video.filename} type="video/mp4" />
             </video>
-            <img
-              width="200px"
-              height="200px"
-              src="file:///Users/albertschilling/Projects/capstone-project/videos/grapefruit-slice-332-332.jpg"
-              alt=""
-            />
-            <header>{video.title}</header>
-            <h3>{video.speaker}</h3>
-            <p>
-              {video.description}
-              <small>{video.category}</small>
-              <small>{video.duration}</small>
-              <small>{video.date}</small>
-            </p>
-          </VideoCardStyled>
+            <VideoCardBody>
+              <header>
+                <h2>{video.title}</h2>
+              </header>
+              <h3>{video.speaker}</h3>
+              <VideoCardDescription>{video.description}</VideoCardDescription>
+              <VideoCardDetails>
+                <small>{video.category}</small>
+                <small>{video.duration} min</small>
+                <small>{video.date}</small>
+              </VideoCardDetails>
+            </VideoCardBody>
+          </VideoCard>
         )
       })}
-    </>
+    </VideosListStyled>
   )
 }
 
-const VideoCardStyled = styled.article`
-  border: 1px solid black;
+const VideosListStyled = styled.section`
+  display: grid;
+  grid-gap: 8px;
+  @media (min-width: 700px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `
+const VideoCard = styled.article`
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 12px;
+  h2 {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+  @media (min-width: 700px) {
+    width: calc(50% - 4px);
+  }
+`
+const VideoCardDescription = styled.p`
+  line-height: 1.4rem;
+`
+
+const VideoCardDetails = styled.p`
+  display: flex;
+  justify-content: space-between;
+  grid-gap: 4px;
+  color: var(--secondary-font-color);
+  margin-bottom: 0;
+`
+
+const VideoCardBody = styled.section``
