@@ -10,7 +10,11 @@ function App() {
   const [videos, setVideos] = useState([])
 
   useEffect(() => {
-    getVideos().then(res => setVideos(res))
+    getVideos().then(res => {
+      console.log(res)
+      console.log(res.length)
+      return setVideos(res)
+    })
   }, [])
   return (
     <AppBodyStyled>
