@@ -1,17 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { getVideos } from '../services/videoServices'
+import { getVideos, patchVideo } from '../services/videoServices'
 
 export default function Video({ videoBasePath, video, setVideo }) {
   let { id } = useParams()
   const [gestureAndPosture, setGestureAndPosture] = useState(3)
+  const [mimicAndExpression, setMimicAndExpression] = useState(3)
+  const [useOfStage, setUseOfStage] = useState(3)
+  const [pronounciationAndClarity, setPronounciationAndClarity] = useState(3)
+  const [emphasisAndVocalVariety, setEmphasisAndVocalVariety] = useState(3)
+  const [comprehensibility, setComprehensibility] = useState(3)
+  const [structureAndArgumentation, setStructureAndArgumentation] = useState(3)
+  const [rangeOfStatement, setRangeOfStatement] = useState(3)
   useEffect(() => {
     Object.entries(video).length === 0 &&
-      getVideos(id).then(res => setVideo(res))
+      getVideos(id).then(res => {
+        setVideo(res)
+        checkHasEvaluationProperty(res, 'gestureAndPosture') &&
+          setGestureAndPosture(res.evaluation.gestureAndPosture)
+        checkHasEvaluationProperty(res, 'mimicAndExpression') &&
+          setMimicAndExpression(res.evaluation.mimicAndExpression)
+        checkHasEvaluationProperty(res, 'useOfStage') &&
+          setUseOfStage(res.evaluation.useOfStage)
+        checkHasEvaluationProperty(res, 'pronounciationAndClarity') &&
+          setPronounciationAndClarity(res.evaluation.pronounciationAndClarity)
+        checkHasEvaluationProperty(res, 'emphasisAndVocalVariety') &&
+          setEmphasisAndVocalVariety(res.evaluation.emphasisAndVocalVariety)
+        checkHasEvaluationProperty(res, 'comprehensibility') &&
+          setComprehensibility(res.evaluation.comprehensibility)
+        checkHasEvaluationProperty(res, 'structureAndArgumentation') &&
+          setStructureAndArgumentation(res.evaluation.structureAndArgumentation)
+        checkHasEvaluationProperty(res, 'rangeOfStatement') &&
+          setRangeOfStatement(res.evaluation.rangeOfStatement)
+      })
   }, [])
-  console.log(video.evaluation)
-  console.log(video)
   return (
     <>
       <NavLink exact to="/">
@@ -55,21 +78,116 @@ export default function Video({ videoBasePath, video, setVideo }) {
             id="gestureAndPosture"
           />
         </label>
+        <label htmlFor="mimicAndExpression">
+          Mimic and Emotional Expression
+          <input
+            onChange={event => handleSliderChange(event, setMimicAndExpression)}
+            type="range"
+            value={mimicAndExpression}
+            min="1"
+            max="5"
+            step="1"
+            name="mimicAndExpression"
+            id="mimicAndExpression"
+          />
+        </label>
+        <label htmlFor="useOfStage">
+          Use of Stage
+          <input
+            onChange={event => handleSliderChange(event, setUseOfStage)}
+            type="range"
+            value={useOfStage}
+            min="1"
+            max="5"
+            step="1"
+            name="useOfStage"
+            id="useOfStage"
+          />
+        </label>
+        <label htmlFor="pronounciationAndClarity">
+          Pronounciation and Voice Clarity
+          <input
+            onChange={event =>
+              handleSliderChange(event, setPronounciationAndClarity)
+            }
+            type="range"
+            value={pronounciationAndClarity}
+            min="1"
+            max="5"
+            step="1"
+            name="pronounciationAndClarity"
+            id="pronounciationAndClarity"
+          />
+        </label>
+        <label htmlFor="emphasisAndVocalVariety">
+          Emphasis and Vocal Variety
+          <input
+            onChange={event =>
+              handleSliderChange(event, setEmphasisAndVocalVariety)
+            }
+            type="range"
+            value={emphasisAndVocalVariety}
+            min="1"
+            max="5"
+            step="1"
+            name="emphasisAndVocalVariety"
+            id="emphasisAndVocalVariety"
+          />
+        </label>
+        <label htmlFor="comprehensibility">
+          Comprehensibility of Content
+          <input
+            onChange={event => handleSliderChange(event, setComprehensibility)}
+            type="range"
+            value={comprehensibility}
+            min="1"
+            max="5"
+            step="1"
+            name="comprehensibility"
+            id="comprehensibility"
+          />
+        </label>
+        <label htmlFor="structureAndArgumentation">
+          Structure and Argumentation
+          <input
+            onChange={event =>
+              handleSliderChange(event, setStructureAndArgumentation)
+            }
+            type="range"
+            value={structureAndArgumentation}
+            min="1"
+            max="5"
+            step="1"
+            name="structureAndArgumentation"
+            id="structureAndArgumentation"
+          />
+        </label>
+        <label htmlFor="rangeOfStatement">
+          Range of Statement
+          <input
+            onChange={event => handleSliderChange(event, setRangeOfStatement)}
+            type="range"
+            value={rangeOfStatement}
+            min="1"
+            max="5"
+            step="1"
+            name="rangeOfStatement"
+            id="rangeOfStatement"
+          />
+        </label>
 
-        {/* gesture and posture, 
-        mimic and emotional expression, 
-        use of stage/positioning, 
-        pronounciation and voice clarity, 
-        emphasis and vocal variety, 
-        comprehensibility of content, 
-        structure and argumentation, 
+        {/* 
+        , 
+        , 
         range of the statement */}
+        <button type="submit">Submit</button>
       </VideoEvaluation>
     </>
   )
   function handleSubmit(event) {
     event.preventDefault()
     alert('form submitted')
+    patchVideo(id, video)
   }
   function handleSliderChange(event, inputValueSetter) {
     inputValueSetter(event.target.value)
@@ -83,9 +201,14 @@ export default function Video({ videoBasePath, video, setVideo }) {
       })
 
       setVideo(video)
-      console.log('video after addEvaluation', video)
-      console.log('gestureAndPosture', video.evaluation.gestureAndPosture)
     }
+  }
+  function checkHasEvaluationProperty(object, property) {
+    console.log(property)
+    return (
+      object.hasOwnProperty('evaluation') &&
+      object.evaluation.hasOwnProperty(property)
+    )
   }
 }
 
