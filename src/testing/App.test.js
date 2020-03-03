@@ -15,5 +15,10 @@ test('renders x videos depending on number of entries', async () => {
   const videos = await findAllByRole('region')
   console.log('videos', videos)
   console.log('videos.length', videos.length)
-  expect(getVideos().then(res => res.length)).resolves.toBe(videos.length)
+  expect(
+    getVideos().then(res => {
+      console.log('res', res)
+      return res.length
+    })
+  ).resolves.toBe(7)
 })
