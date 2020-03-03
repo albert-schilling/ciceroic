@@ -5,11 +5,13 @@ import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import VideosList from './components/VideosList'
-// import Video from './components/Video'
+import Video from './components/Video'
 import { getVideos } from './services/videoServices'
 
 function App() {
   const [videos, setVideos] = useState([])
+  const [video, setVideo] = useState({})
+  const videoBasePath = '/videos/'
 
   useEffect(() => {
     getVideos().then(res => {
@@ -26,11 +28,20 @@ function App() {
         <Main>
           <Switch>
             <Route exact path="/">
-              <VideosList videos={videos} />
+              <VideosList
+                videos={videos}
+                setVideo={setVideo}
+                videoBasePath={videoBasePath}
+              />
             </Route>
-            {/* <Route exact path="/video">
-              <Video videos={videos} />
-            </Route> */}
+            <Route exact path="/video/:id">
+              <Video
+                videos={videos}
+                video={video}
+                setVideo={setVideo}
+                videoBasePath={videoBasePath}
+              />
+            </Route>
           </Switch>
         </Main>
       </Router>
