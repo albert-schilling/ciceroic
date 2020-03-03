@@ -2,16 +2,16 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function VideosList({ videos }) {
-  const resPath = '/videos/'
+  const videoBasePath = '/videos/'
 
   return (
     <VideosListStyled>
       {videos.map(video => {
         return (
-          <VideoCard key={video.id}>
-            <video controls width="100%" height="auto">
-              <source src={resPath + video.filename} type="video/mp4" />
-            </video>
+          <VideoCard key={video.id} role="region">
+            <VideoCardVideo role="img" controls>
+              <source src={videoBasePath + video.filename} type="video/mp4" />
+            </VideoCardVideo>
             <VideoCardBody>
               <header>
                 <h2>{video.title}</h2>
@@ -40,7 +40,7 @@ const VideosListStyled = styled.section`
   }
 `
 const VideoCard = styled.article`
-  background: #fff;
+  background: #ffffff;
   border: 1px solid #eee;
   border-radius: 4px;
   padding: 12px;
@@ -55,6 +55,12 @@ const VideoCard = styled.article`
     width: calc(50% - 4px);
   }
 `
+
+const VideoCardVideo = styled.video`
+  width: 100%;
+  height: auto;
+`
+
 const VideoCardDescription = styled.p`
   line-height: 1.4rem;
 `

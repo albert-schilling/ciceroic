@@ -14,9 +14,9 @@ const HeaderStyled = styled.header`
   color: var(--inverse-primary-font-color);
   padding: 20px;
   height: 100%;
-  & h1 {
+  h1 {
     font-size: 1.6rem;
     text-align: center;
-    margin: 0;
+    margin: 8px;
   }
 `

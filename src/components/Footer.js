@@ -12,7 +12,7 @@ export default function Footer() {
 const FooterStyled = styled.footer`
   background: var(--secondary-bg-color);
   color: #fff;
-  & p {
+  p {
     text-align: center;
   }
 `
