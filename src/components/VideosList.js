@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import NavLink from 'react-router-dom'
 
 export default function VideosList({ videos }) {
   const videoBasePath = '/videos/'
@@ -23,6 +24,9 @@ export default function VideosList({ videos }) {
                 <small>{video.duration} min</small>
                 <small>{video.date}</small>
               </VideoCardDetails>
+              <NavLink exact to="/video">
+                Evaluate
+              </NavLink>
             </VideoCardBody>
           </VideoCard>
         )
