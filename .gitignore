@@ -25,3 +25,13 @@ yarn-error.log*
 .Cache
 .cache
 node_modules
+firebase
+
+videos
+public/videos
+src/videos
+
+data
+
+cypress
+cypress.json
