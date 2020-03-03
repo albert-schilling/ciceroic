@@ -9,7 +9,16 @@
       "date": "Jun 27, 2014",
       "duration": "9.58",
       "filename": "How to speak so that people want to listen _ Julian Treasure.mp4",
-      "evaluation": {}
+      "evaluation": {
+        "gestureAndPosture": "4",
+        "pronounciationAndClarity": "4",
+        "useOfStage": "5",
+        "mimicAndExpression": "2",
+        "comprehensibility": "5",
+        "emphasisAndVocalVariety": "2",
+        "structureAndArgumentation": "4",
+        "rangeOfStatement": "2"
+      }
     },
     {
       "id": "2",
