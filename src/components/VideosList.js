@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-// import NavLink from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
-export default function VideosList({ videos }) {
-  const videoBasePath = '/videos/'
-
+export default function VideosList({ videos, setVideo, videoBasePath }) {
   return (
     <VideosListStyled>
       {videos.map(video => {
@@ -15,7 +13,7 @@ export default function VideosList({ videos }) {
             </VideoCardVideo>
             <VideoCardBody>
               <header>
-                <h2>{video.title}</h2>
+                <VideoCardHeadline>{video.title}</VideoCardHeadline>
               </header>
               <h3>{video.speaker}</h3>
               <VideoCardDescription>{video.description}</VideoCardDescription>
@@ -24,9 +22,12 @@ export default function VideosList({ videos }) {
                 <small>{video.duration} min</small>
                 <small>{video.date}</small>
               </VideoCardDetails>
-              {/* <NavLink exact to="/video">
+              <NavLink
+                onClick={() => setVideo(video)}
+                to={'/video/' + video.id}
+              >
                 Evaluate
-              </NavLink> */}
+              </NavLink>
             </VideoCardBody>
           </VideoCard>
         )
@@ -48,16 +49,17 @@ const VideoCard = styled.article`
   border: 1px solid #eee;
   border-radius: 4px;
   padding: 12px;
-  h2 {
-    font-size: 1.2rem;
-    line-height: 1.6rem;
-  }
+
   h3 {
     font-size: 1rem;
   }
   @media (min-width: 700px) {
     width: calc(50% - 4px);
   }
+`
+const VideoCardHeadline = styled.h2`
+  font-size: 1.2rem;
+  line-height: 1.6rem;
 `
 
 const VideoCardVideo = styled.video`

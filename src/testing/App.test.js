@@ -20,5 +20,5 @@ test('renders x videos depending on number of entries', async () => {
       console.log('res', res)
       return res.length
     })
-  ).resolves.toBe(7)
+  ).resolves.toBe(videos.length)
 })
