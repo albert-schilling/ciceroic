@@ -1,7 +1,7 @@
 import { getVideos } from '../services/videoServices'
 
 describe('getVideos', () => {
-  it('receives an array', () => {
-    expect(getVideos().then(res => Array.isArray(res))).resolves.toBeTruthy()
+  it('returns an array', () => {
+    expect(getVideos().then(res => Array.isArray(res))).resolves.toBe(true)
   })
 })
