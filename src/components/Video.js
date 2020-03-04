@@ -12,10 +12,12 @@ export default function Video({ videoBasePath, video, setVideo }) {
 
   const initialDimensionsValues = {}
   setInitialDimenstionsValues()
-  const [dimensionsValues, setDimensionsValues] = useState(
-    initialDimensionsValues
-  )
-
+  const [evaluation, setEvaluation] = useState({
+    dimensions: { ...initialDimensionsValues },
+    evaluator: {},
+    date: '',
+  })
+  console.log('evaluation:', evaluation)
   const [message, setMessage] = useState('')
   const [messageCallback, setMessageCallback] = useState(() => {})
   const [messageVisibility, setMessageVisibility] = useState('none')
@@ -48,12 +50,8 @@ export default function Video({ videoBasePath, video, setVideo }) {
         </VideoDetails>
       </VideoInformation>
       <VideoEvaluationComp
-        video={Video}
-        setVideo={setVideo}
-        id={id}
-        dimensionsValues={dimensionsValues}
-        setDimensionsValues={setDimensionsValues}
-        initialDimensionsValues={initialDimensionsValues}
+        evaluation={evaluation}
+        setEvaluation={setEvaluation}
         handleSubmit={handleSubmit}
       />
       <UserMessage
@@ -67,11 +65,22 @@ export default function Video({ videoBasePath, video, setVideo }) {
   )
   function handleSubmit(event) {
     event.preventDefault()
+    console.log('after form submit:')
+    console.log(evaluation)
+    console.log(evaluation.evaluator)
+    console.log(evaluation.evaluator.firstName)
+    console.log(evaluation.evaluator.lastName)
+    console.log(evaluation.dimensions)
 
     const form = event.target
-    const fullName = `${form.firstName.value} ${form.lastName.value}`
+    const fullName = `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`
+    console.log('fullName:', fullName)
+    console.log(
+      'concatenated name from state:',
+      `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`.toLowerCase()
+    )
 
-    if (form.firstName.value.length === 0) {
+    if (evaluation.evaluator.firstName.length === 0) {
       const setFocus = () => {
         form.firstName.focus()
       }
@@ -80,7 +89,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
       setMessageVisibility('flex')
       return
     }
-    if (form.lastName.value.length === 0) {
+    if (evaluation.evaluator.lastName.length === 0) {
       const setFocus = () => {
         form.lastName.focus()
       }
@@ -89,54 +98,32 @@ export default function Video({ videoBasePath, video, setVideo }) {
       setMessageVisibility('flex')
       return
     }
-    if (
-      video.hasOwnProperty('evaluations') &&
-      video.evaluations.find(
-        evaluation =>
-          evaluation.evaluator.toLowerCase() === fullName.toLowerCase()
-      )
-    ) {
-      setMessage(
-        `Thank you for your ambition, ${fullName}, but you have already evaluated this speech.`
-      )
-      setMessageVisibility('flex')
-      return
-    }
 
-    setEvaluation(event)
-
-    form.reset()
-    setDimensionsValues(initialDimensionsValues)
+    updateEvaluation()
+    resetEvaluation()
+    // form.reset()
     setMessageVisibility('flex')
     setMessage(`Thank you ${fullName}. Your evaluation has been submitted.`)
   }
 
-  function setEvaluation(event) {
-    video.hasOwnProperty('evaluations')
-      ? console.log(video.evaluations)
-      : Object.assign(video, { evaluations: [] })
-    const evaluator = `${event.target.firstName.value} ${event.target.lastName.value}`
-    const newEvaluation = {
-      evaluator,
-      date: new Date().getTime(),
-      dimensions: [],
-    }
-    Object.entries(dimensionsValues).map(dimension => {
-      newEvaluation.dimensions.push({
-        name: dimension[0],
-        value: dimension[1],
-      })
-    })
-
-    video.evaluations.push(newEvaluation)
+  function updateEvaluation() {
+    Object.assign(evaluation, { date: new Date().getTime() })
+    video.evaluations.push(evaluation)
     setVideo(video)
     patchVideo(id, video)
   }
-  function setInitialDimenstionsValues() {
-    evaluationDimensions.map(dimension => {
-      const name = dimension.name
-      return Object.assign(initialDimensionsValues, { [name]: 3 })
+  function resetEvaluation() {
+    setEvaluation({
+      dimensions: { ...initialDimensionsValues },
+      evaluator: {},
+      date: '',
     })
+  }
+
+  function setInitialDimenstionsValues() {
+    evaluationDimensions.map(dimension =>
+      Object.assign(initialDimensionsValues, { [dimension.name]: 3 })
+    )
   }
 }
 

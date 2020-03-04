@@ -1,23 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../data/evaluationDimensions'
 import VideoEvaluationInputRange from './VideoEvaluationInputRange'
 
 export default function VideoEvaluationComp({
+  evaluation,
+  setEvaluation,
   dimensionsValues,
   setDimensionsValues,
   handleSubmit,
 }) {
+  // const [evaluator, setEvaluator] = useState({})
   return (
     <VideoEvaluation onSubmit={event => handleSubmit(event)}>
       <label htmlFor="firstName">
         First Name
-        <input type="text" name="firstName" id="firstName" />
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          value={
+            evaluation.hasOwnProperty('evaluator') &&
+            evaluation.evaluator.hasOwnProperty('firstName')
+              ? evaluation.evaluator.firstName
+              : ''
+          }
+          onChange={handleChange}
+        />
       </label>
 
       <label htmlFor="lastName">
         Last Name
-        <input type="text" name="lastName" id="lastName" />
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          value={
+            evaluation.hasOwnProperty('evaluator') &&
+            evaluation.evaluator.hasOwnProperty('lastName')
+              ? evaluation.evaluator.lastName
+              : ''
+          }
+          onChange={handleChange}
+        />
       </label>
       {evaluationDimensions.map(dimension => {
         return (
@@ -25,14 +50,35 @@ export default function VideoEvaluationComp({
             key={dimension.name}
             name={dimension.name}
             description={dimension.description}
-            value={dimensionsValues}
-            setValue={setDimensionsValues}
+            evaluation={evaluation}
+            setEvaluation={setEvaluation}
           />
         )
       })}
       <VideoEvaluationSubmit type="submit">Submit</VideoEvaluationSubmit>
     </VideoEvaluation>
   )
+  function handleChange(event) {
+    if (event.target.name === 'firstName') {
+      setEvaluation({
+        ...evaluation,
+        evaluator: {
+          ...evaluation.evaluator,
+          firstName: event.target.value,
+        },
+      })
+    }
+    if (event.target.name === 'lastName') {
+      setEvaluation({
+        ...evaluation,
+        evaluator: {
+          ...evaluation.evaluator,
+          lastName: event.target.value,
+        },
+      })
+    }
+    console.log(evaluation)
+  }
   // function handleSubmit(event) {
   //   event.preventDefault()
 

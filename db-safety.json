@@ -1,0 +1,822 @@
+{
+  "videos": [
+    {
+      "id": "1",
+      "category": "Lecture",
+      "title": "How to speak so that people want to listen",
+      "speaker": "Julian Treasure",
+      "description": "Have you ever felt like you're talking, but nobody is listening? Here's Julian Treasure to help you fix that. As the sound expert demonstrates some useful vocal exercises and shares tips on how to speak with empathy, he offers his vision for a sonorous world of listening and understanding.",
+      "date": "Jun 27, 2014",
+      "duration": "9.58",
+      "filename": "How to speak so that people want to listen _ Julian Treasure.mp4",
+      "evaluation": {
+        "4": "1",
+        "gestureAndPosture": "3",
+        "pronounciationAndClarity": "3",
+        "useOfStage": "5",
+        "mimicAndExpression": "2",
+        "comprehensibility": "5",
+        "emphasisAndVocalVariety": "2",
+        "structureAndArgumentation": "4",
+        "rangeOfStatement": "2",
+        "gesturesAndFacialExpressions": "3"
+      },
+      "evaluations": [
+        {
+          "evaluator": "[object HTMLInputElement] [object HTMLInputElement]",
+          "date": "2020-03-03T22:22:48.846Z",
+          "name": "Credible and Convincing",
+          "value": 3
+        },
+        {
+          "evaluator": " ",
+          "date": "2020-03-03T22:28:49.510Z",
+          "dimensions": {
+            "name": "Credible and Convincing",
+            "value": 3
+          }
+        },
+        {
+          "evaluator": "Albert Schilling",
+          "date": "2020-03-03T22:30:25.301Z",
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Albert Bauer",
+          "date": "2020-03-03T22:50:20.395Z",
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Julia Schilling",
+          "date": 1583276195646,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Julian Boxriker",
+          "date": 1583276422376,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Roman Herzog",
+          "date": 1583276476174,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Werner Herzog",
+          "date": 1583276807805,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Wim Wenders",
+          "date": 1583277170356,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Nicolas Cage",
+          "date": 1583277231719,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Roman Weidenfeller",
+          "date": 1583277699120,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Madonna Madonna",
+          "date": 1583277857400,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Holger Giebe",
+          "date": 1583278083961,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Wolfgang Amadeus Mozart",
+          "date": 1583278647350,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Bob der Baumeister",
+          "date": 1583278671364,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Lena Gehrke",
+          "date": 1583278705325,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Hello Friend",
+          "date": 1583278983693,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Robert Losher",
+          "date": 1583279278407,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Hi Du",
+          "date": 1583281981551,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Wer Du",
+          "date": 1583282296523,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Cicero the guy from old rome",
+          "date": 1583283358941,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "234 24",
+          "date": 1583312400635,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Harald Schmidt",
+          "date": 1583320552414,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Andreas Schilling",
+          "date": 1583320746528,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Badger Jessies Friend",
+          "date": 1583320940657,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Mike the security guy",
+          "date": 1583321491976,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 4
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 1
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 5
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 1
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "evaluator": "Kaffee Kuchen",
+          "date": 1583327781319,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 1
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 5
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 1
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 5
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "evaluator": "Jerry Erbs",
+          "date": 1583327901983,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 1
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 1
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 1
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 1
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "evaluator": "Albert Der Held",
+          "date": 1583334130998,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Albert Schilling",
+          "date": 1583334164420,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "category": "Humour",
+      "title": "How to tie your shoes",
+      "speaker": "Terry Moore",
+      "description": "Terry Moore found out he'd been tying his shoes the wrong way his whole life. In the spirit of TED, he takes the stage to share a better way. (Historical note: This was the very first 3-minute audience talk given from the TED stage, in 2005.)",
+      "date": "May 20, 2011",
+      "duration": "2.59",
+      "filename": "How to tie your shoes _ Terry Moore.mp4",
+      "evaluation": {
+        "gesturesAndFacialExpressions": "3"
+      }
+    },
+    {
+      "id": "3",
+      "category": "Humour",
+      "title": "On Surviving A Bear Encounter",
+      "speaker": "Mike Birbiglia",
+      "description": "Mike Birbiglia jokes about facing his fear of bears in Alaska's Katmai National Park.",
+      "date": "January 29, 2009",
+      "duration": "3.51",
+      "filename": "On Surviving A Bear Encounter _ Mike Birbiglia.mp4",
+      "evaluation": {
+        "gesturesAndFacialExpressions": "3"
+      }
+    },
+    {
+      "id": "4",
+      "category": "Lecture",
+      "title": "This is what happens when you reply to spam email",
+      "speaker": "James Veitch",
+      "description": "Suspicious emails: unclaimed insurance bonds, diamond-encrusted safe deposit boxes, close friends marooned in a foreign country. They pop up in our inboxes, and standard procedure is to delete on sight. But what happens when you reply? Follow along as writer and comedian James Veitch narrates a hilarious, months-long exchange with a spammer who offered to cut him in on a hot deal.",
+      "date": "Feb 1, 2016",
+      "duration": "9.48",
+      "filename": "This is what happens when you reply to spam email _ James Veitch.mp4",
+      "evaluation": {
+        "gesturesAndFacialExpressions": "3"
+      }
+    },
+    {
+      "id": "5",
+      "category": "Lecture",
+      "title": "The surprising habits of original thinkers",
+      "speaker": "Adam Grant",
+      "description": "How do creative people come up with great ideas? Organizational psychologist Adam Grant studies 'originals': thinkers who dream up new ideas and take action to put them into the world.",
+      "date": "Apr 26, 2016",
+      "duration": "15.24",
+      "filename": "The surprising habits of original thinkers _ Adam Grant.mp4",
+      "evaluation": {
+        "gesturesAndFacialExpressions": "3"
+      }
+    }
+  ]
+}
