@@ -1,45 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, forceUpdate } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { getVideos, patchVideo } from '../services/videoServices'
+import VideoEvaluationInputRange from './VideoEvaluationInputRange'
+import UserMessage from './UserMessage'
 
 export default function Video({ videoBasePath, video, setVideo }) {
   let { id } = useParams()
-  const [gestureAndPosture, setGestureAndPosture] = useState(3)
-  const [mimicAndExpression, setMimicAndExpression] = useState(3)
-  const [useOfStage, setUseOfStage] = useState(3)
-  const [pronounciationAndClarity, setPronounciationAndClarity] = useState(3)
-  const [emphasisAndVocalVariety, setEmphasisAndVocalVariety] = useState(3)
-  const [comprehensibility, setComprehensibility] = useState(3)
-  const [structureAndArgumentation, setStructureAndArgumentation] = useState(3)
-  const [rangeOfStatement, setRangeOfStatement] = useState(3)
+  const returnPath = '/video/:id'
+  const evaluationDimensions = [
+    { name: 'Gestures And Facial Expressions', value: 3 },
+    { name: 'Pronounciation and Vocal Variety', value: 3 },
+    { name: 'Comprehensibility and Structure', value: 3 },
+    { name: 'Stylistic Devices', value: 3 },
+    { name: 'Credible and Convincing', value: 3 },
+  ]
+  const [message, setMessage] = useState('')
+  const [messageVisibility, setMessageVisibility] = useState('none')
   useEffect(() => {
     Object.entries(video).length === 0 &&
       getVideos(id).then(res => {
         setVideo(res)
-        checkHasEvaluationProperty(res, 'gestureAndPosture') &&
-          setGestureAndPosture(res.evaluation.gestureAndPosture)
-        checkHasEvaluationProperty(res, 'mimicAndExpression') &&
-          setMimicAndExpression(res.evaluation.mimicAndExpression)
-        checkHasEvaluationProperty(res, 'useOfStage') &&
-          setUseOfStage(res.evaluation.useOfStage)
-        checkHasEvaluationProperty(res, 'pronounciationAndClarity') &&
-          setPronounciationAndClarity(res.evaluation.pronounciationAndClarity)
-        checkHasEvaluationProperty(res, 'emphasisAndVocalVariety') &&
-          setEmphasisAndVocalVariety(res.evaluation.emphasisAndVocalVariety)
-        checkHasEvaluationProperty(res, 'comprehensibility') &&
-          setComprehensibility(res.evaluation.comprehensibility)
-        checkHasEvaluationProperty(res, 'structureAndArgumentation') &&
-          setStructureAndArgumentation(res.evaluation.structureAndArgumentation)
-        checkHasEvaluationProperty(res, 'rangeOfStatement') &&
-          setRangeOfStatement(res.evaluation.rangeOfStatement)
       })
   }, [])
   return (
-    <>
-      <NavLink exact to="/">
-        back
-      </NavLink>
+    <Main>
+      <NavLinkStyled exact to="/">
+        &#8612;
+      </NavLinkStyled>
       <VideoStyled role="img" controls>
         <source src={videoBasePath + video.filename} type="video/mp4" />
       </VideoStyled>
@@ -65,153 +53,96 @@ export default function Video({ videoBasePath, video, setVideo }) {
           Last Name
           <input type="text" name="lastName" id="lastName" />
         </label>
-        <label htmlFor="gestureAndPosture">
-          Gesture and Posture
-          <input
-            onChange={event => handleSliderChange(event, setGestureAndPosture)}
-            type="range"
-            value={gestureAndPosture}
-            min="1"
-            max="5"
-            step="1"
-            name="gestureAndPosture"
-            id="gestureAndPosture"
-          />
-        </label>
-        <label htmlFor="mimicAndExpression">
-          Mimic and Emotional Expression
-          <input
-            onChange={event => handleSliderChange(event, setMimicAndExpression)}
-            type="range"
-            value={mimicAndExpression}
-            min="1"
-            max="5"
-            step="1"
-            name="mimicAndExpression"
-            id="mimicAndExpression"
-          />
-        </label>
-        <label htmlFor="useOfStage">
-          Use of Stage
-          <input
-            onChange={event => handleSliderChange(event, setUseOfStage)}
-            type="range"
-            value={useOfStage}
-            min="1"
-            max="5"
-            step="1"
-            name="useOfStage"
-            id="useOfStage"
-          />
-        </label>
-        <label htmlFor="pronounciationAndClarity">
-          Pronounciation and Voice Clarity
-          <input
-            onChange={event =>
-              handleSliderChange(event, setPronounciationAndClarity)
-            }
-            type="range"
-            value={pronounciationAndClarity}
-            min="1"
-            max="5"
-            step="1"
-            name="pronounciationAndClarity"
-            id="pronounciationAndClarity"
-          />
-        </label>
-        <label htmlFor="emphasisAndVocalVariety">
-          Emphasis and Vocal Variety
-          <input
-            onChange={event =>
-              handleSliderChange(event, setEmphasisAndVocalVariety)
-            }
-            type="range"
-            value={emphasisAndVocalVariety}
-            min="1"
-            max="5"
-            step="1"
-            name="emphasisAndVocalVariety"
-            id="emphasisAndVocalVariety"
-          />
-        </label>
-        <label htmlFor="comprehensibility">
-          Comprehensibility of Content
-          <input
-            onChange={event => handleSliderChange(event, setComprehensibility)}
-            type="range"
-            value={comprehensibility}
-            min="1"
-            max="5"
-            step="1"
-            name="comprehensibility"
-            id="comprehensibility"
-          />
-        </label>
-        <label htmlFor="structureAndArgumentation">
-          Structure and Argumentation
-          <input
-            onChange={event =>
-              handleSliderChange(event, setStructureAndArgumentation)
-            }
-            type="range"
-            value={structureAndArgumentation}
-            min="1"
-            max="5"
-            step="1"
-            name="structureAndArgumentation"
-            id="structureAndArgumentation"
-          />
-        </label>
-        <label htmlFor="rangeOfStatement">
-          Range of Statement
-          <input
-            onChange={event => handleSliderChange(event, setRangeOfStatement)}
-            type="range"
-            value={rangeOfStatement}
-            min="1"
-            max="5"
-            step="1"
-            name="rangeOfStatement"
-            id="rangeOfStatement"
-          />
-        </label>
-
-        {/* 
-        , 
-        , 
-        range of the statement */}
-        <button type="submit">Submit</button>
+        {evaluationDimensions.map(dimension => {
+          return (
+            <VideoEvaluationInputRange
+              key={dimension.name}
+              name={dimension.name}
+            />
+          )
+        })}
+        <VideoEvaluationSubmit type="submit">Submit</VideoEvaluationSubmit>
       </VideoEvaluation>
-    </>
+      <UserMessage
+        message={message}
+        visibility={messageVisibility}
+        setVisibility={setMessageVisibility}
+        returnPath={returnPath}
+      />
+    </Main>
   )
   function handleSubmit(event) {
     event.preventDefault()
-    alert('form submitted')
-    patchVideo(id, video)
-  }
-  function handleSliderChange(event, inputValueSetter) {
-    inputValueSetter(event.target.value)
-    video.hasOwnProperty('evaluation')
-      ? addEvaluation(event.target.name, event.target.value)
-      : console.log('does not have evaluation key')
 
-    function addEvaluation(key, value) {
-      Object.assign(video.evaluation, {
-        [key]: value,
-      })
+    const form = event.target
+    const fullName = `${form.firstName.value} ${form.lastName.value}`
 
-      setVideo(video)
+    if (form.firstName.value.length === 0) {
+      alert('Please, fill out your first name.')
+      form.firstName.focus()
+      return
     }
+    if (form.lastName.value.length === 0) {
+      alert('Please, fill out your last name.')
+      form.lastName.focus()
+      return
+    }
+    if (
+      video.hasOwnProperty('evaluations') &&
+      video.evaluations.find(
+        evaluation =>
+          evaluation.evaluator.toLowerCase() === fullName.toLowerCase()
+      )
+    ) {
+      alert(
+        `Thank you for your ambition, ${fullName}, but you have already evaluated this speech.`
+      )
+      return
+    }
+    alert(`Thank you ${fullName}. Your evaluation has been submitted.`)
+    setEvaluation(event)
+    form.reset()
+    setMessageVisibility('flex')
+    setMessage(`Thank you ${fullName}. Your evaluation has been submitted.`)
   }
-  function checkHasEvaluationProperty(object, property) {
-    console.log(property)
-    return (
-      object.hasOwnProperty('evaluation') &&
-      object.evaluation.hasOwnProperty(property)
+
+  function setEvaluation(event) {
+    video.hasOwnProperty('evaluations')
+      ? console.log(video.evaluations)
+      : Object.assign(video, { evaluations: [] })
+    const evaluator = `${event.target.firstName.value} ${event.target.lastName.value}`
+    const newEvaluation = {
+      evaluator,
+      date: new Date().getTime(),
+      dimensions: [],
+    }
+    evaluationDimensions.map(dimension =>
+      newEvaluation.dimensions.push({
+        name: dimension.name,
+        value: dimension.value,
+      })
     )
+    video.evaluations.push(newEvaluation)
+    setVideo(video)
+    patchVideo(id, video)
   }
 }
 
+const Main = styled.main`
+  background: #fff;
+  padding: 20px;
+  height: 100%;
+  overflow-y: scroll;
+`
+
+const NavLinkStyled = styled(NavLink)`
+  background: var(--light-grey);
+  text-decoration: none;
+  padding: 0 4px 4px 4px;
+  color: var(--highlight-color);
+
+  font-weight: 900;
+`
 const VideoTitle = styled.h2`
   font-size: 1.2rem;
   line-height: 1.6rem;
@@ -226,6 +157,7 @@ const VideoInformation = styled.section`
 const VideoStyled = styled.video`
   width: 100%;
   height: auto;
+  margin-top: 12px;
 `
 
 const VideoDescription = styled.p`
@@ -243,12 +175,12 @@ const VideoDetails = styled.p`
 const VideoEvaluation = styled.form`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   grid-gap: 20px;
   margin: 20px 0;
   label {
     display: grid;
-    grid-template: auto auto / 1fr;
+    grid-template: auto auto auto / 1fr;
     /* width: calc(50% - 8px); */
     width: 100%;
     grid-gap: 8px;
@@ -261,4 +193,17 @@ const VideoEvaluation = styled.form`
   input[type='range'] {
     width: 100%;
   }
+`
+
+const VideoEvaluationSubmit = styled.button`
+  margin: 16px 0 4px 0;
+  align-self: center;
+  width: max-content;
+  border: none;
+  padding: 8px;
+  background: var(--primary-bg-color);
+  text-align: center;
+  font-size: 1rem;
+  color: var(--inverse-primary-font-color);
+  text-decoration: none;
 `

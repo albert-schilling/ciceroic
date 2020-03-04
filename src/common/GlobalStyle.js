@@ -5,13 +5,16 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   :root {
-    font-size: 20px;
-    font-family: sans-serif, Arial, Helvetica;
     --primary-bg-color: navy;
     --secondary-bg-color: darkred;
+    --light-grey: #eee;
     --primary-font-color: #111;
     --secondary-font-color: #888;
     --inverse-primary-font-color: #fff;
+    --highlight-color: navy;
+
+    font-size: 20px;
+    font-family: sans-serif, Arial, Helvetica;
     color: var(--primary-font-color);
     line-height: 100%;
   }

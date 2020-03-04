@@ -25,25 +25,23 @@ function App() {
       <GlobalStyle />
       <Header />
       <Router>
-        <Main>
-          <Switch>
-            <Route exact path="/">
-              <VideosList
-                videos={videos}
-                setVideo={setVideo}
-                videoBasePath={videoBasePath}
-              />
-            </Route>
-            <Route exact path="/video/:id">
-              <Video
-                videos={videos}
-                video={video}
-                setVideo={setVideo}
-                videoBasePath={videoBasePath}
-              />
-            </Route>
-          </Switch>
-        </Main>
+        <Switch>
+          <Route exact path="/">
+            <VideosList
+              videos={videos}
+              setVideo={setVideo}
+              videoBasePath={videoBasePath}
+            />
+          </Route>
+          <Route exact path="/video/:id">
+            <Video
+              videos={videos}
+              video={video}
+              setVideo={setVideo}
+              videoBasePath={videoBasePath}
+            />
+          </Route>
+        </Switch>
       </Router>
       <Footer />
     </AppBodyStyled>
@@ -57,9 +55,4 @@ const AppBodyStyled = styled.div`
   grid-template: 72px auto 60px / 1fr;
   width: 100vw;
   height: 100vh;
-`
-const Main = styled.main`
-  padding: 20px;
-  height: 100%;
-  overflow-y: scroll;
 `
