@@ -1,48 +1,34 @@
-import React, { useEffect, useState, forceUpdate } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { evaluationDimensions } from '../data/evaluationDimensions'
 import { getVideos, patchVideo } from '../services/videoServices'
-import VideoEvaluationInputRange from './VideoEvaluationInputRange'
 import UserMessage from './UserMessage'
+import VideoEvaluationInputRange from './VideoEvaluationInputRange'
 
 export default function Video({ videoBasePath, video, setVideo }) {
   let { id } = useParams()
-  const returnPath = '/video/:id'
-  const evaluationDimensions = [
-    {
-      name: 'Gestures And Facial Expressions',
-      value: 3,
-      description: 'Use of body language to emphasise the content.',
-    },
-    {
-      name: 'Pronounciation and Vocal Variety',
-      value: 3,
-      description: 'Use of body language to emphasise the content.',
-    },
-    {
-      name: 'Comprehensibility and Structure',
-      value: 3,
-      description: 'Use of body language to emphasise the content.',
-    },
-    {
-      name: 'Stylistic Devices',
-      value: 3,
-      description: 'Use of body language to emphasise the content.',
-    },
-    {
-      name: 'Credible and Convincing',
-      value: 3,
-      description: 'Use of body language to emphasise the content.',
-    },
-  ]
+  const returnPath = `/video/${id}`
+
+  const initialDimensionsValues = {}
+  evaluationDimensions.map(dimension => {
+    const name = dimension.name
+    return Object.assign(initialDimensionsValues, { [name]: 3 })
+  })
+  const [dimensionsValues, setDimensionsValues] = useState(
+    initialDimensionsValues
+  )
+
   const [message, setMessage] = useState('')
+  const [messageCallback, setMessageCallback] = useState(() => {})
   const [messageVisibility, setMessageVisibility] = useState('none')
+
   useEffect(() => {
     Object.entries(video).length === 0 &&
       getVideos(id).then(res => {
         setVideo(res)
       })
-  }, [])
+  }, [video, setVideo, id])
   return (
     <Main>
       <NavLinkStyled exact to="/">
@@ -79,6 +65,8 @@ export default function Video({ videoBasePath, video, setVideo }) {
               key={dimension.name}
               name={dimension.name}
               description={dimension.description}
+              value={dimensionsValues}
+              setValue={setDimensionsValues}
             />
           )
         })}
@@ -89,6 +77,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
         visibility={messageVisibility}
         setVisibility={setMessageVisibility}
         returnPath={returnPath}
+        messageCallback={messageCallback}
       />
     </Main>
   )
@@ -99,13 +88,21 @@ export default function Video({ videoBasePath, video, setVideo }) {
     const fullName = `${form.firstName.value} ${form.lastName.value}`
 
     if (form.firstName.value.length === 0) {
-      alert('Please, fill out your first name.')
-      form.firstName.focus()
+      const setFocus = () => {
+        form.firstName.focus()
+      }
+      setMessageCallback(setFocus)
+      setMessage(`Please, fill out your first name.`)
+      setMessageVisibility('flex')
       return
     }
     if (form.lastName.value.length === 0) {
-      alert('Please, fill out your last name.')
-      form.lastName.focus()
+      const setFocus = () => {
+        form.lastName.focus()
+      }
+      setMessageCallback(setFocus)
+      setMessage(`Please, fill out your last name.`)
+      setMessageVisibility('flex')
       return
     }
     if (
@@ -115,13 +112,17 @@ export default function Video({ videoBasePath, video, setVideo }) {
           evaluation.evaluator.toLowerCase() === fullName.toLowerCase()
       )
     ) {
-      alert(
+      setMessage(
         `Thank you for your ambition, ${fullName}, but you have already evaluated this speech.`
       )
+      setMessageVisibility('flex')
       return
     }
+
     setEvaluation(event)
+
     form.reset()
+    setDimensionsValues(initialDimensionsValues)
     setMessageVisibility('flex')
     setMessage(`Thank you ${fullName}. Your evaluation has been submitted.`)
   }
@@ -136,12 +137,13 @@ export default function Video({ videoBasePath, video, setVideo }) {
       date: new Date().getTime(),
       dimensions: [],
     }
-    evaluationDimensions.map(dimension =>
+    Object.entries(dimensionsValues).map(dimension => {
       newEvaluation.dimensions.push({
-        name: dimension.name,
-        value: dimension.value,
+        name: dimension[0],
+        value: dimension[1],
       })
-    )
+    })
+
     video.evaluations.push(newEvaluation)
     setVideo(video)
     patchVideo(id, video)

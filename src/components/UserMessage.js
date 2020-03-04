@@ -7,6 +7,7 @@ export default function UserMessage({
   visibility,
   setVisibility,
   returnPath,
+  messageCallback,
 }) {
   const MessageBody = styled.article`
     position: fixed;
@@ -41,7 +42,13 @@ export default function UserMessage({
   return (
     <MessageBody>
       <MessageText>{message}</MessageText>
-      <MessageButton onClick={() => setVisibility('none')} to={returnPath}>
+      <MessageButton
+        onClick={() => {
+          setVisibility('none')
+          console.log(messageCallback)
+        }}
+        to={returnPath}
+      >
         Return
       </MessageButton>
     </MessageBody>

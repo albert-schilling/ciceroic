@@ -529,6 +529,110 @@
               "value": 3
             }
           ]
+        },
+        {
+          "evaluator": "234 24",
+          "date": 1583312400635,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Harald Schmidt",
+          "date": 1583320552414,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Andreas Schilling",
+          "date": 1583320746528,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "evaluator": "Badger Jessies Friend",
+          "date": 1583320940657,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
         }
       ]
     },
