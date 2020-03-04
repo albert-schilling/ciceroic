@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function VideoEvaluationInputRange({ name, description }) {
-  const [value, setValue] = useState(3)
-
+export default function VideoEvaluationInputRange({
+  name,
+  description,
+  value,
+  setValue,
+}) {
   return (
     <>
       <label htmlFor={name} title={description}>
-        {name}: {value}
+        {name}: {value[name]}
         <input
           onChange={handleChange}
           type="range"
-          value={value}
+          value={value[name]}
           min="1"
           max="5"
           step="1"
@@ -29,7 +32,7 @@ export default function VideoEvaluationInputRange({ name, description }) {
     </>
   )
   function handleChange(event) {
-    setValue(event.target.value)
+    setValue({ ...value, [name]: Number(event.target.value) })
   }
 }
 
