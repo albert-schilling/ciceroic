@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function VideoEvaluationInputRange({ name }) {
+export default function VideoEvaluationInputRange({ name, description }) {
   const [value, setValue] = useState(3)
 
   return (
     <>
-      <label htmlFor={name}>
+      <label htmlFor={name} title={description}>
         {name}: {value}
         <input
           onChange={handleChange}
