@@ -9,11 +9,31 @@ export default function Video({ videoBasePath, video, setVideo }) {
   let { id } = useParams()
   const returnPath = '/video/:id'
   const evaluationDimensions = [
-    { name: 'Gestures And Facial Expressions', value: 3 },
-    { name: 'Pronounciation and Vocal Variety', value: 3 },
-    { name: 'Comprehensibility and Structure', value: 3 },
-    { name: 'Stylistic Devices', value: 3 },
-    { name: 'Credible and Convincing', value: 3 },
+    {
+      name: 'Gestures And Facial Expressions',
+      value: 3,
+      description: 'Use of body language to emphasise the content.',
+    },
+    {
+      name: 'Pronounciation and Vocal Variety',
+      value: 3,
+      description: 'Use of body language to emphasise the content.',
+    },
+    {
+      name: 'Comprehensibility and Structure',
+      value: 3,
+      description: 'Use of body language to emphasise the content.',
+    },
+    {
+      name: 'Stylistic Devices',
+      value: 3,
+      description: 'Use of body language to emphasise the content.',
+    },
+    {
+      name: 'Credible and Convincing',
+      value: 3,
+      description: 'Use of body language to emphasise the content.',
+    },
   ]
   const [message, setMessage] = useState('')
   const [messageVisibility, setMessageVisibility] = useState('none')
@@ -26,7 +46,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
   return (
     <Main>
       <NavLinkStyled exact to="/">
-        &#8612;
+        <span>&#8612;</span>see all videos
       </NavLinkStyled>
       <VideoStyled role="img" controls>
         <source src={videoBasePath + video.filename} type="video/mp4" />
@@ -58,6 +78,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
             <VideoEvaluationInputRange
               key={dimension.name}
               name={dimension.name}
+              description={dimension.description}
             />
           )
         })}
@@ -99,7 +120,6 @@ export default function Video({ videoBasePath, video, setVideo }) {
       )
       return
     }
-    alert(`Thank you ${fullName}. Your evaluation has been submitted.`)
     setEvaluation(event)
     form.reset()
     setMessageVisibility('flex')
@@ -136,12 +156,19 @@ const Main = styled.main`
 `
 
 const NavLinkStyled = styled(NavLink)`
+  padding: 4px 4px 4px 4px;
   background: var(--light-grey);
+  color: inherit;
   text-decoration: none;
-  padding: 0 4px 4px 4px;
-  color: var(--highlight-color);
+  font-size: 0.6rem;
+  span {
+    padding-top: 4px;
+    margin-right: 4px;
+    color: var(--highlight-color);
 
-  font-weight: 900;
+    font-size: 1rem;
+    font-weight: 900;
+  }
 `
 const VideoTitle = styled.h2`
   font-size: 1.2rem;

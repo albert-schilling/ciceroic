@@ -503,6 +503,32 @@
               "value": 3
             }
           ]
+        },
+        {
+          "evaluator": "Cicero the guy from old rome",
+          "date": 1583283358941,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 3
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 3
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 3
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 3
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 3
+            }
+          ]
         }
       ]
     },
