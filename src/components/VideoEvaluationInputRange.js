@@ -6,15 +6,17 @@ export default function VideoEvaluationInputRange({
   description,
   value,
   setValue,
+  evaluation,
+  setEvaluation,
 }) {
   return (
     <>
       <label htmlFor={name} title={description}>
-        {name}: {value[name]}
+        {name}: {evaluation.dimensions[name]}
         <input
           onChange={handleChange}
           type="range"
-          value={value[name]}
+          value={evaluation.dimensions[name]}
           min="1"
           max="5"
           step="1"
@@ -32,7 +34,15 @@ export default function VideoEvaluationInputRange({
     </>
   )
   function handleChange(event) {
-    setValue({ ...value, [name]: Number(event.target.value) })
+    // setValue({ ...value, [name]: Number(event.target.value) })
+    setEvaluation({
+      ...evaluation,
+      dimensions: {
+        ...evaluation.dimensions,
+        [name]: Number(event.target.value),
+      },
+    })
+    console.log(evaluation)
   }
 }
 
