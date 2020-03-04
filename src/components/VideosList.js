@@ -4,39 +4,48 @@ import { NavLink } from 'react-router-dom'
 
 export default function VideosList({ videos, setVideo, videoBasePath }) {
   return (
-    <VideosListStyled>
-      {videos.map(video => {
-        return (
-          <VideoCard key={video.id} role="region">
-            <VideoCardVideo role="img" controls>
-              <source src={videoBasePath + video.filename} type="video/mp4" />
-            </VideoCardVideo>
-            <VideoCardBody>
-              <header>
-                <VideoCardHeadline>{video.title}</VideoCardHeadline>
-              </header>
-              <h3>{video.speaker}</h3>
-              <VideoCardDescription>{video.description}</VideoCardDescription>
-              <VideoCardDetails>
-                <small>{video.category}</small>
-                <small>{video.duration} min</small>
-                <small>{video.date}</small>
-              </VideoCardDetails>
-              <NavLink
-                onClick={() => setVideo(video)}
-                to={'/video/' + video.id}
-              >
-                Evaluate
-              </NavLink>
-            </VideoCardBody>
-          </VideoCard>
-        )
-      })}
-    </VideosListStyled>
+    <Main>
+      <VideosListStyled>
+        {videos.map(video => {
+          return (
+            <VideoCard key={video.id} role="region">
+              <VideoCardVideo role="img" controls>
+                <source src={videoBasePath + video.filename} type="video/mp4" />
+              </VideoCardVideo>
+              <VideoCardInformation>
+                <header>
+                  <VideoCardHeadline>{video.title}</VideoCardHeadline>
+                </header>
+                <VideoCardSpeaker>{video.speaker}</VideoCardSpeaker>
+                <VideoCardDescription>{video.description}</VideoCardDescription>
+                <VideoCardDetails>
+                  <small>{video.category}</small>
+                  <small>{video.duration} min</small>
+                  <small>{video.date}</small>
+                </VideoCardDetails>
+                <VideoEvaluateButton
+                  onClick={() => setVideo(video)}
+                  to={'/video/' + video.id}
+                >
+                  Evaluate
+                </VideoEvaluateButton>
+              </VideoCardInformation>
+            </VideoCard>
+          )
+        })}
+      </VideosListStyled>
+    </Main>
   )
 }
 
+const Main = styled.main`
+  padding: 20px;
+  height: 100%;
+  overflow-y: scroll;
+`
+
 const VideosListStyled = styled.section`
+  margin-bottom: 20px;
   display: grid;
   grid-gap: 8px;
   @media (min-width: 700px) {
@@ -50,24 +59,31 @@ const VideoCard = styled.article`
   border-radius: 4px;
   padding: 12px;
 
-  h3 {
-    font-size: 1rem;
-  }
   @media (min-width: 700px) {
     width: calc(50% - 4px);
   }
-`
-const VideoCardHeadline = styled.h2`
-  font-size: 1.2rem;
-  line-height: 1.6rem;
 `
 
 const VideoCardVideo = styled.video`
   width: 100%;
   height: auto;
 `
+const VideoCardInformation = styled.section`
+  display: flex;
+  flex-direction: column;
+`
+const VideoCardHeadline = styled.h2`
+  margin: 12px 0;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+`
+const VideoCardSpeaker = styled.h2`
+  margin: 0 0 16px 0;
+  font-size: 1rem;
+`
 
 const VideoCardDescription = styled.p`
+  margin: 0;
   line-height: 1.4rem;
 `
 
@@ -79,4 +95,13 @@ const VideoCardDetails = styled.p`
   margin-bottom: 0;
 `
 
-const VideoCardBody = styled.section``
+const VideoEvaluateButton = styled(NavLink)`
+  margin: 16px 0 4px 0;
+  align-self: center;
+  width: max-content;
+  padding: 8px;
+  background: var(--primary-bg-color);
+  text-align: center;
+  color: var(--inverse-primary-font-color);
+  text-decoration: none;
+`
