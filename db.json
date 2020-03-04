@@ -633,6 +633,84 @@
               "value": 3
             }
           ]
+        },
+        {
+          "evaluator": "Mike the security guy",
+          "date": 1583321491976,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 4
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 1
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 5
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 1
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "evaluator": "Kaffee Kuchen",
+          "date": 1583327781319,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 1
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 5
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 1
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 5
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "evaluator": "Jerry Erbs",
+          "date": 1583327901983,
+          "dimensions": [
+            {
+              "name": "Gestures And Facial Expressions",
+              "value": 1
+            },
+            {
+              "name": "Pronounciation and Vocal Variety",
+              "value": 1
+            },
+            {
+              "name": "Comprehensibility and Structure",
+              "value": 1
+            },
+            {
+              "name": "Stylistic Devices",
+              "value": 1
+            },
+            {
+              "name": "Credible and Convincing",
+              "value": 1
+            }
+          ]
         }
       ]
     },
