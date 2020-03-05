@@ -4,8 +4,8 @@ import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import VideosList from './components/VideosList'
-import Video from './components/Video'
+import VideosList from './components/Video/VideosList'
+import Video from './components/Video/Video'
 import { getVideos } from './services/videoServices'
 
 function App() {
@@ -18,7 +18,8 @@ function App() {
       return setVideos(res)
     })
   }, [])
-
+  console.log('videos:', videos)
+  console.log('video:', video)
   return (
     <AppBodyStyled>
       <GlobalStyle />

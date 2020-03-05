@@ -1,15 +1,15 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { evaluationDimensions } from '../data/evaluationDimensions'
+import { evaluationDimensions } from '../../data/evaluationDimensions'
 import VideoEvaluationInputRange from './VideoEvaluationInputRange'
 
-export default function VideoEvaluation({
+export default function VideoEvaluationForm({
   evaluation,
   setEvaluation,
   handleSubmit,
 }) {
   return (
-    <VideoEvaluationForm onSubmit={event => handleSubmit(event)}>
+    <VideoEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
       <VideoEvaluationFormSection>
         <label htmlFor="firstName">
           First Name
@@ -57,7 +57,7 @@ export default function VideoEvaluation({
         })}
       </VideoEvaluationFormSection>
       <VideoEvaluationSubmit type="submit">Submit</VideoEvaluationSubmit>
-    </VideoEvaluationForm>
+    </VideoEvaluationFormStyled>
   )
   function handleChange(event) {
     if (event.target.name === 'firstName') {
@@ -81,7 +81,7 @@ export default function VideoEvaluation({
   }
 }
 
-const VideoEvaluationForm = styled.form`
+const VideoEvaluationFormStyled = styled.form`
   grid-area: evaluation;
   display: flex;
   flex-wrap: wrap;
