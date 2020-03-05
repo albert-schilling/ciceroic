@@ -35,9 +35,13 @@ export default function Video({ videoBasePath, video, setVideo }) {
       <NavLinkStyled exact to="/">
         <span>&#8612;</span>see all videos
       </NavLinkStyled>
-      <VideoStyled role="img" controls>
-        <source src={videoBasePath + video.filename} type="video/mp4" />
-      </VideoStyled>
+      {video.filename === undefined ? (
+        <p>Video loading</p>
+      ) : (
+        <VideoStyled role="img" controls>
+          <source src={videoBasePath + video.filename} type="video/mp4" />
+        </VideoStyled>
+      )}
       <VideoInformation>
         <header>
           <VideoTitle>{video.title}</VideoTitle>
@@ -102,9 +106,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
         form.firstName.focus()
       }
       setMessageCallback(setFocus)
-      setMessage(
-        `Thank you for your ambition, ${fullName}, but you have already evaluated this speech.`
-      )
+      setMessage(`Sorry, ${fullName}, you have already evaluated this speech.`)
 
       setMessageVisibility('flex')
       return
@@ -151,9 +153,16 @@ const Main = styled.main`
   padding: 20px;
   height: 100%;
   overflow-y: scroll;
+  @media (min-width: 700px) {
+    display: grid;
+    grid-template-areas: 'backLink backLink' 'video information' 'evaluation evaluation';
+    grid-gap: 12px;
+  }
 `
 
 const NavLinkStyled = styled(NavLink)`
+  grid-area: backLink;
+  width: fit-content;
   padding: 4px 4px 4px 4px;
   background: var(--light-grey);
   color: inherit;
@@ -174,6 +183,7 @@ const VideoTitle = styled.h2`
 `
 
 const VideoInformation = styled.section`
+  grid-area: information;
   h3 {
     font-size: 1rem;
   }
@@ -183,6 +193,7 @@ const VideoStyled = styled.video`
   width: 100%;
   height: auto;
   margin-top: 12px;
+  grid-area: video;
 `
 
 const VideoDescription = styled.p`
