@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../data/evaluationDimensions'
 import VideoEvaluationInputRange from './VideoEvaluationInputRange'
 
-export default function VideoEvaluationComp({
+export default function VideoEvaluation({
   evaluation,
   setEvaluation,
-  dimensionsValues,
-  setDimensionsValues,
   handleSubmit,
 }) {
-  // const [evaluator, setEvaluator] = useState({})
   return (
-    <VideoEvaluation onSubmit={event => handleSubmit(event)}>
+    <VideoEvaluationForm onSubmit={event => handleSubmit(event)}>
       <label htmlFor="firstName">
         First Name
         <input
@@ -56,7 +53,7 @@ export default function VideoEvaluationComp({
         )
       })}
       <VideoEvaluationSubmit type="submit">Submit</VideoEvaluationSubmit>
-    </VideoEvaluation>
+    </VideoEvaluationForm>
   )
   function handleChange(event) {
     if (event.target.name === 'firstName') {
@@ -77,84 +74,10 @@ export default function VideoEvaluationComp({
         },
       })
     }
-    console.log(evaluation)
   }
-  // function handleSubmit(event) {
-  //   event.preventDefault()
-
-  //   const form = event.target
-  //   const fullName = `${form.firstName.value} ${form.lastName.value}`
-
-  //   if (form.firstName.value.length === 0) {
-  //     const setFocus = () => {
-  //       form.firstName.focus()
-  //     }
-  //     setMessageCallback(setFocus)
-  //     setMessage(`Please, fill out your first name.`)
-  //     setMessageVisibility('flex')
-  //     return
-  //   }
-  //   if (form.lastName.value.length === 0) {
-  //     const setFocus = () => {
-  //       form.lastName.focus()
-  //     }
-  //     setMessageCallback(setFocus)
-  //     setMessage(`Please, fill out your last name.`)
-  //     setMessageVisibility('flex')
-  //     return
-  //   }
-  //   if (
-  //     video.hasOwnProperty('evaluations') &&
-  //     video.evaluations.find(
-  //       evaluation =>
-  //         evaluation.evaluator.toLowerCase() === fullName.toLowerCase()
-  //     )
-  //   ) {
-  //     setMessage(
-  //       `Thank you for your ambition, ${fullName}, but you have already evaluated this speech.`
-  //     )
-  //     setMessageVisibility('flex')
-  //     return
-  //   }
-
-  //   setEvaluation(event)
-
-  //   form.reset()
-  //   setDimensionsValues(initialDimensionsValues)
-  //   setMessageVisibility('flex')
-  //   setMessage(`Thank you ${fullName}. Your evaluation has been submitted.`)
-  // }
-
-  // function setEvaluation(event) {
-  //   video.hasOwnProperty('evaluations')
-  //     ? console.log(video.evaluations)
-  //     : Object.assign(video, { evaluations: [] })
-  //   const evaluator = `${event.target.firstName.value} ${event.target.lastName.value}`
-  //   const newEvaluation = {
-  //     evaluator,
-  //     date: new Date().getTime(),
-  //     dimensions: [],
-  //   }
-  //   Object.entries(dimensionsValues).map(dimension => {
-  //     newEvaluation.dimensions.push({
-  //       name: dimension[0],
-  //       value: dimension[1],
-  //     })
-  //   })
-
-  //   video.evaluations.push(newEvaluation)
-  //   setVideo(video)
-  //   patchVideo(id, video)
-  // }
-  // function setInitialDimenstionsValues() {
-  //   evaluationDimensions.map(dimension => {
-  //     const name = dimension.name
-  //     return Object.assign(initialDimensionsValues, { [name]: 3 })
-  //   })
-  // }
 }
 
-const VideoEvaluation = styled.form`
+const VideoEvaluationForm = styled.form`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

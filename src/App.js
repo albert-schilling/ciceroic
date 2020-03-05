@@ -15,7 +15,6 @@ function App() {
 
   useEffect(() => {
     getVideos().then(res => {
-      console.log(res)
       return setVideos(res)
     })
   }, [])
