@@ -377,6 +377,34 @@
             "lastName": "heisenberg"
           },
           "date": 1583394006673
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Julia",
+            "lastName": "Bauer"
+          },
+          "date": 1583444949751
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 2,
+            "Pronounciation and Vocal Variety": 5,
+            "Comprehensibility and Structure": 1,
+            "Stylistic Devices": 5,
+            "Credible and Convincing": 2
+          },
+          "evaluator": {
+            "firstName": "Barbara",
+            "lastName": "Bauer"
+          },
+          "date": 1583444978950
         }
       ]
     },

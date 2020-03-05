@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { evaluationDimensions } from '../data/evaluationDimensions'
-import { getVideos, patchVideo } from '../services/videoServices'
-import UserMessage from './UserMessage'
-import VideoEvaluation from './VideoEvaluation'
+import { evaluationDimensions } from '../../data/evaluationDimensions'
+import { getVideos, patchVideo } from '../../services/videoServices'
+import UserMessage from '../UserMessage'
+import VideoEvaluationForm from './VideoEvaluationForm'
 
 export default function Video({ videoBasePath, video, setVideo }) {
   let { id } = useParams()
@@ -54,7 +54,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
           <small>{video.date}</small>
         </VideoDetails>
       </VideoInformation>
-      <VideoEvaluation
+      <VideoEvaluationForm
         evaluation={evaluation}
         setEvaluation={setEvaluation}
         handleSubmit={handleSubmit}

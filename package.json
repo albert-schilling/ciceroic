@@ -23,7 +23,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 db.json",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,6 +43,13 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "5.3.14",
+    "@storybook/addon-docs": "5.3.14",
+    "@storybook/addon-knobs": "5.3.14",
+    "@storybook/addon-links": "5.3.14",
+    "@storybook/addons": "5.3.14",
+    "@storybook/preset-create-react-app": "1.5.2",
+    "@storybook/react": "5.3.14",
     "cypress": "4.1.0",
     "json-server": "0.16.1"
   }
