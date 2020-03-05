@@ -9,9 +9,19 @@ export default function VideosList({ videos, setVideo, videoBasePath }) {
         {videos.map(video => {
           return (
             <VideoCard key={video.id} role="region">
-              <VideoCardVideo role="img" controls>
+              {video.filename === undefined ? (
+                <p>Video loading</p>
+              ) : (
+                <VideoCardVideo role="img" controls>
+                  <source
+                    src={videoBasePath + video.filename}
+                    type="video/mp4"
+                  />
+                </VideoCardVideo>
+              )}
+              {/* <VideoCardVideo role="img" controls>
                 <source src={videoBasePath + video.filename} type="video/mp4" />
-              </VideoCardVideo>
+              </VideoCardVideo> */}
               <VideoCardInformation>
                 <header>
                   <VideoCardHeadline>{video.title}</VideoCardHeadline>

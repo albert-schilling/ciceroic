@@ -10,48 +10,52 @@ export default function VideoEvaluation({
 }) {
   return (
     <VideoEvaluationForm onSubmit={event => handleSubmit(event)}>
-      <label htmlFor="firstName">
-        First Name
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          value={
-            evaluation.hasOwnProperty('evaluator') &&
-            evaluation.evaluator.hasOwnProperty('firstName')
-              ? evaluation.evaluator.firstName
-              : ''
-          }
-          onChange={handleChange}
-        />
-      </label>
-
-      <label htmlFor="lastName">
-        Last Name
-        <input
-          type="text"
-          name="lastName"
-          id="lastName"
-          value={
-            evaluation.hasOwnProperty('evaluator') &&
-            evaluation.evaluator.hasOwnProperty('lastName')
-              ? evaluation.evaluator.lastName
-              : ''
-          }
-          onChange={handleChange}
-        />
-      </label>
-      {evaluationDimensions.map(dimension => {
-        return (
-          <VideoEvaluationInputRange
-            key={dimension.name}
-            name={dimension.name}
-            description={dimension.description}
-            evaluation={evaluation}
-            setEvaluation={setEvaluation}
+      <VideoEvaluationFormSection>
+        <label htmlFor="firstName">
+          First Name
+          <input
+            type="text"
+            name="firstName"
+            id="firstName"
+            value={
+              evaluation.hasOwnProperty('evaluator') &&
+              evaluation.evaluator.hasOwnProperty('firstName')
+                ? evaluation.evaluator.firstName
+                : ''
+            }
+            onChange={handleChange}
           />
-        )
-      })}
+        </label>
+
+        <label htmlFor="lastName">
+          Last Name
+          <input
+            type="text"
+            name="lastName"
+            id="lastName"
+            value={
+              evaluation.hasOwnProperty('evaluator') &&
+              evaluation.evaluator.hasOwnProperty('lastName')
+                ? evaluation.evaluator.lastName
+                : ''
+            }
+            onChange={handleChange}
+          />
+        </label>
+      </VideoEvaluationFormSection>
+      <VideoEvaluationFormSection>
+        {evaluationDimensions.map(dimension => {
+          return (
+            <VideoEvaluationInputRange
+              key={dimension.name}
+              name={dimension.name}
+              description={dimension.description}
+              evaluation={evaluation}
+              setEvaluation={setEvaluation}
+            />
+          )
+        })}
+      </VideoEvaluationFormSection>
       <VideoEvaluationSubmit type="submit">Submit</VideoEvaluationSubmit>
     </VideoEvaluationForm>
   )
@@ -78,30 +82,47 @@ export default function VideoEvaluation({
 }
 
 const VideoEvaluationForm = styled.form`
+  grid-area: evaluation;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   grid-gap: 20px;
   margin: 20px 0;
+`
+const VideoEvaluationFormSection = styled.section`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  grid-gap: 24px;
+
   label {
-    display: grid;
-    grid-template: auto auto auto / 1fr;
-    /* width: calc(50% - 8px); */
     width: 100%;
     grid-gap: 8px;
+    display: flex;
+    flex-direction: column;
   }
-
   input[type='text'] {
     font-size: 1rem;
-    width: 100%;
   }
   input[type='range'] {
+  }
+
+  @media (min-width: 700px) {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    label {
+      width: calc(50% - 12px);
+    }
   }
 `
 
 const VideoEvaluationSubmit = styled.button`
-  margin: 16px 0 4px 0;
+  margin: 16px 0 40px 0;
   align-self: center;
   width: max-content;
   border: none;
