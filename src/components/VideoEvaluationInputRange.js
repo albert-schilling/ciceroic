@@ -4,8 +4,6 @@ import styled from 'styled-components/macro'
 export default function VideoEvaluationInputRange({
   name,
   description,
-  value,
-  setValue,
   evaluation,
   setEvaluation,
 }) {

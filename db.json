@@ -128,6 +128,255 @@
             "lastName": "Wenders"
           },
           "date": 1583337080959
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 2,
+            "Pronounciation and Vocal Variety": 4,
+            "Comprehensibility and Structure": 2,
+            "Stylistic Devices": 4,
+            "Credible and Convincing": 1
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Schilling"
+          },
+          "date": 1583389931248
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Schilling"
+          },
+          "date": 1583390212834
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Schilling"
+          },
+          "date": 1583390337498
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Einstein"
+          },
+          "date": 1583390354900
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "albert",
+            "lastName": "schilling"
+          },
+          "date": 1583390373331
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Einstein"
+          },
+          "date": 1583390434559
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {},
+          "date": 1583390435403
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Einstein"
+          },
+          "date": 1583390488620
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "",
+            "lastName": ""
+          },
+          "date": 1583390490247
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "schilling"
+          },
+          "date": 1583390533747
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "albert",
+            "lastName": "Schilling"
+          },
+          "date": 1583390616264
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Werner",
+            "lastName": "Heisenberg"
+          },
+          "date": 1583393459045
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Werner",
+            "lastName": "Heisenberg"
+          },
+          "date": 1583393498265
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Werner",
+            "lastName": "Heisenberg"
+          },
+          "date": 1583393732671
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Werner",
+            "lastName": "Heisenberg"
+          },
+          "date": 1583393759532
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "The White",
+            "lastName": "King"
+          },
+          "date": 1583393795974
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "werner",
+            "lastName": "Heisenberg"
+          },
+          "date": 1583393911131
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Werner",
+            "lastName": "heisenberg"
+          },
+          "date": 1583394006673
         }
       ]
     },

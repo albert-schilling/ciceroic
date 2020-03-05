@@ -4,20 +4,21 @@ import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../data/evaluationDimensions'
 import { getVideos, patchVideo } from '../services/videoServices'
 import UserMessage from './UserMessage'
-import VideoEvaluationComp from './VideoEvaluation'
+import VideoEvaluation from './VideoEvaluation'
 
 export default function Video({ videoBasePath, video, setVideo }) {
   let { id } = useParams()
   const returnPath = `/video/${id}`
 
-  const initialDimensionsValues = {}
-  setInitialDimenstionsValues()
+  const initialDimensionsValues = returnInitialDimenstionsValues(
+    evaluationDimensions
+  )
   const [evaluation, setEvaluation] = useState({
     dimensions: { ...initialDimensionsValues },
-    evaluator: {},
+    evaluator: { firstName: '', lastName: '' },
     date: '',
   })
-  console.log('evaluation:', evaluation)
+
   const [message, setMessage] = useState('')
   const [messageCallback, setMessageCallback] = useState(() => {})
   const [messageVisibility, setMessageVisibility] = useState('none')
@@ -49,7 +50,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
           <small>{video.date}</small>
         </VideoDetails>
       </VideoInformation>
-      <VideoEvaluationComp
+      <VideoEvaluation
         evaluation={evaluation}
         setEvaluation={setEvaluation}
         handleSubmit={handleSubmit}
@@ -65,22 +66,12 @@ export default function Video({ videoBasePath, video, setVideo }) {
   )
   function handleSubmit(event) {
     event.preventDefault()
-    console.log('after form submit:')
-    console.log(evaluation)
-    console.log(evaluation.evaluator)
-    console.log(evaluation.evaluator.firstName)
-    console.log(evaluation.evaluator.lastName)
-    console.log(evaluation.dimensions)
 
     const form = event.target
     const fullName = `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`
-    console.log('fullName:', fullName)
-    console.log(
-      'concatenated name from state:',
-      `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`.toLowerCase()
-    )
 
-    if (evaluation.evaluator.firstName.length === 0) {
+    const firstNameMissing = evaluation.evaluator.firstName.length === 0
+    if (firstNameMissing) {
       const setFocus = () => {
         form.firstName.focus()
       }
@@ -89,19 +80,38 @@ export default function Video({ videoBasePath, video, setVideo }) {
       setMessageVisibility('flex')
       return
     }
-    if (evaluation.evaluator.lastName.length === 0) {
+    const lastNameMissing = evaluation.evaluator.lastName.length === 0
+    if (lastNameMissing)
+      if (evaluation.evaluator.lastName.length === 0) {
+        const setFocus = () => {
+          form.lastName.focus()
+        }
+        setMessageCallback(setFocus)
+        setMessage(`Please, fill out your last name.`)
+        setMessageVisibility('flex')
+        return
+      }
+
+    const foundEvaluator = searchEvaluator(
+      fullName.toLowerCase(),
+      video.evaluations
+    )
+
+    if (foundEvaluator) {
       const setFocus = () => {
-        form.lastName.focus()
+        form.firstName.focus()
       }
       setMessageCallback(setFocus)
-      setMessage(`Please, fill out your last name.`)
+      setMessage(
+        `Thank you for your ambition, ${fullName}, but you have already evaluated this speech.`
+      )
+
       setMessageVisibility('flex')
       return
     }
 
     updateEvaluation()
     resetEvaluation()
-    // form.reset()
     setMessageVisibility('flex')
     setMessage(`Thank you ${fullName}. Your evaluation has been submitted.`)
   }
@@ -115,15 +125,24 @@ export default function Video({ videoBasePath, video, setVideo }) {
   function resetEvaluation() {
     setEvaluation({
       dimensions: { ...initialDimensionsValues },
-      evaluator: {},
+      evaluator: { firstName: '', lastName: '' },
       date: '',
     })
   }
 
-  function setInitialDimenstionsValues() {
+  function searchEvaluator(newFullName, evaluations) {
+    return evaluations.some(storedEvaluation => {
+      const storedFullName = `${storedEvaluation.evaluator.firstName} ${storedEvaluation.evaluator.lastName}`.toLowerCase()
+      return storedFullName === newFullName
+    })
+  }
+
+  function returnInitialDimenstionsValues(evaluationDimensions) {
+    const values = {}
     evaluationDimensions.map(dimension =>
-      Object.assign(initialDimensionsValues, { [dimension.name]: 3 })
+      Object.assign(values, { [dimension.name]: 3 })
     )
+    return values
   }
 }
 
@@ -177,39 +196,3 @@ const VideoDetails = styled.p`
   color: var(--secondary-font-color);
   margin-bottom: 0;
 `
-
-// const VideoEvaluation = styled.form`
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   grid-gap: 20px;
-//   margin: 20px 0;
-//   label {
-//     display: grid;
-//     grid-template: auto auto auto / 1fr;
-//     /* width: calc(50% - 8px); */
-//     width: 100%;
-//     grid-gap: 8px;
-//   }
-
-//   input[type='text'] {
-//     font-size: 1rem;
-//     width: 100%;
-//   }
-//   input[type='range'] {
-//     width: 100%;
-//   }
-// `
-
-// const VideoEvaluationSubmit = styled.button`
-//   margin: 16px 0 4px 0;
-//   align-self: center;
-//   width: max-content;
-//   border: none;
-//   padding: 8px;
-//   background: var(--primary-bg-color);
-//   text-align: center;
-//   font-size: 1rem;
-//   color: var(--inverse-primary-font-color);
-//   text-decoration: none;
-// `
