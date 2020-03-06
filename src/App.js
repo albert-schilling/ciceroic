@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import VideosList from './components/Video/VideosList'
+import SpeechesList from './components/Video/SpeechesList'
 import Video from './components/Video/Video'
 import { getVideos } from './services/videoServices'
 
@@ -27,9 +27,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <VideosList
-              videos={videos}
-              setVideo={setVideo}
+            <SpeechesList
+              speeches={videos}
+              setSpeech={setVideo}
               videoBasePath={videoBasePath}
             />
           </Route>
