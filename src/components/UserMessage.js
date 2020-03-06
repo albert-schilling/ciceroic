@@ -7,7 +7,10 @@ export default function UserMessage({
   visibility,
   setVisibility,
   returnPath,
-  messageCallback,
+  // messageCallback,
+  messageButtonRef,
+  messageReturnFocus,
+  clickHandler,
 }) {
   const MessageBody = styled.article`
     position: fixed;
@@ -31,6 +34,10 @@ export default function UserMessage({
     text-align: center;
     color: var(--inverse-primary-font-color);
     text-decoration: none;
+
+    &:focus {
+      box-shadow: 10px 10px 10px red;
+    }
   `
   const MessageText = styled.p`
     width: 80%;
@@ -38,16 +45,19 @@ export default function UserMessage({
     line-height: 1.6rem;
     word-wrap: break-word;
   `
-
+  // console.log(messageButtonRef)
+  console.log('messageReturnFocus:', messageReturnFocus)
   return (
     <MessageBody>
       <MessageText>{message}</MessageText>
       <MessageButton
         onClick={() => {
           setVisibility('none')
-          console.log(messageCallback)
+          clickHandler(messageReturnFocus)
+          // console.log(messageCallback)
         }}
         to={returnPath}
+        ref={messageButtonRef}
       >
         Return
       </MessageButton>

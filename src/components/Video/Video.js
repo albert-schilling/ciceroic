@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
@@ -19,15 +19,22 @@ export default function Video({ videoBasePath, video, setVideo }) {
     date: '',
   })
 
+  const inputFirstNameRef = useRef(null)
+  const inputLastNameRef = useRef(null)
+
   const [message, setMessage] = useState('')
-  const [messageCallback, setMessageCallback] = useState(() => {})
+  const [messageReturnFocus, setMessageReturnFocus] = useState(
+    inputFirstNameRef.current
+  )
   const [messageVisibility, setMessageVisibility] = useState('none')
+  const messageButtonRef = useRef(null)
 
   useEffect(() => {
     Object.entries(video).length === 0 &&
       getVideos(id).then(res => {
         setVideo(res)
       })
+    inputFirstNameRef.current.focus()
   }, [video, setVideo, id])
 
   return (
@@ -58,39 +65,44 @@ export default function Video({ videoBasePath, video, setVideo }) {
         evaluation={evaluation}
         setEvaluation={setEvaluation}
         handleSubmit={handleSubmit}
+        inputFirstNameRef={inputFirstNameRef}
+        inputLastNameRef={inputLastNameRef}
       />
       <UserMessage
         message={message}
         visibility={messageVisibility}
         setVisibility={setMessageVisibility}
         returnPath={returnPath}
-        messageCallback={messageCallback}
+        // messageCallback={messageCallback}
+        messageReturnFocus={messageReturnFocus}
+        clickHandler={focusTextInputField}
+        messageButtonRef={messageButtonRef}
       />
     </Main>
   )
   function handleSubmit(event) {
     event.preventDefault()
+    messageButtonRef.current.textContent = 'focused button'
+    messageButtonRef.current.focus()
+    console.log(messageButtonRef.current)
 
     const form = event.target
     const fullName = `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`
 
     const firstNameMissing = evaluation.evaluator.firstName.length === 0
+
     if (firstNameMissing) {
-      const setFocus = () => {
-        form.firstName.focus()
-      }
-      setMessageCallback(setFocus)
+      setMessageReturnFocus(inputFirstNameRef)
       setMessage(`Please, fill out your first name.`)
       setMessageVisibility('flex')
       return
     }
+
     const lastNameMissing = evaluation.evaluator.lastName.length === 0
+
     if (lastNameMissing)
       if (evaluation.evaluator.lastName.length === 0) {
-        const setFocus = () => {
-          form.lastName.focus()
-        }
-        setMessageCallback(setFocus)
+        setMessageReturnFocus(inputLastNameRef)
         setMessage(`Please, fill out your last name.`)
         setMessageVisibility('flex')
         return
@@ -102,18 +114,15 @@ export default function Video({ videoBasePath, video, setVideo }) {
     )
 
     if (foundEvaluator) {
-      const setFocus = () => {
-        form.firstName.focus()
-      }
-      setMessageCallback(setFocus)
+      setMessageReturnFocus(inputFirstNameRef)
       setMessage(`Sorry, ${fullName}, you have already evaluated this speech.`)
-
       setMessageVisibility('flex')
       return
     }
 
     updateEvaluation()
     resetEvaluation()
+    setMessageReturnFocus(inputFirstNameRef)
     setMessageVisibility('flex')
     setMessage(`Thank you ${fullName}. Your evaluation has been submitted.`)
   }
@@ -145,6 +154,9 @@ export default function Video({ videoBasePath, video, setVideo }) {
       Object.assign(values, { [dimension.name]: 3 })
     )
     return values
+  }
+  function focusTextInputField(ref) {
+    ref.current.focus()
   }
 }
 

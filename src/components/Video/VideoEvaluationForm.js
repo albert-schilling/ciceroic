@@ -7,6 +7,8 @@ export default function VideoEvaluationForm({
   evaluation,
   setEvaluation,
   handleSubmit,
+  inputFirstNameRef,
+  inputLastNameRef,
 }) {
   return (
     <VideoEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
@@ -14,6 +16,7 @@ export default function VideoEvaluationForm({
         <label htmlFor="firstName">
           First Name
           <input
+            ref={inputFirstNameRef}
             type="text"
             name="firstName"
             id="firstName"
@@ -30,6 +33,7 @@ export default function VideoEvaluationForm({
         <label htmlFor="lastName">
           Last Name
           <input
+            ref={inputLastNameRef}
             type="text"
             name="lastName"
             id="lastName"

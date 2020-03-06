@@ -405,6 +405,48 @@
             "lastName": "Bauer"
           },
           "date": 1583444978950
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Hermann",
+            "lastName": "Hesse"
+          },
+          "date": 1583479199981
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Franz",
+            "lastName": "Kafka"
+          },
+          "date": 1583479211836
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Hagen",
+            "lastName": "Rether"
+          },
+          "date": 1583480047019
         }
       ]
     },
