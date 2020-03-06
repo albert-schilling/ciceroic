@@ -489,6 +489,34 @@
             "lastName": "Luther King"
           },
           "date": 1583486563907
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Alfred",
+            "lastName": "Huxley"
+          },
+          "date": 1583505784120
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 5,
+            "Pronounciation and Vocal Variety": 5,
+            "Comprehensibility and Structure": 5,
+            "Stylistic Devices": 5,
+            "Credible and Convincing": 5
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Zweistein"
+          },
+          "date": 1583505837888
         }
       ]
     },
@@ -534,7 +562,36 @@
       "date": "Apr 26, 2016",
       "duration": "15.24",
       "filename": "The surprising habits of original thinkers _ Adam Grant.mp4",
-      "evaluations": []
+      "evaluations": [
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Schilling"
+          },
+          "date": 1583492187194
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Barack",
+            "lastName": "Obama"
+          },
+          "date": 1583492206455
+        }
+      ]
     }
   ]
 }

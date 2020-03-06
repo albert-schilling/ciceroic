@@ -4,15 +4,16 @@ import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import { getVideos, patchVideo } from '../../services/videoServices'
 import VideoEvaluationForm from './VideoEvaluationForm'
+import useForm from '../../hooks/useForm'
+import useMyName from '../../hooks/useMyName'
 
 export default function Speech({ videoBasePath, speech, setSpeech }) {
   let { id } = useParams()
 
-  const initialDimensionsValues = returnInitialDimenstionsValues(
-    evaluationDimensions
-  )
+  const [initialValues] = useForm(evaluationDimensions)
+
   const [evaluation, setEvaluation] = useState({
-    dimensions: { ...initialDimensionsValues },
+    dimensions: { ...initialValues },
     evaluator: { firstName: '', lastName: '' },
     date: '',
   })
@@ -28,6 +29,8 @@ export default function Speech({ videoBasePath, speech, setSpeech }) {
     focusRef: inputFirstNameRef.current,
   })
 
+  // const [, messageHook, display] = useMyName('Larry')
+
   useEffect(() => {
     Object.entries(speech).length === 0 &&
       getVideos(id).then(res => {
@@ -38,6 +41,10 @@ export default function Speech({ videoBasePath, speech, setSpeech }) {
 
   return (
     <Main>
+      {console.log('initialValues', initialValues)}
+      {/* {display}
+      <div>{messageHook}</div> */}
+
       <NavLinkStyled exact to="/">
         <span>&#8612;</span>see all speeches
       </NavLinkStyled>
@@ -71,6 +78,7 @@ export default function Speech({ videoBasePath, speech, setSpeech }) {
       />
     </Main>
   )
+
   function handleSubmit(event) {
     event.preventDefault()
     console.log('message:', message)
@@ -143,7 +151,7 @@ export default function Speech({ videoBasePath, speech, setSpeech }) {
   }
   function resetEvaluation() {
     setEvaluation({
-      dimensions: { ...initialDimensionsValues },
+      dimensions: { ...initialValues },
       evaluator: { firstName: '', lastName: '' },
       date: '',
     })
