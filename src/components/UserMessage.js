@@ -24,7 +24,10 @@ export default function UserMessage({ message, setMessage }) {
     }
   `
 
-  const MessageInputButton = styled.button`
+  const MessageInputButton = styled.input.attrs({
+    type: 'submit',
+    value: 'Okay',
+  })`
     margin: 16px 0 24px 0;
     align-self: center;
     width: max-content;
@@ -55,9 +58,7 @@ export default function UserMessage({ message, setMessage }) {
           message.confirmHandler(message.focusRef)
         }}
         ref={message.buttonRef}
-      >
-        Okay
-      </MessageInputButton>
+      />
     </MessageBody>
   )
 }
