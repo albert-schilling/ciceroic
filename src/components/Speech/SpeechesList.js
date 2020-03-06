@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 import SpeechCard from './SpeechCard'
-
-export default function SpeechesList({ speeches, setSpeech, videoBasePath }) {
+export default function SpeechesList({ speeches, setSpeech, speechBasePath }) {
   return (
     <Main>
       <SpeechesListContainer>
@@ -13,7 +12,7 @@ export default function SpeechesList({ speeches, setSpeech, videoBasePath }) {
               key={speech.id}
               speech={speech}
               setSpeech={setSpeech}
-              videoBasePath={videoBasePath}
+              speechBasePath={speechBasePath}
             />
           )
         })}

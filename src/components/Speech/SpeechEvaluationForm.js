@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
-import VideoEvaluationInputRange from './VideoEvaluationInputRange'
-import UserMessage from '../UserMessage'
+import RangeInput from '../Inputs/RangeInput'
+import UserMessage from '../UserMessage/UserMessage'
 
-export default function VideoEvaluationForm({
+export default function SpeechEvaluationForm({
   evaluation,
   setEvaluation,
   handleSubmit,
@@ -14,14 +14,14 @@ export default function VideoEvaluationForm({
   setMessage,
 }) {
   return (
-    <VideoEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
-      <VideoEvaluationFormSection>
+    <SpeechEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
+      <SpeechEvaluationFormSection>
         <label htmlFor="firstName">
           First Name
           <input
             ref={inputFirstNameRef}
             type="text"
-            name="firstName"
+            name="first name"
             id="firstName"
             value={
               evaluation.hasOwnProperty('evaluator') &&
@@ -38,7 +38,7 @@ export default function VideoEvaluationForm({
           <input
             ref={inputLastNameRef}
             type="text"
-            name="lastName"
+            name="last name"
             id="lastName"
             value={
               evaluation.hasOwnProperty('evaluator') &&
@@ -49,11 +49,11 @@ export default function VideoEvaluationForm({
             onChange={handleChange}
           />
         </label>
-      </VideoEvaluationFormSection>
-      <VideoEvaluationFormSection>
+      </SpeechEvaluationFormSection>
+      <SpeechEvaluationFormSection>
         {evaluationDimensions.map(dimension => {
           return (
-            <VideoEvaluationInputRange
+            <RangeInput
               key={dimension.name}
               name={dimension.name}
               description={dimension.description}
@@ -62,13 +62,13 @@ export default function VideoEvaluationForm({
             />
           )
         })}
-      </VideoEvaluationFormSection>
-      <VideoEvaluationSubmit type="submit">Submit</VideoEvaluationSubmit>
+      </SpeechEvaluationFormSection>
+      <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
       <UserMessage message={message} setMessage={setMessage} />
-    </VideoEvaluationFormStyled>
+    </SpeechEvaluationFormStyled>
   )
   function handleChange(event) {
-    if (event.target.name === 'firstName') {
+    if (event.target.name === 'first name') {
       setEvaluation({
         ...evaluation,
         evaluator: {
@@ -77,7 +77,7 @@ export default function VideoEvaluationForm({
         },
       })
     }
-    if (event.target.name === 'lastName') {
+    if (event.target.name === 'last name') {
       setEvaluation({
         ...evaluation,
         evaluator: {
@@ -89,7 +89,7 @@ export default function VideoEvaluationForm({
   }
 }
 
-const VideoEvaluationFormStyled = styled.form`
+const SpeechEvaluationFormStyled = styled.form`
   grid-area: evaluation;
   display: flex;
   flex-wrap: wrap;
@@ -97,7 +97,7 @@ const VideoEvaluationFormStyled = styled.form`
   grid-gap: 20px;
   margin: 20px 0;
 `
-const VideoEvaluationFormSection = styled.section`
+const SpeechEvaluationFormSection = styled.section`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +129,7 @@ const VideoEvaluationFormSection = styled.section`
   }
 `
 
-const VideoEvaluationSubmit = styled.button`
+const SpeechEvaluationSubmit = styled.button`
   margin: 16px 0 40px 0;
   align-self: center;
   width: max-content;

@@ -1,11 +1,14 @@
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
+import { withKnobs } from '@storybook/addon-knobs'
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
-import SpeechCard from './SpeechCard'
+import { BrowserRouter as Router } from 'react-router-dom'
 import GlobalStyle from '../../common/GlobalStyle'
+import SpeechEvaluationForm from './SpeechEvaluationForm'
 
-const videoBasePath = '/videos/'
+const evaluation = {
+  dimensions: {},
+  evaluator: { firstName: '', lastName: '' },
+  date: '',
+}
 
 const speech = {
   category: 'Lecture',
@@ -31,27 +34,38 @@ const speech = {
   title: 'How to speak so that people want to listen',
 }
 
-const containerStyles = {
-  padding: '20px',
-  height: '100%',
-  overflowY: 'scroll',
+const message = {
+  visible: 'none',
+  text: '',
+  buttonRef: null,
+  confirmHandler: () => {},
+  focusRef: null,
 }
+
+const sectionStyles = {
+  padding: '20px',
+}
+
 export default {
-  title: 'Components/Speech',
+  title: 'Components/SpeechEvaluationForm',
   decorators: [
     withKnobs,
     storyFn => (
       <Router>
         <GlobalStyle />
-        {storyFn()}
+        <section style={sectionStyles}>{storyFn()}</section>
       </Router>
     ),
   ],
-  component: SpeechCard,
+  component: SpeechEvaluationForm,
 }
 
-export const StandardSpeechCard = () => (
-  <div style={containerStyles}>
-    <SpeechCard key={speech.id} speech={speech} videoBasePath={videoBasePath} />
-  </div>
-)
+export const StandardSpeechEvaluationForm = () => {
+  return (
+    <SpeechEvaluationForm
+      evaluation={evaluation}
+      speech={speech}
+      message={message}
+    />
+  )
+}

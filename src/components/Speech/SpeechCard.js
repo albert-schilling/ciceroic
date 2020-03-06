@@ -2,14 +2,14 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 
-export default function SpeechCard({ speech, setSpeech, videoBasePath }) {
+export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
   return (
     <SpeechCardBody role="region">
       {speech.filename === undefined ? (
         <p>Video loading</p>
       ) : (
         <SpeechCardVideo role="img" controls>
-          <source src={videoBasePath + speech.filename} type="video/mp4" />
+          <source src={speechBasePath + speech.filename} type="video/mp4" />
         </SpeechCardVideo>
       )}
 
@@ -26,7 +26,7 @@ export default function SpeechCard({ speech, setSpeech, videoBasePath }) {
         </SpeechCardDetails>
         <SpeechEvaluationButton
           onClick={() => setSpeech(speech)}
-          to={'/video/' + speech.id}
+          to={'/speech/' + speech.id}
         >
           Evaluate
         </SpeechEvaluationButton>

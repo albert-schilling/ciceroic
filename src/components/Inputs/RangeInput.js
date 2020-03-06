@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function VideoEvaluationInputRange({
+export default function RangeInput({
   name,
   description,
   evaluation,
@@ -21,13 +21,13 @@ export default function VideoEvaluationInputRange({
           name={name}
           id={name}
         />
-        <VideoEvaluationRangeScale>
+        <InputRangeScale>
           <span>|</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
           <span>|</span>
-        </VideoEvaluationRangeScale>
+        </InputRangeScale>
       </label>
     </>
   )
@@ -44,7 +44,7 @@ export default function VideoEvaluationInputRange({
   }
 }
 
-const VideoEvaluationRangeScale = styled.div`
+const InputRangeScale = styled.div`
   display: flex;
   justify-content: space-between;
   span {
