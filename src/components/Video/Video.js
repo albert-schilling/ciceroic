@@ -3,12 +3,10 @@ import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import { getVideos, patchVideo } from '../../services/videoServices'
-import UserMessage from '../UserMessage'
 import VideoEvaluationForm from './VideoEvaluationForm'
 
 export default function Video({ videoBasePath, video, setVideo }) {
   let { id } = useParams()
-  const returnPath = `/video/${id}`
 
   const initialDimensionsValues = returnInitialDimenstionsValues(
     evaluationDimensions
@@ -29,13 +27,6 @@ export default function Video({ videoBasePath, video, setVideo }) {
     confirmHandler: () => {},
     focusRef: inputFirstNameRef.current,
   })
-
-  // const [message, setMessage] = useState('')
-  // const [messageReturnFocus, setMessageReturnFocus] = useState(
-  //   inputFirstNameRef.current
-  // )
-  // const [messageVisibility, setMessageVisibility] = useState('none')
-  // const messageButtonRef = useRef(null)
 
   useEffect(() => {
     Object.entries(video).length === 0 &&
@@ -75,18 +66,8 @@ export default function Video({ videoBasePath, video, setVideo }) {
         handleSubmit={handleSubmit}
         inputFirstNameRef={inputFirstNameRef}
         inputLastNameRef={inputLastNameRef}
-      />
-      <UserMessage
         message={message}
         setMessage={setMessage}
-
-        // visibility={messageVisibility}
-        // setVisibility={setMessageVisibility}
-        // returnPath={returnPath}
-        // messageCallback={messageCallback}
-        // messageReturnFocus={messageReturnFocus}
-        // clickHandler={focusTextInputField}
-        // messageButtonRef={messageButtonRef}
       />
     </Main>
   )

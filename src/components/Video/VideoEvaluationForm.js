@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import VideoEvaluationInputRange from './VideoEvaluationInputRange'
+import UserMessage from '../UserMessage'
 
 export default function VideoEvaluationForm({
   evaluation,
@@ -9,6 +10,8 @@ export default function VideoEvaluationForm({
   handleSubmit,
   inputFirstNameRef,
   inputLastNameRef,
+  message,
+  setMessage,
 }) {
   return (
     <VideoEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
@@ -61,6 +64,7 @@ export default function VideoEvaluationForm({
         })}
       </VideoEvaluationFormSection>
       <VideoEvaluationSubmit type="submit">Submit</VideoEvaluationSubmit>
+      <UserMessage message={message} setMessage={setMessage} />
     </VideoEvaluationFormStyled>
   )
   function handleChange(event) {
