@@ -1,18 +1,13 @@
 import { action } from '@storybook/addon-actions'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Speech from './Speech'
-import VideoEvaluationForm from './VideoEvaluationForm'
+import App from '../../App'
 
 import GlobalStyle from '../../common/GlobalStyle'
 
-const evaluation = {
-  dimensions: {},
-  evaluator: { firstName: '', lastName: '' },
-  date: '',
-}
 const videoBasePath = '/videos/'
 
 const speech = {
@@ -40,33 +35,24 @@ const speech = {
 }
 
 export default {
-  title: 'Components/Video',
+  title: 'Components/Speech',
   decorators: [
     withKnobs,
     storyFn => (
       <Router>
         <GlobalStyle />
-
-        <Speech
-          // videos={videos}
-          speech={speech}
-          // setVideo={setVideo}
-          videoBasePath={videoBasePath}
-        >
-          {storyFn()}
-        </Speech>
+        {storyFn()}
       </Router>
     ),
   ],
   component: Speech,
 }
 
-export const VideoEvaluation = () => {
-  return (
-    <VideoEvaluationForm
-      evaluation={evaluation}
-      // setEvaluation={setEvaluation}
-      // handleSubmit={handleSubmit}
-    />
-  )
-}
+export const SpeechPage = () => (
+  <Speech
+    // videos={videos}
+    speech={speech}
+    // setVideo={setVideo}
+    videoBasePath={videoBasePath}
+  />
+)
