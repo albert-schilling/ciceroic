@@ -92,9 +92,9 @@ export default function Video({ videoBasePath, video, setVideo }) {
   )
   function handleSubmit(event) {
     event.preventDefault()
-    // messageButtonRef.current.textContent = 'focused button'
-    // messageButtonRef.current.focus()
-    // console.log(messageButtonRef.current)
+    console.log('message:', message)
+    console.log('message.buttonRef:', message.buttonRef)
+    message.buttonRef.current.focus()
 
     const fullName = `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`
 
@@ -108,10 +108,6 @@ export default function Video({ videoBasePath, video, setVideo }) {
         confirmHandler: focusTextInputField,
         focusRef: inputFirstNameRef,
       })
-
-      // setMessageReturnFocus(inputFirstNameRef)
-      // setMessage(`Please, fill out your first name.`)
-      // setMessageVisibility('flex')
       return
     }
 
@@ -188,8 +184,6 @@ export default function Video({ videoBasePath, video, setVideo }) {
   }
   function focusTextInputField(ref) {
     ref.current.focus()
-    console.log('ref', ref)
-    console.log('ref.current', ref.current)
   }
 }
 
