@@ -14,7 +14,7 @@ const message = {
 }
 
 export default {
-  title: 'Components/Video',
+  title: 'Components/Message',
   decorators: [
     withKnobs,
     storyFn => (

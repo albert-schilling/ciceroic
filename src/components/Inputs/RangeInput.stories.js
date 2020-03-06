@@ -1,9 +1,7 @@
-import { action } from '@storybook/addon-actions'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
-import React, { useState } from 'react'
+import { withKnobs } from '@storybook/addon-knobs'
+import React from 'react'
 
-import Speech from './Speech'
-import VideoEvaluationInputRange from './VideoEvaluationInputRange'
+import RangeInput from './RangeInput'
 import GlobalStyle from '../../common/GlobalStyle'
 
 const key = 'Gestures And Facial Expressions'
@@ -23,35 +21,30 @@ const sectionStyles = {
   gridGap: '24px',
 }
 const labelStyles = {
-  color: 'red',
-  width: '100%',
   gridGap: '8px',
   display: 'flex',
   flexDirection: 'column',
 }
 
 export default {
-  title: 'Components/Video',
+  title: 'Components/Inputs',
   decorators: [
     withKnobs,
     storyFn => (
       <>
         <GlobalStyle />
-        {/* <VideoEvaluationForm> */}
         <section style={sectionStyles}>{storyFn()}</section>
-        {/* </VideoEvaluationForm> */}
       </>
     ),
   ],
-  component: Speech,
+  component: RangeInput,
 }
 
-export const EvaluationInputRange = () => (
-  <VideoEvaluationInputRange
+export const StandardRangeInput = () => (
+  <RangeInput
     key={key}
     name={name}
     description={description}
     evaluation={evaluation}
-    style={labelStyles}
   />
 )

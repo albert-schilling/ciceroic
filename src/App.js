@@ -4,22 +4,22 @@ import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import SpeechesList from './components/Video/SpeechesList'
-import Speech from './components/Video/Speech'
-import { getVideos } from './services/videoServices'
+import SpeechesList from './components/Speech/SpeechesList'
+import Speech from './components/Speech/Speech'
+import { getSpeeches } from './services/speechServices'
 
 function App() {
-  const [videos, setVideos] = useState([])
-  const [video, setVideo] = useState({})
-  const videoBasePath = '/videos/'
+  const [speeches, setSpeeches] = useState([])
+  const [speech, setSpeech] = useState({})
+  const speechBasePath = '/videos/'
 
   useEffect(() => {
-    getVideos().then(res => {
-      return setVideos(res)
+    getSpeeches().then(res => {
+      return setSpeeches(res)
     })
   }, [])
-  console.log('videos:', videos)
-  console.log('video:', video)
+  // console.log('speeches:', speeches)
+  // console.log('speech:', speech)
   return (
     <AppBodyStyled>
       <GlobalStyle />
@@ -28,16 +28,16 @@ function App() {
         <Switch>
           <Route exact path="/">
             <SpeechesList
-              speeches={videos}
-              setSpeech={setVideo}
-              videoBasePath={videoBasePath}
+              speeches={speeches}
+              setSpeech={setSpeech}
+              speechBasePath={speechBasePath}
             />
           </Route>
-          <Route exact path="/video/:id">
+          <Route exact path="/speech/:id">
             <Speech
-              speech={video}
-              setSpeech={setVideo}
-              videoBasePath={videoBasePath}
+              speech={speech}
+              setSpeech={setSpeech}
+              speechBasePath={speechBasePath}
             />
           </Route>
         </Switch>
