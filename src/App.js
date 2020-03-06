@@ -5,7 +5,7 @@ import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import SpeechesList from './components/Video/SpeechesList'
-import Video from './components/Video/Video'
+import Speech from './components/Video/Speech'
 import { getVideos } from './services/videoServices'
 
 function App() {
@@ -34,10 +34,9 @@ function App() {
             />
           </Route>
           <Route exact path="/video/:id">
-            <Video
-              videos={videos}
-              video={video}
-              setVideo={setVideo}
+            <Speech
+              speech={video}
+              setSpeech={setVideo}
               videoBasePath={videoBasePath}
             />
           </Route>

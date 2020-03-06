@@ -2,9 +2,7 @@ import { action } from '@storybook/addon-actions'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import React, { useState } from 'react'
 
-import App from '../../App'
-import Video from './Video'
-import VideoEvaluationForm from './VideoEvaluationForm'
+import Speech from './Speech'
 import VideoEvaluationInputRange from './VideoEvaluationInputRange'
 import GlobalStyle from '../../common/GlobalStyle'
 
@@ -34,7 +32,6 @@ const labelStyles = {
 
 export default {
   title: 'Components/Video',
-  decorators: [withKnobs],
   decorators: [
     withKnobs,
     storyFn => (
@@ -46,7 +43,7 @@ export default {
       </>
     ),
   ],
-  component: Video,
+  component: Speech,
 }
 
 export const EvaluationInputRange = () => (
@@ -56,6 +53,5 @@ export const EvaluationInputRange = () => (
     description={description}
     evaluation={evaluation}
     style={labelStyles}
-    // setEvaluation={setEvaluation}
   />
 )

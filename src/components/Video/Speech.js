@@ -5,7 +5,7 @@ import { evaluationDimensions } from '../../data/evaluationDimensions'
 import { getVideos, patchVideo } from '../../services/videoServices'
 import VideoEvaluationForm from './VideoEvaluationForm'
 
-export default function Video({ videoBasePath, video, setVideo }) {
+export default function Speech({ videoBasePath, speech, setSpeech }) {
   let { id } = useParams()
 
   const initialDimensionsValues = returnInitialDimenstionsValues(
@@ -29,35 +29,35 @@ export default function Video({ videoBasePath, video, setVideo }) {
   })
 
   useEffect(() => {
-    Object.entries(video).length === 0 &&
+    Object.entries(speech).length === 0 &&
       getVideos(id).then(res => {
-        setVideo(res)
+        setSpeech(res)
       })
     inputFirstNameRef.current.focus()
-  }, [video, setVideo, id])
+  }, [speech, setSpeech, id])
 
   return (
     <Main>
       <NavLinkStyled exact to="/">
-        <span>&#8612;</span>see all videos
+        <span>&#8612;</span>see all speeches
       </NavLinkStyled>
-      {video.filename === undefined ? (
+      {speech.filename === undefined ? (
         <p>Video loading</p>
       ) : (
         <VideoStyled role="img" controls>
-          <source src={videoBasePath + video.filename} type="video/mp4" />
+          <source src={videoBasePath + speech.filename} type="video/mp4" />
         </VideoStyled>
       )}
       <VideoInformation>
         <header>
-          <VideoTitle>{video.title}</VideoTitle>
+          <VideoTitle>{speech.title}</VideoTitle>
         </header>
-        <h3>{video.speaker}</h3>
-        <VideoDescription>{video.description}</VideoDescription>
+        <h3>{speech.speaker}</h3>
+        <VideoDescription>{speech.description}</VideoDescription>
         <VideoDetails>
-          <small>{video.category}</small>
-          <small>{video.duration} min</small>
-          <small>{video.date}</small>
+          <small>{speech.category}</small>
+          <small>{speech.duration} min</small>
+          <small>{speech.date}</small>
         </VideoDetails>
       </VideoInformation>
       <VideoEvaluationForm
@@ -107,7 +107,7 @@ export default function Video({ videoBasePath, video, setVideo }) {
 
     const foundEvaluator = searchEvaluator(
       fullName.toLowerCase(),
-      video.evaluations
+      speech.evaluations
     )
 
     if (foundEvaluator) {
@@ -137,9 +137,9 @@ export default function Video({ videoBasePath, video, setVideo }) {
 
   function updateEvaluation() {
     Object.assign(evaluation, { date: new Date().getTime() })
-    video.evaluations.push(evaluation)
-    setVideo(video)
-    patchVideo(id, video)
+    speech.evaluations.push(evaluation)
+    setSpeech(speech)
+    patchVideo(id, speech)
   }
   function resetEvaluation() {
     setEvaluation({

@@ -1,16 +1,13 @@
-import { action } from '@storybook/addon-actions'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import Video from './Video'
-import App from '../../App'
-
+import SpeechCard from './SpeechCard'
 import GlobalStyle from '../../common/GlobalStyle'
 
 const videoBasePath = '/videos/'
 
-const video = {
+const speech = {
   category: 'Lecture',
   date: 'Jun 27, 2014',
   description:
@@ -34,8 +31,13 @@ const video = {
   title: 'How to speak so that people want to listen',
 }
 
+const containerStyles = {
+  padding: '20px',
+  height: '100%',
+  overflowY: 'scroll',
+}
 export default {
-  title: 'Components/Video',
+  title: 'Components/Speech',
   decorators: [
     withKnobs,
     storyFn => (
@@ -45,14 +47,11 @@ export default {
       </Router>
     ),
   ],
-  component: Video,
+  component: SpeechCard,
 }
 
-export const VideoPage = () => (
-  <Video
-    // videos={videos}
-    video={video}
-    // setVideo={setVideo}
-    videoBasePath={videoBasePath}
-  />
+export const StandardSpeechCard = () => (
+  <div style={containerStyles}>
+    <SpeechCard key={speech.id} speech={speech} videoBasePath={videoBasePath} />
+  </div>
 )
