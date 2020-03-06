@@ -4,28 +4,32 @@ import { NavLink } from 'react-router-dom'
 
 export default function UserMessage({
   message,
-  visibility,
-  setVisibility,
-  returnPath,
-  // messageCallback,
-  messageButtonRef,
-  messageReturnFocus,
-  clickHandler,
+  setMessage,
+  // visibility,
+  // setVisibility,
+  // returnPath,
+  // // messageCallback,
+  // messageButtonRef,
+  // messageReturnFocus,
+  // clickHandler,
 }) {
+  console.log(message)
+  console.log(message.focusRef)
+  console.log(message.confirmHandler)
   const MessageBody = styled.article`
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    display: ${visibility};
+    display: ${message.visible};
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background: var(--primary-bg-color);
     color: var(--inverse-primary-font-color);
   `
-  const MessageButton = styled(NavLink)`
+  const MessageButton = styled.button`
     margin: 16px 0 4px 0;
     align-self: center;
     width: max-content;
@@ -46,20 +50,18 @@ export default function UserMessage({
     word-wrap: break-word;
   `
   // console.log(messageButtonRef)
-  console.log('messageReturnFocus:', messageReturnFocus)
   return (
     <MessageBody>
-      <MessageText>{message}</MessageText>
+      <MessageText>{message.text}</MessageText>
       <MessageButton
         onClick={() => {
-          setVisibility('none')
-          clickHandler(messageReturnFocus)
-          // console.log(messageCallback)
+          setMessage({ ...message, visible: 'none' })
+          message.confirmHandler(message.focusRef)
         }}
-        to={returnPath}
-        ref={messageButtonRef}
+        // to={returnPath}
+        // ref={messageButtonRef}
       >
-        Return
+        Okay
       </MessageButton>
     </MessageBody>
   )

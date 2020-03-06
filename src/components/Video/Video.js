@@ -22,12 +22,20 @@ export default function Video({ videoBasePath, video, setVideo }) {
   const inputFirstNameRef = useRef(null)
   const inputLastNameRef = useRef(null)
 
-  const [message, setMessage] = useState('')
-  const [messageReturnFocus, setMessageReturnFocus] = useState(
-    inputFirstNameRef.current
-  )
-  const [messageVisibility, setMessageVisibility] = useState('none')
-  const messageButtonRef = useRef(null)
+  const [message, setMessage] = useState({
+    visible: 'none',
+    text: '',
+    buttonRef: useRef(null),
+    confirmHandler: () => {},
+    focusRef: inputFirstNameRef.current,
+  })
+
+  // const [message, setMessage] = useState('')
+  // const [messageReturnFocus, setMessageReturnFocus] = useState(
+  //   inputFirstNameRef.current
+  // )
+  // const [messageVisibility, setMessageVisibility] = useState('none')
+  // const messageButtonRef = useRef(null)
 
   useEffect(() => {
     Object.entries(video).length === 0 &&
@@ -70,43 +78,55 @@ export default function Video({ videoBasePath, video, setVideo }) {
       />
       <UserMessage
         message={message}
-        visibility={messageVisibility}
-        setVisibility={setMessageVisibility}
-        returnPath={returnPath}
+        setMessage={setMessage}
+
+        // visibility={messageVisibility}
+        // setVisibility={setMessageVisibility}
+        // returnPath={returnPath}
         // messageCallback={messageCallback}
-        messageReturnFocus={messageReturnFocus}
-        clickHandler={focusTextInputField}
-        messageButtonRef={messageButtonRef}
+        // messageReturnFocus={messageReturnFocus}
+        // clickHandler={focusTextInputField}
+        // messageButtonRef={messageButtonRef}
       />
     </Main>
   )
   function handleSubmit(event) {
     event.preventDefault()
-    messageButtonRef.current.textContent = 'focused button'
-    messageButtonRef.current.focus()
-    console.log(messageButtonRef.current)
+    // messageButtonRef.current.textContent = 'focused button'
+    // messageButtonRef.current.focus()
+    // console.log(messageButtonRef.current)
 
-    const form = event.target
     const fullName = `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`
 
     const firstNameMissing = evaluation.evaluator.firstName.length === 0
 
     if (firstNameMissing) {
-      setMessageReturnFocus(inputFirstNameRef)
-      setMessage(`Please, fill out your first name.`)
-      setMessageVisibility('flex')
+      setMessage({
+        ...message,
+        visible: 'flex',
+        text: 'Please, fill out your first name.',
+        confirmHandler: focusTextInputField,
+        focusRef: inputFirstNameRef,
+      })
+
+      // setMessageReturnFocus(inputFirstNameRef)
+      // setMessage(`Please, fill out your first name.`)
+      // setMessageVisibility('flex')
       return
     }
 
     const lastNameMissing = evaluation.evaluator.lastName.length === 0
 
-    if (lastNameMissing)
-      if (evaluation.evaluator.lastName.length === 0) {
-        setMessageReturnFocus(inputLastNameRef)
-        setMessage(`Please, fill out your last name.`)
-        setMessageVisibility('flex')
-        return
-      }
+    if (lastNameMissing) {
+      setMessage({
+        ...message,
+        visible: 'flex',
+        text: 'Please, fill out your last name.',
+        confirmHandler: focusTextInputField,
+        focusRef: inputLastNameRef,
+      })
+      return
+    }
 
     const foundEvaluator = searchEvaluator(
       fullName.toLowerCase(),
@@ -114,17 +134,28 @@ export default function Video({ videoBasePath, video, setVideo }) {
     )
 
     if (foundEvaluator) {
-      setMessageReturnFocus(inputFirstNameRef)
-      setMessage(`Sorry, ${fullName}, you have already evaluated this speech.`)
-      setMessageVisibility('flex')
+      setMessage({
+        ...message,
+        visible: 'flex',
+        text: `Sorry, ${fullName},
+        you have already evaluated this speech.`,
+        confirmHandler: focusTextInputField,
+        focusRef: inputFirstNameRef,
+      })
+
       return
     }
 
     updateEvaluation()
     resetEvaluation()
-    setMessageReturnFocus(inputFirstNameRef)
-    setMessageVisibility('flex')
-    setMessage(`Thank you ${fullName}. Your evaluation has been submitted.`)
+    setMessage({
+      ...message,
+      visible: 'flex',
+      text: `Thank you ${fullName}. 
+      Your evaluation has been submitted.`,
+      confirmHandler: focusTextInputField,
+      focusRef: inputFirstNameRef,
+    })
   }
 
   function updateEvaluation() {
@@ -157,6 +188,8 @@ export default function Video({ videoBasePath, video, setVideo }) {
   }
   function focusTextInputField(ref) {
     ref.current.focus()
+    console.log('ref', ref)
+    console.log('ref.current', ref.current)
   }
 }
 
