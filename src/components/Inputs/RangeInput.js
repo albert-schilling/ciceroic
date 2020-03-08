@@ -47,7 +47,7 @@ const InputRangeScale = styled.div`
   display: flex;
   justify-content: space-between;
   span {
-    margin-top: -12px;
+    /* margin-top: -12px; */
     font-size: 0.4rem;
     color: var(--secondary-font-color);
   }
