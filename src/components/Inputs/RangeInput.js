@@ -32,7 +32,6 @@ export default function RangeInput({
     </>
   )
   function handleChange(event) {
-    // setValue({ ...value, [name]: Number(event.target.value) })
     setEvaluation({
       ...evaluation,
       dimensions: {
