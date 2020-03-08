@@ -104,7 +104,22 @@
       "date": "May 20, 2011",
       "duration": "2.59",
       "filename": "How to tie your shoes _ Terry Moore.mp4",
-      "evaluations": []
+      "evaluations": [
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Albert",
+            "lastName": "Schilling"
+          },
+          "date": 1583681328679
+        }
+      ]
     },
     {
       "id": "3",
@@ -179,6 +194,20 @@
             "lastName": "Herzog\\"
           },
           "date": 1583520394723
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 4,
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 4,
+            "Stylistic Devices": 2,
+            "Credible and Convincing": 5
+          },
+          "evaluator": {
+            "firstName": "Julia",
+            "lastName": "Bauer"
+          },
+          "date": 1583680171878
         }
       ]
     }

@@ -14,9 +14,7 @@ function App() {
   const speechBasePath = '/videos/'
 
   useEffect(() => {
-    getSpeeches().then(res => {
-      return setSpeeches(res)
-    })
+    getSpeeches().then(res => setSpeeches(res))
   }, [])
   // console.log('speeches:', speeches)
   // console.log('speech:', speech)

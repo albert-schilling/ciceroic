@@ -12,19 +12,19 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
   const inputFirstNameRef = useRef(null)
   const inputLastNameRef = useRef(null)
 
-  const [
+  const {
     evaluation,
     setEvaluation,
     message,
     setMessage,
     handleSubmit,
-  ] = useForm(
+  } = useForm({
     evaluationDimensions,
-    [inputFirstNameRef, inputLastNameRef],
+    refs: [inputFirstNameRef, inputLastNameRef],
     speech,
     setSpeech,
-    id
-  )
+    id,
+  })
 
   useEffect(() => {
     Object.entries(speech).length === 0 &&
