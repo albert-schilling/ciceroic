@@ -12,744 +12,73 @@
       "evaluations": [
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 1,
-            "Pronounciation and Vocal Variety": 4,
-            "Comprehensibility and Structure": 1,
-            "Stylistic Devices": 4,
+            "Gestures And Facial Expressions": 4,
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 2,
+            "Stylistic Devices": 2,
+            "Credible and Convincing": 4
+          },
+          "evaluator": {
+            "firstName": "TestNr468105",
+            "lastName": "TestNr259065"
+          },
+          "date": 1583697398446
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 1,
+            "Comprehensibility and Structure": 5,
+            "Stylistic Devices": 1,
             "Credible and Convincing": 1
           },
           "evaluator": {
-            "firstName": "Albert",
-            "lastName": "Schilling"
-          }
+            "firstName": "TestNr968224",
+            "lastName": "TestNr113765"
+          },
+          "date": 1583697434241
         },
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
+            "Gestures And Facial Expressions": 4,
+            "Pronounciation and Vocal Variety": 4,
             "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
+            "Stylistic Devices": 1,
+            "Credible and Convincing": 4
           },
           "evaluator": {
-            "firstName": "     Roman",
-            "lastName": "     Der Große          "
+            "firstName": "TestNr138784",
+            "lastName": "TestNr751496"
           },
-          "date": 1583522334787
+          "date": 1583697434350
         },
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 3,
+            "Gestures And Facial Expressions": 2,
             "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
+            "Comprehensibility and Structure": 1,
+            "Stylistic Devices": 1,
+            "Credible and Convincing": 4
           },
           "evaluator": {
-            "firstName": "roman",
-            "lastName": "der große"
+            "firstName": "TestNr266933",
+            "lastName": "TestNr18944"
           },
-          "date": 1583522342876
+          "date": 1583697454062
         },
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
+            "Gestures And Facial Expressions": 5,
+            "Pronounciation and Vocal Variety": 1,
             "Comprehensibility and Structure": 3,
             "Stylistic Devices": 3,
-            "Credible and Convincing": 3
+            "Credible and Convincing": 2
           },
           "evaluator": {
-            "firstName": "Albert             ",
-            "lastName": "                 der Vagabund      "
+            "firstName": "TestNr508415",
+            "lastName": "TestNr213347"
           },
-          "date": 1583522594692
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "Albert",
-            "lastName": "der Vagabund"
-          },
-          "date": 1583522601996
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "      Renate        ",
-            "lastName": "der Schulz"
-          },
-          "date": 1583522665905
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr0",
-            "lastName": "TestNr7"
-          },
-          "date": 1583685260859
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr2",
-            "lastName": "TestNr1"
-          },
-          "date": 1583685260990
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr8",
-            "lastName": "TestNr8"
-          },
-          "date": 1583685269440
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr3",
-            "lastName": "TestNr7"
-          },
-          "date": 1583685296779
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr3",
-            "lastName": "TestNr3"
-          },
-          "date": 1583685297016
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr8",
-            "lastName": "TestNr3"
-          },
-          "date": 1583685297381
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr826369",
-            "lastName": "TestNr938950"
-          },
-          "date": 1583685365546
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr462664",
-            "lastName": "TestNr240534"
-          },
-          "date": 1583685365830
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr743811",
-            "lastName": "TestNr830088"
-          },
-          "date": 1583685366062
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr930972",
-            "lastName": "TestNr211542"
-          },
-          "date": 1583685407394
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr411064",
-            "lastName": "TestNr398075"
-          },
-          "date": 1583685407573
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr233417",
-            "lastName": "TestNr842717"
-          },
-          "date": 1583685434486
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr563842",
-            "lastName": "TestNr298695"
-          },
-          "date": 1583685434543
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr390642",
-            "lastName": "TestNr383454"
-          },
-          "date": 1583685434679
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr623988",
-            "lastName": "TestNr646679"
-          },
-          "date": 1583685460315
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr573140",
-            "lastName": "TestNr385395"
-          },
-          "date": 1583685460469
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr725290",
-            "lastName": "TestNr78485"
-          },
-          "date": 1583685490549
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr484910",
-            "lastName": "TestNr950413"
-          },
-          "date": 1583685490851
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr476391",
-            "lastName": "TestNr878870"
-          },
-          "date": 1583685502083
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr181672",
-            "lastName": "TestNr106610"
-          },
-          "date": 1583685502520
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr234222",
-            "lastName": "TestNr905320"
-          },
-          "date": 1583685574590
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr228462",
-            "lastName": "TestNr798020"
-          },
-          "date": 1583685600092
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr380033",
-            "lastName": "TestNr923377"
-          },
-          "date": 1583686968726
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr799761",
-            "lastName": "TestNr349670"
-          },
-          "date": 1583687039932
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr4950",
-            "lastName": "TestNr493241"
-          },
-          "date": 1583687040085
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr458974",
-            "lastName": "TestNr154892"
-          },
-          "date": 1583687429117
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr493156",
-            "lastName": "TestNr207059"
-          },
-          "date": 1583687461971
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr135645",
-            "lastName": "TestNr856214"
-          },
-          "date": 1583687534630
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr683915",
-            "lastName": "TestNr418222"
-          },
-          "date": 1583688434191
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr79236",
-            "lastName": "TestNr279163"
-          },
-          "date": 1583688481283
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr387649",
-            "lastName": "TestNr593126"
-          },
-          "date": 1583688481782
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr174307",
-            "lastName": "TestNr686858"
-          },
-          "date": 1583688563127
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr436699",
-            "lastName": "TestNr557192"
-          },
-          "date": 1583688607230
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr358866",
-            "lastName": "TestNr63733"
-          },
-          "date": 1583688987551
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr783641",
-            "lastName": "TestNr792012"
-          },
-          "date": 1583689100966
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr405080",
-            "lastName": "TestNr181357"
-          },
-          "date": 1583689155419
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr498290",
-            "lastName": "TestNr297858"
-          },
-          "date": 1583689155693
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr319014",
-            "lastName": "TestNr599028"
-          },
-          "date": 1583689300066
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr59282",
-            "lastName": "TestNr36633"
-          },
-          "date": 1583689402734
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr654471",
-            "lastName": "TestNr423114"
-          },
-          "date": 1583689597745
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr763081",
-            "lastName": "TestNr195820"
-          },
-          "date": 1583690185087
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr359627",
-            "lastName": "TestNr77327"
-          },
-          "date": 1583690225443
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr372823",
-            "lastName": "TestNr665298"
-          },
-          "date": 1583690278912
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr686294",
-            "lastName": "TestNr26096"
-          },
-          "date": 1583690300142
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr1215",
-            "lastName": "TestNr700763"
-          },
-          "date": 1583692749773
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr319877",
-            "lastName": "TestNr681743"
-          },
-          "date": 1583692817013
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "Cypress First Name",
-            "lastName": "Cypress Last Name"
-          },
-          "date": 1583694409810
+          "date": 1583697479512
         }
       ]
     },
@@ -766,366 +95,58 @@
         {
           "dimensions": {
             "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 2,
+            "Credible and Convincing": 4
+          },
+          "evaluator": {
+            "firstName": "TestNr965267",
+            "lastName": "TestNr926967"
+          },
+          "date": 1583697434139
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 1,
+            "Pronounciation and Vocal Variety": 5,
+            "Comprehensibility and Structure": 2,
+            "Stylistic Devices": 1,
+            "Credible and Convincing": 2
+          },
+          "evaluator": {
+            "firstName": "TestNr983976",
+            "lastName": "TestNr353318"
+          },
+          "date": 1583697454383
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 1,
             "Pronounciation and Vocal Variety": 3,
             "Comprehensibility and Structure": 3,
             "Stylistic Devices": 3,
             "Credible and Convincing": 3
           },
           "evaluator": {
-            "firstName": "Albert",
-            "lastName": "Schilling"
+            "firstName": "TestNr525461",
+            "lastName": "TestNr28782"
           },
-          "date": 1583681328679
+          "date": 1583697459208
         },
         {
           "dimensions": {
             "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 4,
+            "Stylistic Devices": 2,
+            "Credible and Convincing": 1
           },
           "evaluator": {
-            "firstName": "TestNr158252",
-            "lastName": "TestNr182528"
+            "firstName": "TestNr832023",
+            "lastName": "TestNr373430"
           },
-          "date": 1583685599855
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr154672",
-            "lastName": "TestNr534584"
-          },
-          "date": 1583685600106
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr190773",
-            "lastName": "TestNr178404"
-          },
-          "date": 1583685731565
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr442930",
-            "lastName": "TestNr516425"
-          },
-          "date": 1583687079864
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr648924",
-            "lastName": "TestNr448115"
-          },
-          "date": 1583687364509
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr840789",
-            "lastName": "TestNr523942"
-          },
-          "date": 1583687416065
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr531814",
-            "lastName": "TestNr150230"
-          },
-          "date": 1583687539408
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr435461",
-            "lastName": "TestNr599015"
-          },
-          "date": 1583687578577
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr224272",
-            "lastName": "TestNr858107"
-          },
-          "date": 1583688392554
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr469726",
-            "lastName": "TestNr704586"
-          },
-          "date": 1583688433995
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr393584",
-            "lastName": "TestNr140670"
-          },
-          "date": 1583688563415
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr708308",
-            "lastName": "TestNr869344"
-          },
-          "date": 1583688580430
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr938083",
-            "lastName": "TestNr617240"
-          },
-          "date": 1583688729408
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr234814",
-            "lastName": "TestNr591192"
-          },
-          "date": 1583688757934
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr876497",
-            "lastName": "TestNr681374"
-          },
-          "date": 1583688758297
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr277204",
-            "lastName": "TestNr265105"
-          },
-          "date": 1583689061861
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr623132",
-            "lastName": "TestNr527431"
-          },
-          "date": 1583689100890
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr804651",
-            "lastName": "TestNr831299"
-          },
-          "date": 1583689101127
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr32147",
-            "lastName": "TestNr861294"
-          },
-          "date": 1583689163495
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr839815",
-            "lastName": "TestNr897073"
-          },
-          "date": 1583689300366
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr305871",
-            "lastName": "TestNr982442"
-          },
-          "date": 1583689337284
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr870170",
-            "lastName": "TestNr564108"
-          },
-          "date": 1583689597912
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr920974",
-            "lastName": "TestNr241914"
-          },
-          "date": 1583690185275
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr6270",
-            "lastName": "TestNr412624"
-          },
-          "date": 1583690278511
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 5
-          },
-          "evaluator": {
-            "firstName": "RandomFirstName",
-            "lastName": "RandomLastName"
-          },
-          "date": 1583694437044
+          "date": 1583697481451
         }
       ]
     },
@@ -1141,409 +162,31 @@
       "evaluations": [
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
+            "Gestures And Facial Expressions": 1,
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 5,
+            "Stylistic Devices": 1,
+            "Credible and Convincing": 4
           },
           "evaluator": {
-            "firstName": "TestNr617970",
-            "lastName": "TestNr618362"
+            "firstName": "TestNr744831",
+            "lastName": "TestNr181815"
           },
-          "date": 1583685574770
+          "date": 1583697453982
         },
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 3,
+            "Gestures And Facial Expressions": 4,
             "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
+            "Comprehensibility and Structure": 1,
+            "Stylistic Devices": 5,
+            "Credible and Convincing": 4
           },
           "evaluator": {
-            "firstName": "TestNr589696",
-            "lastName": "TestNr162183"
+            "firstName": "TestNr802252",
+            "lastName": "TestNr749621"
           },
-          "date": 1583687040075
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr872128",
-            "lastName": "TestNr755230"
-          },
-          "date": 1583687079725
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr762073",
-            "lastName": "TestNr583754"
-          },
-          "date": 1583687364301
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr457346",
-            "lastName": "TestNr997660"
-          },
-          "date": 1583687364533
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr741830",
-            "lastName": "TestNr306661"
-          },
-          "date": 1583687428939
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr216532",
-            "lastName": "TestNr583422"
-          },
-          "date": 1583687461945
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr776123",
-            "lastName": "TestNr310906"
-          },
-          "date": 1583688392418
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr86547",
-            "lastName": "TestNr991140"
-          },
-          "date": 1583688412894
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr432966",
-            "lastName": "TestNr144607"
-          },
-          "date": 1583688413172
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr903621",
-            "lastName": "TestNr679633"
-          },
-          "date": 1583688563140
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr5028",
-            "lastName": "TestNr979916"
-          },
-          "date": 1583688580063
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr569540",
-            "lastName": "TestNr469761"
-          },
-          "date": 1583688597818
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr240632",
-            "lastName": "TestNr918023"
-          },
-          "date": 1583688597959
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr81957",
-            "lastName": "TestNr739643"
-          },
-          "date": 1583688745250
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr271794",
-            "lastName": "TestNr390332"
-          },
-          "date": 1583688745490
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr546767",
-            "lastName": "TestNr519815"
-          },
-          "date": 1583688758173
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr805601",
-            "lastName": "TestNr383119"
-          },
-          "date": 1583688817081
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr274665",
-            "lastName": "TestNr179047"
-          },
-          "date": 1583688962971
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr183696",
-            "lastName": "TestNr142743"
-          },
-          "date": 1583688963391
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr559440",
-            "lastName": "TestNr572303"
-          },
-          "date": 1583688987488
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr175077",
-            "lastName": "TestNr725450"
-          },
-          "date": 1583689040685
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr52971",
-            "lastName": "TestNr96801"
-          },
-          "date": 1583689061496
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr1590",
-            "lastName": "TestNr399873"
-          },
-          "date": 1583689061720
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr522340",
-            "lastName": "TestNr274746"
-          },
-          "date": 1583689163537
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr340878",
-            "lastName": "TestNr196333"
-          },
-          "date": 1583689337556
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr419287",
-            "lastName": "TestNr345020"
-          },
-          "date": 1583689402280
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr509637",
-            "lastName": "TestNr459056"
-          },
-          "date": 1583690226012
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr307258",
-            "lastName": "TestNr442500"
-          },
-          "date": 1583692749372
+          "date": 1583697485438
         }
       ]
     },
@@ -1559,255 +202,101 @@
       "evaluations": [
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
+            "Gestures And Facial Expressions": 2,
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 4,
+            "Credible and Convincing": 1
+          },
+          "evaluator": {
+            "firstName": "TestNr781227",
+            "lastName": "TestNr52733"
+          },
+          "date": 1583697398313
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 2,
+            "Pronounciation and Vocal Variety": 5,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 1,
+            "Credible and Convincing": 5
+          },
+          "evaluator": {
+            "firstName": "TestNr76036",
+            "lastName": "TestNr845016"
+          },
+          "date": 1583697398509
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 1,
+            "Pronounciation and Vocal Variety": 5,
             "Comprehensibility and Structure": 3,
             "Stylistic Devices": 3,
+            "Credible and Convincing": 2
+          },
+          "evaluator": {
+            "firstName": "TestNr808894",
+            "lastName": "TestNr458303"
+          },
+          "date": 1583697461301
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 2,
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 4,
+            "Stylistic Devices": 1,
             "Credible and Convincing": 3
           },
           "evaluator": {
-            "firstName": "TestNr916886",
-            "lastName": "TestNr791550"
+            "firstName": "TestNr206677",
+            "lastName": "TestNr577604"
           },
-          "date": 1583685608802
+          "date": 1583697477484
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 1,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 4,
+            "Credible and Convincing": 5
+          },
+          "evaluator": {
+            "firstName": "TestNr261489",
+            "lastName": "TestNr911437"
+          },
+          "date": 1583697483535
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 4,
+            "Pronounciation and Vocal Variety": 4,
+            "Comprehensibility and Structure": 5,
+            "Stylistic Devices": 4,
+            "Credible and Convincing": 1
+          },
+          "evaluator": {
+            "firstName": "TestNr525806",
+            "lastName": "TestNr872357"
+          },
+          "date": 1583697487608
         },
         {
           "dimensions": {
             "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
+            "Pronounciation and Vocal Variety": 2,
+            "Comprehensibility and Structure": 2,
             "Stylistic Devices": 3,
-            "Credible and Convincing": 3
+            "Credible and Convincing": 2
           },
           "evaluator": {
-            "firstName": "TestNr726181",
-            "lastName": "TestNr134628"
+            "firstName": "TestNr318861",
+            "lastName": "TestNr555285"
           },
-          "date": 1583685608955
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr259918",
-            "lastName": "TestNr897900"
-          },
-          "date": 1583685731353
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr796861",
-            "lastName": "TestNr54319"
-          },
-          "date": 1583687079933
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr788561",
-            "lastName": "TestNr95708"
-          },
-          "date": 1583687416518
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr818456",
-            "lastName": "TestNr313659"
-          },
-          "date": 1583687417061
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr14246",
-            "lastName": "TestNr430711"
-          },
-          "date": 1583687428987
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr302681",
-            "lastName": "TestNr292373"
-          },
-          "date": 1583687453161
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr346483",
-            "lastName": "TestNr445949"
-          },
-          "date": 1583687578782
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr48134",
-            "lastName": "TestNr412232"
-          },
-          "date": 1583688597747
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr762227",
-            "lastName": "TestNr909169"
-          },
-          "date": 1583688729280
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr30207",
-            "lastName": "TestNr667974"
-          },
-          "date": 1583688745120
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr192316",
-            "lastName": "TestNr70097"
-          },
-          "date": 1583688817292
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr846565",
-            "lastName": "TestNr512274"
-          },
-          "date": 1583688963583
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr68599",
-            "lastName": "TestNr57746"
-          },
-          "date": 1583689163734
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr885276",
-            "lastName": "TestNr483916"
-          },
-          "date": 1583690225932
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr814542",
-            "lastName": "TestNr86188"
-          },
-          "date": 1583690278776
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr605160",
-            "lastName": "TestNr752860"
-          },
-          "date": 1583692749902
+          "date": 1583697489484
         }
       ]
     },
@@ -1823,423 +312,31 @@
       "evaluations": [
         {
           "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "Albert",
-            "lastName": "Schilling"
-          },
-          "date": 1583492187194
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "Werner",
-            "lastName": "Herzog"
-          },
-          "date": 1583520388413
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "Werner",
-            "lastName": "Herzog\\"
-          },
-          "date": 1583520394723
-        },
-        {
-          "dimensions": {
             "Gestures And Facial Expressions": 4,
-            "Pronounciation and Vocal Variety": 2,
+            "Pronounciation and Vocal Variety": 1,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "TestNr516698",
+            "lastName": "TestNr623464"
+          },
+          "date": 1583697463323
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 5,
+            "Pronounciation and Vocal Variety": 4,
             "Comprehensibility and Structure": 4,
-            "Stylistic Devices": 2,
-            "Credible and Convincing": 5
+            "Stylistic Devices": 5,
+            "Credible and Convincing": 4
           },
           "evaluator": {
-            "firstName": "Julia",
-            "lastName": "Bauer"
+            "firstName": "TestNr873377",
+            "lastName": "TestNr597056"
           },
-          "date": 1583680171878
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr858929",
-            "lastName": "TestNr662472"
-          },
-          "date": 1583685574610
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr814803",
-            "lastName": "TestNr339210"
-          },
-          "date": 1583685608559
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr286597",
-            "lastName": "TestNr270068"
-          },
-          "date": 1583685616481
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr308375",
-            "lastName": "TestNr257134"
-          },
-          "date": 1583685731344
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr257275",
-            "lastName": "TestNr821330"
-          },
-          "date": 1583686968663
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr649472",
-            "lastName": "TestNr58463"
-          },
-          "date": 1583686970782
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr913359",
-            "lastName": "TestNr362093"
-          },
-          "date": 1583687453044
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr960265",
-            "lastName": "TestNr913382"
-          },
-          "date": 1583687453460
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr336766",
-            "lastName": "TestNr26705"
-          },
-          "date": 1583687534346
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr576544",
-            "lastName": "TestNr882170"
-          },
-          "date": 1583687578555
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr913321",
-            "lastName": "TestNr881243"
-          },
-          "date": 1583688392818
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr534103",
-            "lastName": "TestNr866951"
-          },
-          "date": 1583688413290
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr454370",
-            "lastName": "TestNr634621"
-          },
-          "date": 1583688434113
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr100963",
-            "lastName": "TestNr389251"
-          },
-          "date": 1583688481698
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr386974",
-            "lastName": "TestNr861235"
-          },
-          "date": 1583688580571
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr376867",
-            "lastName": "TestNr403936"
-          },
-          "date": 1583688607353
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr367044",
-            "lastName": "TestNr219940"
-          },
-          "date": 1583688729791
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr693265",
-            "lastName": "TestNr163774"
-          },
-          "date": 1583688817165
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr540619",
-            "lastName": "TestNr117803"
-          },
-          "date": 1583689040225
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr961723",
-            "lastName": "TestNr424711"
-          },
-          "date": 1583689155881
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr492618",
-            "lastName": "TestNr516695"
-          },
-          "date": 1583689337279
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr102353",
-            "lastName": "TestNr364312"
-          },
-          "date": 1583689402992
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr946542",
-            "lastName": "TestNr987062"
-          },
-          "date": 1583690185026
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr68527",
-            "lastName": "TestNr966837"
-          },
-          "date": 1583690299793
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr516737",
-            "lastName": "TestNr507070"
-          },
-          "date": 1583690300032
-        },
-        {
-          "dimensions": {
-            "Gestures And Facial Expressions": 3,
-            "Pronounciation and Vocal Variety": 3,
-            "Comprehensibility and Structure": 3,
-            "Stylistic Devices": 3,
-            "Credible and Convincing": 3
-          },
-          "evaluator": {
-            "firstName": "TestNr257803",
-            "lastName": "TestNr177676"
-          },
-          "date": 1583692816664
+          "date": 1583697475369
         }
       ]
     }

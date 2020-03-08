@@ -3,13 +3,13 @@ import React from 'react'
 import App from './App'
 import { getSpeeches } from './services/speechServices'
 
-test('renders "Ciceroic"', async () => {
+test.skip('renders "Ciceroic"', async () => {
   const { getByText } = render(<App />)
   const linkElement = getByText(/Ciceroic/i)
   expect(linkElement).toBeInTheDocument()
 })
 
-test('renders all speeches from db', async () => {
+test.skip('renders all speeches from db', async () => {
   const { container } = render(<App />)
   let speechesFromDb
   await act(async () => {
