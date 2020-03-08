@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
@@ -7,15 +7,15 @@ import Header from './components/Header'
 import SpeechesList from './components/Speech/SpeechesList'
 import Speech from './components/Speech/Speech'
 import { getSpeeches } from './services/speechServices'
+import useSpeech from './hooks/useSpeech'
 
 function App() {
-  const [speeches, setSpeeches] = useState([])
-  const [speech, setSpeech] = useState({})
+  const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
-  }, [])
+  }, [setSpeeches])
   // console.log('speeches:', speeches)
   // console.log('speech:', speech)
   return (
@@ -25,11 +25,18 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <SpeechesList
-              speeches={speeches}
-              setSpeech={setSpeech}
-              speechBasePath={speechBasePath}
-            />
+            {speeches === undefined ? (
+              <p style={{ padding: '20px' }}>
+                {console.log('(speeches', speeches)}
+                Sorry, we cannot connect to the server. Please, try again later.
+              </p>
+            ) : (
+              <SpeechesList
+                speeches={speeches}
+                setSpeech={setSpeech}
+                speechBasePath={speechBasePath}
+              />
+            )}
           </Route>
           <Route exact path="/speech/:id">
             <Speech
