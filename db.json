@@ -736,6 +736,20 @@
             "lastName": "TestNr681743"
           },
           "date": 1583692817013
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 3
+          },
+          "evaluator": {
+            "firstName": "Cypress First Name",
+            "lastName": "Cypress Last Name"
+          },
+          "date": 1583694409810
         }
       ]
     },
@@ -1098,6 +1112,20 @@
             "lastName": "TestNr412624"
           },
           "date": 1583690278511
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 3,
+            "Pronounciation and Vocal Variety": 3,
+            "Comprehensibility and Structure": 3,
+            "Stylistic Devices": 3,
+            "Credible and Convincing": 5
+          },
+          "evaluator": {
+            "firstName": "RandomFirstName",
+            "lastName": "RandomLastName"
+          },
+          "date": 1583694437044
         }
       ]
     },
