@@ -1,38 +1,51 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import VideosList from './components/VideosList'
-// import Video from './components/Video'
-import { getVideos } from './services/videoServices'
+import SpeechesList from './components/Speech/SpeechesList'
+import Speech from './components/Speech/Speech'
+import { getSpeeches } from './services/speechServices'
+import useSpeech from './hooks/useSpeech'
 
 function App() {
-  const [videos, setVideos] = useState([])
+  const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
+  const speechBasePath = '/videos/'
 
   useEffect(() => {
-    getVideos().then(res => {
-      console.log(res)
-      return setVideos(res)
-    })
-  }, [])
-
+    getSpeeches().then(res => setSpeeches(res))
+  }, [setSpeeches])
+  // console.log('speeches:', speeches)
+  // console.log('speech:', speech)
   return (
     <AppBodyStyled>
       <GlobalStyle />
       <Header />
       <Router>
-        <Main>
-          <Switch>
-            <Route exact path="/">
-              <VideosList videos={videos} />
-            </Route>
-            {/* <Route exact path="/video">
-              <Video videos={videos} />
-            </Route> */}
-          </Switch>
-        </Main>
+        <Switch>
+          <Route exact path="/">
+            {speeches === undefined ? (
+              <p style={{ padding: '20px' }}>
+                {console.log('(speeches', speeches)}
+                Sorry, we cannot connect to the server. Please, try again later.
+              </p>
+            ) : (
+              <SpeechesList
+                speeches={speeches}
+                setSpeech={setSpeech}
+                speechBasePath={speechBasePath}
+              />
+            )}
+          </Route>
+          <Route exact path="/speech/:id">
+            <Speech
+              speech={speech}
+              setSpeech={setSpeech}
+              speechBasePath={speechBasePath}
+            />
+          </Route>
+        </Switch>
       </Router>
       <Footer />
     </AppBodyStyled>
@@ -46,9 +59,4 @@ const AppBodyStyled = styled.div`
   grid-template: 72px auto 60px / 1fr;
   width: 100vw;
   height: 100vh;
-`
-const Main = styled.main`
-  padding: 20px;
-  height: 100%;
-  overflow-y: scroll;
 `
