@@ -97,10 +97,10 @@ export default {
   decorators: [
     withKnobs,
     storyFn => (
-      <Router>
+      <>
         <GlobalStyle />
         <section style={sectionStyles}>{storyFn()}</section>
-      </Router>
+      </>
     ),
   ],
   component: SpeechStatistics,

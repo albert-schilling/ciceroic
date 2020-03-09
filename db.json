@@ -863,6 +863,20 @@
             "lastName": "TestNr947502"
           },
           "date": 1583738959065
+        },
+        {
+          "dimensions": {
+            "Gestures And Facial Expressions": 1,
+            "Pronounciation and Vocal Variety": 5,
+            "Comprehensibility and Structure": 5,
+            "Stylistic Devices": 1,
+            "Credible and Convincing": 4
+          },
+          "evaluator": {
+            "firstName": "Barack",
+            "lastName": "Obama"
+          },
+          "date": 1583746344237
         }
       ]
     },
