@@ -38,12 +38,17 @@ const TabTitle = styled.button`
   border: none;
   background: lightblue;
   font-size: 1rem;
-  color: #fff;
+  background: #eee;
+  color: #aaa;
   &.active {
     background: navy;
+    color: #fff;
   }
 `
 
 const TabBody = styled.section`
   order: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `
