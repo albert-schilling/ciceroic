@@ -7,7 +7,7 @@ describe('getSpeeches', () => {
 })
 
 describe('patchSpeech', () => {
-  it.only('patches an entry and gets back the updated array', async () => {
+  it('patches an entry and gets back the updated array', async () => {
     const speechNumber = Math.floor(Math.random() * 5 + 1)
     const speech = await getSpeeches(speechNumber)
     const randomFirstName = 'TestNr' + Math.floor(Math.random() * 1000000)

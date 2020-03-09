@@ -5,27 +5,87 @@ import GlobalStyle from '../../common/GlobalStyle'
 import SpeechStatistics from './SpeechStatistics'
 
 const speech = {
+  id: '1',
   category: 'Lecture',
-  date: 'Jun 27, 2014',
+  title: 'How to speak so that people want to listen',
+  speaker: 'Julian Treasure',
   description:
     "Have you ever felt like you're talking, but nobody is listening? Here's Julian Treasure to help you fix that. As the sound expert demonstrates some useful vocal exercises and shares tips on how to speak with empathy, he offers his vision for a sonorous world of listening and understanding.",
+  date: 'Jun 27, 2014',
   duration: '9.58',
+  filename: 'How to speak so that people want to listen _ Julian Treasure.mp4',
   evaluations: [
     {
       dimensions: {
-        'Comprehensibility and Structure': 1,
-        'Credible and Convincing': 1,
-        'Gestures And Facial Expressions': 1,
-        'Pronounciation and Vocal Variety': 4,
-        'Stylistic Devices': 4,
+        'Gestures And Facial Expressions': 4,
+        'Pronounciation and Vocal Variety': 2,
+        'Comprehensibility and Structure': 2,
+        'Stylistic Devices': 2,
+        'Credible and Convincing': 4,
       },
-      evaluator: { firstName: 'Albert', lastName: 'Schilling' },
+      evaluator: {
+        firstName: 'TestNr468105',
+        lastName: 'TestNr259065',
+      },
+      date: 1583697398446,
+    },
+    {
+      dimensions: {
+        'Gestures And Facial Expressions': 3,
+        'Pronounciation and Vocal Variety': 1,
+        'Comprehensibility and Structure': 5,
+        'Stylistic Devices': 1,
+        'Credible and Convincing': 1,
+      },
+      evaluator: {
+        firstName: 'TestNr968224',
+        lastName: 'TestNr113765',
+      },
+      date: 1583697434241,
+    },
+    {
+      dimensions: {
+        'Gestures And Facial Expressions': 4,
+        'Pronounciation and Vocal Variety': 4,
+        'Comprehensibility and Structure': 3,
+        'Stylistic Devices': 1,
+        'Credible and Convincing': 4,
+      },
+      evaluator: {
+        firstName: 'TestNr138784',
+        lastName: 'TestNr751496',
+      },
+      date: 1583697434350,
+    },
+    {
+      dimensions: {
+        'Gestures And Facial Expressions': 2,
+        'Pronounciation and Vocal Variety': 3,
+        'Comprehensibility and Structure': 1,
+        'Stylistic Devices': 1,
+        'Credible and Convincing': 4,
+      },
+      evaluator: {
+        firstName: 'TestNr266933',
+        lastName: 'TestNr18944',
+      },
+      date: 1583697454062,
+    },
+    {
+      dimensions: {
+        'Gestures And Facial Expressions': 5,
+        'Pronounciation and Vocal Variety': 1,
+        'Comprehensibility and Structure': 3,
+        'Stylistic Devices': 3,
+        'Credible and Convincing': 2,
+      },
+      evaluator: {
+        firstName: 'TestNr508415',
+        lastName: 'TestNr213347',
+      },
+      date: 1583697479512,
     },
   ],
-  filename: 'How to speak so that people want to listen _ Julian Treasure.mp4',
-  id: '1',
-  speaker: 'Julian Treasure',
-  title: 'How to speak so that people want to listen',
 }
 
 const sectionStyles = {
