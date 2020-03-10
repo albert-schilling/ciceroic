@@ -62,10 +62,10 @@ export default function useForm({
 
   function updateEvaluation() {
     console.log(evaluation.evaluator.firstName)
-    evaluation.evaluator.firstName.trim()
+    evaluation.evaluator.firstName.trim(' ')
     console.log(evaluation.evaluator.firstName)
 
-    evaluation.evaluator.lastName.trim()
+    evaluation.evaluator.lastName.trim(' ')
     Object.assign(evaluation, { date: new Date().getTime() })
     speech.evaluations.push(evaluation)
     console.log(evaluation)
