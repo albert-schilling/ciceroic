@@ -31,12 +31,16 @@ export default function useForm({
 
   const handleSubmit = event => {
     event.preventDefault()
-    // document.addEventListener('keyup', event => {
-    //   if (event.isComposing || event.keyCode === 229) {
-    //     return
-    //   }
-    //   // do something
-    // })
+
+    document.addEventListener('keyup', event => {
+      if (event.isComposing || event.keyCode === 13) {
+        console.log('return clicked')
+        // (() => {
+        //   setMessage({ ...message, visible: 'none' })
+        //   message.confirmHandler(message.focusRef)
+        // })()
+      }
+    })
     message.buttonRef.current.focus()
 
     if (searchMissingInput(refs)) {

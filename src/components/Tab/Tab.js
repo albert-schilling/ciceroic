@@ -11,7 +11,7 @@ export default function Tab({
   const reference = useRef(null)
   useEffect(() => {
     active && handleClick(reference)
-  }, [])
+  }, [active, handleClick])
   return (
     <>
       <TabTitle

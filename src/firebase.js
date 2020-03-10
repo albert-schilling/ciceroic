@@ -16,4 +16,6 @@ firebase.initializeApp(firebaseConfig)
 
 const db = firebase.firestore()
 
-export const speechesRef = db.collection('speeches')
+export default db
+
+// export const speechesRef = db.collection('speeches')

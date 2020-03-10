@@ -4,10 +4,10 @@ import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import SpeechesList from './components/Speech/SpeechesList'
 import Speech from './components/Speech/Speech'
-import { getSpeeches } from './services/speechServices'
+import SpeechesList from './components/Speech/SpeechesList'
 import useSpeech from './hooks/useSpeech'
+import { getSpeeches } from './services/speechServices'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -15,9 +15,12 @@ function App() {
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
+    // checkDB()
+    // addUser({ firstName: 'Julia', lastName: 'Bauer', birthYear: 1989 })
+    // getUsers()
   }, [setSpeeches])
-  // console.log('speeches:', speeches)
-  // console.log('speech:', speech)
+  console.log('speeches:', speeches)
+  console.log('speech:', speech)
   return (
     <AppBodyStyled>
       <GlobalStyle />
@@ -27,7 +30,6 @@ function App() {
           <Route exact path="/">
             {speeches === undefined ? (
               <p style={{ padding: '20px' }}>
-                {console.log('(speeches', speeches)}
                 Sorry, we cannot connect to the server. Please, try again later.
               </p>
             ) : (
