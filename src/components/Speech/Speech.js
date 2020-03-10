@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import { getSpeeches } from '../../services/speechServices'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import useForm from '../../hooks/useForm'
+// import TabContainer from '../Tab/TabContainer'
+import Tab from '../Tab/Tab'
+import SpeechStatistics from './SpeechStatistics'
 
 export default function Speech({ speechBasePath, speech, setSpeech }) {
   let { id } = useParams()
@@ -25,13 +28,14 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
     setSpeech,
     id,
   })
+  const [activeTab, setActiveTab] = useState('')
 
   useEffect(() => {
     Object.entries(speech).length === 0 &&
       getSpeeches(id).then(res => {
         setSpeech(res)
       })
-    inputFirstNameRef.current.focus()
+    // inputFirstNameRef.current.focus()
   }, [speech, setSpeech, id])
 
   return (
@@ -58,17 +62,33 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
           <small>{speech.date}</small>
         </SpeechDetails>
       </SpeechInformation>
-      <SpeechEvaluationForm
-        evaluation={evaluation}
-        setEvaluation={setEvaluation}
-        handleSubmit={handleSubmit}
-        inputFirstNameRef={inputFirstNameRef}
-        inputLastNameRef={inputLastNameRef}
-        message={message}
-        setMessage={setMessage}
-      />
+
+      <TabContainerStyled>
+        <Tab
+          handleClick={handleClick}
+          activeTab={activeTab}
+          active={true}
+          title="Evaluate"
+        >
+          <SpeechEvaluationForm
+            evaluation={evaluation}
+            setEvaluation={setEvaluation}
+            handleSubmit={handleSubmit}
+            inputFirstNameRef={inputFirstNameRef}
+            inputLastNameRef={inputLastNameRef}
+            message={message}
+            setMessage={setMessage}
+          />
+        </Tab>
+        <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
+          <SpeechStatistics speech={speech} />
+        </Tab>
+      </TabContainerStyled>
     </Main>
   )
+  function handleClick(ref) {
+    setActiveTab(ref)
+  }
 }
 
 const Main = styled.main`
@@ -78,7 +98,7 @@ const Main = styled.main`
   overflow-y: scroll;
   @media (min-width: 700px) {
     display: grid;
-    grid-template-areas: 'backLink backLink' 'video information' 'evaluation evaluation';
+    grid-template-areas: 'backLink backLink' 'video information' 'tab tab';
     grid-gap: 12px;
   }
 `
@@ -129,4 +149,10 @@ const SpeechDetails = styled.p`
   grid-gap: 4px;
   color: var(--secondary-font-color);
   margin-bottom: 0;
+`
+
+const TabContainerStyled = styled.section`
+  grid-area: tab;
+  display: flex;
+  flex-wrap: wrap;
 `

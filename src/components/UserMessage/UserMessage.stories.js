@@ -1,8 +1,6 @@
-import { action } from '@storybook/addon-actions'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
-import React, { useState, useRef } from 'react'
-
-import GlobalStyle from '../common/GlobalStyle'
+import { withKnobs } from '@storybook/addon-knobs'
+import React from 'react'
+import GlobalStyle from '../../common/GlobalStyle'
 import UserMessage from './UserMessage'
 
 const message = {
