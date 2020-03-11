@@ -18,8 +18,8 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
     evaluation,
     setEvaluation,
     message,
-    setMessage,
     handleSubmit,
+    handleClickOnUserMessage,
   } = useForm({
     evaluationDimensions,
     refs: [inputFirstNameRef, inputLastNameRef],
@@ -72,7 +72,7 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
             inputFirstNameRef={inputFirstNameRef}
             inputLastNameRef={inputLastNameRef}
             message={message}
-            setMessage={setMessage}
+            handleClickOnUserMessage={handleClickOnUserMessage}
           />
         </Tab>
         <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
