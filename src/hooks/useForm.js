@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { patchSpeech } from '../services/speechServices'
 
 export default function useForm({
@@ -22,22 +22,13 @@ export default function useForm({
   })
 
   const [message, setMessage] = useState({
-    visible: 'none',
+    visible: false,
     text: '',
-    buttonRef: useRef(null),
-    confirmHandler: () => {},
-    focusRef: refs[0].current,
+    focusRef: refs[0],
   })
 
   const handleSubmit = event => {
     event.preventDefault()
-    // document.addEventListener('keyup', event => {
-    //   if (event.isComposing || event.keyCode === 229) {
-    //     return
-    //   }
-    //   // do something
-    // })
-    message.buttonRef.current.focus()
 
     if (searchMissingInput(refs)) {
       return
@@ -51,24 +42,19 @@ export default function useForm({
     resetEvaluation()
     setMessage({
       ...message,
-      visible: 'flex',
+      visible: true,
       text: `Thank you ${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}. 
       Your evaluation has been submitted.`,
-      confirmHandler: focusReference,
       focusRef: refs[0],
     })
-    message.buttonRef.current.focus()
   }
 
   function updateEvaluation() {
-    console.log(evaluation.evaluator.firstName)
-    evaluation.evaluator.firstName.trim()
-    console.log(evaluation.evaluator.firstName)
-
-    evaluation.evaluator.lastName.trim()
+    evaluation.evaluator.firstName = evaluation.evaluator.firstName.trim()
+    evaluation.evaluator.lastName = evaluation.evaluator.lastName.trim()
     Object.assign(evaluation, { date: new Date().getTime() })
     speech.evaluations.push(evaluation)
-    console.log(evaluation)
+    console.table('new evaluation:', evaluation)
     setSpeech(speech)
     patchSpeech(id, speech)
   }
@@ -83,13 +69,12 @@ export default function useForm({
 
   function searchMissingInput(references) {
     const missingInput = references.find(reference => !reference.current.value)
-
+    console.log('references', references)
     if (!!missingInput) {
       setMessage({
         ...message,
-        visible: 'flex',
+        visible: true,
         text: `Please, fill out your ${missingInput.current.name}.`,
-        confirmHandler: focusReference,
         focusRef: missingInput,
       })
     }
@@ -106,19 +91,30 @@ export default function useForm({
     if (foundEvaluator) {
       setMessage({
         ...message,
-        visible: 'flex',
+        visible: true,
         text: `Sorry, ${fullName},
         you have already evaluated this speech.`,
-        confirmHandler: focusReference,
         focusRef: refs[0],
       })
     }
     return foundEvaluator
   }
 
-  function focusReference(ref) {
-    ref.current.focus()
+  function handleClickOnUserMessage() {
+    message.focusRef.current.focus()
+    setMessage({
+      ...message,
+      visible: false,
+      focusRef: refs[0],
+    })
   }
 
-  return { evaluation, setEvaluation, message, setMessage, handleSubmit }
+  return {
+    evaluation,
+    setEvaluation,
+    message,
+    setMessage,
+    handleSubmit,
+    handleClickOnUserMessage,
+  }
 }

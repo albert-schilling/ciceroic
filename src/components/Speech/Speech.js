@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
-import { getSpeeches } from '../../services/speechServices'
-import SpeechEvaluationForm from './SpeechEvaluationForm'
 import useForm from '../../hooks/useForm'
-// import TabContainer from '../Tab/TabContainer'
+import { getSpeech } from '../../services/speechServices'
 import Tab from '../Tab/Tab'
+import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
 
 export default function Speech({ speechBasePath, speech, setSpeech }) {
@@ -19,8 +18,8 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
     evaluation,
     setEvaluation,
     message,
-    setMessage,
     handleSubmit,
+    handleClickOnUserMessage,
   } = useForm({
     evaluationDimensions,
     refs: [inputFirstNameRef, inputLastNameRef],
@@ -31,12 +30,8 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
   const [activeTab, setActiveTab] = useState('')
 
   useEffect(() => {
-    Object.entries(speech).length === 0 &&
-      getSpeeches(id).then(res => {
-        setSpeech(res)
-      })
-    // inputFirstNameRef.current.focus()
-  }, [speech, setSpeech, id])
+    getSpeech(id).then(res => setSpeech(res))
+  }, [setSpeech, id])
 
   return (
     <Main>
@@ -77,7 +72,7 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
             inputFirstNameRef={inputFirstNameRef}
             inputLastNameRef={inputLastNameRef}
             message={message}
-            setMessage={setMessage}
+            handleClickOnUserMessage={handleClickOnUserMessage}
           />
         </Tab>
         <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
@@ -86,6 +81,7 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
       </TabContainerStyled>
     </Main>
   )
+
   function handleClick(ref) {
     setActiveTab(ref)
   }

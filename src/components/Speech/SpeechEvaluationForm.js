@@ -11,7 +11,7 @@ export default function SpeechEvaluationForm({
   inputFirstNameRef,
   inputLastNameRef,
   message,
-  setMessage,
+  handleClickOnUserMessage,
 }) {
   return (
     <SpeechEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
@@ -19,17 +19,13 @@ export default function SpeechEvaluationForm({
         <label htmlFor="firstName">
           First Name
           <input
+            autoFocus
+            onChange={handleChange}
             ref={inputFirstNameRef}
             type="text"
             name="first name"
             id="firstName"
-            value={
-              evaluation.hasOwnProperty('evaluator') &&
-              evaluation.evaluator.hasOwnProperty('firstName')
-                ? evaluation.evaluator.firstName
-                : ''
-            }
-            onChange={handleChange}
+            value={evaluation.evaluator.firstName}
           />
         </label>
 
@@ -40,12 +36,7 @@ export default function SpeechEvaluationForm({
             type="text"
             name="last name"
             id="lastName"
-            value={
-              evaluation.hasOwnProperty('evaluator') &&
-              evaluation.evaluator.hasOwnProperty('lastName')
-                ? evaluation.evaluator.lastName
-                : ''
-            }
+            value={evaluation.evaluator.lastName}
             onChange={handleChange}
           />
         </label>
@@ -64,7 +55,9 @@ export default function SpeechEvaluationForm({
         })}
       </SpeechEvaluationFormSection>
       <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
-      <UserMessage message={message} setMessage={setMessage} />
+      {message.visible === true && (
+        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
+      )}
     </SpeechEvaluationFormStyled>
   )
   function handleChange(event) {
@@ -140,4 +133,5 @@ const SpeechEvaluationSubmit = styled.button`
   font-size: 1rem;
   color: var(--inverse-primary-font-color);
   text-decoration: none;
+  cursor: pointer;
 `

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-
 import SpeechCard from './SpeechCard'
+
 export default function SpeechesList({ speeches, setSpeech, speechBasePath }) {
   return (
     <Main>
@@ -9,7 +9,7 @@ export default function SpeechesList({ speeches, setSpeech, speechBasePath }) {
         {speeches.map(speech => {
           return (
             <SpeechCard
-              key={speech.id}
+              key={speech._id}
               speech={speech}
               setSpeech={setSpeech}
               speechBasePath={speechBasePath}
