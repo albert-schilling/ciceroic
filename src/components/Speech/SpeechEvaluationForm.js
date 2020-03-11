@@ -11,7 +11,7 @@ export default function SpeechEvaluationForm({
   inputFirstNameRef,
   inputLastNameRef,
   message,
-  setMessage,
+  handleClickOnUserMessage,
 }) {
   return (
     <SpeechEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
@@ -19,6 +19,7 @@ export default function SpeechEvaluationForm({
         <label htmlFor="firstName">
           First Name
           <input
+            autoFocus
             onChange={handleChange}
             ref={inputFirstNameRef}
             type="text"
@@ -54,7 +55,9 @@ export default function SpeechEvaluationForm({
         })}
       </SpeechEvaluationFormSection>
       <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
-      <UserMessage message={message} setMessage={setMessage} />
+      {message.visible === true && (
+        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
+      )}
     </SpeechEvaluationFormStyled>
   )
   function handleChange(event) {
@@ -130,4 +133,5 @@ const SpeechEvaluationSubmit = styled.button`
   font-size: 1rem;
   color: var(--inverse-primary-font-color);
   text-decoration: none;
+  cursor: pointer;
 `

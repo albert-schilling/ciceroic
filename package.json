@@ -19,9 +19,9 @@
     "styled-components": "5.0.1"
   },
   "scripts": {
-    "start": "npm run server & npm run client",
-    "client": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "npm run build && firebase deploy --only hosting",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 db.json",
