@@ -34,3 +34,12 @@ src/videos
 src/components/DEV
 
 .firebase
+firebase
+.firebaserc
+
+build
+public 
+
+.env
+
+src/firebase.js
