@@ -1,4 +1,4 @@
-import db from '../firebase'
+import { db } from './firebase'
 
 export function postSpeeches(speeches) {
   speeches.forEach(speech => {

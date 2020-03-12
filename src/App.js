@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Router, Route, Switch } from 'react-router-dom'
+import history from './common/history'
 import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import Footer from './components/Footer'
@@ -8,6 +9,9 @@ import Speech from './components/Speech/Speech'
 import SpeechesList from './components/Speech/SpeechesList'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
+import PageLayout from './components/PageLayout/PageLayout'
+import AuthProvider from './components/Auth/AuthContext'
+import UserForm from './components/UserForm/UserForm'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -24,30 +28,36 @@ function App() {
   return (
     <AppBodyStyled>
       <GlobalStyle />
-      <Header />
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            {speeches === undefined ? (
-              <p style={{ padding: '20px' }}>
-                Sorry, we cannot connect to the server. Please, try again later.
-              </p>
-            ) : (
-              <SpeechesList
-                speeches={speeches}
+      <Router history={history}>
+        <AuthProvider>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              {speeches === undefined ? (
+                <p style={{ padding: '20px' }}>
+                  Sorry, we cannot connect to the server. Please, try again
+                  later.
+                </p>
+              ) : (
+                <SpeechesList
+                  speeches={speeches}
+                  setSpeech={setSpeech}
+                  speechBasePath={speechBasePath}
+                />
+              )}
+            </Route>
+            <Route exact path="/signup">
+              <UserForm></UserForm>
+            </Route>
+            <Route exact path="/speech/:id">
+              <Speech
+                speech={speech}
                 setSpeech={setSpeech}
                 speechBasePath={speechBasePath}
               />
-            )}
-          </Route>
-          <Route exact path="/speech/:id">
-            <Speech
-              speech={speech}
-              setSpeech={setSpeech}
-              speechBasePath={speechBasePath}
-            />
-          </Route>
-        </Switch>
+            </Route>
+          </Switch>
+        </AuthProvider>
       </Router>
       <Footer />
     </AppBodyStyled>
