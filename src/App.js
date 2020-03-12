@@ -9,9 +9,9 @@ import Speech from './components/Speech/Speech'
 import SpeechesList from './components/Speech/SpeechesList'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
-import PageLayout from './components/PageLayout/PageLayout'
 import AuthProvider from './components/Auth/AuthContext'
 import UserForm from './components/UserForm/UserForm'
+import HomePage from './components/Pages/HomePage'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -19,12 +19,7 @@ function App() {
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
-    // checkDB()
-    // addUser({ firstName: 'Julia', lastName: 'Bauer', birthYear: 1989 })
-    // getUsers()
   }, [setSpeeches])
-  console.log('speeches:', speeches)
-  console.log('speech:', speech)
   return (
     <AppBodyStyled>
       <GlobalStyle />
@@ -33,7 +28,12 @@ function App() {
           <Header />
           <Switch>
             <Route exact path="/">
-              {speeches === undefined ? (
+              <HomePage
+                speeches={speeches}
+                setSpeech={setSpeech}
+                speechBasePath={speechBasePath}
+              />
+              {/* {speeches === undefined ? (
                 <p style={{ padding: '20px' }}>
                   Sorry, we cannot connect to the server. Please, try again
                   later.
@@ -44,7 +44,7 @@ function App() {
                   setSpeech={setSpeech}
                   speechBasePath={speechBasePath}
                 />
-              )}
+              )} */}
             </Route>
             <Route exact path="/signup">
               <UserForm></UserForm>

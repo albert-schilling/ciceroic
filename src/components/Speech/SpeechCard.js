@@ -3,10 +3,6 @@ import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 
 export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
-  console.log('speech._id in speechcard.js', speech._id)
-
-  console.log('route to:', '/speech/' + speech._id)
-
   return (
     <SpeechCardBody role="region">
       {speech.filename === undefined ? (

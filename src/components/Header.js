@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import UserHeader from './UserHeader/UserHeader'
+import UserStatus from './UserStatus/UserStatus'
 
 export default function Header() {
   return (
     <HeaderStyled>
       <h1>Ciceroic</h1>
-      <UserHeader />
+      <UserStatus />
     </HeaderStyled>
   )
 }
