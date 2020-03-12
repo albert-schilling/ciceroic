@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import { Router, Route, Switch } from 'react-router-dom'
-import history from './common/history'
+import { Route, Router, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
+import history from './common/history'
+import AuthProvider, { AuthConsumer } from './components/Auth/AuthContext'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Speech from './components/Speech/Speech'
 import SpeechesList from './components/Speech/SpeechesList'
+import UserForm from './components/UserForm/UserForm'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
-import AuthProvider from './components/Auth/AuthContext'
-import UserForm from './components/UserForm/UserForm'
-import HomePage from './components/Pages/HomePage'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -28,23 +27,28 @@ function App() {
           <Header />
           <Switch>
             <Route exact path="/">
-              <HomePage
-                speeches={speeches}
-                setSpeech={setSpeech}
-                speechBasePath={speechBasePath}
-              />
-              {/* {speeches === undefined ? (
-                <p style={{ padding: '20px' }}>
-                  Sorry, we cannot connect to the server. Please, try again
-                  later.
-                </p>
-              ) : (
-                <SpeechesList
-                  speeches={speeches}
-                  setSpeech={setSpeech}
-                  speechBasePath={speechBasePath}
-                />
-              )} */}
+              <AuthConsumer>
+                {({ user }) => {
+                  return user && user.id ? (
+                    speeches === undefined ? (
+                      <p style={{ padding: '20px' }}>
+                        Sorry, we cannot connect to the server. Please, try
+                        again later.
+                      </p>
+                    ) : (
+                      <SpeechesList
+                        speeches={speeches}
+                        setSpeech={setSpeech}
+                        speechBasePath={speechBasePath}
+                      />
+                    )
+                  ) : (
+                    <>
+                      <p>Loading</p>
+                    </>
+                  )
+                }}
+              </AuthConsumer>
             </Route>
             <Route exact path="/signup">
               <UserForm></UserForm>
