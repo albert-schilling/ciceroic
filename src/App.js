@@ -11,6 +11,7 @@ import SpeechesList from './components/Speech/SpeechesList'
 import UserForm from './components/UserForm/UserForm'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
+import Loading from './components/Loading/Loading'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -43,9 +44,7 @@ function App() {
                       />
                     )
                   ) : (
-                    <>
-                      <p>Loading</p>
-                    </>
+                    <Loading />
                   )
                 }}
               </AuthConsumer>
@@ -61,9 +60,9 @@ function App() {
               />
             </Route>
           </Switch>
+          <Footer />
         </AuthProvider>
       </Router>
-      <Footer />
     </AppBodyStyled>
   )
 }

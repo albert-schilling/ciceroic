@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import UserStatus from './UserStatus/UserStatus'
 
 export default function Footer() {
   return (
     <FooterStyled>
-      <p>Become a great speaker like Cicero.</p>
+      {/* <p>Become a great speaker like Cicero.</p> */}
+      <UserStatus />
     </FooterStyled>
   )
 }
