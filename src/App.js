@@ -8,14 +8,16 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Speech from './components/Speech/Speech'
 import SpeechesList from './components/Speech/SpeechesList'
-import UserForm from './components/UserForm/UserForm'
+import SignUp from './components/SignUp/SignUp'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
-import SignIn from './components/SignIn/SignIn'
+import useSignUpForm from './hooks/useSignUpForm'
+import LandingPage from './components/LandingPage/LandingPage'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
+  const { userData, setUserData } = useSignUpForm({})
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
@@ -44,13 +46,16 @@ function App() {
                       />
                     )
                   ) : (
-                    <SignIn />
+                    <LandingPage
+                      userData={userData}
+                      setUserData={setUserData}
+                    />
                   )
                 }}
               </AuthConsumer>
             </Route>
             <Route exact path="/signup">
-              <UserForm></UserForm>
+              <SignUp userData={userData} setUserData={setUserData} />
             </Route>
             <Route exact path="/speech/:id">
               <Speech

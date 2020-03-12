@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import UserForm from '../UserForm/UserForm'
+import SignUpForm from './SignUpForm'
 
-export default function SignIn() {
+export default function SignUp({ userData, setUserData }) {
   return (
     <Main>
-      <h2>Ciceroic</h2>
-      <h4>Become a great speaker like Cicero</h4>
-      <UserForm />
+      <SignUpForm userData={userData} setUserData={setUserData} />
     </Main>
   )
 }

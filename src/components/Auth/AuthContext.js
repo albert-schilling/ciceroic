@@ -21,18 +21,24 @@ function AuthProvider(props) {
     })
   }, [])
 
-  async function signUp(email, password, event) {
+  async function signUp(userData, event) {
     try {
       event.preventDefault()
-      await firebaseAuth.createUserWithEmailAndPassword(email, password)
+      await firebaseAuth.createUserWithEmailAndPassword(
+        userData.email,
+        userData.password
+      )
       props.history.push('/')
     } catch (err) {}
   }
 
-  async function logIn(email, password, event) {
+  async function logIn(userData, event) {
     try {
       event.preventDefault()
-      await firebaseAuth.signInWithEmailAndPassword(email, password)
+      await firebaseAuth.signInWithEmailAndPassword(
+        userData.email,
+        userData.password
+      )
       props.history.push('/')
     } catch (err) {}
   }
