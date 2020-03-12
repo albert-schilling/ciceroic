@@ -42,7 +42,7 @@ function AuthProvider(props) {
       event.preventDefault()
       firebaseAuth.signOut()
       setUser({})
-      props.history.push('/signup')
+      props.history.push('/')
     } catch (err) {}
   }
   return (

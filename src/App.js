@@ -11,7 +11,7 @@ import SpeechesList from './components/Speech/SpeechesList'
 import UserForm from './components/UserForm/UserForm'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
-import Loading from './components/Loading/Loading'
+import SignIn from './components/SignIn/SignIn'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -44,7 +44,7 @@ function App() {
                       />
                     )
                   ) : (
-                    <Loading />
+                    <SignIn />
                   )
                 }}
               </AuthConsumer>
@@ -71,7 +71,7 @@ export default App
 
 const AppBodyStyled = styled.div`
   display: grid;
-  grid-template: 72px auto 60px / 1fr;
+  grid-template: 72px auto max-content / 1fr;
   width: 100vw;
   height: 100vh;
 `

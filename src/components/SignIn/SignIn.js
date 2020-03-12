@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import UserForm from '../UserForm/UserForm'
 
-export default function Loading() {
+export default function SignIn() {
   return (
     <Main>
       <h2>Ciceroic</h2>
@@ -21,7 +21,11 @@ const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  > h2 {
+  h2 {
     margin: 0;
+  }
+  h4 {
+    text-align: center;
+    line-height: 1.6rem;
   }
 `

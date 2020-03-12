@@ -1,30 +1,28 @@
 import React from 'react'
-import { NavLink, Router } from 'react-router-dom'
-import history from '../../common/history'
-import { AuthConsumer } from '../Auth/AuthContext'
+import styled from 'styled-components/macro'
 
-export default function UserHeader() {
+export default function UserStatus({ user, logOut }) {
   return (
-    <>
-      <Router history={history}>
-        <AuthConsumer>
-          {({ user, logOut }) => (
-            <>
-              {user.id ? (
-                <>
-                  <small>user: {user.email}</small>
-                  <button onClick={e => logOut(e)}>Log out</button>
-                </>
-              ) : (
-                <>
-                  <small>Please sign in</small>
-                  <NavLink to={'/signup/'}>Sign up</NavLink>
-                </>
-              )}
-            </>
-          )}
-        </AuthConsumer>
-      </Router>
-    </>
+    <UserStatusInfo>
+      <p>{user.email}</p>
+      <button onClick={event => logOut(event)}>Log out</button>
+    </UserStatusInfo>
   )
 }
+
+const UserStatusInfo = styled.section`
+  display: flex;
+  grid-gap: 8px;
+  align-items: center;
+  > p {
+    font-size: 0.8rem;
+  }
+  h4 {
+    font-weight: 500;
+    text-align: center;
+  }
+  button {
+    font-size: 0.6rem;
+    padding: 4px;
+  }
+`

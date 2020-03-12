@@ -5,11 +5,12 @@ import styled from 'styled-components/macro'
 export default function UserForm() {
   const emailInput = useRef()
   const passwordInput = useRef()
+  const firstName = useRef()
+  const lastName = useRef()
   return (
     <AuthConsumer>
       {({ signUp, logIn }) => (
         <>
-          {/* <div className="signup-wrapper"> */}
           <Form>
             <Input
               ref={emailInput}
@@ -23,6 +24,17 @@ export default function UserForm() {
               name="password"
               placeholder="Password"
             />
+            {/* New here? Type in your full name to sign up.
+            <Input
+              ref={firstName}
+              name="firstName"
+              placeholder="Enter your first name"
+            />
+            <Input
+              ref={lastName}
+              name="lastName"
+              placeholder="Enter your last name"
+            /> */}
             <ButtonSection>
               <Button
                 name="logIn"
@@ -50,7 +62,6 @@ export default function UserForm() {
               </Button>
             </ButtonSection>
           </Form>
-          {/* </div> */}
         </>
       )}
     </AuthConsumer>
