@@ -18,6 +18,12 @@ export default function UserHeader({ user, logOut }) {
         <AuthConsumer>
           {({ user, logOut }) => (
             <React.Fragment>
+              {console.log('userHeader inside consumer:', user)}
+              {console.log(
+                'userHeader inside consumer, user.user.id:',
+                user.id
+              )}
+
               {user && user.id ? (
                 <React.Fragment>
                   <small>user: {user.email}</small>

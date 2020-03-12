@@ -13,18 +13,16 @@ function AuthProvider(props) {
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged(user => {
+      console.log('user in authcontext:', user)
       if (user) {
         setUser({
-          user: {
-            id: user.uid,
-            email: user.email,
-          },
+          id: user.uid,
+          email: user.email,
         })
+        console.log('user in authcontext:', user, user.email)
         window.localStorage.setItem('uid', user.uid)
       } else {
-        setUser({
-          user: {},
-        })
+        setUser({})
         window.localStorage.removeItem('uid')
       }
     })
@@ -50,14 +48,12 @@ function AuthProvider(props) {
     try {
       event.preventDefault()
       firebaseAuth.signOut()
-      setUser({
-        user: {},
-      })
+      setUser({})
       props.history.push('/signup')
     } catch (err) {}
   }
   console.log('AuthContext.js: AuthContext:', AuthContext)
-
+  console.log('user in authcontext:', user)
   return (
     <AuthContext.Provider
       value={{
