@@ -24,7 +24,7 @@ export default function UserForm({ userData, setUserData }) {
               onChange={handleChange}
             />
             <ButtonSection>
-              <Button name="logIn" onClick={event => logIn(userData, event)}>
+              <Button name="logIn" onClick={event => handleClick(event, logIn)}>
                 Login
               </Button>
               <NavLinkStyled name="signUp" to={'/signup'}>
@@ -41,6 +41,10 @@ export default function UserForm({ userData, setUserData }) {
       setUserData({ ...userData, email: event.target.value })
     event.target.name === 'password' &&
       setUserData({ ...userData, password: event.target.value })
+  }
+  function handleClick(event, callback) {
+    event.preventDefault()
+    event.target.name = 'logIn' && callback(event)
   }
 }
 const Form = styled.form`

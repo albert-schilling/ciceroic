@@ -94,7 +94,9 @@ function AuthProvider({ history, children, userData, setUserData }) {
         userData.password
       )
       history.push('/')
-    } catch (err) {}
+    } catch (error) {
+      console.error(`Error logging in user.`, error)
+    }
   }
 
   async function logOut(event) {
