@@ -67,10 +67,22 @@ function AuthProvider({ history, children, userData, setUserData }) {
         console.log("User's display name successfully updated.")
       })
       .then(() => {
-        // sendEmailVerification
+        sendEmailVerification()
       })
       .catch(error => {
         console.error(`Error updating user's display name:`, error)
+      })
+  }
+
+  async function sendEmailVerification() {
+    const user = await firebaseAuth.currentUser
+    user
+      .sendEmailVerification()
+      .then(() => {
+        console.log('Verification email sent to user.')
+      })
+      .catch(error => {
+        console.error(`Error sending verification email to user.`, error)
       })
   }
 
@@ -90,6 +102,13 @@ function AuthProvider({ history, children, userData, setUserData }) {
       event.preventDefault()
       firebaseAuth.signOut()
       setUser({})
+      setUserData({
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+      })
+      console.log('User logged out. UserData resetted.')
       history.push('/')
     } catch (err) {}
   }
