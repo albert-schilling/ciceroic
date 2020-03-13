@@ -33,7 +33,7 @@ src/videos
 src/components/DEV
 
 .firebase
-firebase
+/firebase
 .firebaserc
 
 build
