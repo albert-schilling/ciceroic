@@ -62,6 +62,7 @@ function App() {
                 speech={speech}
                 setSpeech={setSpeech}
                 speechBasePath={speechBasePath}
+                userData={userData}
               />
             </Route>
           </Switch>

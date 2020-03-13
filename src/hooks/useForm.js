@@ -6,7 +6,8 @@ export default function useForm({
   speech,
   setSpeech,
   id,
-  refs,
+  // refs,
+  userData,
 }) {
   // refs.forEach((ref, index) => console.log(`ref at index ${index}:`, ref))
 
@@ -24,19 +25,19 @@ export default function useForm({
   const [message, setMessage] = useState({
     visible: false,
     text: '',
-    focusRef: refs[0],
+    // focusRef: refs[0],
   })
 
   const handleSubmit = event => {
     event.preventDefault()
 
-    if (searchMissingInput(refs)) {
-      return
-    }
+    // if (searchMissingInput(refs)) {
+    //   return
+    // }
 
-    if (searchEvaluator()) {
-      return
-    }
+    // if (searchEvaluator()) {
+    //   return
+    // }
 
     updateEvaluation()
     resetEvaluation()
@@ -45,13 +46,12 @@ export default function useForm({
       visible: true,
       text: `Thank you ${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}. 
       Your evaluation has been submitted.`,
-      focusRef: refs[0],
     })
   }
 
   function updateEvaluation() {
-    evaluation.evaluator.firstName = evaluation.evaluator.firstName.trim()
-    evaluation.evaluator.lastName = evaluation.evaluator.lastName.trim()
+    evaluation.evaluator.firstName = userData.firstName
+    evaluation.evaluator.lastName = userData.lastName
     Object.assign(evaluation, { date: new Date().getTime() })
     speech.evaluations.push(evaluation)
     console.table('new evaluation:', evaluation)
@@ -75,7 +75,6 @@ export default function useForm({
         ...message,
         visible: true,
         text: `Please, fill out your ${missingInput.current.name}.`,
-        focusRef: missingInput,
       })
     }
     return !!missingInput
@@ -94,18 +93,16 @@ export default function useForm({
         visible: true,
         text: `Sorry, ${fullName},
         you have already evaluated this speech.`,
-        focusRef: refs[0],
       })
     }
     return foundEvaluator
   }
 
   function handleClickOnUserMessage() {
-    message.focusRef.current.focus()
+    // message.focusRef.current.focus()
     setMessage({
       ...message,
       visible: false,
-      focusRef: refs[0],
     })
   }
 

@@ -8,39 +8,12 @@ export default function SpeechEvaluationForm({
   evaluation,
   setEvaluation,
   handleSubmit,
-  inputFirstNameRef,
-  inputLastNameRef,
   message,
   handleClickOnUserMessage,
+  userData,
 }) {
   return (
     <SpeechEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
-      <SpeechEvaluationFormSection>
-        <label htmlFor="firstName">
-          First Name
-          <input
-            autoFocus
-            onChange={handleChange}
-            ref={inputFirstNameRef}
-            type="text"
-            name="first name"
-            id="firstName"
-            value={evaluation.evaluator.firstName}
-          />
-        </label>
-
-        <label htmlFor="lastName">
-          Last Name
-          <input
-            ref={inputLastNameRef}
-            type="text"
-            name="last name"
-            id="lastName"
-            value={evaluation.evaluator.lastName}
-            onChange={handleChange}
-          />
-        </label>
-      </SpeechEvaluationFormSection>
       <SpeechEvaluationFormSection>
         {evaluationDimensions.map(dimension => {
           return (
@@ -60,26 +33,6 @@ export default function SpeechEvaluationForm({
       )}
     </SpeechEvaluationFormStyled>
   )
-  function handleChange(event) {
-    if (event.target.name === 'first name') {
-      setEvaluation({
-        ...evaluation,
-        evaluator: {
-          ...evaluation.evaluator,
-          firstName: event.target.value,
-        },
-      })
-    }
-    if (event.target.name === 'last name') {
-      setEvaluation({
-        ...evaluation,
-        evaluator: {
-          ...evaluation.evaluator,
-          lastName: event.target.value,
-        },
-      })
-    }
-  }
 }
 
 const SpeechEvaluationFormStyled = styled.form`

@@ -1,18 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import useForm from '../../hooks/useForm'
 import { getSpeech } from '../../services/speechServices'
+import { AuthConsumer } from '../Auth/AuthContext'
 import Tab from '../Tab/Tab'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
 
-export default function Speech({ speechBasePath, speech, setSpeech }) {
+export default function Speech({
+  speechBasePath,
+  speech,
+  setSpeech,
+  userData,
+}) {
   let { id } = useParams()
 
-  const inputFirstNameRef = useRef(null)
-  const inputLastNameRef = useRef(null)
+  // const inputFirstNameRef = useRef(null)
+  // const inputLastNameRef = useRef(null)
 
   const {
     evaluation,
@@ -21,8 +27,10 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
     handleSubmit,
     handleClickOnUserMessage,
   } = useForm({
+    userData,
+
     evaluationDimensions,
-    refs: [inputFirstNameRef, inputLastNameRef],
+    // refs: [inputFirstNameRef, inputLastNameRef],
     speech,
     setSpeech,
     id,
@@ -65,15 +73,24 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
           active={true}
           title="Evaluate"
         >
-          <SpeechEvaluationForm
-            evaluation={evaluation}
-            setEvaluation={setEvaluation}
-            handleSubmit={handleSubmit}
-            inputFirstNameRef={inputFirstNameRef}
-            inputLastNameRef={inputLastNameRef}
-            message={message}
-            handleClickOnUserMessage={handleClickOnUserMessage}
-          />
+          <AuthConsumer>
+            {({ user }) => {
+              return user && user.id ? (
+                <SpeechEvaluationForm
+                  evaluation={evaluation}
+                  setEvaluation={setEvaluation}
+                  handleSubmit={handleSubmit}
+                  // inputFirstNameRef={inputFirstNameRef}
+                  // inputLastNameRef={inputLastNameRef}
+                  message={message}
+                  handleClickOnUserMessage={handleClickOnUserMessage}
+                  userData={userData}
+                />
+              ) : (
+                <p>Sorry, only logged in users can evaluate a speech.</p>
+              )
+            }}
+          </AuthConsumer>
         </Tab>
         <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
           <SpeechStatistics speech={speech} />
