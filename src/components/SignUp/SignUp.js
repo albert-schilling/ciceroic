@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import SignUpForm from './SignUpForm'
 
-export default function SignUp({ userData, setUserData }) {
+export default function SignUp({ profile, setProfile }) {
   return (
     <Main>
-      <SignUpForm userData={userData} setUserData={setUserData} />
+      <SignUpForm profile={profile} setProfile={setProfile} />
     </Main>
   )
 }

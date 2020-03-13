@@ -5,7 +5,7 @@ import { db } from '../../services/firebase'
 
 const AuthContext = React.createContext()
 
-function AuthProvider({ history, children, userData, setUserData }) {
+function AuthProvider({ history, children, profile, setProfile }) {
   const [user, setUser] = useState({})
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function AuthProvider({ history, children, userData, setUserData }) {
         getUserInformation()
       } else {
         setUser({})
-        setUserData({
+        setProfile({
           email: '',
           password: '',
           firstName: '',
@@ -43,7 +43,7 @@ function AuthProvider({ history, children, userData, setUserData }) {
         return doc.exists && doc.data()
       })
       .then(data => {
-        Object.assign(userData, {
+        Object.assign(profile, {
           firstName: data.firstName,
           lastName: data.lastName,
           id: data._id,
@@ -52,14 +52,14 @@ function AuthProvider({ history, children, userData, setUserData }) {
       .catch(error => {
         console.error('Error writing document: ', error)
       })
-    setUserData(userData)
+    setProfile(profile)
   }
   async function signUp(event) {
     console.log('Signup called')
     try {
       event.preventDefault()
       await firebaseAuth
-        .createUserWithEmailAndPassword(userData.email, userData.password)
+        .createUserWithEmailAndPassword(profile.email, profile.password)
         .then(res => {
           addUserToDB(res.user)
         })
@@ -72,8 +72,8 @@ function AuthProvider({ history, children, userData, setUserData }) {
       .doc(user.uid)
       .set({
         _id: user.uid,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
         email: user.email,
         registered: new Date().getTime(),
         emailVerified: user.emailVerified,
@@ -92,7 +92,7 @@ function AuthProvider({ history, children, userData, setUserData }) {
 
     user
       .updateProfile({
-        displayName: `${userData.firstName} ${userData.lastName}`,
+        displayName: `${profile.firstName} ${profile.lastName}`,
       })
       .then(() => {
         console.log("User's display name successfully updated.")
@@ -121,8 +121,8 @@ function AuthProvider({ history, children, userData, setUserData }) {
     try {
       event.preventDefault()
       await firebaseAuth.signInWithEmailAndPassword(
-        userData.email,
-        userData.password
+        profile.email,
+        profile.password
       )
       history.push('/')
     } catch (error) {
@@ -135,14 +135,14 @@ function AuthProvider({ history, children, userData, setUserData }) {
       event.preventDefault()
       firebaseAuth.signOut()
       setUser({})
-      setUserData({
+      setProfile({
         email: '',
         password: '',
         firstName: '',
         lastName: '',
         id: '',
       })
-      console.log('User logged out. UserData resetted.')
+      console.log('User logged out. Profile resetted.')
       history.push('/')
     } catch (err) {}
   }

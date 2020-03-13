@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { AuthConsumer } from '../Auth/AuthContext'
 
-export default function UserForm({ userData, setUserData }) {
+export default function UserForm({ profile, setProfile }) {
   return (
     <AuthConsumer>
       {({ logIn }) => (
@@ -13,14 +13,14 @@ export default function UserForm({ userData, setUserData }) {
               type="email"
               name="email"
               placeholder="Enter your E-Mail"
-              value={userData.email}
+              value={profile.email}
               onChange={handleChange}
             />
             <Input
               type="password"
               name="password"
               placeholder="Password"
-              value={userData.password}
+              value={profile.password}
               onChange={handleChange}
             />
             <ButtonSection>
@@ -38,9 +38,9 @@ export default function UserForm({ userData, setUserData }) {
   )
   function handleChange(event) {
     event.target.name === 'email' &&
-      setUserData({ ...userData, email: event.target.value })
+      setProfile({ ...profile, email: event.target.value })
     event.target.name === 'password' &&
-      setUserData({ ...userData, password: event.target.value })
+      setProfile({ ...profile, password: event.target.value })
   }
   function handleClick(event, callback) {
     event.preventDefault()

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-export default function useSignUpForm() {
-  const [userData, setUserData] = useState({
+export default function useProfile() {
+  const [profile, setProfile] = useState({
     email: '',
     password: '',
     firstName: '',
@@ -9,5 +9,5 @@ export default function useSignUpForm() {
     id: '',
   })
 
-  return { userData, setUserData }
+  return { profile, setProfile }
 }

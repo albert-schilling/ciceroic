@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { AuthConsumer } from '../Auth/AuthContext'
 
-export default function UserForm({ userData, setUserData }) {
+export default function UserForm({ profile, setProfile }) {
   return (
     <AuthConsumer>
       {({ signUp }) => (
@@ -14,26 +14,26 @@ export default function UserForm({ userData, setUserData }) {
               type="email"
               name="email"
               placeholder="Enter your E-Mail"
-              value={userData.email}
+              value={profile.email}
               onChange={handleChange}
             />
             <Input
               type="password"
               name="password"
               placeholder="Password"
-              value={userData.password}
+              value={profile.password}
               onChange={handleChange}
             />
             <Input
               name="firstName"
               placeholder="Enter your first name"
-              value={userData.firstName}
+              value={profile.firstName}
               onChange={handleChange}
             />
             <Input
               name="lastName"
               placeholder="Enter your last name"
-              value={userData.lastName}
+              value={profile.lastName}
               onChange={handleChange}
             />
             <ButtonSection>
@@ -48,13 +48,13 @@ export default function UserForm({ userData, setUserData }) {
   )
   function handleChange(event) {
     event.target.name === 'email' &&
-      setUserData({ ...userData, email: event.target.value })
+      setProfile({ ...profile, email: event.target.value })
     event.target.name === 'password' &&
-      setUserData({ ...userData, password: event.target.value })
+      setProfile({ ...profile, password: event.target.value })
     event.target.name === 'firstName' &&
-      setUserData({ ...userData, firstName: event.target.value })
+      setProfile({ ...profile, firstName: event.target.value })
     event.target.name === 'lastName' &&
-      setUserData({ ...userData, lastName: event.target.value })
+      setProfile({ ...profile, lastName: event.target.value })
   }
 }
 const Form = styled.form`

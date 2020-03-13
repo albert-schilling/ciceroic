@@ -4,17 +4,18 @@ import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import useForm from '../../hooks/useForm'
 import { getSpeech } from '../../services/speechServices'
-import { AuthConsumer } from '../Auth/AuthContext'
 import Tab from '../Tab/Tab'
+import SpeechEvaluation from './SpeechEvaluation'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
-import SpeechEvaluation from './SpeechEvaluation'
 
 export default function Speech({
   speechBasePath,
   speech,
   setSpeech,
-  userData,
+  profile,
+  setProfile,
+  user,
 }) {
   let { id } = useParams()
 
@@ -30,8 +31,8 @@ export default function Speech({
     searchEvaluator,
     returnEvaluationByUser,
   } = useForm({
-    userData,
-
+    profile,
+    setProfile,
     evaluationDimensions,
     // refs: [inputFirstNameRef, inputLastNameRef],
     speech,
@@ -76,26 +77,27 @@ export default function Speech({
           active={true}
           title="Evaluate"
         >
-          <AuthConsumer>
-            {({ user }) => {
-              return user && searchEvaluator(user.id) ? (
-                <SpeechEvaluation
-                  evaluation={returnEvaluationByUser(user.id)}
-                />
-              ) : (
-                <SpeechEvaluationForm
-                  evaluation={evaluation}
-                  setEvaluation={setEvaluation}
-                  handleSubmit={handleSubmit}
-                  // inputFirstNameRef={inputFirstNameRef}
-                  // inputLastNameRef={inputLastNameRef}
-                  message={message}
-                  handleClickOnUserMessage={handleClickOnUserMessage}
-                  userData={userData}
-                />
-              )
-            }}
-          </AuthConsumer>
+          {user && searchEvaluator(user.id) ? (
+            <SpeechEvaluation
+              speech={speech}
+              evaluation={evaluation}
+              setEvaluation={setEvaluation}
+              returnEvaluationByUser={returnEvaluationByUser}
+              user={user}
+            />
+          ) : (
+            // <p>Speech evaluation should go here</p>
+            <SpeechEvaluationForm
+              evaluation={evaluation}
+              setEvaluation={setEvaluation}
+              handleSubmit={handleSubmit}
+              // inputFirstNameRef={inputFirstNameRef}
+              // inputLastNameRef={inputLastNameRef}
+              message={message}
+              handleClickOnUserMessage={handleClickOnUserMessage}
+              profile={profile}
+            />
+          )}
         </Tab>
         <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
           <SpeechStatistics speech={speech} />
@@ -175,3 +177,13 @@ const TabContainerStyled = styled.section`
   flex-wrap: wrap;
   margin-top: 20px;
 `
+
+// (
+//   (setEvaluation(returnEvaluationByUser(user.id)),
+//   (
+//     <SpeechEvaluation
+//       evaluation={evaluation}
+//       setEvaluation={setEvaluation}
+//     />
+//   ))
+// )

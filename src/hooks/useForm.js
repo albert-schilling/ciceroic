@@ -7,7 +7,8 @@ export default function useForm({
   setSpeech,
   id,
   // refs,
-  userData,
+  profile,
+  setProfile,
 }) {
   // refs.forEach((ref, index) => console.log(`ref at index ${index}:`, ref))
 
@@ -50,9 +51,9 @@ export default function useForm({
   }
 
   function updateEvaluation() {
-    evaluation.evaluator.firstName = userData.firstName
-    evaluation.evaluator.lastName = userData.lastName
-    evaluation.evaluator.id = userData.id
+    evaluation.evaluator.firstName = profile.firstName
+    evaluation.evaluator.lastName = profile.lastName
+    evaluation.evaluator.id = profile.id
     Object.assign(evaluation, { date: new Date().getTime() })
     speech.evaluations.push(evaluation)
     console.table('new evaluation:', evaluation)
@@ -68,18 +69,18 @@ export default function useForm({
     })
   }
 
-  function searchMissingInput(references) {
-    const missingInput = references.find(reference => !reference.current.value)
-    console.log('references', references)
-    if (!!missingInput) {
-      setMessage({
-        ...message,
-        visible: true,
-        text: `Please, fill out your ${missingInput.current.name}.`,
-      })
-    }
-    return !!missingInput
-  }
+  // function searchMissingInput(references) {
+  //   const missingInput = references.find(reference => !reference.current.value)
+  //   console.log('references', references)
+  //   if (!!missingInput) {
+  //     setMessage({
+  //       ...message,
+  //       visible: true,
+  //       text: `Please, fill out your ${missingInput.current.name}.`,
+  //     })
+  //   }
+  //   return !!missingInput
+  // }
 
   function searchEvaluator(userId) {
     let evaluations = []
@@ -91,10 +92,17 @@ export default function useForm({
     return foundEvaluator
   }
 
-  function returnEvaluationByUser(userId) {
-    const foundEvaluation = speech.evaluations.filter(
-      evaluation => evaluation.evaluator.id === userId
-    )[0]
+  function returnEvaluationByUser({ user, speech }) {
+    let foundEvaluation = {}
+    speech && speech.evaluations
+      ? (foundEvaluation = speech.evaluations.filter(
+          evaluation => evaluation.evaluator.id === user.id
+        )[0])
+      : (foundEvaluation = {
+          dimensions: { ...initialValues },
+          evaluator: { firstName: '', lastName: '', id: '' },
+          date: '',
+        })
     return foundEvaluation
   }
 
