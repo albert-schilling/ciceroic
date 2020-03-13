@@ -25,9 +25,6 @@ function AuthProvider({ history, children, userData, setUserData }) {
 
   async function signUp(event) {
     console.log('Signup called')
-    console.log(userData.email)
-    console.log(userData.password)
-    console.log(userData)
     try {
       event.preventDefault()
       await firebaseAuth
@@ -48,30 +45,33 @@ function AuthProvider({ history, children, userData, setUserData }) {
         lastName: userData.lastName,
         email: user.email,
         registered: new Date().getTime(),
+        emailVerified: user.emailVerified,
       })
       .then(function() {
-        console.log('Document successfully written!')
+        console.log('User successfully stored in DB!')
       })
+      .then(() => updateUsersDisplayName())
       .catch(function(error) {
         console.error('Error writing document: ', error)
       })
+  }
 
-    // db
-    //         .collection('users')
-    //         .add({
-    //           _id: user.uid,
-    //           firstName: userData.firstName,
-    //           lastName: userData.lastName,
-    //           registered: new Date().getTime(),
-    //         })
-    //         .then(docRef => {
-    //           console.log('Document written with ID: ', docRef.id)
-    //           console.log(
-    //             'Document written with unique ID from Auth: ',
-    //             docRef.uid
-    //           )
-    //           console.log('New user: ', docRef)
-    //         })
+  async function updateUsersDisplayName() {
+    const user = await firebaseAuth.currentUser
+
+    user
+      .updateProfile({
+        displayName: `${userData.firstName} ${userData.lastName}`,
+      })
+      .then(() => {
+        console.log("User's display name successfully updated.")
+      })
+      .then(() => {
+        // sendEmailVerification
+      })
+      .catch(error => {
+        console.error(`Error updating user's display name:`, error)
+      })
   }
 
   async function logIn(event) {
