@@ -26,7 +26,7 @@ function App() {
     <AppBodyStyled>
       <GlobalStyle />
       <Router history={history}>
-        <AuthProvider>
+        <AuthProvider userData={userData} setUserData={setUserData}>
           <Header />
           <Switch>
             <Route exact path="/">

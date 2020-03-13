@@ -37,10 +37,7 @@ export default function UserForm({ userData, setUserData }) {
               onChange={handleChange}
             />
             <ButtonSection>
-              <Button
-                name="signUp"
-                onClick={event => signUp({ userData }, event)}
-              >
+              <Button name="signUp" onClick={event => signUp(event)}>
                 Sign Up
               </Button>
             </ButtonSection>
