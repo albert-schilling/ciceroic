@@ -18,7 +18,7 @@ export default function useForm({
 
   const [evaluation, setEvaluation] = useState({
     dimensions: { ...initialValues },
-    evaluator: { firstName: '', lastName: '' },
+    evaluator: { firstName: '', lastName: '', id: '' },
     date: '',
   })
 
@@ -52,6 +52,7 @@ export default function useForm({
   function updateEvaluation() {
     evaluation.evaluator.firstName = userData.firstName
     evaluation.evaluator.lastName = userData.lastName
+    evaluation.evaluator.id = userData.id
     Object.assign(evaluation, { date: new Date().getTime() })
     speech.evaluations.push(evaluation)
     console.table('new evaluation:', evaluation)
@@ -62,7 +63,7 @@ export default function useForm({
   function resetEvaluation() {
     setEvaluation({
       dimensions: { ...initialValues },
-      evaluator: { firstName: '', lastName: '' },
+      evaluator: { firstName: '', lastName: '', id: '' },
       date: '',
     })
   }
@@ -80,25 +81,24 @@ export default function useForm({
     return !!missingInput
   }
 
-  function searchEvaluator() {
-    const fullName = `${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}`
-    const foundEvaluator = speech.evaluations.some(storedEvaluation => {
-      const storedFullName = `${storedEvaluation.evaluator.firstName} ${storedEvaluation.evaluator.lastName}`
-
-      return storedFullName.toLowerCase() === fullName.toLowerCase()
-    })
-    if (foundEvaluator) {
-      setMessage({
-        ...message,
-        visible: true,
-        text: `Sorry, ${fullName},
-        you have already evaluated this speech.`,
-      })
-    }
+  function searchEvaluator(userId) {
+    let evaluations = []
+    const foundEvaluator =
+      speech && speech.evaluations
+        ? ((evaluations = speech.evaluations),
+          evaluations.some(evaluation => evaluation.evaluator.id === userId))
+        : false
     return foundEvaluator
   }
 
-  function handleClickOnUserMessage() {
+  function returnEvaluationByUser(userId) {
+    const foundEvaluation = speech.evaluations.filter(
+      evaluation => evaluation.evaluator.id === userId
+    )[0]
+    return foundEvaluation
+  }
+
+  function handleClickOnUserMessage(userId) {
     // message.focusRef.current.focus()
     setMessage({
       ...message,
@@ -113,5 +113,7 @@ export default function useForm({
     setMessage,
     handleSubmit,
     handleClickOnUserMessage,
+    searchEvaluator,
+    returnEvaluationByUser,
   }
 }

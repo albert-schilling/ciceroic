@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function SpeechStatistics({ speech }) {
-  console.log('speech inside speechstatistics', speech)
   let average
   !!speech.evaluations.length
     ? (average = speech.evaluations.reduce((average, evaluation) => {

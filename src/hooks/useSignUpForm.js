@@ -6,6 +6,7 @@ export default function useSignUpForm() {
     password: '',
     firstName: '',
     lastName: '',
+    id: '',
   })
 
   return { userData, setUserData }

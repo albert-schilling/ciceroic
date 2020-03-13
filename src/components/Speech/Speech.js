@@ -8,6 +8,7 @@ import { AuthConsumer } from '../Auth/AuthContext'
 import Tab from '../Tab/Tab'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
+import SpeechEvaluation from './SpeechEvaluation'
 
 export default function Speech({
   speechBasePath,
@@ -26,6 +27,8 @@ export default function Speech({
     message,
     handleSubmit,
     handleClickOnUserMessage,
+    searchEvaluator,
+    returnEvaluationByUser,
   } = useForm({
     userData,
 
@@ -75,7 +78,11 @@ export default function Speech({
         >
           <AuthConsumer>
             {({ user }) => {
-              return user && user.id ? (
+              return user && searchEvaluator(user.id) ? (
+                <SpeechEvaluation
+                  evaluation={returnEvaluationByUser(user.id)}
+                />
+              ) : (
                 <SpeechEvaluationForm
                   evaluation={evaluation}
                   setEvaluation={setEvaluation}
@@ -86,8 +93,6 @@ export default function Speech({
                   handleClickOnUserMessage={handleClickOnUserMessage}
                   userData={userData}
                 />
-              ) : (
-                <p>Sorry, only logged in users can evaluate a speech.</p>
               )
             }}
           </AuthConsumer>
@@ -168,4 +173,5 @@ const TabContainerStyled = styled.section`
   grid-area: tab;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 20px;
 `

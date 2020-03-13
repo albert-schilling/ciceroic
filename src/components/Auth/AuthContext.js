@@ -24,6 +24,7 @@ function AuthProvider({ history, children, userData, setUserData }) {
           password: '',
           firstName: '',
           lastName: '',
+          id: '',
         })
         window.localStorage.removeItem('uid')
       }
@@ -45,6 +46,7 @@ function AuthProvider({ history, children, userData, setUserData }) {
         Object.assign(userData, {
           firstName: data.firstName,
           lastName: data.lastName,
+          id: data._id,
         })
       })
       .catch(error => {
@@ -138,6 +140,7 @@ function AuthProvider({ history, children, userData, setUserData }) {
         password: '',
         firstName: '',
         lastName: '',
+        id: '',
       })
       console.log('User logged out. UserData resetted.')
       history.push('/')
