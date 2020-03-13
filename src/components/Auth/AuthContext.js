@@ -16,13 +16,42 @@ function AuthProvider({ history, children, userData, setUserData }) {
           email: user.email,
         })
         window.localStorage.setItem('uid', user.uid)
+        getUserInformation()
       } else {
         setUser({})
+        setUserData({
+          email: '',
+          password: '',
+          firstName: '',
+          lastName: '',
+        })
         window.localStorage.removeItem('uid')
       }
     })
   }, [])
 
+  async function getUserInformation() {
+    console.log('Getting user information ...')
+    const user = await firebaseAuth.currentUser
+    await db
+      .collection('users')
+      .doc(user.uid)
+      .get()
+      .then(doc => {
+        console.log('User found in DB:', doc.exists)
+        return doc.exists && doc.data()
+      })
+      .then(data => {
+        Object.assign(userData, {
+          firstName: data.firstName,
+          lastName: data.lastName,
+        })
+      })
+      .catch(error => {
+        console.error('Error writing document: ', error)
+      })
+    setUserData(userData)
+  }
   async function signUp(event) {
     console.log('Signup called')
     try {
