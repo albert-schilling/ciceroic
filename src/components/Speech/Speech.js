@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
@@ -9,6 +9,7 @@ import Tab from '../Tab/Tab'
 import SpeechEvaluation from './SpeechEvaluation'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
+import SpeechEvaluations from './SpeechEvaluations'
 import UserMessage from '../UserMessage/UserMessage'
 
 export default function Speech({
@@ -21,8 +22,8 @@ export default function Speech({
 }) {
   let { id } = useParams()
 
-  // const inputFirstNameRef = useRef(null)
-  // const inputLastNameRef = useRef(null)
+  const inputPraiseRef = useRef(null)
+  const inputSuggestionsRef = useRef(null)
 
   const {
     evaluation,
@@ -36,7 +37,7 @@ export default function Speech({
     profile,
     setProfile,
     evaluationDimensions,
-    // refs: [inputFirstNameRef, inputLastNameRef],
+    refs: [inputPraiseRef, inputSuggestionsRef],
     speech,
     setSpeech,
     id,
@@ -48,7 +49,7 @@ export default function Speech({
   useEffect(() => {
     getSpeech(id).then(res => setSpeech(res))
     setEditMode(false)
-  }, [setSpeech, id])
+  }, [setSpeech, id, setEditMode])
 
   return (
     <Main>
@@ -98,8 +99,8 @@ export default function Speech({
               evaluation={evaluation}
               setEvaluation={setEvaluation}
               submitEvaluation={submitEvaluation}
-              // inputFirstNameRef={inputFirstNameRef}
-              // inputLastNameRef={inputLastNameRef}
+              inputPraiseRef={inputPraiseRef}
+              inputSuggestionsRef={inputSuggestionsRef}
               // message={message}
               handleClickOnUserMessage={handleClickOnUserMessage}
               profile={profile}
@@ -107,6 +108,7 @@ export default function Speech({
               setEditMode={setEditMode}
             />
           )}
+          <SpeechEvaluations user={user} speech={speech} />
         </Tab>
         <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
           <SpeechStatistics speech={speech} />
@@ -188,18 +190,4 @@ const TabContainerStyled = styled.section`
   display: flex;
   flex-wrap: wrap;
   margin-top: 20px;
-`
-
-const SpeechEvaluationSubmit = styled.button`
-  margin: 16px 0 40px 0;
-  align-self: center;
-  width: max-content;
-  border: none;
-  padding: 8px;
-  background: var(--primary-bg-color);
-  text-align: center;
-  font-size: 1rem;
-  color: var(--inverse-primary-font-color);
-  text-decoration: none;
-  cursor: pointer;
 `

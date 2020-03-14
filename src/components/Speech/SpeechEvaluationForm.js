@@ -2,16 +2,16 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import RangeInput from '../Inputs/RangeInput'
-import UserMessage from '../UserMessage/UserMessage'
+import TextArea from '../TextArea/TextArea'
 
 export default function SpeechEvaluationForm({
   evaluation,
   setEvaluation,
   submitEvaluation,
-  message,
-  handleClickOnUserMessage,
   editMode,
   setEditMode,
+  inputPraiseRef,
+  inputSuggestionsRef,
 }) {
   return (
     <SpeechEvaluationFormStyled onSubmit={handleSubmit}>
@@ -28,6 +28,24 @@ export default function SpeechEvaluationForm({
           )
         })}
       </SpeechEvaluationFormSection>
+      <TextArea
+        title="Praise"
+        name="praise"
+        maxlength={1000}
+        evaluation={evaluation}
+        setEvaluation={setEvaluation}
+        reference={inputPraiseRef}
+        key="Praise"
+      />
+      <TextArea
+        title="Suggestions"
+        name="suggestions"
+        maxlength={1000}
+        evaluation={evaluation}
+        setEvaluation={setEvaluation}
+        reference={inputSuggestionsRef}
+        key="Suggestions"
+      />
       {editMode &&
         (() => (
           <SpeechEvaluationSubmit onClick={() => setEditMode(false)}>
@@ -43,10 +61,7 @@ export default function SpeechEvaluationForm({
 }
 
 const SpeechEvaluationFormStyled = styled.form`
-  grid-area: evaluation;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
   grid-gap: 20px;
   margin: 20px 0;
 `

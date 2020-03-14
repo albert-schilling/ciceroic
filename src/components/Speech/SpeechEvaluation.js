@@ -22,7 +22,7 @@ export default function SpeechEvaluation({
     const date = `
     ${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
       evaluationDate
-    )}, ${evaluationDate.getDay()}
+    )}, ${evaluationDate.getUTCDate()}
     ${new Intl.DateTimeFormat('en-US', {
       month: 'long',
     }).format(evaluationDate)}, ${evaluationDate.getFullYear()}`
@@ -45,10 +45,15 @@ export default function SpeechEvaluation({
             </StatisticsListItem>
           ))}
         </StatisticsList>
+
+        <p>Praise: {evaluation.praise && evaluation.praise}</p>
+        <p>Suggestions: {evaluation.suggestions && evaluation.suggestions}</p>
         <p style={{ margin: 0, padding: '12px' }}>From: {date}.</p>
-        <SpeechEvaluationSubmit onClick={() => setEditMode(!editMode)}>
-          Edit
-        </SpeechEvaluationSubmit>
+        {evaluation.evaluator.id === user.id && (
+          <SpeechEvaluationSubmit onClick={() => setEditMode(!editMode)}>
+            Edit
+          </SpeechEvaluationSubmit>
+        )}
       </SpeechStatisticsContainer>
     )
   } else {

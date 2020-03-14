@@ -49,6 +49,7 @@ const TabTitle = styled.button`
 const TabBody = styled.section`
   order: 2;
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-gap: 12px;
   justify-content: center;
 `
