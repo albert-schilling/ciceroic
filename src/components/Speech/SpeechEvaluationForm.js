@@ -7,13 +7,14 @@ import UserMessage from '../UserMessage/UserMessage'
 export default function SpeechEvaluationForm({
   evaluation,
   setEvaluation,
-  handleSubmit,
+  submitEvaluation,
   message,
   handleClickOnUserMessage,
-  userData,
+  editMode,
+  setEditMode,
 }) {
   return (
-    <SpeechEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
+    <SpeechEvaluationFormStyled onSubmit={handleSubmit}>
       <SpeechEvaluationFormSection>
         {evaluationDimensions.map(dimension => {
           return (
@@ -27,12 +28,18 @@ export default function SpeechEvaluationForm({
           )
         })}
       </SpeechEvaluationFormSection>
+      {editMode &&
+        (() => (
+          <SpeechEvaluationSubmit onClick={() => setEditMode(false)}>
+            Cancel
+          </SpeechEvaluationSubmit>
+        ))()}
       <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
-      {message.visible === true && (
-        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
-      )}
     </SpeechEvaluationFormStyled>
   )
+  async function handleSubmit(event) {
+    await submitEvaluation(event, setEditMode)
+  }
 }
 
 const SpeechEvaluationFormStyled = styled.form`

@@ -3,11 +3,13 @@ import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import useForm from '../../hooks/useForm'
+import useSpeech from '../../hooks/useSpeech'
 import { getSpeech } from '../../services/speechServices'
 import Tab from '../Tab/Tab'
 import SpeechEvaluation from './SpeechEvaluation'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
+import UserMessage from '../UserMessage/UserMessage'
 
 export default function Speech({
   speechBasePath,
@@ -26,7 +28,7 @@ export default function Speech({
     evaluation,
     setEvaluation,
     message,
-    handleSubmit,
+    submitEvaluation,
     handleClickOnUserMessage,
     searchEvaluator,
     returnEvaluationByUser,
@@ -41,8 +43,11 @@ export default function Speech({
   })
   const [activeTab, setActiveTab] = useState('')
 
+  const { editMode, setEditMode } = useSpeech()
+
   useEffect(() => {
     getSpeech(id).then(res => setSpeech(res))
+    setEditMode(false)
   }, [setSpeech, id])
 
   return (
@@ -75,27 +80,31 @@ export default function Speech({
           handleClick={handleClick}
           activeTab={activeTab}
           active={true}
-          title="Evaluate"
+          title="Feedback"
         >
-          {user && searchEvaluator(user.id) ? (
+          {user && searchEvaluator(user.id) && !editMode ? (
             <SpeechEvaluation
               speech={speech}
               evaluation={evaluation}
               setEvaluation={setEvaluation}
               returnEvaluationByUser={returnEvaluationByUser}
               user={user}
+              editMode={editMode}
+              setEditMode={setEditMode}
             />
           ) : (
             // <p>Speech evaluation should go here</p>
             <SpeechEvaluationForm
               evaluation={evaluation}
               setEvaluation={setEvaluation}
-              handleSubmit={handleSubmit}
+              submitEvaluation={submitEvaluation}
               // inputFirstNameRef={inputFirstNameRef}
               // inputLastNameRef={inputLastNameRef}
-              message={message}
+              // message={message}
               handleClickOnUserMessage={handleClickOnUserMessage}
               profile={profile}
+              editMode={editMode}
+              setEditMode={setEditMode}
             />
           )}
         </Tab>
@@ -103,6 +112,9 @@ export default function Speech({
           <SpeechStatistics speech={speech} />
         </Tab>
       </TabContainerStyled>
+      {message.visible === true && (
+        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
+      )}
     </Main>
   )
 
@@ -178,12 +190,16 @@ const TabContainerStyled = styled.section`
   margin-top: 20px;
 `
 
-// (
-//   (setEvaluation(returnEvaluationByUser(user.id)),
-//   (
-//     <SpeechEvaluation
-//       evaluation={evaluation}
-//       setEvaluation={setEvaluation}
-//     />
-//   ))
-// )
+const SpeechEvaluationSubmit = styled.button`
+  margin: 16px 0 40px 0;
+  align-self: center;
+  width: max-content;
+  border: none;
+  padding: 8px;
+  background: var(--primary-bg-color);
+  text-align: center;
+  font-size: 1rem;
+  color: var(--inverse-primary-font-color);
+  text-decoration: none;
+  cursor: pointer;
+`

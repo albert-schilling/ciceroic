@@ -29,7 +29,7 @@ export default function useForm({
     // focusRef: refs[0],
   })
 
-  const handleSubmit = event => {
+  const submitEvaluation = (event, setEditMode) => {
     event.preventDefault()
 
     // if (searchMissingInput(refs)) {
@@ -40,7 +40,7 @@ export default function useForm({
     //   return
     // }
 
-    updateEvaluation()
+    updateEvaluations()
     resetEvaluation()
     setMessage({
       ...message,
@@ -48,15 +48,30 @@ export default function useForm({
       text: `Thank you ${evaluation.evaluator.firstName} ${evaluation.evaluator.lastName}. 
       Your evaluation has been submitted.`,
     })
+    setEditMode(false)
   }
 
-  function updateEvaluation() {
+  function updateEvaluations() {
     evaluation.evaluator.firstName = profile.firstName
     evaluation.evaluator.lastName = profile.lastName
     evaluation.evaluator.id = profile.id
     Object.assign(evaluation, { date: new Date().getTime() })
-    speech.evaluations.push(evaluation)
-    console.table('new evaluation:', evaluation)
+    console.table('new or updated evaluation:', evaluation)
+
+    !speech.evaluations && Object.assign(speech, { evaluations: [] })
+
+    const updatingExistingEvaluation = searchEvaluator(profile.id)
+
+    if (updatingExistingEvaluation) {
+      const index = speech.evaluations.findIndex(
+        evaluation => evaluation.evaluator.id === profile.id
+      )
+      speech.evaluations.splice(index, 1, evaluation)
+      console.log(`Evaluation at index ${index} updated:`, speech)
+    } else {
+      speech.evaluations.push(evaluation)
+      console.table('New evaluation added to speech:', speech)
+    }
     setSpeech(speech)
     patchSpeech(id, speech)
   }
@@ -119,7 +134,8 @@ export default function useForm({
     setEvaluation,
     message,
     setMessage,
-    handleSubmit,
+    submitEvaluation,
+    updateEvaluations,
     handleClickOnUserMessage,
     searchEvaluator,
     returnEvaluationByUser,

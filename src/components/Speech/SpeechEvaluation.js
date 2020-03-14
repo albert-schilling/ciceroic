@@ -7,6 +7,8 @@ export default function SpeechEvaluation({
   speech,
   returnEvaluationByUser,
   user,
+  editMode,
+  setEditMode,
 }) {
   const retrievedEvaluation = returnEvaluationByUser({ user, speech })
 
@@ -44,6 +46,9 @@ export default function SpeechEvaluation({
           ))}
         </StatisticsList>
         <p style={{ margin: 0, padding: '12px' }}>From: {date}.</p>
+        <SpeechEvaluationSubmit onClick={() => setEditMode(!editMode)}>
+          Edit
+        </SpeechEvaluationSubmit>
       </SpeechStatisticsContainer>
     )
   } else {
@@ -61,6 +66,9 @@ export default function SpeechEvaluation({
 const SpeechStatisticsContainer = styled.section`
   background: var(--light-grey);
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   @media (min-width: 700px) {
     max-width: 600px;
     align-self: center;
@@ -102,4 +110,18 @@ const StatisticsRangeIndicator = styled.span`
   border-radius: 50%;
   border: 1px solid #bbb;
   background: #fff;
+`
+
+const SpeechEvaluationSubmit = styled.button`
+  margin: 16px 0 40px 0;
+  align-self: center;
+  width: max-content;
+  border: none;
+  padding: 8px;
+  background: var(--primary-bg-color);
+  text-align: center;
+  font-size: 1rem;
+  color: var(--inverse-primary-font-color);
+  text-decoration: none;
+  cursor: pointer;
 `

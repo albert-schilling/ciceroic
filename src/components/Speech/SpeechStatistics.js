@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 export default function SpeechStatistics({ speech }) {
   let average
-  !!speech.evaluations.length
+  !!speech.evaluations && !!speech.evaluations.length
     ? (average = speech.evaluations.reduce((average, evaluation) => {
         Object.entries(evaluation.dimensions).forEach(dimension => {
           const index = average.findIndex(
@@ -32,7 +32,7 @@ export default function SpeechStatistics({ speech }) {
   return (
     <>
       <SpeechStatisticsContainer>
-        {!!speech.evaluations.length ? (
+        {!!speech.evaluations && !!speech.evaluations.length ? (
           <StatisticsList>
             {average.map(average => (
               <StatisticsListItem key={average.name}>
@@ -53,7 +53,7 @@ export default function SpeechStatistics({ speech }) {
             </p>
           </StatisticsList>
         ) : (
-          <p>There are no evaluations yet.</p>
+          <p style={{ padding: '0 20px' }}>There are no evaluations yet.</p>
         )}
       </SpeechStatisticsContainer>
     </>
@@ -63,6 +63,7 @@ export default function SpeechStatistics({ speech }) {
 const SpeechStatisticsContainer = styled.section`
   background: var(--light-grey);
   margin-bottom: 20px;
+  width: 100%;
   @media (min-width: 700px) {
     max-width: 600px;
     align-self: center;
