@@ -33,6 +33,7 @@ export default function Speech({
     handleClickOnUserMessage,
     searchEvaluator,
     returnEvaluationByUser,
+    handleVoteOnEvaluation,
   } = useForm({
     profile,
     setProfile,
@@ -108,7 +109,12 @@ export default function Speech({
               setEditMode={setEditMode}
             />
           )}
-          <SpeechEvaluations user={user} speech={speech} />
+          <SpeechEvaluations
+            user={user}
+            profile={profile}
+            speech={speech}
+            handleVotes={handleVoteOnEvaluation}
+          />
         </Tab>
         <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
           <SpeechStatistics speech={speech} />

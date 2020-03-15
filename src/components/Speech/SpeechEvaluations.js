@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
+import SpeechEvaluationFooter from './SpeechEvaluationFooter'
 
-export default function SpeechEvaluations({ speech, user }) {
+export default function SpeechEvaluations({
+  speech,
+  user,
+  handleVotes,
+  profile,
+}) {
   useEffect(() => {}, [speech])
 
   if (!!speech.evaluations) {
@@ -46,6 +52,12 @@ export default function SpeechEvaluations({ speech, user }) {
             <p>
               Suggestions: {evaluation.suggestions && evaluation.suggestions}
             </p>
+            <SpeechEvaluationFooter
+              evaluation={evaluation}
+              setEvaluation={() => {}}
+              profile={profile}
+              handleVotes={handleVotes}
+            />
             <p style={{ margin: 0, padding: '12px' }}>From: {date}.</p>
           </SpeechStatisticsContainer>
         )
