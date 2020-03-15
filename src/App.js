@@ -11,13 +11,13 @@ import SpeechesList from './components/Speech/SpeechesList'
 import SignUp from './components/SignUp/SignUp'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
-import useSignUpForm from './hooks/useSignUpForm'
+import useProfile from './hooks/useProfile'
 import LandingPage from './components/LandingPage/LandingPage'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
-  const { userData, setUserData } = useSignUpForm({})
+  const { profile, setProfile } = useProfile()
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
@@ -26,46 +26,48 @@ function App() {
     <AppBodyStyled>
       <GlobalStyle />
       <Router history={history}>
-        <AuthProvider userData={userData} setUserData={setUserData}>
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <AuthConsumer>
-                {({ user }) => {
-                  return user && user.id ? (
-                    speeches === undefined ? (
-                      <p style={{ padding: '20px' }}>
-                        Sorry, we cannot connect to the server. Please, try
-                        again later.
-                      </p>
+        <AuthProvider profile={profile} setProfile={setProfile}>
+          <AuthConsumer>
+            {({ user }) => (
+              <>
+                <Header />
+                <Switch>
+                  <Route exact path="/">
+                    {user && user.id ? (
+                      speeches === undefined ? (
+                        <p style={{ padding: '20px' }}>
+                          Sorry, we cannot connect to the server. Please, try
+                          again later.
+                        </p>
+                      ) : (
+                        <SpeechesList
+                          speeches={speeches}
+                          setSpeech={setSpeech}
+                          speechBasePath={speechBasePath}
+                        />
+                      )
                     ) : (
-                      <SpeechesList
-                        speeches={speeches}
-                        setSpeech={setSpeech}
-                        speechBasePath={speechBasePath}
-                      />
-                    )
-                  ) : (
-                    <LandingPage
-                      userData={userData}
-                      setUserData={setUserData}
+                      <LandingPage profile={profile} setProfile={setProfile} />
+                    )}
+                  </Route>
+                  <Route exact path="/signup">
+                    <SignUp profile={profile} setProfile={setProfile} />
+                  </Route>
+                  <Route exact path="/speech/:id">
+                    <Speech
+                      speech={speech}
+                      setSpeech={setSpeech}
+                      speechBasePath={speechBasePath}
+                      profile={profile}
+                      setProfile={setProfile}
+                      user={user}
                     />
-                  )
-                }}
-              </AuthConsumer>
-            </Route>
-            <Route exact path="/signup">
-              <SignUp userData={userData} setUserData={setUserData} />
-            </Route>
-            <Route exact path="/speech/:id">
-              <Speech
-                speech={speech}
-                setSpeech={setSpeech}
-                speechBasePath={speechBasePath}
-              />
-            </Route>
-          </Switch>
-          <Footer />
+                  </Route>
+                </Switch>
+                <Footer />
+              </>
+            )}
+          </AuthConsumer>
         </AuthProvider>
       </Router>
     </AppBodyStyled>

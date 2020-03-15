@@ -1,37 +1,55 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import useForm from '../../hooks/useForm'
+import useSpeech from '../../hooks/useSpeech'
 import { getSpeech } from '../../services/speechServices'
 import Tab from '../Tab/Tab'
+import SpeechEvaluation from './SpeechEvaluation'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
+import SpeechEvaluations from './SpeechEvaluations'
+import UserMessage from '../UserMessage/UserMessage'
 
-export default function Speech({ speechBasePath, speech, setSpeech }) {
+export default function Speech({
+  speechBasePath,
+  speech,
+  setSpeech,
+  profile,
+  setProfile,
+  user,
+}) {
   let { id } = useParams()
 
-  const inputFirstNameRef = useRef(null)
-  const inputLastNameRef = useRef(null)
+  const inputPraiseRef = useRef(null)
+  const inputSuggestionsRef = useRef(null)
 
   const {
     evaluation,
     setEvaluation,
     message,
-    handleSubmit,
+    submitEvaluation,
     handleClickOnUserMessage,
+    searchEvaluator,
+    returnEvaluationByUser,
   } = useForm({
+    profile,
+    setProfile,
     evaluationDimensions,
-    refs: [inputFirstNameRef, inputLastNameRef],
+    refs: [inputPraiseRef, inputSuggestionsRef],
     speech,
     setSpeech,
     id,
   })
   const [activeTab, setActiveTab] = useState('')
 
+  const { editMode, setEditMode } = useSpeech()
+
   useEffect(() => {
     getSpeech(id).then(res => setSpeech(res))
-  }, [setSpeech, id])
+    setEditMode(false)
+  }, [setSpeech, id, setEditMode])
 
   return (
     <Main>
@@ -63,22 +81,42 @@ export default function Speech({ speechBasePath, speech, setSpeech }) {
           handleClick={handleClick}
           activeTab={activeTab}
           active={true}
-          title="Evaluate"
+          title="Feedback"
         >
-          <SpeechEvaluationForm
-            evaluation={evaluation}
-            setEvaluation={setEvaluation}
-            handleSubmit={handleSubmit}
-            inputFirstNameRef={inputFirstNameRef}
-            inputLastNameRef={inputLastNameRef}
-            message={message}
-            handleClickOnUserMessage={handleClickOnUserMessage}
-          />
+          {user && searchEvaluator(user.id) && !editMode ? (
+            <SpeechEvaluation
+              speech={speech}
+              evaluation={evaluation}
+              setEvaluation={setEvaluation}
+              returnEvaluationByUser={returnEvaluationByUser}
+              user={user}
+              editMode={editMode}
+              setEditMode={setEditMode}
+            />
+          ) : (
+            // <p>Speech evaluation should go here</p>
+            <SpeechEvaluationForm
+              evaluation={evaluation}
+              setEvaluation={setEvaluation}
+              submitEvaluation={submitEvaluation}
+              inputPraiseRef={inputPraiseRef}
+              inputSuggestionsRef={inputSuggestionsRef}
+              // message={message}
+              handleClickOnUserMessage={handleClickOnUserMessage}
+              profile={profile}
+              editMode={editMode}
+              setEditMode={setEditMode}
+            />
+          )}
+          <SpeechEvaluations user={user} speech={speech} />
         </Tab>
         <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
           <SpeechStatistics speech={speech} />
         </Tab>
       </TabContainerStyled>
+      {message.visible === true && (
+        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
+      )}
     </Main>
   )
 
@@ -151,4 +189,5 @@ const TabContainerStyled = styled.section`
   grid-area: tab;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 20px;
 `

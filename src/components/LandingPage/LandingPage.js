@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import UserForm from '../UserForm/UserForm'
 
-export default function LandingPage({ userData, setUserData }) {
+export default function LandingPage({ profile, setProfile }) {
   return (
     <Main>
       <h2>Ciceroic</h2>
       <h4>Become a great speaker like Cicero</h4>
-      <UserForm userData={userData} setUserData={setUserData} />
+      <UserForm profile={profile} setProfile={setProfile} />
     </Main>
   )
 }

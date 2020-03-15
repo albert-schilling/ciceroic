@@ -2,45 +2,19 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import RangeInput from '../Inputs/RangeInput'
-import UserMessage from '../UserMessage/UserMessage'
+import TextArea from '../TextArea/TextArea'
 
 export default function SpeechEvaluationForm({
   evaluation,
   setEvaluation,
-  handleSubmit,
-  inputFirstNameRef,
-  inputLastNameRef,
-  message,
-  handleClickOnUserMessage,
+  submitEvaluation,
+  editMode,
+  setEditMode,
+  inputPraiseRef,
+  inputSuggestionsRef,
 }) {
   return (
-    <SpeechEvaluationFormStyled onSubmit={event => handleSubmit(event)}>
-      <SpeechEvaluationFormSection>
-        <label htmlFor="firstName">
-          First Name
-          <input
-            autoFocus
-            onChange={handleChange}
-            ref={inputFirstNameRef}
-            type="text"
-            name="first name"
-            id="firstName"
-            value={evaluation.evaluator.firstName}
-          />
-        </label>
-
-        <label htmlFor="lastName">
-          Last Name
-          <input
-            ref={inputLastNameRef}
-            type="text"
-            name="last name"
-            id="lastName"
-            value={evaluation.evaluator.lastName}
-            onChange={handleChange}
-          />
-        </label>
-      </SpeechEvaluationFormSection>
+    <SpeechEvaluationFormStyled onSubmit={handleSubmit}>
       <SpeechEvaluationFormSection>
         {evaluationDimensions.map(dimension => {
           return (
@@ -54,39 +28,40 @@ export default function SpeechEvaluationForm({
           )
         })}
       </SpeechEvaluationFormSection>
+      <TextArea
+        title="Praise"
+        name="praise"
+        maxlength={1000}
+        evaluation={evaluation}
+        setEvaluation={setEvaluation}
+        reference={inputPraiseRef}
+        key="Praise"
+      />
+      <TextArea
+        title="Suggestions"
+        name="suggestions"
+        maxlength={1000}
+        evaluation={evaluation}
+        setEvaluation={setEvaluation}
+        reference={inputSuggestionsRef}
+        key="Suggestions"
+      />
+      {editMode &&
+        (() => (
+          <SpeechEvaluationSubmit onClick={() => setEditMode(false)}>
+            Cancel
+          </SpeechEvaluationSubmit>
+        ))()}
       <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
-      {message.visible === true && (
-        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
-      )}
     </SpeechEvaluationFormStyled>
   )
-  function handleChange(event) {
-    if (event.target.name === 'first name') {
-      setEvaluation({
-        ...evaluation,
-        evaluator: {
-          ...evaluation.evaluator,
-          firstName: event.target.value,
-        },
-      })
-    }
-    if (event.target.name === 'last name') {
-      setEvaluation({
-        ...evaluation,
-        evaluator: {
-          ...evaluation.evaluator,
-          lastName: event.target.value,
-        },
-      })
-    }
+  async function handleSubmit(event) {
+    await submitEvaluation(event, setEditMode)
   }
 }
 
 const SpeechEvaluationFormStyled = styled.form`
-  grid-area: evaluation;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
   grid-gap: 20px;
   margin: 20px 0;
 `

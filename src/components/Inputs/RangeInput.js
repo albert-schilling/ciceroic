@@ -39,7 +39,6 @@ export default function RangeInput({
         [name]: Number(event.target.value),
       },
     })
-    console.log(evaluation)
   }
 }
 
