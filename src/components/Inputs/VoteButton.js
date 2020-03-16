@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react'
-
+import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function VoteButton({
   name = 'VoteButton',
   className = '',
   disabled = false,
-  clickHandler = () => {
-    console.log('VoteButton clicked')
-  },
+  clickHandler,
   content = 'VoteButton Content',
   counter = 0,
 }) {
@@ -18,7 +15,7 @@ export default function VoteButton({
       disabled={disabled}
       id={name}
       name={name}
-      key={`${counter} ${name}`}
+      key={name}
       onClick={clickHandler}
     >
       {content}
@@ -38,6 +35,6 @@ const VoteButtonStyled = styled.button`
   color: var(--primary-font-color);
   cursor: pointer;
   &.voted {
-    background: red;
+    text-shadow: 0 0 8px var(--secondary-bg-color);
   }
 `

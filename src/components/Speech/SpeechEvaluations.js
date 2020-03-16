@@ -8,8 +8,6 @@ export default function SpeechEvaluations({
   handleVotes,
   profile,
 }) {
-  useEffect(() => {}, [speech])
-
   if (!!speech.evaluations) {
     return speech.evaluations
       .filter(evaluation => evaluation.evaluator.id !== user.id)

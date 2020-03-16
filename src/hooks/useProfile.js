@@ -9,5 +9,7 @@ export default function useProfile() {
     id: '',
   })
 
-  return { profile, setProfile }
+  const [profileRetrieved, setProfileRetrieved] = useState(false)
+
+  return { profile, setProfile, profileRetrieved, setProfileRetrieved }
 }

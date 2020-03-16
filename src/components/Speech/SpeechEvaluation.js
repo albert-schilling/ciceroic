@@ -14,7 +14,7 @@ export default function SpeechEvaluation({
 
   useEffect(() => {
     setEvaluation(retrievedEvaluation)
-  }, [setEvaluation, retrievedEvaluation])
+  }, [evaluation, setEvaluation, retrievedEvaluation])
 
   if (!!evaluation.date) {
     const dimensions = Object.entries(evaluation.dimensions)

@@ -17,16 +17,26 @@ import LandingPage from './components/LandingPage/LandingPage'
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
-  const { profile, setProfile } = useProfile()
+  const {
+    profile,
+    setProfile,
+    profileRetrieved,
+    setProfileRetrieved,
+  } = useProfile()
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
-  }, [setSpeeches])
+  }, [setSpeeches, profile, setProfile])
   return (
     <AppBodyStyled>
       <GlobalStyle />
       <Router history={history}>
-        <AuthProvider profile={profile} setProfile={setProfile}>
+        <AuthProvider
+          profile={profile}
+          setProfile={setProfile}
+          profileRetrieved={profileRetrieved}
+          setProfileRetrieved={setProfileRetrieved}
+        >
           <AuthConsumer>
             {({ user }) => (
               <>

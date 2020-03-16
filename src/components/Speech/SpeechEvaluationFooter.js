@@ -7,77 +7,77 @@ export default function SpeechEvaluationFooter({
   profile = {},
   handleVotes = () => {},
 }) {
-  const [voted, setVoted] = useState({
-    upvotes: false,
-    downvotes: false,
-    flags: false,
-  })
+  const [voted, setVoted] = useState({})
+  const voteTypes = ['upvotes', 'downvotes', 'flags']
 
   useEffect(() => {
-    checkIfUserVoted()
-  }, [])
+    setVoted(checkIfUserVoted())
+    console.log('render of SpeechEvaluationFooter')
+  }, [setVoted])
 
-  console.log('voted.upvotes.length', voted.upvotes.length)
   return (
     <FooterContainer>
       <VoteButton
         className={voted.upvotes ? 'voted' : ''}
         id="upvotes"
         name="upvotes"
-        disabled={voted ? voted.upvotes : true}
         clickHandler={clickHandler}
         content="&#708;"
         counter={evaluation.upvotes ? evaluation.upvotes.length : 0}
+        profile={profile}
       />
       <VoteButton
         className={voted.downvotes ? 'voted' : ''}
         id="downvotes"
         name="downvotes"
-        disabled={voted ? voted.downvotes : true}
         clickHandler={clickHandler}
         content="&#709;"
         counter={evaluation.downvotes ? evaluation.downvotes.length : 0}
+        profile={profile}
       />
       <VoteButton
         className={voted.flags ? 'voted' : ''}
         id="flags"
         name="flags"
-        disabled={voted ? voted.flags : true}
         clickHandler={clickHandler}
         content="&#9872;"
-        counter={evaluation.flags ? evaluation.flags.length : 0}
+        counter={null}
+        profile={profile}
       />
     </FooterContainer>
   )
 
   function clickHandler(event) {
+    event.preventDefault()
     updateVotes(event)
     handleVotes(event, evaluation)
   }
 
   function updateVotes(event) {
-    console.log('voted before click:', voted)
-    Object.assign(voted, { [event.target.name]: !voted[event.target.name] })
-    console.log('voted after click:', voted)
+    const voteType = event.target.name
+    updateOppisiteVote(voteType)
+    Object.assign(voted, { [voteType]: !voted[voteType] })
     setVoted(voted)
   }
 
+  function updateOppisiteVote(voteType) {
+    voteType === 'upvotes' && Object.assign(voted, { downvotes: false })
+    voteType === 'downvotes' && Object.assign(voted, { upvotes: false })
+  }
+
   function checkIfUserVoted() {
-    const voteTypes = Object.entries(voted)
     addVoteTypeIfMissing(voteTypes)
     voteTypes.map(type => {
-      const userVoted = evaluation[type[0]].some(vote => vote.id === profile.id)
-      Object.assign(voted, { [type[0]]: userVoted })
+      const userVoted = evaluation[type].some(vote => vote.id === profile.id)
+      Object.assign(voted, { [type]: userVoted })
     })
-    setVoted(voted)
-    console.log('voted:', voted)
+    return voted
   }
 
   function addVoteTypeIfMissing(voteTypes) {
     voteTypes.forEach(type => {
-      const typeName = type[0]
-      evaluation.hasOwnProperty(typeName) ||
-        Object.assign(evaluation, { [typeName]: [] })
+      evaluation.hasOwnProperty(type) ||
+        Object.assign(evaluation, { [type]: [] })
     })
   }
 }
@@ -90,17 +90,3 @@ const FooterContainer = styled.section`
   grid-template: auto / 1fr 1fr 1fr;
   grid-gap: 2px;
 `
-
-// const VoteButton = styled.button`
-//   border: none;
-//   background: var(--inverse-primary-font-color);
-
-//   padding: 4px;
-//   text-align: center;
-//   font-size: 1rem;
-//   color: var(--primary-font-color);
-//   cursor: pointer;
-//   &.voted {
-//     background: red;
-//   }
-// `

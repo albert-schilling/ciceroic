@@ -5,7 +5,14 @@ import { db } from '../../services/firebase'
 
 const AuthContext = React.createContext()
 
-function AuthProvider({ history, children, profile, setProfile }) {
+function AuthProvider({
+  history,
+  children,
+  profile,
+  setProfile,
+  profileRetrieved,
+  setProfileRetrieved,
+}) {
   const [user, setUser] = useState({})
 
   useEffect(() => {
@@ -53,6 +60,8 @@ function AuthProvider({ history, children, profile, setProfile }) {
         console.error('Error writing document: ', error)
       })
     setProfile(profile)
+    setProfileRetrieved(true)
+    console.log('Updating profile:', profile)
   }
   async function signUp(event) {
     console.log('Signup called')

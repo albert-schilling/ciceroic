@@ -52,79 +52,95 @@ export default function Speech({
     setEditMode(false)
   }, [setSpeech, id, setEditMode])
 
-  return (
-    <Main>
-      <NavLinkStyled exact to="/">
-        <span>&#8612;</span>see all speeches
-      </NavLinkStyled>
-      {speech.filename === undefined ? (
-        <p>Video loading</p>
-      ) : (
-        <VideoStyled role="img" controls>
-          <source src={speechBasePath + speech.filename} type="video/mp4" />
-        </VideoStyled>
-      )}
-      <SpeechInformation>
-        <header>
-          <SpeechTitle>{speech.title}</SpeechTitle>
-        </header>
-        <h3>{speech.speaker}</h3>
-        <SpeechDescription>{speech.description}</SpeechDescription>
-        <SpeechDetails>
-          <small>{speech.category}</small>
-          <small>{speech.duration} min</small>
-          <small>{speech.date}</small>
-        </SpeechDetails>
-      </SpeechInformation>
+  if (profile.id.length > 0) {
+    return (
+      <Main>
+        <NavLinkStyled exact to="/">
+          <span>&#8612;</span>see all speeches
+        </NavLinkStyled>
+        {speech.filename === undefined ? (
+          <p>Video loading</p>
+        ) : (
+          <VideoStyled role="img" controls>
+            <source src={speechBasePath + speech.filename} type="video/mp4" />
+          </VideoStyled>
+        )}
+        <SpeechInformation>
+          <header>
+            <SpeechTitle>{speech.title}</SpeechTitle>
+          </header>
+          <h3>{speech.speaker}</h3>
+          <SpeechDescription>{speech.description}</SpeechDescription>
+          <SpeechDetails>
+            <small>{speech.category}</small>
+            <small>{speech.duration} min</small>
+            <small>{speech.date}</small>
+          </SpeechDetails>
+        </SpeechInformation>
 
-      <TabContainerStyled>
-        <Tab
-          handleClick={handleClick}
-          activeTab={activeTab}
-          active={true}
-          title="Feedback"
-        >
-          {user && searchEvaluator(user.id) && !editMode ? (
-            <SpeechEvaluation
-              speech={speech}
-              evaluation={evaluation}
-              setEvaluation={setEvaluation}
-              returnEvaluationByUser={returnEvaluationByUser}
+        <TabContainerStyled>
+          <Tab
+            handleClick={handleClick}
+            activeTab={activeTab}
+            active={true}
+            title="Feedback"
+          >
+            {user && searchEvaluator(user.id) && !editMode ? (
+              <SpeechEvaluation
+                speech={speech}
+                evaluation={evaluation}
+                setEvaluation={setEvaluation}
+                returnEvaluationByUser={returnEvaluationByUser}
+                user={user}
+                editMode={editMode}
+                setEditMode={setEditMode}
+              />
+            ) : (
+              <SpeechEvaluationForm
+                evaluation={evaluation}
+                setEvaluation={setEvaluation}
+                submitEvaluation={submitEvaluation}
+                inputPraiseRef={inputPraiseRef}
+                inputSuggestionsRef={inputSuggestionsRef}
+                handleClickOnUserMessage={handleClickOnUserMessage}
+                profile={profile}
+                editMode={editMode}
+                setEditMode={setEditMode}
+              />
+            )}
+            <SpeechEvaluations
               user={user}
-              editMode={editMode}
-              setEditMode={setEditMode}
-            />
-          ) : (
-            // <p>Speech evaluation should go here</p>
-            <SpeechEvaluationForm
-              evaluation={evaluation}
-              setEvaluation={setEvaluation}
-              submitEvaluation={submitEvaluation}
-              inputPraiseRef={inputPraiseRef}
-              inputSuggestionsRef={inputSuggestionsRef}
-              // message={message}
-              handleClickOnUserMessage={handleClickOnUserMessage}
               profile={profile}
-              editMode={editMode}
-              setEditMode={setEditMode}
+              speech={speech}
+              handleVotes={handleVoteOnEvaluation}
             />
-          )}
-          <SpeechEvaluations
-            user={user}
-            profile={profile}
-            speech={speech}
-            handleVotes={handleVoteOnEvaluation}
+          </Tab>
+          <Tab
+            handleClick={handleClick}
+            activeTab={activeTab}
+            title="Statistics"
+          >
+            <SpeechStatistics speech={speech} />
+          </Tab>
+        </TabContainerStyled>
+        {message.visible === true && (
+          <UserMessage
+            message={message}
+            handleClick={handleClickOnUserMessage}
           />
-        </Tab>
-        <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
-          <SpeechStatistics speech={speech} />
-        </Tab>
-      </TabContainerStyled>
-      {message.visible === true && (
-        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
-      )}
-    </Main>
-  )
+        )}
+      </Main>
+    )
+  } else {
+    return (
+      <Main>
+        <NavLinkStyled exact to="/">
+          <span>&#8612;</span>see all speeches
+        </NavLinkStyled>
+        <p>Waiting on user data.</p>
+      </Main>
+    )
+  }
 
   function handleClick(ref) {
     setActiveTab(ref)
