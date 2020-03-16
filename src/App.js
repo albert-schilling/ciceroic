@@ -64,14 +64,25 @@ function App() {
                     <SignUp profile={profile} setProfile={setProfile} />
                   </Route>
                   <Route exact path="/speech/:id">
-                    <Speech
-                      speech={speech}
-                      setSpeech={setSpeech}
-                      speechBasePath={speechBasePath}
-                      profile={profile}
-                      setProfile={setProfile}
-                      user={user}
-                    />
+                    {user && user.id ? (
+                      speeches === undefined ? (
+                        <p style={{ padding: '20px' }}>
+                          Sorry, we cannot connect to the server. Please, try
+                          again later.
+                        </p>
+                      ) : (
+                        <Speech
+                          speech={speech}
+                          setSpeech={setSpeech}
+                          speechBasePath={speechBasePath}
+                          profile={profile}
+                          setProfile={setProfile}
+                          user={user}
+                        />
+                      )
+                    ) : (
+                      <LandingPage profile={profile} setProfile={setProfile} />
+                    )}
                   </Route>
                 </Switch>
                 <Footer />

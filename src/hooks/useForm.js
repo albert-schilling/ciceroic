@@ -99,7 +99,9 @@ export default function useForm({
     return !!missingInput
   }
 
-  function searchEvaluator(userId) {
+  function searchEvaluator(userId, speech) {
+    console.log('user id in searchevaluator', userId)
+    console.log('speech in searchevaluator', speech)
     let evaluations = []
     const foundEvaluator =
       speech && speech.evaluations
@@ -110,6 +112,8 @@ export default function useForm({
   }
 
   function returnEvaluationByUser({ user, speech }) {
+    console.log('returnEvaluationByUser called')
+    console.log('speech in returnEv', speech)
     let foundEvaluation = {}
     speech && speech.evaluations
       ? (foundEvaluation = speech.evaluations.filter(
@@ -120,6 +124,7 @@ export default function useForm({
           evaluator: { firstName: '', lastName: '', id: '' },
           date: '',
         })
+    console.log('Found Evaluation', foundEvaluation)
     return foundEvaluation
   }
 

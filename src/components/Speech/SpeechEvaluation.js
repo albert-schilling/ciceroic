@@ -9,23 +9,14 @@ import SpeechEvaluationFooter from './SpeechEvaluationFooter'
 export default function SpeechEvaluation({
   title = 'Evaluation title:',
   evaluation,
-  // setEvaluation,
   profile,
   handleVotes,
-  speech,
-  returnEvaluationByUser,
   user,
   editMode,
   setEditMode,
 }) {
-  const retrievedEvaluation = returnEvaluationByUser({ user, speech })
   const { convertTimestampToDate } = useDate()
   const evaluationLoaded = !!evaluation.date
-
-  // useEffect(() => {
-  //   setEvaluation(retrievedEvaluation)
-  // }, [setEvaluation, retrievedEvaluation])
-
   if (evaluationLoaded) {
     const dimensions = Object.entries(evaluation.dimensions)
     const timestamp = new Date(evaluation.date)

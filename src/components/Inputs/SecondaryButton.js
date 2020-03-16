@@ -5,7 +5,7 @@ export default function Button({
   callback = () => {},
   text = 'Secondary Button',
   name = 'Secondary Button',
-  autoFocus = true,
+  autoFocus = false,
 }) {
   return (
     <ButtonStyled name={name} autoFocus={autoFocus} onClick={callback}>

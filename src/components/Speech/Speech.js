@@ -48,11 +48,26 @@ export default function Speech({
   const { editMode, setEditMode } = useSpeech()
 
   useEffect(() => {
-    getSpeech(id).then(res => setSpeech(res))
+    getSpeech(id)
+      .then(res => {
+        setSpeech(res)
+        return res
+      })
+      .then(speech => {
+        const foundEvaluator = searchEvaluator(user.id, speech)
+        console.log('foundEvaluator', foundEvaluator)
+        if (foundEvaluator) {
+          const foundEvaluation = returnEvaluationByUser({ user, speech })
+          Object.assign(evaluation, foundEvaluation)
+          setEvaluation(evaluation)
+          console.log('foundEvaluatoin', foundEvaluation)
+        }
+        console.log('evaluation after ressetting', evaluation)
+      })
     setEditMode(false)
-  }, [setSpeech, id, setEditMode])
+  }, [setSpeech, id, setEditMode, profile.id])
+  console.log('evaluation after useEffect', evaluation)
 
-  console.log('Speech rerenders')
   if (profile.id.length > 0) {
     return (
       <Main>
@@ -86,13 +101,16 @@ export default function Speech({
             active={true}
             title="Feedback"
           >
-            {user && searchEvaluator(user.id) && !editMode ? (
+            {console.log('user', user)}
+            {console.log('user.id', user.id)}
+
+            {user && searchEvaluator(user.id, speech) && !editMode ? (
               <SpeechEvaluation
                 title="Your evaluation:"
                 speech={speech}
                 evaluation={evaluation}
                 // setEvaluation={setEvaluation}
-                returnEvaluationByUser={returnEvaluationByUser}
+                // returnEvaluationByUser={returnEvaluationByUser}
                 user={user}
                 editMode={editMode}
                 setEditMode={setEditMode}
