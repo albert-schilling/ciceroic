@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
+import Statistics from './Statistics'
+import Comment from './Comment'
+import useDate from '../../hooks/useDate'
+import DefaultButton from '../Inputs/DefaultButton'
+import SpeechEvaluationFooter from './SpeechEvaluationFooter'
 
 export default function SpeechEvaluation({
+  title = 'Evaluation title:',
   evaluation,
-  setEvaluation,
+  // setEvaluation,
+  profile,
+  handleVotes,
   speech,
   returnEvaluationByUser,
   user,
@@ -11,66 +19,68 @@ export default function SpeechEvaluation({
   setEditMode,
 }) {
   const retrievedEvaluation = returnEvaluationByUser({ user, speech })
+  const { convertTimestampToDate } = useDate()
+  const evaluationLoaded = !!evaluation.date
 
-  useEffect(() => {
-    setEvaluation(retrievedEvaluation)
-  }, [evaluation, setEvaluation, retrievedEvaluation])
+  // useEffect(() => {
+  //   setEvaluation(retrievedEvaluation)
+  // }, [setEvaluation, retrievedEvaluation])
 
-  if (!!evaluation.date) {
+  if (evaluationLoaded) {
     const dimensions = Object.entries(evaluation.dimensions)
-    const evaluationDate = new Date(evaluation.date)
-    const date = `
-    ${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
-      evaluationDate
-    )}, ${evaluationDate.getUTCDate()}
-    ${new Intl.DateTimeFormat('en-US', {
-      month: 'long',
-    }).format(evaluationDate)}, ${evaluationDate.getFullYear()}`
-
+    const timestamp = new Date(evaluation.date)
+    const date = convertTimestampToDate(timestamp)
     return (
-      <SpeechStatisticsContainer>
-        <p style={{ margin: 0, padding: '12px' }}>Your evaluation:</p>
-        <StatisticsList>
-          {dimensions.map(dimension => (
-            <StatisticsListItem key={dimension[0]}>
-              {dimension[0]}
-              <StatisticsRangeValue>
-                <StatisticsRangeIndicator
-                  style={{
-                    marginLeft: `calc(${(dimension[1] / 5) * 100}% - 8px)`,
-                  }}
-                />
-                {dimension[1]}
-              </StatisticsRangeValue>
-            </StatisticsListItem>
-          ))}
-        </StatisticsList>
-
-        <p>Praise: {evaluation.praise && evaluation.praise}</p>
-        <p>Suggestions: {evaluation.suggestions && evaluation.suggestions}</p>
-        <p style={{ margin: 0, padding: '12px' }}>From: {date}.</p>
-        {evaluation.evaluator.id === user.id && (
-          <SpeechEvaluationSubmit onClick={() => setEditMode(!editMode)}>
-            Edit
-          </SpeechEvaluationSubmit>
+      <EvaluationContainer>
+        <EvaluationTitle>{title}</EvaluationTitle>
+        <Statistics dimensions={dimensions} />
+        {evaluation.praise && (
+          <Comment
+            header="What I liked about the speech:"
+            content={evaluation.praise}
+          />
         )}
-      </SpeechStatisticsContainer>
+        {evaluation.suggestions && (
+          <Comment
+            header="What could be improved:"
+            content={evaluation.suggestions}
+          />
+        )}
+        <EvaluationDate>Submitted: {date}.</EvaluationDate>
+        {evaluation.evaluator.id === user.id ? (
+          <DefaultButton
+            name="Edit evaluation"
+            callback={() => {
+              setEditMode(!editMode)
+            }}
+            text="Edit"
+          />
+        ) : (
+          <SpeechEvaluationFooter
+            evaluation={evaluation}
+            profile={profile}
+            handleVotes={handleVotes}
+          />
+        )}
+      </EvaluationContainer>
     )
   } else {
     return (
-      <SpeechStatisticsContainer>
-        <p style={{ margin: 0, padding: '12px' }}>Your evaluation:</p>
-        <StatisticsList>
-          <p>Waiting on data</p>
-        </StatisticsList>
-      </SpeechStatisticsContainer>
+      <EvaluationContainer>
+        <EvaluationTitle>Your evaluation:</EvaluationTitle>
+        <p>Waiting on data</p>
+      </EvaluationContainer>
     )
   }
 }
 
-const SpeechStatisticsContainer = styled.section`
-  background: var(--light-grey);
+const EvaluationContainer = styled.section`
   margin-bottom: 20px;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -83,50 +93,15 @@ const SpeechStatisticsContainer = styled.section`
   }
 `
 
-const StatisticsList = styled.ul`
-  margin: 0 0 20px 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  grid-gap: 8px;
+const EvaluationTitle = styled.h4`
+  color: var(--secondary-font-color);
+  font-size: 0.9rem;
+  font-weight: inherit;
+  margin: 0 0 12px 0;
 `
-const StatisticsListItem = styled.li`
+
+const EvaluationDate = styled.p`
   margin: 0;
-  padding: 4px 12px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 8px;
-  line-height: 1.4rem;
-  :nth-child(odd) {
-    background: #ddd;
-  }
-`
-
-const StatisticsRangeValue = styled.label`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  grid-gap: 8px;
-`
-const StatisticsRangeIndicator = styled.span`
-  width: 12px;
-  min-width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid #bbb;
-  background: #fff;
-`
-
-const SpeechEvaluationSubmit = styled.button`
-  margin: 16px 0 40px 0;
-  align-self: center;
-  width: max-content;
-  border: none;
-  padding: 8px;
-  background: var(--primary-bg-color);
-  text-align: center;
-  font-size: 1rem;
-  color: var(--inverse-primary-font-color);
-  text-decoration: none;
-  cursor: pointer;
+  color: var(--secondary-font-color);
+  font-size: 0.9rem;
 `

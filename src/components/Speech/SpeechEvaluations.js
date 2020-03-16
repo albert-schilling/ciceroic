@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
 import SpeechEvaluationFooter from './SpeechEvaluationFooter'
+import useDate from '../../hooks/useDate'
 
 export default function SpeechEvaluations({
   speech,
@@ -8,19 +9,16 @@ export default function SpeechEvaluations({
   handleVotes,
   profile,
 }) {
-  if (!!speech.evaluations) {
+  const evaluationsExistAndLoaded = !!speech.evaluations
+  const { convertTimestampToDate } = useDate()
+
+  if (evaluationsExistAndLoaded) {
     return speech.evaluations
       .filter(evaluation => evaluation.evaluator.id !== user.id)
       .map(evaluation => {
         const dimensions = Object.entries(evaluation.dimensions)
-        const evaluationDate = new Date(evaluation.date)
-        const date = `
-    ${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
-      evaluationDate
-    )}, ${evaluationDate.getUTCDate()}
-    ${new Intl.DateTimeFormat('en-US', {
-      month: 'long',
-    }).format(evaluationDate)}, ${evaluationDate.getFullYear()}`
+        const timestamp = new Date(evaluation.date)
+        const date = convertTimestampToDate(timestamp)
 
         return (
           <SpeechStatisticsContainer
@@ -52,7 +50,6 @@ export default function SpeechEvaluations({
             </p>
             <SpeechEvaluationFooter
               evaluation={evaluation}
-              setEvaluation={() => {}}
               profile={profile}
               handleVotes={handleVotes}
             />

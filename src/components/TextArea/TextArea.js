@@ -29,10 +29,15 @@ export default function TextArea({
     </>
   )
   function handleChange(event) {
-    setEvaluation({
-      ...evaluation,
-      [name]: event.target.value,
-    })
+    console.log('handleChange called')
+    console.log('event.target.value', event.target.value)
+    console.log('evaluation[name]', evaluation[name])
+    console.log('evaluation', evaluation)
+    Object.assign(evaluation, { name: event.target.value })
+    console.log('evaluation before setEv after editing', evaluation)
+
+    setEvaluation(evaluation)
+    console.log('evaluation after editing', evaluation)
   }
 }
 

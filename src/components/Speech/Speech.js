@@ -52,6 +52,7 @@ export default function Speech({
     setEditMode(false)
   }, [setSpeech, id, setEditMode])
 
+  console.log('Speech rerenders')
   if (profile.id.length > 0) {
     return (
       <Main>
@@ -87,13 +88,16 @@ export default function Speech({
           >
             {user && searchEvaluator(user.id) && !editMode ? (
               <SpeechEvaluation
+                title="Your evaluation:"
                 speech={speech}
                 evaluation={evaluation}
-                setEvaluation={setEvaluation}
+                // setEvaluation={setEvaluation}
                 returnEvaluationByUser={returnEvaluationByUser}
                 user={user}
                 editMode={editMode}
                 setEditMode={setEditMode}
+                profile={profile}
+                handleVotes={handleVoteOnEvaluation}
               />
             ) : (
               <SpeechEvaluationForm

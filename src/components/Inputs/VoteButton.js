@@ -35,6 +35,6 @@ const VoteButtonStyled = styled.button`
   color: var(--primary-font-color);
   cursor: pointer;
   &.voted {
-    text-shadow: 0 0 8px var(--secondary-bg-color);
+    text-shadow: 0 0 8px var(--primary-bg-color);
   }
 `
