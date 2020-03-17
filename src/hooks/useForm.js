@@ -40,6 +40,7 @@ export default function useForm() {
     speech,
     setSpeech,
     profile,
+    editMode,
     setEditMode,
     refs,
   }) => {
@@ -50,7 +51,7 @@ export default function useForm() {
     }
 
     updateEvaluations({ evaluation, setEvaluation, speech, setSpeech, profile })
-    resetEvaluation({ setEvaluation })
+    editMode || resetEvaluation({ setEvaluation })
     setMessage({
       ...message,
       visible: true,
@@ -147,37 +148,58 @@ export default function useForm() {
   }) {
     event.preventDefault()
     const voteType = event.target.name
-    updateVotesInEvaluation()
+    // console.log('event.target.name in handleVote', event.target.name)
+    // const timestamp = new Date().getTime()
 
-    function updateVotesInEvaluation() {
-      console.log('evaluation before update', evaluation)
-      addSingleVoteTypeIfMissing()
-      removeOppositeVoteType()
-      toggleVoteInEvaluation()
+    // updateVotesInEvaluation()
 
-      setEvaluation(evaluation)
+    console.log('evaluation before update', evaluation)
+    addSingleVoteTypeIfMissing()
+    toggleVoteInEvaluation()
+    removeOppositeVoteType()
 
-      console.log('evaluation after update', evaluation)
+    setEvaluation(evaluation)
 
-      const indexOfEvaluationInSpeech = speech.evaluations.findIndex(
-        storedEvaluation => {
-          return storedEvaluation.evaluator.id === evaluation.evaluator.id
-        }
-      )
-      speech.evaluations.splice(indexOfEvaluationInSpeech, 1, evaluation)
+    console.log('evaluation after update', evaluation)
 
-      setSpeech(speech)
-      // patchSpeech(speech.id, speech)
-    }
+    const indexOfEvaluationInSpeech = speech.evaluations.findIndex(
+      storedEvaluation => {
+        return storedEvaluation.evaluator.id === evaluation.evaluator.id
+      }
+    )
+    speech.evaluations.splice(indexOfEvaluationInSpeech, 1, evaluation)
+
+    setSpeech(speech)
+    console.log('newSpeech', speech)
+    // patchSpeech(speech.id, speech)
+
+    // async function updateVotesInEvaluation() {}
 
     function addSingleVoteTypeIfMissing() {
+      // const newObject = {
+      //   date: 1584436926707,
+      //   firstName: 'test',
+      //   lastName: 'test',
+      //   id: '123123',
+      // }
+      // console.log(evaluation)
+      // console.log(
+      //   'evaluation.hasOwnProperty(voteType)',
+      //   evaluation.hasOwnProperty(voteType)
+      // )
       evaluation.hasOwnProperty(voteType) ||
         Object.assign(evaluation, { [voteType]: [] })
+      // console.log('assigned a single voteType', evaluation)
+      // console.log('evaluation[voteType]', evaluation[voteType])
+      // evaluation[voteType].forEach(vote =>
+      //   console.log('iterating through votes', vote)
+      // )
+      // console.log('evaluation[voteType].length', evaluation[voteType].length)
     }
 
     function removeOppositeVoteType() {
-      voteType === 'upvotes' && removeVoteInEvaluation('downvotes', evaluation)
-      voteType === 'downvotes' && removeVoteInEvaluation('upvotes', evaluation)
+      voteType === 'upvotes' && removeVoteInEvaluation('downvotes')
+      voteType === 'downvotes' && removeVoteInEvaluation('upvotes')
     }
 
     function toggleVoteInEvaluation() {
@@ -187,16 +209,57 @@ export default function useForm() {
         lastName: profile.lastName,
         date: new Date().getTime(),
       }
+      // console.log('PROFILE', profile)
+      // console.log('PROFILE', profile.firstName)
+      // console.log('PROFILE', profile.lastName)
+      // const newVote = { test: 'testvote' }
       const index = evaluation[voteType].findIndex(
         vote => vote.id === profile.id
       )
+      // const votes = evaluation[voteType]
+      // console.log('votes in toggleVote before push', votes)
 
+      // const votesTest = evaluation[voteType]
+
+      // votesTest.forEach(vote => {
+      //   console.log('vote', vote)
+      //   console.log('vote.id', vote.id)
+      //   console.log('profile.id', profile.id)
+      // })
+
+      // console.log('votesTest', votesTest)
+      // console.log('isArray', Array.isArray(votesTest))
+      // console.log('Array length', votesTest.length)
+      // console.log('votesTest[0]', votesTest[0])
+
+      // console.log('profile in toggleVote', profile)
+      // console.log('index in toggleVote', index)
+      // console.log('voteType in toggelVote', voteType)
+      // console.log('evaluation[voteType] in toggelVote', evaluation[voteType])
+      // console.log('evaluation[voteType][0] in toggelVote', votesTest[0])
+      console.log('index in toggle Vote', index)
+      console.log('newVote in toggle Vote', newVote)
       index >= 0
         ? evaluation[voteType].splice(index, 1)
         : evaluation[voteType].push(newVote)
+      // Object.assign(evaluation, {[voteType]: [...evaluation[voteType], newVote]})
+      // evaluation[voteType].push(newVote)
+      // votes.push({ name: 'newObject' })
+      // console.log('votes after push in toggle Vote', votes)
+      // votes.push(newVote)
+      // votes.push(newVote)
+
+      // console.log('new length', votes.length)
+      // console.log('votes is array', Array.isArray(votes))
+      // // votes = [...votes, newVote]]
+      // console.log('votes in toggleVote after push', votes)
+
+      // Object.assign(evaluation, { [voteType]: votes })
+      console.log('evaluation[voteType] in toggle vote', evaluation[voteType])
+      console.log('evaluation after add logic', evaluation)
     }
 
-    function removeVoteInEvaluation() {
+    function removeVoteInEvaluation(voteType) {
       const index = evaluation[voteType].findIndex(
         vote => vote.id === profile.id
       )

@@ -29,8 +29,11 @@ export default function TextArea({
     </>
   )
   function handleChange(event) {
-    Object.assign(evaluation, { name: event.target.value })
-    setEvaluation(evaluation)
+    setEvaluation({
+      ...evaluation,
+      [event.target.name]: event.target.value,
+    })
+    console.log('evaluation after set in textarea', evaluation)
   }
 }
 

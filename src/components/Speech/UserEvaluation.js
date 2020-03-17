@@ -10,16 +10,14 @@ import Evaluation from './Evaluation'
 import EvaluationForm from './EvaluationForm'
 import useSpeech from '../../hooks/useSpeech'
 
-export default function UserEvaluation({ speech, user }) {
+export default function UserEvaluation({ speech, setSpeech, user, profile }) {
   const {
     evaluation,
     setEvaluation,
     // message,
     submitEvaluation,
     // handleClickOnUserMessage,
-    searchEvaluator,
     returnEvaluationByUser,
-    handleVoteOnEvaluation,
   } = useForm()
 
   const { editMode, setEditMode } = useSpeech()
@@ -37,7 +35,7 @@ export default function UserEvaluation({ speech, user }) {
     }
     setEditMode(false)
   }, [user, speech])
-
+  console.log('evaluation', evaluation)
   if (evaluation.date != '') {
     if (foundEvaluator && !editMode) {
       return (
@@ -63,41 +61,6 @@ export default function UserEvaluation({ speech, user }) {
         />
       )
     }
-
-    // <EvaluationContainer>
-    //   <EvaluationTitle>Your evaluaton:</EvaluationTitle>
-    //   <Statistics dimensions={dimensions} />
-    //   {evaluation.praise && (
-    //     <Comment
-    //       header="What I liked about the speech:"
-    //       content={evaluation.praise}
-    //     />
-    //   )}
-    //   {evaluation.suggestions && (
-    //     <Comment
-    //       header="What could be improved:"
-    //       content={evaluation.suggestions}
-    //     />
-    //   )}
-    //   <EvaluationDate>Submitted: {date}.</EvaluationDate>
-    //   {console.log('evaluation.evaluator.id', evaluation.evaluator.id)}
-    //   {console.log('user.id', user.id)}
-    //   {evaluation.evaluator.id === user.id ? (
-    //     <DefaultButton
-    //       name="Edit evaluation"
-    //       callback={() => {
-    //         setEditMode(!editMode)
-    //       }}
-    //       text="Edit"
-    //     />
-    //   ) : (
-    //     <SpeechEvaluationFooter
-    //       evaluation={evaluation}
-    //       user={user}
-    //       handleVotes={handleVoteOnEvaluation}
-    //     />
-    //   )}
-    // </EvaluationContainer>
   } else {
     return (
       <EvaluationContainer>
@@ -106,7 +69,17 @@ export default function UserEvaluation({ speech, user }) {
     )
   }
   function handleSubmit(event) {
-    submitEvaluation({ event, setEditMode, refs })
+    submitEvaluation({
+      event,
+      evaluation,
+      setEvaluation,
+      speech,
+      setSpeech,
+      profile,
+      editMode,
+      setEditMode,
+      refs,
+    })
   }
 }
 

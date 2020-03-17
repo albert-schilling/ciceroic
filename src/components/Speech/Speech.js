@@ -97,7 +97,12 @@ export default function Speech({
             active={true}
             title="Feedback"
           >
-            <UserEvaluation speech={speech} user={user} />
+            <UserEvaluation
+              speech={speech}
+              setSpeech={setSpeech}
+              user={user}
+              profile={profile}
+            />
             <CommunityEvaluations
               user={user}
               profile={profile}

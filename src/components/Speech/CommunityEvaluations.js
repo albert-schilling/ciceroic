@@ -10,7 +10,8 @@ export default function CommunityEvaluations({
   setSpeech,
 }) {
   const { setEvaluation } = useForm()
-
+  console.log('render community Evaluations')
+  console.log('speech', speech)
   if (speech.hasOwnProperty('evaluations')) {
     return speech.evaluations
       .filter(evaluation => evaluation.evaluator.id !== user.id)

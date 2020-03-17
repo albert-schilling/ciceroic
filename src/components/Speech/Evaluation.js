@@ -54,6 +54,7 @@ export default function Evaluation({
       ) : (
         <SpeechEvaluationFooter
           evaluation={evaluation}
+          setEvaluation={setEvaluation}
           user={user}
           handleVotes={handleVotes}
         />
