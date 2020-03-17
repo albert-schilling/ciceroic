@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
-import Statistics from './Statistics'
-import Comment from './Comment'
 import useDate from '../../hooks/useDate'
-import DefaultButton from '../Inputs/DefaultButton'
-import SpeechEvaluationFooter from './SpeechEvaluationFooter'
 import useForm from '../../hooks/useForm'
+import DefaultButton from '../Inputs/DefaultButton'
+import Comment from './Comment'
+import EvaluationFooter from './EvaluationFooter'
+import Statistics from './Statistics'
 
 export default function Evaluation({
   title = 'Evaluation title:',
@@ -14,7 +14,6 @@ export default function Evaluation({
   user,
   editMode,
   setEditMode,
-
   profile,
   speech,
   setSpeech,
@@ -52,7 +51,7 @@ export default function Evaluation({
           text="Edit"
         />
       ) : (
-        <SpeechEvaluationFooter
+        <EvaluationFooter
           evaluation={evaluation}
           setEvaluation={setEvaluation}
           user={user}

@@ -33,7 +33,6 @@ export default function TextArea({
       ...evaluation,
       [event.target.name]: event.target.value,
     })
-    console.log('evaluation after set in textarea', evaluation)
   }
 }
 

@@ -1,8 +1,8 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
+import { evaluationDimensions } from '../../data/evaluationDimensions'
 import RangeInput from '../Inputs/RangeInput'
 import TextArea from '../TextArea/TextArea'
-import { evaluationDimensions } from '../../data/evaluationDimensions'
 
 export default function SpeechEvaluationForm({
   evaluation,

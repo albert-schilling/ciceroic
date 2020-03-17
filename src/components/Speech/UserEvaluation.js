@@ -1,14 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
-import styled from 'styled-components/macro'
-import useDate from '../../hooks/useDate'
-import DefaultButton from '../Inputs/DefaultButton'
-import Comment from './Comment'
-import SpeechEvaluationFooter from './SpeechEvaluationFooter'
-import Statistics from './Statistics'
+import React, { useEffect, useRef, useState } from 'react'
 import useForm from '../../hooks/useForm'
+import useSpeech from '../../hooks/useSpeech'
 import Evaluation from './Evaluation'
 import EvaluationForm from './EvaluationForm'
-import useSpeech from '../../hooks/useSpeech'
 
 export default function UserEvaluation({
   speech,
@@ -21,9 +15,7 @@ export default function UserEvaluation({
   const {
     evaluation,
     setEvaluation,
-    // message,
     submitEvaluation,
-    // handleClickOnUserMessage,
     returnEvaluationByUser,
   } = useForm()
 
@@ -42,8 +34,7 @@ export default function UserEvaluation({
     }
     setEditMode(false)
   }, [user, speech])
-  console.log('evaluation in UserEv', evaluation)
-  // if (evaluation.date != '') {
+
   if (foundEvaluator && !editMode) {
     return (
       <Evaluation
@@ -68,13 +59,7 @@ export default function UserEvaluation({
       />
     )
   }
-  // } else {
-  //   return (
-  //     <EvaluationContainer>
-  //       <p>Waiting on data inside UserEv</p>
-  //     </EvaluationContainer>
-  //   )
-  // }
+
   function handleSubmit(event) {
     submitEvaluation({
       event,
@@ -92,35 +77,3 @@ export default function UserEvaluation({
     })
   }
 }
-
-const EvaluationContainer = styled.section`
-  margin-bottom: 20px;
-  border: 1px solid var(--light-grey);
-  border-radius: 4px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  @media (min-width: 700px) {
-    max-width: 600px;
-    align-self: center;
-  }
-  p {
-    line-height: 1.4rem;
-  }
-`
-
-const EvaluationTitle = styled.h4`
-  color: var(--secondary-font-color);
-  font-size: 0.9rem;
-  font-weight: inherit;
-  margin: 0 0 12px 0;
-`
-
-const EvaluationDate = styled.p`
-  margin: 0;
-  color: var(--secondary-font-color);
-  font-size: 0.9rem;
-`

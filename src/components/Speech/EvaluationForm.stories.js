@@ -2,7 +2,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import GlobalStyle from '../../common/GlobalStyle'
-import SpeechEvaluationForm from './SpeechEvaluationForm'
+import EvaluationForm from './EvaluationForm'
 
 const evaluation = {
   dimensions: {},
@@ -47,7 +47,7 @@ const sectionStyles = {
 }
 
 export default {
-  title: 'Components/SpeechEvaluationForm',
+  title: 'Components/EvaluationForm',
   decorators: [
     withKnobs,
     storyFn => (
@@ -57,15 +57,11 @@ export default {
       </Router>
     ),
   ],
-  component: SpeechEvaluationForm,
+  component: EvaluationForm,
 }
 
-export const StandardSpeechEvaluationForm = () => {
+export const StandardEvaluationForm = () => {
   return (
-    <SpeechEvaluationForm
-      evaluation={evaluation}
-      speech={speech}
-      message={message}
-    />
+    <EvaluationForm evaluation={evaluation} speech={speech} message={message} />
   )
 }

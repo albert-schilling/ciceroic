@@ -1,51 +1,33 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { evaluationDimensions } from '../../data/evaluationDimensions'
 import useForm from '../../hooks/useForm'
-import useSpeech from '../../hooks/useSpeech'
 import { getSpeech } from '../../services/speechServices'
 import Tab from '../Tab/Tab'
-// import SpeechEvaluation from './SpeechEvaluation'
-import SpeechEvaluationForm from './SpeechEvaluationForm'
-import SpeechStatistics from './SpeechStatistics'
-import SpeechEvaluations from './SpeechEvaluations'
-import UserEvaluation from './UserEvaluation'
-import CommunityEvaluations from './CommunityEvaluations'
 import UserMessage from '../UserMessage/UserMessage'
+import CommunityEvaluations from './CommunityEvaluations'
+import SpeechStatistics from './SpeechStatistics'
+import UserEvaluation from './UserEvaluation'
 
 export default function Speech({
   speechBasePath,
   speech,
   setSpeech,
   profile,
-  setProfile,
   user,
 }) {
   let { id } = useParams()
-
-  const inputPraiseRef = useRef(null)
-  const inputSuggestionsRef = useRef(null)
 
   const {
     evaluation,
     setEvaluation,
     message,
     setMessage,
-    submitEvaluation,
     handleClickOnUserMessage,
     searchEvaluator,
     returnEvaluationByUser,
-    handleVoteOnEvaluation,
-  } = useForm({
-    profile,
-    setProfile,
-    evaluationDimensions,
-    refs: [inputPraiseRef, inputSuggestionsRef],
-    speech,
-    setSpeech,
-    id,
-  })
+  } = useForm()
+
   const [activeTab, setActiveTab] = useState('')
 
   useEffect(() => {
@@ -62,9 +44,9 @@ export default function Speech({
           setEvaluation(evaluation)
         }
       })
-    // setEditMode(false)
-  }, [setSpeech, id, profile.id])
-
+  }, [])
+  // }, [setSpeech, id, profile.id])
+  //
   if (profile.id.length > 0) {
     return (
       <Main>
@@ -111,30 +93,7 @@ export default function Speech({
               profile={profile}
               speech={speech}
               setSpeech={setSpeech}
-              // handleVotes={handleVoteOnEvaluation}
             />
-
-            {/* {user && searchEvaluator(user.id, speech) && !editMode ? (
-              <SingleEvaluation speech={speech} use={user} />
-            ) : (
-              <SpeechEvaluationForm
-                evaluation={evaluation}
-                setEvaluation={setEvaluation}
-                submitEvaluation={submitEvaluation}
-                inputPraiseRef={inputPraiseRef}
-                inputSuggestionsRef={inputSuggestionsRef}
-                handleClickOnUserMessage={handleClickOnUserMessage}
-                profile={profile}
-                editMode={editMode}
-                setEditMode={setEditMode}
-              />
-            )}
-            <SpeechEvaluations
-              user={user}
-              profile={profile}
-              speech={speech}
-              handleVotes={handleVoteOnEvaluation}
-            /> */}
           </Tab>
           <Tab
             handleClick={handleClick}
@@ -183,6 +142,7 @@ const Main = styled.main`
 const NavLinkStyled = styled(NavLink)`
   grid-area: backLink;
   width: fit-content;
+  height: fit-content;
   padding: 4px 4px 4px 4px;
   background: var(--light-grey);
   color: inherit;

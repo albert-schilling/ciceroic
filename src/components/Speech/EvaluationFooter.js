@@ -4,29 +4,16 @@ import VoteButton from '../Inputs/VoteButton'
 
 export default function SpeechEvaluationFooter({
   evaluation = {},
-  setEvaluation = () => {},
   user = {},
   handleVotes = () => {},
 }) {
   const [voted, setVoted] = useState({})
   const voteTypes = ['upvotes', 'downvotes', 'flags']
-
-  // useEffect(() => {
-  //   setVoted(checkIfUserVoted())
-  // }, [setVoted, setEvaluation, evaluation])
   const [count, setCount] = useState(0)
+
   useEffect(() => {
     setVoted(checkIfUserVoted())
   }, [count])
-
-  // setVoted(checkIfUserVoted())
-
-  console.log('SpeachEvaluationFooter rerenders')
-  console.log('SpeachEvaluationFooter evaluation:', evaluation)
-  console.log(
-    'SpeachEvaluationFooter evaluation upvotes length:',
-    evaluation.upvotes.length
-  )
 
   return (
     <FooterContainer>
@@ -36,8 +23,7 @@ export default function SpeechEvaluationFooter({
         name="upvotes"
         clickHandler={clickHandler}
         content="&#708;"
-        // counter={evaluation.upvotes ? evaluation.upvotes.length : 0}
-        counter={evaluation.upvotes.length}
+        counter={evaluation.upvotes ? evaluation.upvotes.length : 0}
       />
       <VoteButton
         className={voted.downvotes ? 'voted' : ''}
@@ -45,8 +31,7 @@ export default function SpeechEvaluationFooter({
         name="downvotes"
         clickHandler={clickHandler}
         content="&#709;"
-        // counter={evaluation.downvotes ? evaluation.downvotes.length : 0}
-        counter={evaluation.downvotes.length}
+        counter={evaluation.downvotes ? evaluation.downvotes.length : 0}
       />
       <VoteButton
         className={voted.flags ? 'voted' : ''}
@@ -60,18 +45,13 @@ export default function SpeechEvaluationFooter({
   )
 
   function clickHandler(event) {
-    console.log('vote clicked', event)
     setCount(count + 1)
-    console.log('vote clicked, coute', count)
     event.preventDefault()
     updateVotes(event)
-    console.log('votes after update', voted)
     handleVotes(event, evaluation)
-    console.log('evaluation after update in handleVotes', evaluation)
   }
 
   function updateVotes(event) {
-    console.log('UpdateVotes called')
     const voteType = event.target.name
     updateOppisiteVote(voteType)
     Object.assign(voted, { [voteType]: !voted[voteType] })
