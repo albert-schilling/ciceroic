@@ -4,8 +4,6 @@ import styled from 'styled-components/macro'
 export default function Statistics({ dimensions }) {
   return (
     <StatisticsList>
-      {console.log('dimensions', dimensions)}
-
       {dimensions.map(dimension => (
         <StatisticsListItem key={dimension[0]}>
           {dimension[0]}

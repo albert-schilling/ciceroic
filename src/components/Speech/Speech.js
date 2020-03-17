@@ -6,10 +6,12 @@ import useForm from '../../hooks/useForm'
 import useSpeech from '../../hooks/useSpeech'
 import { getSpeech } from '../../services/speechServices'
 import Tab from '../Tab/Tab'
-import SpeechEvaluation from './SpeechEvaluation'
+// import SpeechEvaluation from './SpeechEvaluation'
 import SpeechEvaluationForm from './SpeechEvaluationForm'
 import SpeechStatistics from './SpeechStatistics'
 import SpeechEvaluations from './SpeechEvaluations'
+import UserEvaluation from './UserEvaluation'
+import CommunityEvaluations from './CommunityEvaluations'
 import UserMessage from '../UserMessage/UserMessage'
 
 export default function Speech({
@@ -45,8 +47,6 @@ export default function Speech({
   })
   const [activeTab, setActiveTab] = useState('')
 
-  const { editMode, setEditMode } = useSpeech()
-
   useEffect(() => {
     getSpeech(id)
       .then(res => {
@@ -54,19 +54,15 @@ export default function Speech({
         return res
       })
       .then(speech => {
-        const foundEvaluator = searchEvaluator(user.id, speech)
-        console.log('foundEvaluator', foundEvaluator)
+        const foundEvaluator = searchEvaluator({ user, speech })
         if (foundEvaluator) {
           const foundEvaluation = returnEvaluationByUser({ user, speech })
           Object.assign(evaluation, foundEvaluation)
           setEvaluation(evaluation)
-          console.log('foundEvaluatoin', foundEvaluation)
         }
-        console.log('evaluation after ressetting', evaluation)
       })
-    setEditMode(false)
-  }, [setSpeech, id, setEditMode, profile.id])
-  console.log('evaluation after useEffect', evaluation)
+    // setEditMode(false)
+  }, [setSpeech, id, profile.id])
 
   if (profile.id.length > 0) {
     return (
@@ -101,22 +97,17 @@ export default function Speech({
             active={true}
             title="Feedback"
           >
-            {console.log('user', user)}
-            {console.log('user.id', user.id)}
+            <UserEvaluation speech={speech} user={user} />
+            <CommunityEvaluations
+              user={user}
+              profile={profile}
+              speech={speech}
+              setSpeech={setSpeech}
+              // handleVotes={handleVoteOnEvaluation}
+            />
 
-            {user && searchEvaluator(user.id, speech) && !editMode ? (
-              <SpeechEvaluation
-                title="Your evaluation:"
-                speech={speech}
-                evaluation={evaluation}
-                // setEvaluation={setEvaluation}
-                // returnEvaluationByUser={returnEvaluationByUser}
-                user={user}
-                editMode={editMode}
-                setEditMode={setEditMode}
-                profile={profile}
-                handleVotes={handleVoteOnEvaluation}
-              />
+            {/* {user && searchEvaluator(user.id, speech) && !editMode ? (
+              <SingleEvaluation speech={speech} use={user} />
             ) : (
               <SpeechEvaluationForm
                 evaluation={evaluation}
@@ -135,7 +126,7 @@ export default function Speech({
               profile={profile}
               speech={speech}
               handleVotes={handleVoteOnEvaluation}
-            />
+            /> */}
           </Tab>
           <Tab
             handleClick={handleClick}

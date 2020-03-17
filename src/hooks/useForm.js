@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { patchSpeech } from '../services/speechServices'
+import { evaluationDimensions } from '../data/evaluationDimensions'
 
-export default function useForm({
-  evaluationDimensions,
-  speech,
-  setSpeech,
-  id,
-  refs,
-  profile,
-}) {
+export default function useForm() {
+  //   {
+  //   evaluationDimensions,
+  //   speech,
+  //   setSpeech,
+  //   id,
+  //   refs,
+  //   profile,
+  // }
   const initialValues = {}
   evaluationDimensions.map(dimension =>
     Object.assign(initialValues, { [dimension.name]: 3 })
@@ -26,20 +28,29 @@ export default function useForm({
   })
 
   const [message, setMessage] = useState({
-    visible: false,
-    text: '',
-    focusRef: refs[0],
+    // visible: false,
+    // text: '',
+    // focusRef: refs[0],
   })
 
-  const submitEvaluation = (event, setEditMode) => {
+  const submitEvaluation = ({
+    event,
+    evaluation,
+    setEvaluation,
+    speech,
+    setSpeech,
+    profile,
+    setEditMode,
+    refs,
+  }) => {
     event.preventDefault()
 
     if (searchMissingInput(refs)) {
       return
     }
 
-    updateEvaluations()
-    resetEvaluation()
+    updateEvaluations({ evaluation, setEvaluation, speech, setSpeech, profile })
+    resetEvaluation({ setEvaluation })
     setMessage({
       ...message,
       visible: true,
@@ -49,7 +60,7 @@ export default function useForm({
     setEditMode(false)
   }
 
-  function updateEvaluations() {
+  function updateEvaluations({ evaluation, speech, setSpeech, profile }) {
     evaluation.evaluator.firstName = profile.firstName
     evaluation.evaluator.lastName = profile.lastName
     evaluation.evaluator.id = profile.id
@@ -64,16 +75,15 @@ export default function useForm({
         evaluation => evaluation.evaluator.id === profile.id
       )
       speech.evaluations.splice(index, 1, evaluation)
-      console.log(`Evaluation at index ${index} updated:`, speech)
     } else {
       speech.evaluations.push(evaluation)
       console.table('New evaluation added to speech:', speech)
     }
     setSpeech(speech)
-    patchSpeech(id, speech)
+    // patchSpeech(speech.id, speech)
   }
 
-  function resetEvaluation() {
+  function resetEvaluation({ setEvaluation }) {
     setEvaluation({
       dimensions: { ...initialValues },
       evaluator: { firstName: '', lastName: '', id: '' },
@@ -99,37 +109,27 @@ export default function useForm({
     return !!missingInput
   }
 
-  function searchEvaluator(userId, speech) {
-    console.log('user id in searchevaluator', userId)
-    console.log('speech in searchevaluator', speech)
+  function searchEvaluator({ user, speech }) {
     let evaluations = []
     const foundEvaluator =
       speech && speech.evaluations
         ? ((evaluations = speech.evaluations),
-          evaluations.some(evaluation => evaluation.evaluator.id === userId))
+          evaluations.some(evaluation => evaluation.evaluator.id === user.id))
         : false
     return foundEvaluator
   }
 
   function returnEvaluationByUser({ user, speech }) {
-    console.log('returnEvaluationByUser called')
-    console.log('speech in returnEv', speech)
     let foundEvaluation = {}
     speech && speech.evaluations
       ? (foundEvaluation = speech.evaluations.filter(
           evaluation => evaluation.evaluator.id === user.id
         )[0])
-      : (foundEvaluation = {
-          dimensions: { ...initialValues },
-          evaluator: { firstName: '', lastName: '', id: '' },
-          date: '',
-        })
-    console.log('Found Evaluation', foundEvaluation)
+      : (foundEvaluation = null)
     return foundEvaluation
   }
 
   function handleClickOnUserMessage(userId) {
-    console.log('message.focusRef:', message.focusRef)
     message.focusRef.current && message.focusRef.current.focus()
     setMessage({
       ...message,
@@ -137,60 +137,71 @@ export default function useForm({
     })
   }
 
-  function handleVoteOnEvaluation(event, evaluation) {
+  function handleVoteOnEvaluation({
+    event,
+    evaluation,
+    setEvaluation,
+    profile,
+    speech,
+    setSpeech,
+  }) {
     event.preventDefault()
     const voteType = event.target.name
-    updateVotesInEvaluation(voteType, evaluation)
-  }
+    updateVotesInEvaluation()
 
-  function updateVotesInEvaluation(voteType, evaluation) {
-    // console.log('evaluation before update', evaluation)
-    addSingleVoteTypeIfMissing(voteType, evaluation)
-    removeOppositeVoteType(voteType, evaluation)
-    toggleVoteInEvaluation(voteType, evaluation)
+    function updateVotesInEvaluation() {
+      console.log('evaluation before update', evaluation)
+      addSingleVoteTypeIfMissing()
+      removeOppositeVoteType()
+      toggleVoteInEvaluation()
 
-    setEvaluation(evaluation)
+      setEvaluation(evaluation)
 
-    // console.log('evaluation after update', evaluation)
+      console.log('evaluation after update', evaluation)
 
-    const indexOfEvaluationInSpeech = speech.evaluations.findIndex(
-      storedEvaluation => {
-        return storedEvaluation.evaluator.id === evaluation.evaluator.id
-      }
-    )
-    speech.evaluations.splice(indexOfEvaluationInSpeech, 1, evaluation)
+      const indexOfEvaluationInSpeech = speech.evaluations.findIndex(
+        storedEvaluation => {
+          return storedEvaluation.evaluator.id === evaluation.evaluator.id
+        }
+      )
+      speech.evaluations.splice(indexOfEvaluationInSpeech, 1, evaluation)
 
-    setSpeech(speech)
-    patchSpeech(id, speech)
-  }
-
-  function addSingleVoteTypeIfMissing(voteType, evaluation) {
-    evaluation.hasOwnProperty(voteType) ||
-      Object.assign(evaluation, { [voteType]: [] })
-  }
-
-  function removeOppositeVoteType(voteType, evaluation) {
-    voteType === 'upvotes' && removeVoteInEvaluation('downvotes', evaluation)
-    voteType === 'downvotes' && removeVoteInEvaluation('upvotes', evaluation)
-  }
-
-  function toggleVoteInEvaluation(voteType, evaluation) {
-    const newVote = {
-      id: profile.id,
-      firstName: profile.firstName,
-      lastName: profile.lastName,
-      date: new Date().getTime(),
+      setSpeech(speech)
+      // patchSpeech(speech.id, speech)
     }
-    const index = evaluation[voteType].findIndex(vote => vote.id === profile.id)
 
-    index >= 0
-      ? evaluation[voteType].splice(index, 1)
-      : evaluation[voteType].push(newVote)
-  }
+    function addSingleVoteTypeIfMissing() {
+      evaluation.hasOwnProperty(voteType) ||
+        Object.assign(evaluation, { [voteType]: [] })
+    }
 
-  function removeVoteInEvaluation(voteType, evaluation) {
-    const index = evaluation[voteType].findIndex(vote => vote.id === profile.id)
-    index >= 0 && evaluation[voteType].splice(index, 1)
+    function removeOppositeVoteType() {
+      voteType === 'upvotes' && removeVoteInEvaluation('downvotes', evaluation)
+      voteType === 'downvotes' && removeVoteInEvaluation('upvotes', evaluation)
+    }
+
+    function toggleVoteInEvaluation() {
+      const newVote = {
+        id: profile.id,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        date: new Date().getTime(),
+      }
+      const index = evaluation[voteType].findIndex(
+        vote => vote.id === profile.id
+      )
+
+      index >= 0
+        ? evaluation[voteType].splice(index, 1)
+        : evaluation[voteType].push(newVote)
+    }
+
+    function removeVoteInEvaluation() {
+      const index = evaluation[voteType].findIndex(
+        vote => vote.id === profile.id
+      )
+      index >= 0 && evaluation[voteType].splice(index, 1)
+    }
   }
 
   return {

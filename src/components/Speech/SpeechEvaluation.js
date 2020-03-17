@@ -6,7 +6,7 @@ import useDate from '../../hooks/useDate'
 import DefaultButton from '../Inputs/DefaultButton'
 import SpeechEvaluationFooter from './SpeechEvaluationFooter'
 
-export default function SpeechEvaluation({
+export default function Evaluation({
   title = 'Evaluation title:',
   evaluation,
   profile,
@@ -38,6 +38,8 @@ export default function SpeechEvaluation({
           />
         )}
         <EvaluationDate>Submitted: {date}.</EvaluationDate>
+        {console.log('evaluation.evaluator.id', evaluation.evaluator.id)}
+        {console.log('user.id', user.id)}
         {evaluation.evaluator.id === user.id ? (
           <DefaultButton
             name="Edit evaluation"

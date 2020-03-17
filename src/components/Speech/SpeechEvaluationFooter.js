@@ -4,7 +4,7 @@ import VoteButton from '../Inputs/VoteButton'
 
 export default function SpeechEvaluationFooter({
   evaluation = {},
-  profile = {},
+  user = {},
   handleVotes = () => {},
 }) {
   const [voted, setVoted] = useState({})
@@ -12,7 +12,6 @@ export default function SpeechEvaluationFooter({
 
   useEffect(() => {
     setVoted(checkIfUserVoted())
-    console.log('render of SpeechEvaluationFooter')
   }, [setVoted])
 
   return (
@@ -24,7 +23,6 @@ export default function SpeechEvaluationFooter({
         clickHandler={clickHandler}
         content="&#708;"
         counter={evaluation.upvotes ? evaluation.upvotes.length : 0}
-        profile={profile}
       />
       <VoteButton
         className={voted.downvotes ? 'voted' : ''}
@@ -33,7 +31,6 @@ export default function SpeechEvaluationFooter({
         clickHandler={clickHandler}
         content="&#709;"
         counter={evaluation.downvotes ? evaluation.downvotes.length : 0}
-        profile={profile}
       />
       <VoteButton
         className={voted.flags ? 'voted' : ''}
@@ -42,7 +39,6 @@ export default function SpeechEvaluationFooter({
         clickHandler={clickHandler}
         content="&#9872;"
         counter={null}
-        profile={profile}
       />
     </FooterContainer>
   )
@@ -50,6 +46,7 @@ export default function SpeechEvaluationFooter({
   function clickHandler(event) {
     event.preventDefault()
     updateVotes(event)
+    console.log('votes after update', voted)
     handleVotes(event, evaluation)
   }
 
@@ -68,7 +65,7 @@ export default function SpeechEvaluationFooter({
   function checkIfUserVoted() {
     addVoteTypeIfMissing(voteTypes)
     voteTypes.map(type => {
-      const userVoted = evaluation[type].some(vote => vote.id === profile.id)
+      const userVoted = evaluation[type].some(vote => vote.id === user.id)
       Object.assign(voted, { [type]: userVoted })
     })
     return voted
