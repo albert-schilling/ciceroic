@@ -31,6 +31,7 @@ export default function Speech({
     evaluation,
     setEvaluation,
     message,
+    setMessage,
     submitEvaluation,
     handleClickOnUserMessage,
     searchEvaluator,
@@ -102,6 +103,8 @@ export default function Speech({
               setSpeech={setSpeech}
               user={user}
               profile={profile}
+              message={message}
+              setMessage={setMessage}
             />
             <CommunityEvaluations
               user={user}

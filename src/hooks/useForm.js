@@ -3,14 +3,6 @@ import { patchSpeech } from '../services/speechServices'
 import { evaluationDimensions } from '../data/evaluationDimensions'
 
 export default function useForm() {
-  //   {
-  //   evaluationDimensions,
-  //   speech,
-  //   setSpeech,
-  //   id,
-  //   refs,
-  //   profile,
-  // }
   const initialValues = {}
   evaluationDimensions.map(dimension =>
     Object.assign(initialValues, { [dimension.name]: 3 })
@@ -28,29 +20,45 @@ export default function useForm() {
   })
 
   const [message, setMessage] = useState({
-    // visible: false,
-    // text: '',
-    // focusRef: refs[0],
+    visible: false,
+    text: '',
+    focusRef: null,
   })
 
   const submitEvaluation = ({
     event,
     evaluation,
     setEvaluation,
+    message,
+    setMessage,
     speech,
     setSpeech,
+    user,
     profile,
     editMode,
     setEditMode,
     refs,
   }) => {
     event.preventDefault()
+    setMessage({
+      visible: false,
+      text: '',
+      focusRef: null,
+    })
 
-    if (searchMissingInput(refs)) {
+    console.log('SearchMissingInput', refs)
+    if (searchMissingInput({ refs, message, setMessage })) {
       return
     }
 
-    updateEvaluations({ evaluation, setEvaluation, speech, setSpeech, profile })
+    updateEvaluations({
+      evaluation,
+      setEvaluation,
+      speech,
+      setSpeech,
+      profile,
+      user,
+    })
     editMode || resetEvaluation({ setEvaluation })
     setMessage({
       ...message,
@@ -61,7 +69,7 @@ export default function useForm() {
     setEditMode(false)
   }
 
-  function updateEvaluations({ evaluation, speech, setSpeech, profile }) {
+  function updateEvaluations({ evaluation, speech, setSpeech, profile, user }) {
     evaluation.evaluator.firstName = profile.firstName
     evaluation.evaluator.lastName = profile.lastName
     evaluation.evaluator.id = profile.id
@@ -69,7 +77,7 @@ export default function useForm() {
 
     !speech.evaluations && Object.assign(speech, { evaluations: [] })
 
-    const updatingExistingEvaluation = searchEvaluator(profile.id)
+    const updatingExistingEvaluation = searchEvaluator({ user, speech })
 
     if (updatingExistingEvaluation) {
       const index = speech.evaluations.findIndex(
@@ -81,7 +89,8 @@ export default function useForm() {
       console.table('New evaluation added to speech:', speech)
     }
     setSpeech(speech)
-    // patchSpeech(speech.id, speech)
+    console.log('Patching speech:', speech)
+    patchSpeech(speech._id, speech)
   }
 
   function resetEvaluation({ setEvaluation }) {
@@ -97,8 +106,10 @@ export default function useForm() {
     })
   }
 
-  function searchMissingInput(references) {
-    const missingInput = references.find(reference => !reference.current.value)
+  function searchMissingInput({ refs, message, setMessage }) {
+    console.log('SearchMissingInput entered')
+
+    const missingInput = refs.find(reference => !reference.current.value)
     if (!!missingInput) {
       setMessage({
         ...message,
@@ -107,6 +118,8 @@ export default function useForm() {
         focusRef: missingInput,
       })
     }
+    console.log('SearchMissingInput !!missinginput', !!missingInput)
+
     return !!missingInput
   }
 
@@ -171,7 +184,7 @@ export default function useForm() {
 
     setSpeech(speech)
     console.log('newSpeech', speech)
-    // patchSpeech(speech.id, speech)
+    patchSpeech(speech._id, speech)
 
     // async function updateVotesInEvaluation() {}
 
