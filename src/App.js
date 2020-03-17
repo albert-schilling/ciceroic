@@ -17,16 +17,26 @@ import LandingPage from './components/LandingPage/LandingPage'
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
-  const { profile, setProfile } = useProfile()
+  const {
+    profile,
+    setProfile,
+    profileRetrieved,
+    setProfileRetrieved,
+  } = useProfile()
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
-  }, [setSpeeches])
+  }, [setSpeeches, profile, setProfile])
   return (
     <AppBodyStyled>
       <GlobalStyle />
       <Router history={history}>
-        <AuthProvider profile={profile} setProfile={setProfile}>
+        <AuthProvider
+          profile={profile}
+          setProfile={setProfile}
+          profileRetrieved={profileRetrieved}
+          setProfileRetrieved={setProfileRetrieved}
+        >
           <AuthConsumer>
             {({ user }) => (
               <>
@@ -54,14 +64,25 @@ function App() {
                     <SignUp profile={profile} setProfile={setProfile} />
                   </Route>
                   <Route exact path="/speech/:id">
-                    <Speech
-                      speech={speech}
-                      setSpeech={setSpeech}
-                      speechBasePath={speechBasePath}
-                      profile={profile}
-                      setProfile={setProfile}
-                      user={user}
-                    />
+                    {user && user.id ? (
+                      speeches === undefined ? (
+                        <p style={{ padding: '20px' }}>
+                          Sorry, we cannot connect to the server. Please, try
+                          again later.
+                        </p>
+                      ) : (
+                        <Speech
+                          speech={speech}
+                          setSpeech={setSpeech}
+                          speechBasePath={speechBasePath}
+                          profile={profile}
+                          setProfile={setProfile}
+                          user={user}
+                        />
+                      )
+                    ) : (
+                      <LandingPage profile={profile} setProfile={setProfile} />
+                    )}
                   </Route>
                 </Switch>
                 <Footer />

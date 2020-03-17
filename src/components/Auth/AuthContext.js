@@ -5,7 +5,14 @@ import { db } from '../../services/firebase'
 
 const AuthContext = React.createContext()
 
-function AuthProvider({ history, children, profile, setProfile }) {
+function AuthProvider({
+  history,
+  children,
+  profile,
+  setProfile,
+  profileRetrieved,
+  setProfileRetrieved,
+}) {
   const [user, setUser] = useState({})
 
   useEffect(() => {
@@ -32,14 +39,14 @@ function AuthProvider({ history, children, profile, setProfile }) {
   }, [])
 
   async function getUserInformation() {
-    console.log('Getting user information ...')
+    // console.log('Getting user information ...')
     const user = await firebaseAuth.currentUser
     await db
       .collection('users')
       .doc(user.uid)
       .get()
       .then(doc => {
-        console.log('User found in DB:', doc.exists)
+        // console.log('User found in DB:', doc.exists)
         return doc.exists && doc.data()
       })
       .then(data => {
@@ -53,9 +60,11 @@ function AuthProvider({ history, children, profile, setProfile }) {
         console.error('Error writing document: ', error)
       })
     setProfile(profile)
+    setProfileRetrieved(true)
+    // console.log('Updating profile:', profile)
   }
   async function signUp(event) {
-    console.log('Signup called')
+    // console.log('Signup called')
     try {
       event.preventDefault()
       await firebaseAuth
@@ -79,7 +88,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
         emailVerified: user.emailVerified,
       })
       .then(function() {
-        console.log('User successfully stored in DB!')
+        // console.log('User successfully stored in DB!')
       })
       .then(() => updateUsersDisplayName())
       .catch(function(error) {
@@ -95,7 +104,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
         displayName: `${profile.firstName} ${profile.lastName}`,
       })
       .then(() => {
-        console.log("User's display name successfully updated.")
+        // console.log("User's display name successfully updated.")
       })
       .then(() => {
         sendEmailVerification()
@@ -110,7 +119,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
     user
       .sendEmailVerification()
       .then(() => {
-        console.log('Verification email sent to user.')
+        // console.log('Verification email sent to user.')
       })
       .catch(error => {
         console.error(`Error sending verification email to user.`, error)
@@ -142,7 +151,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
         lastName: '',
         id: '',
       })
-      console.log('User logged out. Profile resetted.')
+      // console.log('User logged out. Profile resetted.')
       history.push('/')
     } catch (err) {}
   }

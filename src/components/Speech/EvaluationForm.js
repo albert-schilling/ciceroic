@@ -7,7 +7,7 @@ import TextArea from '../TextArea/TextArea'
 export default function SpeechEvaluationForm({
   evaluation,
   setEvaluation,
-  submitEvaluation,
+  handleSubmit,
   editMode,
   setEditMode,
   inputPraiseRef,
@@ -55,9 +55,6 @@ export default function SpeechEvaluationForm({
       <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
     </SpeechEvaluationFormStyled>
   )
-  async function handleSubmit(event) {
-    await submitEvaluation(event, setEditMode)
-  }
 }
 
 const SpeechEvaluationFormStyled = styled.form`

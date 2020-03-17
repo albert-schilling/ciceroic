@@ -1,124 +1,126 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { evaluationDimensions } from '../../data/evaluationDimensions'
 import useForm from '../../hooks/useForm'
-import useSpeech from '../../hooks/useSpeech'
 import { getSpeech } from '../../services/speechServices'
 import Tab from '../Tab/Tab'
-import SpeechEvaluation from './SpeechEvaluation'
-import SpeechEvaluationForm from './SpeechEvaluationForm'
-import SpeechStatistics from './SpeechStatistics'
-import SpeechEvaluations from './SpeechEvaluations'
 import UserMessage from '../UserMessage/UserMessage'
+import CommunityEvaluations from './CommunityEvaluations'
+import SpeechStatistics from './SpeechStatistics'
+import UserEvaluation from './UserEvaluation'
 
 export default function Speech({
   speechBasePath,
   speech,
   setSpeech,
   profile,
-  setProfile,
   user,
 }) {
   let { id } = useParams()
-
-  const inputPraiseRef = useRef(null)
-  const inputSuggestionsRef = useRef(null)
 
   const {
     evaluation,
     setEvaluation,
     message,
-    submitEvaluation,
+    setMessage,
     handleClickOnUserMessage,
     searchEvaluator,
     returnEvaluationByUser,
-  } = useForm({
-    profile,
-    setProfile,
-    evaluationDimensions,
-    refs: [inputPraiseRef, inputSuggestionsRef],
-    speech,
-    setSpeech,
-    id,
-  })
+  } = useForm()
+
   const [activeTab, setActiveTab] = useState('')
 
-  const { editMode, setEditMode } = useSpeech()
-
   useEffect(() => {
-    getSpeech(id).then(res => setSpeech(res))
-    setEditMode(false)
-  }, [setSpeech, id, setEditMode])
+    getSpeech(id)
+      .then(res => {
+        setSpeech(res)
+        return res
+      })
+      .then(speech => {
+        const foundEvaluator = searchEvaluator({ user, speech })
+        if (foundEvaluator) {
+          const foundEvaluation = returnEvaluationByUser({ user, speech })
+          Object.assign(evaluation, foundEvaluation)
+          setEvaluation(evaluation)
+        }
+      })
+  }, [])
+  // }, [setSpeech, id, profile.id])
+  //
+  if (profile.id.length > 0) {
+    return (
+      <Main>
+        <NavLinkStyled exact to="/">
+          <span>&#8612;</span>see all speeches
+        </NavLinkStyled>
+        {speech.filename === undefined ? (
+          <p>Video loading</p>
+        ) : (
+          <VideoStyled role="img" controls>
+            <source src={speechBasePath + speech.filename} type="video/mp4" />
+          </VideoStyled>
+        )}
+        <SpeechInformation>
+          <header>
+            <SpeechTitle>{speech.title}</SpeechTitle>
+          </header>
+          <h3>{speech.speaker}</h3>
+          <SpeechDescription>{speech.description}</SpeechDescription>
+          <SpeechDetails>
+            <small>{speech.category}</small>
+            <small>{speech.duration} min</small>
+            <small>{speech.date}</small>
+          </SpeechDetails>
+        </SpeechInformation>
 
-  return (
-    <Main>
-      <NavLinkStyled exact to="/">
-        <span>&#8612;</span>see all speeches
-      </NavLinkStyled>
-      {speech.filename === undefined ? (
-        <p>Video loading</p>
-      ) : (
-        <VideoStyled role="img" controls>
-          <source src={speechBasePath + speech.filename} type="video/mp4" />
-        </VideoStyled>
-      )}
-      <SpeechInformation>
-        <header>
-          <SpeechTitle>{speech.title}</SpeechTitle>
-        </header>
-        <h3>{speech.speaker}</h3>
-        <SpeechDescription>{speech.description}</SpeechDescription>
-        <SpeechDetails>
-          <small>{speech.category}</small>
-          <small>{speech.duration} min</small>
-          <small>{speech.date}</small>
-        </SpeechDetails>
-      </SpeechInformation>
-
-      <TabContainerStyled>
-        <Tab
-          handleClick={handleClick}
-          activeTab={activeTab}
-          active={true}
-          title="Feedback"
-        >
-          {user && searchEvaluator(user.id) && !editMode ? (
-            <SpeechEvaluation
+        <TabContainerStyled>
+          <Tab
+            handleClick={handleClick}
+            activeTab={activeTab}
+            active={true}
+            title="Feedback"
+          >
+            <UserEvaluation
               speech={speech}
-              evaluation={evaluation}
-              setEvaluation={setEvaluation}
-              returnEvaluationByUser={returnEvaluationByUser}
+              setSpeech={setSpeech}
               user={user}
-              editMode={editMode}
-              setEditMode={setEditMode}
-            />
-          ) : (
-            // <p>Speech evaluation should go here</p>
-            <SpeechEvaluationForm
-              evaluation={evaluation}
-              setEvaluation={setEvaluation}
-              submitEvaluation={submitEvaluation}
-              inputPraiseRef={inputPraiseRef}
-              inputSuggestionsRef={inputSuggestionsRef}
-              // message={message}
-              handleClickOnUserMessage={handleClickOnUserMessage}
               profile={profile}
-              editMode={editMode}
-              setEditMode={setEditMode}
+              message={message}
+              setMessage={setMessage}
             />
-          )}
-          <SpeechEvaluations user={user} speech={speech} />
-        </Tab>
-        <Tab handleClick={handleClick} activeTab={activeTab} title="Statistics">
-          <SpeechStatistics speech={speech} />
-        </Tab>
-      </TabContainerStyled>
-      {message.visible === true && (
-        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
-      )}
-    </Main>
-  )
+            <CommunityEvaluations
+              user={user}
+              profile={profile}
+              speech={speech}
+              setSpeech={setSpeech}
+            />
+          </Tab>
+          <Tab
+            handleClick={handleClick}
+            activeTab={activeTab}
+            title="Statistics"
+          >
+            <SpeechStatistics speech={speech} />
+          </Tab>
+        </TabContainerStyled>
+        {message.visible === true && (
+          <UserMessage
+            message={message}
+            handleClick={handleClickOnUserMessage}
+          />
+        )}
+      </Main>
+    )
+  } else {
+    return (
+      <Main>
+        <NavLinkStyled exact to="/">
+          <span>&#8612;</span>see all speeches
+        </NavLinkStyled>
+        <p>Waiting on user data.</p>
+      </Main>
+    )
+  }
 
   function handleClick(ref) {
     setActiveTab(ref)
@@ -140,6 +142,7 @@ const Main = styled.main`
 const NavLinkStyled = styled(NavLink)`
   grid-area: backLink;
   width: fit-content;
+  height: fit-content;
   padding: 4px 4px 4px 4px;
   background: var(--light-grey);
   color: inherit;

@@ -38,6 +38,7 @@ src/components/DEV
 .firebaserc
 
 build
-public 
 
 .env
+
+/Archiv

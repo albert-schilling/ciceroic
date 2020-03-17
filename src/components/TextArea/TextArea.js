@@ -31,7 +31,7 @@ export default function TextArea({
   function handleChange(event) {
     setEvaluation({
       ...evaluation,
-      [name]: event.target.value,
+      [event.target.name]: event.target.value,
     })
   }
 }
