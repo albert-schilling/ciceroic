@@ -59,7 +59,6 @@ export default function useForm() {
       profile,
       user,
     })
-    editMode || resetEvaluation({ setEvaluation })
     setMessage({
       ...message,
       visible: true,
@@ -91,19 +90,6 @@ export default function useForm() {
     setSpeech(speech)
     console.log('Patching speech:', speech)
     patchSpeech(speech._id, speech)
-  }
-
-  function resetEvaluation({ setEvaluation }) {
-    setEvaluation({
-      dimensions: { ...initialValues },
-      evaluator: { firstName: '', lastName: '', id: '' },
-      date: '',
-      praise: '',
-      suggestions: '',
-      upvotes: [],
-      downvotes: [],
-      flags: [],
-    })
   }
 
   function searchMissingInput({ refs, message, setMessage }) {
@@ -143,8 +129,7 @@ export default function useForm() {
     return foundEvaluation
   }
 
-  function handleClickOnUserMessage(userId) {
-    message.focusRef.current && message.focusRef.current.focus()
+  function handleClickOnUserMessage() {
     setMessage({
       ...message,
       visible: false,
