@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
+import SpeechDescription from './SpeechDescription/SpeechDescription'
 
 export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
   return (
@@ -14,16 +15,14 @@ export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
       )}
 
       <SpeechCardInformation>
-        <header>
-          <SpeechCardHeadline>{speech.title}</SpeechCardHeadline>
-        </header>
-        <SpeechCardSpeaker>{speech.speaker}</SpeechCardSpeaker>
-        <SpeechCardDescription>{speech.description}</SpeechCardDescription>
-        <SpeechCardDetails>
-          <small>{speech.category}</small>
-          <small>{speech.duration} min</small>
-          <small>{speech.date}</small>
-        </SpeechCardDetails>
+        <SpeechDescription
+          title={speech.title}
+          speaker={speech.speaker}
+          description={speech.description}
+          category={speech.category}
+          duration={speech.duration}
+          date={speech.date}
+        />
         <SpeechEvaluationButton
           onClick={() => setSpeech(speech)}
           to={'/speech/' + speech._id}

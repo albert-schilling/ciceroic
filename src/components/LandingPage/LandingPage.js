@@ -5,8 +5,7 @@ import UserForm from '../UserForm/UserForm'
 export default function LandingPage({ profile, setProfile }) {
   return (
     <Main>
-      <h2>Ciceroic</h2>
-      <h4>Become a great speaker like Cicero</h4>
+      <Claim>Become a great speaker like Cicero</Claim>
       <UserForm profile={profile} setProfile={setProfile} />
     </Main>
   )
@@ -21,11 +20,10 @@ const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h2 {
-    margin: 0;
-  }
-  h4 {
-    text-align: center;
-    line-height: 1.6rem;
-  }
+`
+
+const Claim = styled.h2`
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.6rem;
 `

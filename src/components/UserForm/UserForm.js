@@ -51,8 +51,7 @@ export default function UserForm({ profile, setProfile }) {
   }
 }
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+  display: grid;
   grid-gap: 12px;
 `
 const Input = styled.input`

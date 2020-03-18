@@ -45,10 +45,8 @@ const StatisticsRangeContainer = styled.label`
   display: flex;
   align-items: center;
   justify-content: start;
-
   grid-gap: 8px;
   font-size: 0.9rem;
-
   border: 1px solid var(--primary-font-color);
   border-radius: 14px;
   height: 28px;
@@ -59,16 +57,13 @@ const StatisticsRangeFill = styled.span`
   height: 100%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border: 1px solid #bbb;
+  border: transparent;
   background: var(--highlight-color);
 `
 const StatisticsRangeNumber = styled.span`
   position: absolute;
   left: calc(50% - 4px);
-
   color: var(--inverse-primary-font-color);
-  text-shadow: 1px 1px 0 var(--highlight-color),
-    1px -1px 0 var(--highlight-color), -1px -1px 0 var(--highlight-color),
-    -1px 1px 0 var(--highlight-color);
+  mix-blend-mode: difference;
   line-height: 1.2rem;
 `

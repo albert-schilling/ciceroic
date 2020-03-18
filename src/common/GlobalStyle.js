@@ -24,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
     background-color: #eee;
+    font-weight: 300;
   }
 `
 

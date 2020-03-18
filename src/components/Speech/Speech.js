@@ -8,6 +8,7 @@ import UserMessage from '../UserMessage/UserMessage'
 import CommunityEvaluations from './CommunityEvaluations'
 import SpeechStatistics from './SpeechStatistics'
 import UserEvaluation from './UserEvaluation'
+import SpeechDescription from './SpeechDescription/SpeechDescription'
 
 export default function Speech({
   speechBasePath,
@@ -60,19 +61,14 @@ export default function Speech({
             <source src={speechBasePath + speech.filename} type="video/mp4" />
           </VideoStyled>
         )}
-        <SpeechInformation>
-          <header>
-            <SpeechTitle>{speech.title}</SpeechTitle>
-          </header>
-          <h3>{speech.speaker}</h3>
-          <SpeechDescription>{speech.description}</SpeechDescription>
-          <SpeechDetails>
-            <small>{speech.category}</small>
-            <small>{speech.duration} min</small>
-            <small>{speech.date}</small>
-          </SpeechDetails>
-        </SpeechInformation>
-
+        <SpeechDescription
+          title={speech.title}
+          speaker={speech.speaker}
+          description={speech.description}
+          category={speech.category}
+          duration={speech.duration}
+          date={speech.date}
+        />
         <TabContainerStyled>
           <Tab
             handleClick={handleClick}
@@ -161,17 +157,17 @@ const NavLinkStyled = styled(NavLink)`
     font-weight: 900;
   }
 `
-const SpeechTitle = styled.h2`
-  font-size: 1.2rem;
-  line-height: 1.6rem;
-`
+// const SpeechTitle = styled.h2`
+//   font-size: 1.2rem;
+//   line-height: 1.6rem;
+// `
 
-const SpeechInformation = styled.section`
-  grid-area: information;
-  h3 {
-    font-size: 1rem;
-  }
-`
+// const SpeechInformation = styled.section`
+//   grid-area: information;
+//   h3 {
+//     font-size: 1rem;
+//   }
+// `
 
 const VideoStyled = styled.video`
   width: 100%;
@@ -180,17 +176,17 @@ const VideoStyled = styled.video`
   grid-area: video;
 `
 
-const SpeechDescription = styled.p`
-  line-height: 1.4rem;
-`
+// const SpeechDescription = styled.p`
+//   line-height: 1.4rem;
+// `
 
-const SpeechDetails = styled.p`
-  display: flex;
-  justify-content: space-between;
-  grid-gap: 4px;
-  color: var(--secondary-font-color);
-  margin-bottom: 0;
-`
+// const SpeechDetails = styled.p`
+//   display: flex;
+//   justify-content: space-between;
+//   grid-gap: 4px;
+//   color: var(--secondary-font-color);
+//   margin-bottom: 0;
+// `
 
 const TabContainerStyled = styled.section`
   grid-area: tab;

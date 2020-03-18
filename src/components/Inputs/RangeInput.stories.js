@@ -1,8 +1,6 @@
-import { withKnobs } from '@storybook/addon-knobs'
 import React from 'react'
-
-import RangeInput from './RangeInput'
 import GlobalStyle from '../../common/GlobalStyle'
+import RangeInput from './RangeInput'
 
 const key = 'Gestures And Facial Expressions'
 const name = 'Gestures And Facial Expressions'
@@ -20,16 +18,10 @@ const sectionStyles = {
   justifyContent: 'center',
   gridGap: '24px',
 }
-const labelStyles = {
-  gridGap: '8px',
-  display: 'flex',
-  flexDirection: 'column',
-}
 
 export default {
   title: 'Components/Inputs',
   decorators: [
-    withKnobs,
     storyFn => (
       <>
         <GlobalStyle />
