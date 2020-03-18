@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import history from './common/history'
 import AuthProvider, { AuthConsumer } from './components/Auth/AuthContext'
-import Footer from './components/Footer'
+import Footer from './components/Footer/Footer'
 import Header from './components/Header'
 import Speech from './components/Speech/Speech'
 import SpeechesList from './components/Speech/SpeechesList'
@@ -99,7 +99,7 @@ export default App
 
 const AppBodyStyled = styled.div`
   display: grid;
-  grid-template: 72px auto max-content / 1fr;
+  grid-template: 60px auto max-content / 1fr;
   width: 100vw;
   height: 100vh;
 `

@@ -46,13 +46,15 @@ export default function SpeechEvaluationForm({
         reference={inputSuggestionsRef}
         key="Suggestions"
       />
-      {editMode &&
-        (() => (
-          <SpeechEvaluationSubmit onClick={() => setEditMode(false)}>
-            Cancel
-          </SpeechEvaluationSubmit>
-        ))()}
-      <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
+      <ButtonRow>
+        {editMode &&
+          (() => (
+            <SpeechEvaluationSubmit onClick={() => setEditMode(false)}>
+              Cancel
+            </SpeechEvaluationSubmit>
+          ))()}
+        <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
+      </ButtonRow>
     </SpeechEvaluationFormStyled>
   )
 }
@@ -106,4 +108,9 @@ const SpeechEvaluationSubmit = styled.button`
   color: var(--inverse-primary-font-color);
   text-decoration: none;
   cursor: pointer;
+`
+
+const ButtonRow = styled.section`
+  display: flex;
+  justify-content: space-around;
 `
