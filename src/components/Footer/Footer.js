@@ -12,10 +12,10 @@ export default function Footer() {
         {({ user, logOut }) => (
           <>
             {user.id && (
-              <>
+              <footer role="navigation" aria-label="Main">
                 <ProfileMenu logOut={logOut} />
                 <RecordIcon />
-              </>
+              </footer>
             )}
           </>
         )}

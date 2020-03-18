@@ -7,7 +7,17 @@ export default function ProfileMenu({ logOut = () => {} }) {
     <ProfileMenuContainer>
       <ProfileMenuBar className={visibility ? '' : 'hidden'}>
         <ProfileMenuAnchor onClick={logOut}>
-          <svg width="40" height="48" viewBox="0 0 40 48">
+          <svg
+            aria-labelledby="LogOutIconTitle LogOutIconDescription"
+            width="40"
+            height="48"
+            viewBox="0 0 40 48"
+          >
+            <title id="LogOutIconTitle">Log Out</title>
+            <desc id="LogOutIconDescription">
+              Click here to log out of the application. You will be then
+              redirected to sign up page.
+            </desc>
             <path
               id="Pfad_317"
               data-name="Pfad 317"
@@ -27,7 +37,17 @@ export default function ProfileMenu({ logOut = () => {} }) {
       </ProfileMenuBar>
 
       <ProfileIcon onClick={handleClick}>
-        <svg width="48" height="48" viewBox="0 0 48 48">
+        <svg
+          aria-labelledby="ProfileMenuTitle ProfileMenuDescription"
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+        >
+          <title id="ProfileMenuTitle">Profile Menu</title>
+          <desc id="ProfileMenuDescription">
+            Click on this button to open the profile menu. There you can access
+            your profile, settings and log out.
+          </desc>
           <g
             id="Gruppe_1"
             data-name="Gruppe 1"
@@ -45,8 +65,6 @@ export default function ProfileMenu({ logOut = () => {} }) {
     </ProfileMenuContainer>
   )
   function handleClick() {
-    // alert('Icon clicked')
-
     setVisibility(!visibility)
   }
 }

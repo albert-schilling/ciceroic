@@ -11,7 +11,16 @@ export default function RecordIcon() {
   return (
     <>
       <Icon onClick={toggleVisibility}>
-        <svg width="48" height="38.4" viewBox="0 0 48 38.4">
+        <svg
+          aria-labelledby="UploadSpeechIconTitle UploadSpeechIconDescription"
+          width="48"
+          height="38.4"
+          viewBox="0 0 48 38.4"
+        >
+          <title id="UploadSpeechIconTitle">Upload your Speech</title>
+          <desc id="UploadSpeechIconDescription">
+            Click here to upload your speech to the platform.
+          </desc>
           <g
             id="Gruppe_4"
             data-name="Gruppe 4"

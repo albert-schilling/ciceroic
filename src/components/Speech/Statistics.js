@@ -7,14 +7,17 @@ export default function Statistics({ dimensions }) {
       {dimensions.map(dimension => (
         <StatisticsListItem key={dimension[0]}>
           {dimension[0]}
-          <StatisticsRangeValue>
-            <StatisticsRangeIndicator
+          <StatisticsRangeContainer>
+            <StatisticsRangeFill
               style={{
-                marginLeft: `calc(${(dimension[1] / 5) * 100}% - 8px)`,
+                width: `calc(${(dimension[1] / 5) * 100}%)`,
+                borderTopRightRadius: `${dimension[1] === 5 ? '10px' : 0}`,
+                borderBottomRightRadius: `${dimension[1] === 5 ? '10px' : 0}`,
               }}
             />
-            {dimension[1]}
-          </StatisticsRangeValue>
+
+            <StatisticsRangeNumber>{dimension[1]}</StatisticsRangeNumber>
+          </StatisticsRangeContainer>
         </StatisticsListItem>
       ))}
     </StatisticsList>
@@ -38,18 +41,34 @@ const StatisticsListItem = styled.li`
   line-height: 1.2rem;
 `
 
-const StatisticsRangeValue = styled.label`
+const StatisticsRangeContainer = styled.label`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+
   grid-gap: 8px;
   font-size: 0.9rem;
+
+  border: 1px solid var(--primary-font-color);
+  border-radius: 14px;
+  height: 28px;
+  padding: 2px;
+  position: relative;
 `
-const StatisticsRangeIndicator = styled.span`
-  width: 12px;
-  min-width: 12px;
-  height: 12px;
-  border-radius: 50%;
+const StatisticsRangeFill = styled.span`
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   border: 1px solid #bbb;
-  background: #fff;
+  background: var(--highlight-color);
+`
+const StatisticsRangeNumber = styled.span`
+  position: absolute;
+  left: calc(50% - 4px);
+
+  color: var(--inverse-primary-font-color);
+  text-shadow: 1px 1px 0 var(--highlight-color),
+    1px -1px 0 var(--highlight-color), -1px -1px 0 var(--highlight-color),
+    -1px 1px 0 var(--highlight-color);
+  line-height: 1.2rem;
 `

@@ -128,10 +128,14 @@ export default function Speech({
 }
 
 const Main = styled.main`
+  margin-bottom: 20px;
   background: #fff;
   padding: 20px;
   height: 100%;
   overflow-y: scroll;
+  > section:last-child {
+    margin-bottom: 80px;
+  }
   @media (min-width: 700px) {
     display: grid;
     grid-template-areas: 'backLink backLink' 'video information' 'tab tab';
