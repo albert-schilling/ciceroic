@@ -28,13 +28,12 @@ export default function VoteButton({
 const VoteButtonStyled = styled.button`
   border: none;
   background: var(--inverse-primary-font-color);
-
   padding: 4px;
   text-align: center;
   font-size: 1rem;
   color: var(--primary-font-color);
   cursor: pointer;
   &.voted {
-    text-shadow: 0 0 8px var(--primary-bg-color);
+    color: var(--secondary-highlight-color);
   }
 `

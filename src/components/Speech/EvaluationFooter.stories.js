@@ -1,5 +1,5 @@
 import React from 'react'
-import SpeechEvaluationFooter from './SpeechEvaluationFooter'
+import EvaluationFooter from './EvaluationFooter'
 
 const sectionStyles = {
   padding: '20px',
@@ -58,12 +58,12 @@ const setVoted = () => {}
 export default {
   title: 'Components/Evaluation/Footer',
   decorators: [storyFn => <section style={sectionStyles}>{storyFn()}</section>],
-  component: SpeechEvaluationFooter,
+  component: EvaluationFooter,
 }
 
-export const DefaultSpeechEvaluationFooter = () => {
+export const DefaultEvaluationFooter = () => {
   return (
-    <SpeechEvaluationFooter
+    <EvaluationFooter
       profile={profile}
       evaluation={evaluation}
       voted={voted}

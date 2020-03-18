@@ -36,13 +36,12 @@ const TabTitle = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  background: lightblue;
   font-size: 1rem;
-  background: #eee;
-  color: #aaa;
+  background: var(--light-grey);
+  color: var(--primary-font-color);
   &.active {
-    background: navy;
-    color: #fff;
+    background: var(--highlight-color);
+    color: var(--inverse-primary-font-color);
   }
 `
 

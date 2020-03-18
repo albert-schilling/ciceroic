@@ -20,7 +20,7 @@ const ButtonStyled = styled.button`
   width: max-content;
   border: none;
   padding: 8px;
-  background: var(--primary-bg-color);
+  background: var(--highlight-color);
   text-align: center;
   font-size: 1rem;
   color: var(--inverse-primary-font-color);
