@@ -9,5 +9,5 @@ export default {
 }
 
 export const DefaultFooter = () => {
-  return <Footer user={{ id: 'id123' }} />
+  return <Footer user={{ _id: 'id123' }} />
 }

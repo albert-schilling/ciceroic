@@ -5,21 +5,14 @@ import { db } from '../../services/firebase'
 
 const AuthContext = React.createContext()
 
-function AuthProvider({
-  history,
-  children,
-  profile,
-  setProfile,
-  profileRetrieved,
-  setProfileRetrieved,
-}) {
+function AuthProvider({ history, children, profile, setProfile }) {
   const [user, setUser] = useState({})
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged(user => {
       if (user) {
         setUser({
-          id: user.uid,
+          _id: user.uid,
           email: user.email,
         })
         window.localStorage.setItem('uid', user.uid)
@@ -31,7 +24,9 @@ function AuthProvider({
           password: '',
           firstName: '',
           lastName: '',
-          id: '',
+          _id: '',
+          about: '',
+          image: '',
         })
         window.localStorage.removeItem('uid')
       }
@@ -50,18 +45,12 @@ function AuthProvider({
         return doc.exists && doc.data()
       })
       .then(data => {
-        Object.assign(profile, {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          id: data._id,
-          about: data.about,
-        })
+        Object.assign(profile, { ...data })
       })
       .catch(error => {
         console.error('Error writing document: ', error)
       })
     setProfile(profile)
-    setProfileRetrieved(true)
     // console.log('Updating profile:', profile)
   }
   async function signUp(event) {
@@ -153,7 +142,9 @@ function AuthProvider({
         password: '',
         firstName: '',
         lastName: '',
-        id: '',
+        _id: '',
+        about: '',
+        image: '',
       })
       // console.log('User logged out. Profile resetted.')
       history.push('/')

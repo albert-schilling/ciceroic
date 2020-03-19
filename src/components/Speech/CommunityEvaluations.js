@@ -12,7 +12,7 @@ export default function CommunityEvaluations({
 
   if (speech.hasOwnProperty('evaluations')) {
     return speech.evaluations
-      .filter(evaluation => evaluation.evaluator.id !== user.id)
+      .filter(evaluation => evaluation.evaluator.id !== user._id)
       .map(evaluation => {
         return (
           <Evaluation

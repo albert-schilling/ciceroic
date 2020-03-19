@@ -14,7 +14,7 @@ export default function Footer() {
       <AuthConsumer>
         {({ user }) => (
           <>
-            {user.id && (
+            {user._id && (
               <footer role="navigation" aria-label="Main">
                 <ProfileButton />
                 {location.pathname !== '/profile' && <RecordIcon />}

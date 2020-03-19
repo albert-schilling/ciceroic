@@ -43,7 +43,7 @@ export default function Evaluation({
         />
       )}
       <EvaluationDate>Submitted: {date}.</EvaluationDate>
-      {evaluation.evaluator.id === user.id ? (
+      {evaluation.evaluator.id === user._id ? (
         <DefaultButton
           name="Edit evaluation"
           callback={() => {

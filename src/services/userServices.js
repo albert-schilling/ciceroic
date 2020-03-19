@@ -2,7 +2,7 @@ import { db } from './firebase'
 
 function updateUser(profile) {
   db.collection('users')
-    .doc(profile.id)
+    .doc(profile._id)
     .set({
       ...profile,
     })
@@ -15,7 +15,7 @@ function updateUser(profile) {
 }
 function updateAbout(profile) {
   db.collection('users')
-    .doc(profile.id)
+    .doc(profile._id)
     .update({
       about: profile.about,
     })

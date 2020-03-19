@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { Main } from '../Standard/StandardComponents'
 import DefaultButton from '../Inputs/Buttons/DefaultButton'
 import IconSignOut from '../Inputs/Icons/IconSignOut'
-import { updateAbout } from '../../services/userServices'
+import { updateUser } from '../../services/userServices'
 
 export default function Profile({
   profile = {
-    id: '23p48qyfguisrhgfiu',
+    _id: '23p48qyfguisrhgfiu',
     email: 'maxpower@heroes.world',
     password: 'skdflksdjfgiu',
     firstName: 'Max',
@@ -21,7 +21,7 @@ export default function Profile({
   logOut = () => {},
 }) {
   const [editMode, setEditMode] = useState(false)
-
+  console.log('profile', profile)
   return (
     <Main>
       <Portrait>
@@ -30,6 +30,11 @@ export default function Profile({
             profile.image.length > 0
               ? profile.image
               : '/images/default_protrait_cicero_001.jpg'
+          }
+          alt={
+            profile.image.length > 0
+              ? `Portrait by ${profile.firstName} ${profile.lastName}`
+              : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
           }
         />
       </Portrait>
@@ -81,13 +86,13 @@ export default function Profile({
   }
   function handleClick(event) {
     setEditMode(false)
-    event.target.name === 'updateAbout' && updateAbout(profile)
+    event.target.name === 'updateAbout' && updateUser(profile)
   }
 }
 
 Profile.propTypes = {
   profile: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,

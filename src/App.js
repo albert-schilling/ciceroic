@@ -18,12 +18,7 @@ import Profile from './components/Profile/Profile'
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
-  const {
-    profile,
-    setProfile,
-    profileRetrieved,
-    setProfileRetrieved,
-  } = useProfile()
+  const { profile, setProfile } = useProfile()
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
@@ -32,19 +27,14 @@ function App() {
     <AppBodyStyled>
       <GlobalStyle />
       <Router history={history}>
-        <AuthProvider
-          profile={profile}
-          setProfile={setProfile}
-          profileRetrieved={profileRetrieved}
-          setProfileRetrieved={setProfileRetrieved}
-        >
+        <AuthProvider profile={profile} setProfile={setProfile}>
           <AuthConsumer>
             {({ user, logOut }) => (
               <>
                 <Header />
                 <Switch>
                   <Route exact path="/">
-                    {user && user.id ? (
+                    {user && user._id ? (
                       speeches === undefined ? (
                         <p style={{ padding: '20px' }}>
                           Sorry, we cannot connect to the server. Please, try
@@ -69,7 +59,7 @@ function App() {
                     />
                   </Route>
                   <Route exact path="/speech/:id">
-                    {user && user.id ? (
+                    {user && user._id ? (
                       speeches === undefined ? (
                         <p style={{ padding: '20px' }}>
                           Sorry, we cannot connect to the server. Please, try
