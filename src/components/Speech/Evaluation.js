@@ -6,6 +6,7 @@ import DefaultButton from '../Inputs/DefaultButton'
 import Comment from './Comment'
 import EvaluationFooter from './EvaluationFooter'
 import Statistics from './Statistics'
+import useSpeech from '../../hooks/useSpeech'
 
 export default function Evaluation({
   title = 'Evaluation title:',
@@ -19,12 +20,12 @@ export default function Evaluation({
   setSpeech,
 }) {
   const { handleVoteOnEvaluation } = useForm()
+  const { returnDimensionsFromEvaluation } = useSpeech()
 
   const { convertTimestampToDate } = useDate()
   const timestamp = new Date(evaluation.date)
   const date = convertTimestampToDate(timestamp)
-
-  const dimensions = Object.entries(evaluation.dimensions)
+  const dimensions = returnDimensionsFromEvaluation(evaluation.dimensions)
   return (
     <EvaluationContainer>
       <EvaluationTitle>{title}</EvaluationTitle>

@@ -5,18 +5,11 @@ export default function Statistics({ dimensions }) {
   return (
     <StatisticsList>
       {dimensions.map(dimension => (
-        <StatisticsListItem key={dimension[0]}>
-          {dimension[0]}
+        <StatisticsListItem key={dimension.name}>
+          {dimension.name}
           <StatisticsRangeContainer>
-            <StatisticsRangeFill
-              style={{
-                width: `calc(${(dimension[1] / 5) * 100}%)`,
-                borderTopRightRadius: `${dimension[1] === 5 ? '10px' : 0}`,
-                borderBottomRightRadius: `${dimension[1] === 5 ? '10px' : 0}`,
-              }}
-            />
-
-            <StatisticsRangeNumber>{dimension[1]}</StatisticsRangeNumber>
+            <StatisticsRangeFill dimensionValue={dimension.value} />
+            <StatisticsRangeNumber>{dimension.value}</StatisticsRangeNumber>
           </StatisticsRangeContainer>
         </StatisticsListItem>
       ))}
@@ -59,6 +52,11 @@ const StatisticsRangeFill = styled.span`
   border-bottom-left-radius: 10px;
   border: transparent;
   background: var(--highlight-color);
+  border-top-right-radius: ${props =>
+    props.dimensionValue === 5 ? '10px' : 0};
+  border-bottom-right-radius: ${props =>
+    props.dimensionValue === 5 ? '10px' : 0};
+  width: ${props => `calc((${props.dimensionValue} / 5) * 100%)`};
 `
 const StatisticsRangeNumber = styled.span`
   position: absolute;

@@ -6,38 +6,49 @@ export default function useSpeech() {
   const [editMode, setEditMode] = useState(false)
 
   function calculateAverageEvaluation(speech) {
-    let average
-    !!speech.evaluations && !!speech.evaluations.length
-      ? (average = speech.evaluations.reduce((average, evaluation) => {
-          Object.entries(evaluation.dimensions).forEach(dimension => {
-            const index = average.findIndex(
-              dimensionAverage => dimensionAverage.name === dimension[0]
-            )
-            index >= 0
-              ? (() => {
-                  average[index].sum += dimension[1]
-                  average[index].count++
-                  average[index].average =
-                    Math.round(
-                      (average[index].sum / average[index].count) * 100
-                    ) / 100
-                })()
-              : average.push({
-                  name: dimension[0],
-                  sum: dimension[1],
-                  count: 1,
-                  average: dimension[1],
-                })
-          })
-          return average
-        }, []))
-      : (average = [])
+    const average = speech.evaluations
+      ? speech.evaluations.reduce((acc, evaluation) => {
+          Object.entries(evaluation.dimensions).forEach(dimension =>
+            returnAccumulatedAverage(acc, dimension)
+          )
+          return acc
+        }, [])
+      : []
     return average
   }
+
+  function returnAccumulatedAverage(acc, dimension) {
+    const index = acc.findIndex(
+      dimensionAverage => dimensionAverage.name === dimension[0]
+    )
+    index >= 0
+      ? (() => {
+          acc[index].sum += dimension[1]
+          acc[index].count++
+          acc[index].average =
+            Math.round((acc[index].sum / acc[index].count) * 100) / 100
+        })()
+      : acc.push({
+          name: dimension[0],
+          sum: dimension[1],
+          count: 1,
+          average: dimension[1],
+        })
+  }
+
   function returnDimensionsFromAverage(average) {
     const dimensions = average.map(dimension => {
-      return [dimension.name, dimension.average]
+      return { name: dimension.name, value: dimension.average }
     })
+    return dimensions
+  }
+
+  function returnDimensionsFromEvaluation(dimensionsFormEvaluation) {
+    const dimensions = Object.entries(dimensionsFormEvaluation).map(
+      dimension => {
+        return { name: dimension[0], value: dimension[1] }
+      }
+    )
     return dimensions
   }
 
@@ -50,5 +61,6 @@ export default function useSpeech() {
     setEditMode,
     calculateAverageEvaluation,
     returnDimensionsFromAverage,
+    returnDimensionsFromEvaluation,
   }
 }

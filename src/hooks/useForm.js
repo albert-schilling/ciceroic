@@ -72,7 +72,7 @@ export default function useForm() {
     evaluation.evaluator.id = profile.id
     Object.assign(evaluation, { date: new Date().getTime() })
 
-    !speech.evaluations && Object.assign(speech, { evaluations: [] })
+    speech.evaluations || Object.assign(speech, { evaluations: [] })
 
     const updatingExistingEvaluation = searchEvaluator({ user, speech })
 
