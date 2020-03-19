@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import SignUpForm from './SignUpForm'
 
-export default function SignUp({ profile, setProfile }) {
+export default function SignUp({ profile, setProfile, history }) {
   return (
     <Main>
-      <SignUpForm profile={profile} setProfile={setProfile} />
+      <SignUpForm history={history} profile={profile} setProfile={setProfile} />
     </Main>
   )
 }
@@ -19,11 +19,4 @@ const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h2 {
-    margin: 0;
-  }
-  h4 {
-    text-align: center;
-    line-height: 1.6rem;
-  }
 `

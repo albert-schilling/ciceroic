@@ -49,6 +49,7 @@ export default function Evaluation({
             setEditMode(!editMode)
           }}
           text="Edit"
+          color="primary"
         />
       ) : (
         <EvaluationFooter

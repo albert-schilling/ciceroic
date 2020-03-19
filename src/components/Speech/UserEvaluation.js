@@ -16,7 +16,7 @@ export default function UserEvaluation({
     evaluation,
     setEvaluation,
     submitEvaluation,
-    returnEvaluationByUser,
+    getEvaluationByCurrentUser,
   } = useForm()
 
   const { editMode, setEditMode } = useSpeech()
@@ -26,7 +26,7 @@ export default function UserEvaluation({
   const refs = [inputPraiseRef, inputSuggestionsRef]
 
   useEffect(() => {
-    const foundEvaluation = returnEvaluationByUser({ user, speech })
+    const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
     if (foundEvaluation != null) {
       Object.assign(evaluation, foundEvaluation)
       setEvaluation(evaluation)

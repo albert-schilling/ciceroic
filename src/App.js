@@ -61,7 +61,11 @@ function App() {
                     )}
                   </Route>
                   <Route exact path="/signup">
-                    <SignUp profile={profile} setProfile={setProfile} />
+                    <SignUp
+                      history={history}
+                      profile={profile}
+                      setProfile={setProfile}
+                    />
                   </Route>
                   <Route exact path="/speech/:id">
                     {user && user.id ? (

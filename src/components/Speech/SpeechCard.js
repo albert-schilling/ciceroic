@@ -53,28 +53,6 @@ const SpeechCardInformation = styled.section`
   display: flex;
   flex-direction: column;
 `
-const SpeechCardHeadline = styled.h2`
-  margin: 12px 0;
-  font-size: 1.2rem;
-  line-height: 1.6rem;
-`
-const SpeechCardSpeaker = styled.h2`
-  margin: 0 0 16px 0;
-  font-size: 1rem;
-`
-
-const SpeechCardDescription = styled.p`
-  margin: 0;
-  line-height: 1.4rem;
-`
-
-const SpeechCardDetails = styled.p`
-  display: flex;
-  justify-content: space-between;
-  grid-gap: 4px;
-  color: var(--secondary-font-color);
-  margin-bottom: 0;
-`
 
 const SpeechEvaluationButton = styled(NavLink)`
   margin: 16px 0 4px 0;

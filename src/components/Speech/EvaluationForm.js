@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import RangeInput from '../Inputs/RangeInput'
 import TextArea from '../TextArea/TextArea'
+import DefaultButton from '../Inputs/DefaultButton'
 
 export default function SpeechEvaluationForm({
   evaluation,
@@ -47,13 +48,22 @@ export default function SpeechEvaluationForm({
         key="Suggestions"
       />
       <ButtonRow>
-        {editMode &&
-          (() => (
-            <SpeechEvaluationSubmit onClick={() => setEditMode(false)}>
-              Cancel
-            </SpeechEvaluationSubmit>
-          ))()}
-        <SpeechEvaluationSubmit type="submit">Submit</SpeechEvaluationSubmit>
+        {editMode && (
+          <DefaultButton
+            name="cancel"
+            callback={() => {
+              setEditMode(false)
+            }}
+            text="Cancel"
+            color="tertiary"
+          />
+        )}
+        <DefaultButton
+          name="submit"
+          text="Submit"
+          color="primary"
+          type="submit"
+        />
       </ButtonRow>
     </SpeechEvaluationFormStyled>
   )
@@ -94,20 +104,6 @@ const SpeechEvaluationFormSection = styled.section`
       width: calc(50% - 12px);
     }
   }
-`
-
-const SpeechEvaluationSubmit = styled.button`
-  margin: 16px 0 40px 0;
-  align-self: center;
-  width: max-content;
-  border: none;
-  padding: 8px;
-  background: var(--primary-bg-color);
-  text-align: center;
-  font-size: 1rem;
-  color: var(--inverse-primary-font-color);
-  text-decoration: none;
-  cursor: pointer;
 `
 
 const ButtonRow = styled.section`

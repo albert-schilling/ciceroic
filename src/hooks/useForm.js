@@ -113,7 +113,7 @@ export default function useForm() {
     return foundEvaluator
   }
 
-  function returnEvaluationByUser({ user, speech }) {
+  function getEvaluationByCurrentUser({ user, speech }) {
     let foundEvaluation = {}
     speech && speech.evaluations
       ? (foundEvaluation = speech.evaluations.filter(
@@ -202,7 +202,7 @@ export default function useForm() {
     updateEvaluations,
     handleClickOnUserMessage,
     searchEvaluator,
-    returnEvaluationByUser,
+    getEvaluationByCurrentUser,
     handleVoteOnEvaluation,
   }
 }

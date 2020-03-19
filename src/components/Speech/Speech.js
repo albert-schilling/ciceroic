@@ -26,7 +26,7 @@ export default function Speech({
     setMessage,
     handleClickOnUserMessage,
     searchEvaluator,
-    returnEvaluationByUser,
+    getEvaluationByCurrentUser,
   } = useForm()
 
   const [activeTab, setActiveTab] = useState('')
@@ -40,14 +40,12 @@ export default function Speech({
       .then(speech => {
         const foundEvaluator = searchEvaluator({ user, speech })
         if (foundEvaluator) {
-          const foundEvaluation = returnEvaluationByUser({ user, speech })
+          const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
           Object.assign(evaluation, foundEvaluation)
           setEvaluation(evaluation)
         }
       })
-  }, [speech, id])
-  // }, [setSpeech, id, profile.id])
-  //
+  }, [])
   if (profile.id.length > 0) {
     return (
       <Main>
@@ -55,7 +53,7 @@ export default function Speech({
           <span>&#8612;</span>see all speeches
         </NavLinkStyled>
         {speech.filename === undefined ? (
-          <p>Video loading</p>
+          <p>Video not found.</p>
         ) : (
           <VideoStyled role="img" controls>
             <source src={speechBasePath + speech.filename} type="video/mp4" />
