@@ -1,18 +1,20 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
 export default function UserMessage({ message, handleClick }) {
   return (
     <MessageBody>
       <MessageText>{message.text}</MessageText>
-      <MessageInputButton
-        autoFocus
-        type="submit"
-        onClick={handleClick}
+
+      <DefaultButton
         name="confirmation"
-      >
-        Okay
-      </MessageInputButton>
+        callback={handleClick}
+        text="Okay"
+        color="primary"
+        type="submit"
+        autoFocus={true}
+      />
     </MessageBody>
   )
 }
@@ -27,8 +29,8 @@ const MessageBody = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--primary-bg-color);
-  color: var(--inverse-primary-font-color);
+  background: var(--light-grey);
+  color: var(--primary-font-color);
   @media (min-width: 700px) {
     max-width: 400px;
     max-height: 800px;
@@ -39,19 +41,6 @@ const MessageBody = styled.article`
   }
 `
 
-const MessageInputButton = styled.button`
-  margin: 16px 0 24px 0;
-  align-self: center;
-  width: max-content;
-  border: none;
-  padding: 8px;
-  background: var(--secondary-bg-color);
-  text-align: center;
-  font-size: 1rem;
-  color: var(--inverse-primary-font-color);
-  text-decoration: none;
-  cursor: pointer;
-`
 const MessageText = styled.p`
   width: 80%;
   font-size: 1.2rem;

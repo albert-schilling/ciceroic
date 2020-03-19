@@ -6,9 +6,17 @@ export default function Button({
   text = 'Default Button',
   name = 'Default Button',
   autoFocus = false,
+  type = 'button',
+  color = 'primary',
 }) {
   return (
-    <ButtonStyled name={name} autoFocus={autoFocus} onClick={callback}>
+    <ButtonStyled
+      className={color}
+      name={name}
+      autoFocus={autoFocus}
+      onClick={callback}
+      type={type}
+    >
       {text}
     </ButtonStyled>
   )
@@ -20,10 +28,19 @@ const ButtonStyled = styled.button`
   width: max-content;
   border: none;
   padding: 8px;
-  background: var(--highlight-color);
   text-align: center;
   font-size: 1rem;
   color: var(--inverse-primary-font-color);
   text-decoration: none;
   cursor: pointer;
+  &.primary {
+    background: var(--highlight-color);
+  }
+  &.secondary {
+    background: var(--secondary-highlight-color);
+  }
+  &.tertiary {
+    background: var(--light-grey);
+    color: var(--primary-font-color);
+  }
 `

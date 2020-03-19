@@ -72,7 +72,7 @@ export default function useForm() {
     evaluation.evaluator.id = profile.id
     Object.assign(evaluation, { date: new Date().getTime() })
 
-    !speech.evaluations && Object.assign(speech, { evaluations: [] })
+    speech.evaluations || Object.assign(speech, { evaluations: [] })
 
     const updatingExistingEvaluation = searchEvaluator({ user, speech })
 
@@ -104,16 +104,16 @@ export default function useForm() {
   }
 
   function searchEvaluator({ user, speech }) {
-    let evaluations = []
     const foundEvaluator =
       speech && speech.evaluations
-        ? ((evaluations = speech.evaluations),
-          evaluations.some(evaluation => evaluation.evaluator.id === user.id))
+        ? speech.evaluations.some(
+            evaluation => evaluation.evaluator.id === user.id
+          )
         : false
     return foundEvaluator
   }
 
-  function returnEvaluationByUser({ user, speech }) {
+  function getEvaluationByCurrentUser({ user, speech }) {
     let foundEvaluation = {}
     speech && speech.evaluations
       ? (foundEvaluation = speech.evaluations.filter(
@@ -202,7 +202,7 @@ export default function useForm() {
     updateEvaluations,
     handleClickOnUserMessage,
     searchEvaluator,
-    returnEvaluationByUser,
+    getEvaluationByCurrentUser,
     handleVoteOnEvaluation,
   }
 }

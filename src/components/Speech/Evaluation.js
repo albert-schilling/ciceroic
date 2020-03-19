@@ -2,10 +2,11 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import useDate from '../../hooks/useDate'
 import useForm from '../../hooks/useForm'
-import DefaultButton from '../Inputs/DefaultButton'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 import Comment from './Comment'
 import EvaluationFooter from './EvaluationFooter'
 import Statistics from './Statistics'
+import useSpeech from '../../hooks/useSpeech'
 
 export default function Evaluation({
   title = 'Evaluation title:',
@@ -19,12 +20,12 @@ export default function Evaluation({
   setSpeech,
 }) {
   const { handleVoteOnEvaluation } = useForm()
+  const { returnDimensionsFromEvaluation } = useSpeech()
 
   const { convertTimestampToDate } = useDate()
   const timestamp = new Date(evaluation.date)
   const date = convertTimestampToDate(timestamp)
-
-  const dimensions = Object.entries(evaluation.dimensions)
+  const dimensions = returnDimensionsFromEvaluation(evaluation.dimensions)
   return (
     <EvaluationContainer>
       <EvaluationTitle>{title}</EvaluationTitle>
@@ -49,6 +50,7 @@ export default function Evaluation({
             setEditMode(!editMode)
           }}
           text="Edit"
+          color="primary"
         />
       ) : (
         <EvaluationFooter

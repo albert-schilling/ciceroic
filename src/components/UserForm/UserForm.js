@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { AuthConsumer } from '../Auth/AuthContext'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
 export default function UserForm({ profile, setProfile }) {
   return (
@@ -24,9 +25,13 @@ export default function UserForm({ profile, setProfile }) {
               onChange={handleChange}
             />
             <ButtonSection>
-              <Button name="logIn" onClick={event => handleClick(event, logIn)}>
-                Login
-              </Button>
+              <DefaultButton
+                name="logIn"
+                callback={event => handleClick(event, logIn)}
+                text="Login"
+                color="tertiary"
+              />
+
               <NavLinkStyled name="signUp" to={'/signup'}>
                 Sign Up
               </NavLinkStyled>
@@ -37,13 +42,10 @@ export default function UserForm({ profile, setProfile }) {
     </AuthConsumer>
   )
   function handleChange(event) {
-    console.log('handle change called')
-    console.log(event.target.value)
     event.target.name === 'email' &&
       setProfile({ ...profile, email: event.target.value })
     event.target.name === 'password' &&
       setProfile({ ...profile, password: event.target.value })
-    console.log('profile', profile)
   }
   function handleClick(event, callback) {
     event.preventDefault()
@@ -51,38 +53,27 @@ export default function UserForm({ profile, setProfile }) {
   }
 }
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+  display: grid;
   grid-gap: 12px;
 `
 const Input = styled.input`
   font-size: 1rem;
 `
 const ButtonSection = styled.section`
-  display: grid;
-  grid-template: auto / 1fr 1fr;
-  grid-gap: 8px;
-`
-
-const Button = styled.button`
-  border: none;
-  padding: 12px;
-  background: ${props =>
-    props.name === 'signUp' ? 'var(--primary-bg-color)' : '#eee'};
-  font-size: 1rem;
-  color: ${props =>
-    props.name === 'signUp' ? 'var(--inverse-primary-font-color)' : 'inherit'};
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 `
 
 const NavLinkStyled = styled(NavLink)`
+  margin: 20px 0 12px 0;
+  align-self: center;
+  width: max-content;
   border: none;
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--primary-bg-color);
+  padding: 8px;
+  text-align: center;
   font-size: 1rem;
-  text-decoration: none;
   color: var(--inverse-primary-font-color);
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--highlight-color);
 `

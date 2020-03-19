@@ -14,7 +14,7 @@ export default function SpeechStatistics({ speech }) {
   return (
     <>
       <SpeechStatisticsContainer>
-        {!!speech.evaluations && !!speech.evaluations.length ? (
+        {speech.evaluations ? (
           <>
             <Statistics dimensions={averageDimensions} />
 

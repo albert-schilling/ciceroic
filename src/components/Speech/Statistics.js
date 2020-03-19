@@ -5,18 +5,11 @@ export default function Statistics({ dimensions }) {
   return (
     <StatisticsList>
       {dimensions.map(dimension => (
-        <StatisticsListItem key={dimension[0]}>
-          {dimension[0]}
+        <StatisticsListItem key={dimension.name}>
+          {dimension.name}
           <StatisticsRangeContainer>
-            <StatisticsRangeFill
-              style={{
-                width: `calc(${(dimension[1] / 5) * 100}%)`,
-                borderTopRightRadius: `${dimension[1] === 5 ? '10px' : 0}`,
-                borderBottomRightRadius: `${dimension[1] === 5 ? '10px' : 0}`,
-              }}
-            />
-
-            <StatisticsRangeNumber>{dimension[1]}</StatisticsRangeNumber>
+            <StatisticsRangeFill dimensionValue={dimension.value} />
+            <StatisticsRangeNumber>{dimension.value}</StatisticsRangeNumber>
           </StatisticsRangeContainer>
         </StatisticsListItem>
       ))}
@@ -45,10 +38,8 @@ const StatisticsRangeContainer = styled.label`
   display: flex;
   align-items: center;
   justify-content: start;
-
   grid-gap: 8px;
   font-size: 0.9rem;
-
   border: 1px solid var(--primary-font-color);
   border-radius: 14px;
   height: 28px;
@@ -59,16 +50,18 @@ const StatisticsRangeFill = styled.span`
   height: 100%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border: 1px solid #bbb;
+  border: transparent;
   background: var(--highlight-color);
+  border-top-right-radius: ${props =>
+    props.dimensionValue === 5 ? '10px' : 0};
+  border-bottom-right-radius: ${props =>
+    props.dimensionValue === 5 ? '10px' : 0};
+  width: ${props => `calc((${props.dimensionValue} / 5) * 100%)`};
 `
 const StatisticsRangeNumber = styled.span`
   position: absolute;
   left: calc(50% - 4px);
-
   color: var(--inverse-primary-font-color);
-  text-shadow: 1px 1px 0 var(--highlight-color),
-    1px -1px 0 var(--highlight-color), -1px -1px 0 var(--highlight-color),
-    -1px 1px 0 var(--highlight-color);
+  mix-blend-mode: difference;
   line-height: 1.2rem;
 `

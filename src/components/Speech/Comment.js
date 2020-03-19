@@ -19,9 +19,8 @@ const CommentBody = styled.section`
 const CommentHeader = styled.h5`
   margin: 0;
   color: var(--secondary-font-color);
-
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: inherit;
 `
 const CommentContent = styled.p`
   margin: 0;

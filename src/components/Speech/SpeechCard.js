@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
+import SpeechDescription from './SpeechDescription/SpeechDescription'
 
 export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
   return (
@@ -14,16 +15,14 @@ export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
       )}
 
       <SpeechCardInformation>
-        <header>
-          <SpeechCardHeadline>{speech.title}</SpeechCardHeadline>
-        </header>
-        <SpeechCardSpeaker>{speech.speaker}</SpeechCardSpeaker>
-        <SpeechCardDescription>{speech.description}</SpeechCardDescription>
-        <SpeechCardDetails>
-          <small>{speech.category}</small>
-          <small>{speech.duration} min</small>
-          <small>{speech.date}</small>
-        </SpeechCardDetails>
+        <SpeechDescription
+          title={speech.title}
+          speaker={speech.speaker}
+          description={speech.description}
+          category={speech.category}
+          duration={speech.duration}
+          date={speech.date}
+        />
         <SpeechEvaluationButton
           onClick={() => setSpeech(speech)}
           to={'/speech/' + speech._id}
@@ -53,28 +52,6 @@ const SpeechCardVideo = styled.video`
 const SpeechCardInformation = styled.section`
   display: flex;
   flex-direction: column;
-`
-const SpeechCardHeadline = styled.h2`
-  margin: 12px 0;
-  font-size: 1.2rem;
-  line-height: 1.6rem;
-`
-const SpeechCardSpeaker = styled.h2`
-  margin: 0 0 16px 0;
-  font-size: 1rem;
-`
-
-const SpeechCardDescription = styled.p`
-  margin: 0;
-  line-height: 1.4rem;
-`
-
-const SpeechCardDetails = styled.p`
-  display: flex;
-  justify-content: space-between;
-  grid-gap: 4px;
-  color: var(--secondary-font-color);
-  margin-bottom: 0;
 `
 
 const SpeechEvaluationButton = styled(NavLink)`

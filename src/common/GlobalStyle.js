@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     --highlight-color: #003;
     --secondary-highlight-color: #a00;
 
-    font-size: 20px;
+    font-size: 16px;
     font-family: sans-serif, Arial, Helvetica;
     color: var(--primary-font-color);
     line-height: 100%;
@@ -24,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
     background-color: #eee;
+    font-weight: 300;
   }
 `
 

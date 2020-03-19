@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import VoteButton from '../Inputs/VoteButton'
+import VoteButton from '../Inputs/Buttons/VoteButton'
 
 export default function SpeechEvaluationFooter({
   evaluation = {},

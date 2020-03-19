@@ -1,15 +1,16 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { AuthConsumer } from '../Auth/AuthContext'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
-export default function UserForm({ profile, setProfile }) {
+export default function UserForm({ profile, setProfile, history }) {
   return (
     <AuthConsumer>
       {({ signUp }) => (
         <>
-          <Form>
-            <h3>Become a great speaker like Cicero.</h3>
-            <p>Sign up. It's for free.</p>
+          <Claim>Become a great speaker like Cicero.</Claim>
+          <p>Sign up. It's for free.</p>
+          <Form onSubmit={signUp}>
             <Input
               type="email"
               name="email"
@@ -36,11 +37,23 @@ export default function UserForm({ profile, setProfile }) {
               value={profile.lastName}
               onChange={handleChange}
             />
-            <ButtonSection>
-              <Button name="signUp" onClick={event => signUp(event)}>
-                Sign Up
-              </Button>
-            </ButtonSection>
+
+            <ButtonRow>
+              <DefaultButton
+                name="cancel"
+                callback={() => {
+                  history.push('/')
+                }}
+                text="Cancel"
+                color="tertiary"
+              />
+              <DefaultButton
+                name="signUp"
+                text="Sign Up"
+                color="primary"
+                type="submit"
+              />
+            </ButtonRow>
           </Form>
         </>
       )}
@@ -57,34 +70,23 @@ export default function UserForm({ profile, setProfile }) {
       setProfile({ ...profile, lastName: event.target.value })
   }
 }
+
+const Claim = styled.h2`
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  margin: 0;
+`
+
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+  display: grid;
   grid-gap: 12px;
-  h2 {
-    margin: 0;
-  }
-  h3 {
-    text-align: center;
-    line-height: 1.6rem;
-  }
 `
 const Input = styled.input`
   font-size: 1rem;
 `
-const ButtonSection = styled.section`
-  display: grid;
-  grid-template: auto / 1fr 1fr;
-  grid-gap: 8px;
-`
 
-const Button = styled.button`
-  font-size: 1rem;
-  border: none;
-  padding: 12px;
-  background: ${props =>
-    props.name === 'signUp' ? 'var(--primary-bg-color)' : '#eee'};
-
-  color: ${props =>
-    props.name === 'signUp' ? 'var(--inverse-primary-font-color)' : 'inherit'};
+const ButtonRow = styled.section`
+  display: flex;
+  justify-content: space-between;
 `
