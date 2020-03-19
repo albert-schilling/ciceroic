@@ -2,19 +2,22 @@ import React from 'react'
 import { AuthConsumer } from '../Auth/AuthContext'
 import { Router } from 'react-router-dom'
 import history from '../../common/history'
-import ProfileMenu from './ProfileMenu'
-import RecordIcon from './RecordIcon'
+import ProfileButton from '../Inputs/Icons/ProfileButton'
+import RecordIcon from '../Inputs/Icons/RecordIcon'
+import { useLocation } from 'react-router-dom'
 
 export default function Footer() {
+  const location = useLocation()
+
   return (
     <Router history={history}>
       <AuthConsumer>
-        {({ user, logOut }) => (
+        {({ user }) => (
           <>
             {user.id && (
               <footer role="navigation" aria-label="Main">
-                <ProfileMenu logOut={logOut} />
-                <RecordIcon />
+                <ProfileButton />
+                {location.pathname !== '/profile' && <RecordIcon />}
               </footer>
             )}
           </>

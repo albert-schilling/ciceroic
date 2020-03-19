@@ -23,8 +23,7 @@ export default function Button({
 }
 
 const ButtonStyled = styled.button`
-  margin: 20px 0 12px 0;
-  align-self: center;
+  margin: 12px 0;
   width: max-content;
   border: none;
   padding: 8px;

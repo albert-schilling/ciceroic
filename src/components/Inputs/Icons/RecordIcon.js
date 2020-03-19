@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import UserMessage from '../UserMessage/UserMessage'
+import UserMessage from '../../UserMessage/UserMessage'
 
 export default function RecordIcon() {
   const [visibility, setVisibility] = useState(false)

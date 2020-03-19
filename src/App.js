@@ -13,6 +13,7 @@ import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
 import useProfile from './hooks/useProfile'
 import LandingPage from './components/LandingPage/LandingPage'
+import Profile from './components/Profile/Profile'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -38,7 +39,7 @@ function App() {
           setProfileRetrieved={setProfileRetrieved}
         >
           <AuthConsumer>
-            {({ user }) => (
+            {({ user, logOut }) => (
               <>
                 <Header />
                 <Switch>
@@ -87,6 +88,14 @@ function App() {
                     ) : (
                       <LandingPage profile={profile} setProfile={setProfile} />
                     )}
+                  </Route>
+                  <Route exact path="/profile">
+                    <Profile
+                      history={history}
+                      profile={profile}
+                      setProfile={setProfile}
+                      logOut={logOut}
+                    />
                   </Route>
                 </Switch>
                 <Footer />

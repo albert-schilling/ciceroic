@@ -7,6 +7,8 @@ export default function useProfile() {
     firstName: '',
     lastName: '',
     id: '',
+    about: '',
+    image: '',
   })
 
   const [profileRetrieved, setProfileRetrieved] = useState(false)

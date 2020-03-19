@@ -54,6 +54,7 @@ function AuthProvider({
           firstName: data.firstName,
           lastName: data.lastName,
           id: data._id,
+          about: data.about,
         })
       })
       .catch(error => {
