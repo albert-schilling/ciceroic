@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import DefaultButton from '../Inputs/DefaultButton'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
 export default function UserMessage({ message, handleClick }) {
   return (
@@ -13,7 +13,7 @@ export default function UserMessage({ message, handleClick }) {
         text="Okay"
         color="primary"
         type="submit"
-        autoFocus="true"
+        autoFocus={true}
       />
     </MessageBody>
   )

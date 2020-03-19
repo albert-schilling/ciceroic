@@ -104,11 +104,11 @@ export default function useForm() {
   }
 
   function searchEvaluator({ user, speech }) {
-    let evaluations = []
     const foundEvaluator =
       speech && speech.evaluations
-        ? ((evaluations = speech.evaluations),
-          evaluations.some(evaluation => evaluation.evaluator.id === user.id))
+        ? speech.evaluations.some(
+            evaluation => evaluation.evaluator.id === user.id
+          )
         : false
     return foundEvaluator
   }

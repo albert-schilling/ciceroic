@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import RangeInput from '../Inputs/RangeInput'
 import TextArea from '../TextArea/TextArea'
-import DefaultButton from '../Inputs/DefaultButton'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
 export default function SpeechEvaluationForm({
   evaluation,

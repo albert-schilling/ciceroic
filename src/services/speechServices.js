@@ -70,5 +70,3 @@ export function patchSpeech(id, data) {
       }
     })
 }
-
-export function getEvaluationByUserId(userId, speechId) {}

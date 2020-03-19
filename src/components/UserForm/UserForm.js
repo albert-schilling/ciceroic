@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { AuthConsumer } from '../Auth/AuthContext'
-import DefaultButton from '../Inputs/DefaultButton'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
 export default function UserForm({ profile, setProfile }) {
   return (
