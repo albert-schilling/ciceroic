@@ -45,7 +45,7 @@ export default function Speech({
           setEvaluation(evaluation)
         }
       })
-  }, [])
+  }, [speech, id])
   // }, [setSpeech, id, profile.id])
   //
   if (profile.id.length > 0) {
@@ -147,7 +147,7 @@ const NavLinkStyled = styled(NavLink)`
   background: var(--light-grey);
   color: inherit;
   text-decoration: none;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   span {
     padding-top: 4px;
     margin-right: 4px;
@@ -157,17 +157,6 @@ const NavLinkStyled = styled(NavLink)`
     font-weight: 900;
   }
 `
-// const SpeechTitle = styled.h2`
-//   font-size: 1.2rem;
-//   line-height: 1.6rem;
-// `
-
-// const SpeechInformation = styled.section`
-//   grid-area: information;
-//   h3 {
-//     font-size: 1rem;
-//   }
-// `
 
 const VideoStyled = styled.video`
   width: 100%;
@@ -175,18 +164,6 @@ const VideoStyled = styled.video`
   margin-top: 12px;
   grid-area: video;
 `
-
-// const SpeechDescription = styled.p`
-//   line-height: 1.4rem;
-// `
-
-// const SpeechDetails = styled.p`
-//   display: flex;
-//   justify-content: space-between;
-//   grid-gap: 4px;
-//   color: var(--secondary-font-color);
-//   margin-bottom: 0;
-// `
 
 const TabContainerStyled = styled.section`
   grid-area: tab;

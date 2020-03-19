@@ -72,6 +72,9 @@ function AuthProvider({
         .then(res => {
           addUserToDB(res.user)
         })
+        .catch(function(error) {
+          console.error('Error creating new user: ', error)
+        })
       history.push('/')
     } catch (err) {}
   }

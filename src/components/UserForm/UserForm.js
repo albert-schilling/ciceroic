@@ -37,13 +37,10 @@ export default function UserForm({ profile, setProfile }) {
     </AuthConsumer>
   )
   function handleChange(event) {
-    console.log('handle change called')
-    console.log(event.target.value)
     event.target.name === 'email' &&
       setProfile({ ...profile, email: event.target.value })
     event.target.name === 'password' &&
       setProfile({ ...profile, password: event.target.value })
-    console.log('profile', profile)
   }
   function handleClick(event, callback) {
     event.preventDefault()

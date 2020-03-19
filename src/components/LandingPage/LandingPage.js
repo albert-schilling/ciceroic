@@ -24,6 +24,6 @@ const Main = styled.main`
 
 const Claim = styled.h2`
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.6rem;
 `

@@ -18,7 +18,7 @@ export default function SpeechInformation({
         <header>
           <SpeechTitle>{title}</SpeechTitle>
         </header>
-        <h3>{speaker}</h3>
+        <Speaker>{speaker}</Speaker>
         <SpeechDescription
           className={visibility ? '' : 'hidden'}
           onClick={setVisibilityToTrueIfFalse}
@@ -40,17 +40,18 @@ export default function SpeechInformation({
 }
 
 const SpeechTitle = styled.h2`
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 500;
-  line-height: 1.6rem;
+  line-height: 1.8rem;
 `
 
 const Container = styled.section`
   grid-area: information;
-  h3 {
-    font-size: 1rem;
-    font-weight: 500;
-  }
+`
+
+const Speaker = styled.h4`
+  font-size: 1rem;
+  font-weight: 500;
 `
 
 const SpeechDescription = styled.p`
