@@ -16,7 +16,7 @@ const profile = {
   password: 'skdflksdjfgiu',
   firstName: 'Max',
   lastName: 'Power',
-  // image: 'max_power_portrait.jpg',
+  image: '',
   about:
     'I joined Ciceroic because I might be a great hero but I am not a heroic speaker.',
 }

@@ -3,8 +3,11 @@ import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import { Main } from '../Standard/StandardComponents'
 import DefaultButton from '../Inputs/Buttons/DefaultButton'
+import BroadButton from '../Inputs/Buttons/BroadButton'
+import BroadInput from '../Inputs/Buttons/BroadInput'
 import IconSignOut from '../Inputs/Icons/IconSignOut'
 import { updateUser } from '../../services/userServices'
+import IconClose from '../Inputs/Icons/IconClose'
 
 export default function Profile({
   profile = {
@@ -20,29 +23,73 @@ export default function Profile({
   setProfile = () => {},
   logOut = () => {},
 }) {
-  const [editMode, setEditMode] = useState(false)
+  const [editAbout, setEditAbout] = useState(false)
+  const [lightbox, setLightbox] = useState(false)
+  const [editPortrait, setEditPortrait] = useState(false)
+
   console.log('profile', profile)
   return (
     <Main>
-      <Portrait>
-        <img
-          src={
-            profile.image.length > 0
-              ? profile.image
-              : '/images/default_protrait_cicero_001.jpg'
-          }
-          alt={
-            profile.image.length > 0
-              ? `Portrait by ${profile.firstName} ${profile.lastName}`
-              : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
-          }
-        />
-      </Portrait>
+      {lightbox ? (
+        <Lightbox>
+          <LightboxClose>
+            <IconClose color="#fff" callback={() => setLightbox(false)} />
+          </LightboxClose>
+          <LightboxImage>
+            <img
+              src={
+                profile.image.length > 0
+                  ? profile.image
+                  : '/images/default_protrait_cicero_001.jpg'
+              }
+              alt={
+                profile.image.length > 0
+                  ? `Portrait by ${profile.firstName} ${profile.lastName}`
+                  : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
+              }
+            />
+          </LightboxImage>
+
+          <LightboxOptions>
+            <BroadButton
+              name="deleteImage"
+              callback={handleClick}
+              text="Delete"
+              color="tertiary"
+              styling="m0"
+            />
+            <BroadInput
+              name="uploadImage"
+              // callback={handleClick}
+              text="Upload"
+              color="primary"
+              styling="m0"
+              type="file"
+              accept="image/png, image/jpeg"
+            />
+          </LightboxOptions>
+        </Lightbox>
+      ) : (
+        <Portrait onClick={() => setLightbox(true)}>
+          <img
+            src={
+              profile.image.length > 0
+                ? profile.image
+                : '/images/default_protrait_cicero_001.jpg'
+            }
+            alt={
+              profile.image.length > 0
+                ? `Portrait by ${profile.firstName} ${profile.lastName}`
+                : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
+            }
+          />
+        </Portrait>
+      )}
 
       <Name>
         {profile.firstName} {profile.lastName}
       </Name>
-      {editMode ? (
+      {editAbout ? (
         <>
           <AboutInput
             name="about"
@@ -63,7 +110,7 @@ export default function Profile({
           <DefaultButton
             text="Edit bio"
             color="tertiary"
-            callback={() => setEditMode(true)}
+            callback={() => setEditAbout(true)}
           />
         </>
       )}
@@ -85,8 +132,19 @@ export default function Profile({
     setProfile({ ...profile, [event.target.name]: event.target.value })
   }
   function handleClick(event) {
-    setEditMode(false)
-    event.target.name === 'updateAbout' && updateUser(profile)
+    if (event.target.name === 'updateAbout') {
+      updateUser(profile)
+      setEditAbout(false)
+    }
+
+    if (event.target.name === 'deleteImage') {
+      setProfile({ ...profile, image: '' })
+      setLightbox(false)
+    }
+    if (event.target.name === 'uploadImage') {
+      // setProfile({ ...profile, image: '' })
+      // setLightbox(false)
+    }
   }
 }
 
@@ -145,4 +203,45 @@ const AboutInput = styled.textarea`
   font-size: 0.9rem;
   line-height: 1.4rem;
   font-weight: inherit;
+`
+
+const Lightbox = styled.section`
+  position: fixed;
+  display: grid;
+  grid-template: auto max-content / 1fr;
+  width: 90%;
+  height: 90%;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  margin: 5%;
+`
+const LightboxImage = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-font-color);
+  overflow: hidden;
+  > img {
+    width: auto;
+    height: 100%;
+  }
+`
+
+const LightboxOptions = styled.section`
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+`
+
+const LightboxClose = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
 `
