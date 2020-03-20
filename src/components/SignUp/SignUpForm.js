@@ -60,14 +60,7 @@ export default function UserForm({ profile, setProfile, history }) {
     </AuthConsumer>
   )
   function handleChange(event) {
-    event.target.name === 'email' &&
-      setProfile({ ...profile, email: event.target.value })
-    event.target.name === 'password' &&
-      setProfile({ ...profile, password: event.target.value })
-    event.target.name === 'firstName' &&
-      setProfile({ ...profile, firstName: event.target.value })
-    event.target.name === 'lastName' &&
-      setProfile({ ...profile, lastName: event.target.value })
+    setProfile({ ...profile, [event.target.name]: event.target.value })
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
@@ -11,14 +11,14 @@ import SpeechesList from './components/Speech/SpeechesList'
 import SignUp from './components/SignUp/SignUp'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
-import useProfile from './hooks/useProfile'
+import { emptyProfile } from './data/emptyProfile'
 import LandingPage from './components/LandingPage/LandingPage'
 import Profile from './components/Profile/Profile'
-
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
-  const { profile, setProfile } = useProfile()
+
+  const [profile, setProfile] = useState(emptyProfile)
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))

@@ -30,6 +30,7 @@ export default function UserForm({ profile, setProfile }) {
                 callback={event => handleClick(event, logIn)}
                 text="Login"
                 color="tertiary"
+                type="submit"
               />
 
               <NavLinkStyled name="signUp" to={'/signup'}>
@@ -42,10 +43,7 @@ export default function UserForm({ profile, setProfile }) {
     </AuthConsumer>
   )
   function handleChange(event) {
-    event.target.name === 'email' &&
-      setProfile({ ...profile, email: event.target.value })
-    event.target.name === 'password' &&
-      setProfile({ ...profile, password: event.target.value })
+    setProfile({ ...profile, [event.target.name]: event.target.value })
   }
   function handleClick(event, callback) {
     event.preventDefault()

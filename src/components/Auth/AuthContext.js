@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { firebaseAuth } from '../../services/firebase'
 import { db } from '../../services/firebase'
+import { emptyProfile } from '../../data/emptyProfile'
 
 const AuthContext = React.createContext()
 
@@ -19,15 +20,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
         getUserInformation()
       } else {
         setUser({})
-        setProfile({
-          email: '',
-          password: '',
-          firstName: '',
-          lastName: '',
-          _id: '',
-          about: '',
-          image: '',
-        })
+        setProfile(emptyProfile)
         window.localStorage.removeItem('uid')
       }
     })
@@ -137,15 +130,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
       event.preventDefault()
       firebaseAuth.signOut()
       setUser({})
-      setProfile({
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: '',
-        _id: '',
-        about: '',
-        image: '',
-      })
+      setProfile(emptyProfile)
       // console.log('User logged out. Profile resetted.')
       history.push('/')
     } catch (err) {}
