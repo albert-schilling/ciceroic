@@ -8,6 +8,8 @@ import BroadInput from '../Inputs/Buttons/BroadInput'
 import IconSignOut from '../Inputs/Icons/IconSignOut'
 import { updateUser } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
+import useForm from '../../hooks/useForm'
+import UserMessage from '../UserMessage/UserMessage'
 
 export default function Profile({
   profile = {
@@ -26,6 +28,11 @@ export default function Profile({
   const [editAbout, setEditAbout] = useState(false)
   const [lightbox, setLightbox] = useState(false)
   const [editPortrait, setEditPortrait] = useState(false)
+  const [message, setMessage] = useState({
+    visible: false,
+    text: '',
+    focusRef: null,
+  })
 
   console.log('profile', profile)
   return (
@@ -60,8 +67,8 @@ export default function Profile({
             />
             <BroadInput
               name="uploadImage"
-              // callback={handleClick}
-              text="Upload"
+              callback={handleUpload}
+              text="Upload B"
               color="primary"
               styling="m0"
               type="file"
@@ -126,12 +133,16 @@ export default function Profile({
         />
         Log out
       </Line>
+      {message.visible && (
+        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
+      )}
     </Main>
   )
   function handleChange(event) {
     setProfile({ ...profile, [event.target.name]: event.target.value })
   }
   function handleClick(event) {
+    event.preventDefault()
     if (event.target.name === 'updateAbout') {
       updateUser(profile)
       setEditAbout(false)
@@ -141,10 +152,34 @@ export default function Profile({
       setProfile({ ...profile, image: '' })
       setLightbox(false)
     }
-    if (event.target.name === 'uploadImage') {
-      // setProfile({ ...profile, image: '' })
-      // setLightbox(false)
-    }
+  }
+  function handleUpload(event) {
+    event.persist()
+    const fileSize = event.target.files[0].size / 1000
+    const maximumSize = 200
+    fileSize < maximumSize
+      ? setProfile({ ...profile, image: filename })
+      : setMessage({
+          ...message,
+          visible: true,
+          text: `Sorry, this file is too big: ${fileSize}kb. 
+          Maximum file size is ${maximumSize}kb.`,
+        })
+
+    const filename = `user_${profile._id}_portrait_${event.target.files[0].name}`
+
+    console.log('event.target.files[0]', event.target.files[0])
+    console.log('event.target.files[0].size', event.target.files[0].size)
+    console.log('filename', filename)
+    console.log('profile after adding image', profile)
+
+    setLightbox(false)
+  }
+  function handleClickOnUserMessage() {
+    setMessage({
+      ...message,
+      visible: false,
+    })
   }
 }
 
@@ -209,12 +244,11 @@ const Lightbox = styled.section`
   position: fixed;
   display: grid;
   grid-template: auto max-content / 1fr;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   z-index: 2;
   left: 0;
   top: 0;
-  margin: 5%;
 `
 const LightboxImage = styled.section`
   display: flex;

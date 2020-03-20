@@ -11,22 +11,29 @@ export default function BroadInput({
   styling = '',
 }) {
   return (
-    <InputStyled
-      className={`${color} + ${styling}`}
-      name={name}
-      autoFocus={autoFocus}
-      // onClick={callback}
-      type={type}
-    />
+    <>
+      <Label
+        className={`${color} + ${styling}`}
+        name={name}
+        autoFocus={autoFocus}
+        type={type}
+        htmlFor={name}
+      >
+        {text}
+      </Label>
+      <Input type="file" id={name} name={name} onChange={callback} />
+    </>
   )
 }
 
-const InputStyled = styled.input`
+const Label = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 12px 0;
   width: 100%;
   border: none;
   padding: 8px;
-  text-align: center;
   font-size: 1rem;
   color: var(--inverse-primary-font-color);
   text-decoration: none;
@@ -44,4 +51,9 @@ const InputStyled = styled.input`
     background: var(--light-grey);
     color: var(--primary-font-color);
   }
+`
+const Input = styled.input`
+  visibility: hidden;
+  width: 0;
+  height: 0;
 `
