@@ -27,4 +27,18 @@ function updateAbout(profile) {
     })
 }
 
-export { updateUser, updateAbout }
+function updatePortrait(profile, reference) {
+  db.collection('users')
+    .doc(profile._id)
+    .update({
+      portrait: reference,
+    })
+    .then(function() {
+      console.log('User portrait successfully updated!')
+    })
+    .catch(function(error) {
+      console.error('Error writing document: ', error)
+    })
+}
+
+export { updateUser, updateAbout, updatePortrait }

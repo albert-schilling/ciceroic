@@ -10,6 +10,7 @@ import { updateUser } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
 import useForm from '../../hooks/useForm'
 import UserMessage from '../UserMessage/UserMessage'
+import userServices from '../../services/userServices'
 
 export default function Profile({
   profile = {
@@ -168,6 +169,7 @@ export default function Profile({
 
     const filename = `user_${profile._id}_portrait_${event.target.files[0].name}`
 
+    // userServices(profile, reference)
     console.log('event.target.files[0]', event.target.files[0])
     console.log('event.target.files[0].size', event.target.files[0].size)
     console.log('filename', filename)
