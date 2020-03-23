@@ -29,6 +29,7 @@ export default function Settings({
   logOut = () => {},
 }) {
   const [editAbout, setEditAbout] = useState(false)
+  const [editPassword, setEditPassword] = useState(false)
   const [lightbox, setLightbox] = useState(false)
   const [confirmDeletePortrait, setConfirmDeletePortrait] = useState(false)
   const [message, setMessage] = useState({
@@ -156,7 +157,33 @@ export default function Settings({
       )}
 
       <Paragraph>{profile.email}</Paragraph>
-      <DefaultButton text="Change password" color="tertiary" />
+      {editPassword ? (
+        <form onSubmit={updatePassword}>
+          <Input name="oldPassword" type="password" />
+          <Input name="newPassword" type="password" />
+          <Input name="repeatNewPassword" type="password" />
+          <DefaultButton
+            name="cancelChangePassword"
+            text="Cancel"
+            color="tertiary"
+            callback={handleClick}
+          />
+          <DefaultButton
+            name="confirmChangePassword"
+            text="Update Password"
+            color="primary"
+            type="submit"
+          />
+        </form>
+      ) : (
+        <DefaultButton
+          name="changePassword"
+          text="Change password"
+          color="tertiary"
+          callback={() => setEditPassword(true)}
+        />
+      )}
+
       <Line>
         <IconSignOut
           width="20px"
@@ -175,6 +202,8 @@ export default function Settings({
     setProfile({ ...profile, [event.target.name]: event.target.value })
   }
   function handleClick(event) {
+    console.log(event.target)
+
     event.preventDefault()
     if (event.target.name === 'updateAbout') {
       updateUser(profile)
@@ -191,6 +220,9 @@ export default function Settings({
     }
     if (event.target.name === 'cancelDeletePortrait') {
       setConfirmDeletePortrait(false)
+    }
+    if (event.target.name === 'cancelChangePassword') {
+      setEditPassword(false)
     }
   }
   function handleUpload(event) {
@@ -222,6 +254,32 @@ export default function Settings({
       ...message,
       visible: false,
     })
+  }
+
+  function updatePassword(event) {
+    console.log(event.target.oldPassword.value)
+    event.preventDefault()
+    if (event.target.oldPassword.value.length === 0) {
+      event.target.oldPassword.focus()
+      return alert('Please, confirm your current password first.')
+    }
+    // next the user needs to reauthenticate with his password. If he can, then he is allowed to reset a password using some kind of firebase function.
+    // firebasefunction to reauthenticate
+    // .then(res => some action upon success e.g. show fields to set new pw)
+    // .catch(error => {
+    // console.log('User could not reauthenticate', error)
+    // return alert('wrong password')
+    // })
+
+    if (
+      event.target.newPassword.value !== event.target.repeatNewPassword.value
+    ) {
+      event.target.newPassword.focus()
+      return alert('The new password is not the same.')
+    }
+
+    console.log(event.target)
+    setEditPassword(false)
   }
 }
 
@@ -271,6 +329,16 @@ const Line = styled.p`
   margin: 12px 0;
 `
 
+const Input = styled.input`
+  margin: 0;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  font-weight: inherit;
+`
 const AboutInput = styled.textarea`
   margin: 0;
   border: 1px solid var(--light-grey);
