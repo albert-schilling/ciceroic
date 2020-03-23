@@ -14,6 +14,7 @@ import { getSpeeches } from './services/speechServices'
 import { emptyProfile } from './data/emptyProfile'
 import LandingPage from './components/LandingPage/LandingPage'
 import Profile from './components/Profile/Profile'
+import Settings from './components/Settings/Settings'
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
@@ -79,8 +80,11 @@ function App() {
                       <LandingPage profile={profile} setProfile={setProfile} />
                     )}
                   </Route>
-                  <Route exact path="/profile">
-                    <Profile
+                  <Route exact path="/profile/:id">
+                    <Profile history={history} />
+                  </Route>
+                  <Route exact path="/settings/:id">
+                    <Settings
                       history={history}
                       profile={profile}
                       setProfile={setProfile}

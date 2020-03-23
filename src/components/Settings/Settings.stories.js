@@ -2,12 +2,12 @@ import React from 'react'
 import { mobile } from '../../common/storybookDecorator'
 import { action } from '@storybook/addon-actions'
 
-import Profile from './Profile'
+import Settings from './Settings'
 
 export default {
-  title: 'Components/Profile',
+  title: 'Components/Settings',
   decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
-  component: Profile,
+  component: Settings,
 }
 
 const profile = {
@@ -21,6 +21,6 @@ const profile = {
     'I joined Ciceroic because I might be a great hero but I am not a heroic speaker.',
 }
 
-export const DefaultProfile = () => {
-  return <Profile profile={profile} />
+export const DefaultSettings = () => {
+  return <Settings profile={profile} />
 }

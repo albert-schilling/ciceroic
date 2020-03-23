@@ -1,5 +1,23 @@
 import { db, storage } from './firebase'
 
+function getUser(id) {
+  // console.log('Getting user information ...')
+  return db
+    .collection('users')
+    .doc(id)
+    .get()
+    .then(doc => {
+      // console.log('User found in DB:', doc.exists)
+      return doc.exists && doc.data()
+    })
+    .then(data => {
+      return data
+    })
+    .catch(error => {
+      console.error('Error writing document: ', error)
+    })
+}
+
 function updateUser(profile) {
   db.collection('users')
     .doc(profile._id)
@@ -79,4 +97,4 @@ function updatePortrait(profile, reference) {
     })
 }
 
-export { updateUser, updateAbout, uploadPortrait }
+export { updateUser, updateAbout, uploadPortrait, getUser }

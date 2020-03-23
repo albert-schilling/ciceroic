@@ -16,8 +16,9 @@ export default function Footer() {
           <>
             {user._id && (
               <footer role="navigation" aria-label="Main">
-                <ProfileButton />
-                {location.pathname !== '/profile' && <RecordIcon />}
+                <ProfileButton id={user._id} />
+                {location.pathname.includes('/settings') ||
+                  location.pathname.includes('/profile') || <RecordIcon />}
               </footer>
             )}
           </>

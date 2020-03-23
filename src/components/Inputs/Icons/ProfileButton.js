@@ -7,15 +7,16 @@ import { useHistory } from 'react-router-dom'
 import IconClose from './IconClose'
 import IconProfile from './IconProfile'
 
-export default function ProfileButton() {
+export default function ProfileButton({ id }) {
   const location = useLocation()
   const history = useHistory()
   return (
     <ProfileButtonContainer>
-      {location.pathname === '/profile' ? (
+      {location.pathname.includes('/profile') ||
+      location.pathname.includes('/settings') ? (
         <IconClose callback={() => history.goBack()} />
       ) : (
-        <NavLink to="/profile">
+        <NavLink to={`/settings/${id}`}>
           <IconProfile />
         </NavLink>
       )}
