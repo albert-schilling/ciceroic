@@ -10,7 +10,8 @@ import { updateUser } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
 import useForm from '../../hooks/useForm'
 import UserMessage from '../UserMessage/UserMessage'
-import userServices from '../../services/userServices'
+import { updatePortrait } from '../../services/userServices'
+import { storage } from '../../services/firebase'
 
 export default function Profile({
   profile = {
@@ -19,7 +20,7 @@ export default function Profile({
     password: 'skdflksdjfgiu',
     firstName: 'Max',
     lastName: 'Power',
-    image: '',
+    portrait: '',
     about:
       'I joined Ciceroic because I might be a great hero but I am not a heroic speaker.',
   },
@@ -35,7 +36,6 @@ export default function Profile({
     focusRef: null,
   })
 
-  console.log('profile', profile)
   return (
     <Main>
       {lightbox ? (
@@ -46,12 +46,12 @@ export default function Profile({
           <LightboxImage>
             <img
               src={
-                profile.image.length > 0
-                  ? profile.image
+                profile.portrait.length > 0
+                  ? profile.portrait
                   : '/images/default_protrait_cicero_001.jpg'
               }
               alt={
-                profile.image.length > 0
+                profile.portrait.length > 0
                   ? `Portrait by ${profile.firstName} ${profile.lastName}`
                   : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
               }
@@ -60,14 +60,14 @@ export default function Profile({
 
           <LightboxOptions>
             <BroadButton
-              name="deleteImage"
+              name="deletePortrait"
               callback={handleClick}
               text="Delete"
               color="tertiary"
               styling="m0"
             />
             <BroadInput
-              name="uploadImage"
+              name="uploadPortrait"
               callback={handleUpload}
               text="Upload B"
               color="primary"
@@ -81,12 +81,12 @@ export default function Profile({
         <Portrait onClick={() => setLightbox(true)}>
           <img
             src={
-              profile.image.length > 0
-                ? profile.image
+              profile.portrait.length > 0
+                ? profile.portrait
                 : '/images/default_protrait_cicero_001.jpg'
             }
             alt={
-              profile.image.length > 0
+              profile.portrait.length > 0
                 ? `Portrait by ${profile.firstName} ${profile.lastName}`
                 : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
             }
@@ -149,33 +149,59 @@ export default function Profile({
       setEditAbout(false)
     }
 
-    if (event.target.name === 'deleteImage') {
-      setProfile({ ...profile, image: '' })
+    if (event.target.name === 'deletePortrait') {
+      setProfile({ ...profile, portrait: '' })
       setLightbox(false)
     }
   }
   function handleUpload(event) {
     event.persist()
+    const filename = `user_${profile._id}_portrait_${event.target.files[0].name}`
+    const file = event.target.files[0]
     const fileSize = event.target.files[0].size / 1000
-    const maximumSize = 200
+    const maximumSize = 2000
     fileSize < maximumSize
-      ? setProfile({ ...profile, image: filename })
+      ? uploadPortrait(file, filename, profile)
       : setMessage({
           ...message,
           visible: true,
           text: `Sorry, this file is too big: ${fileSize}kb. 
           Maximum file size is ${maximumSize}kb.`,
         })
-
-    const filename = `user_${profile._id}_portrait_${event.target.files[0].name}`
-
-    // userServices(profile, reference)
-    console.log('event.target.files[0]', event.target.files[0])
-    console.log('event.target.files[0].size', event.target.files[0].size)
-    console.log('filename', filename)
-    console.log('profile after adding image', profile)
-
     setLightbox(false)
+  }
+
+  function uploadPortrait(file, filename, profile, setMessage) {
+    const portraitReference = storage.ref('images/portraits/' + filename)
+    portraitReference
+      .put(file)
+      .then(snapshot => {
+        portraitReference
+          .getDownloadURL()
+          .then(url => {
+            console.log('url', url)
+
+            setProfile({ ...profile, portrait: url })
+            updatePortrait(profile, url)
+          })
+          .catch(error => {
+            setMessage({
+              ...message,
+              visible: true,
+              text: `Sorry, there was an error uploading the file.`,
+            })
+            console.log('Error uploading file:', error)
+          })
+        console.log('Uploaded file succesfully.')
+      })
+      .catch(error => {
+        setMessage({
+          ...message,
+          visible: true,
+          text: `Sorry, there was an error uploading the file.`,
+        })
+        console.log('Error uploading file:', error)
+      })
   }
   function handleClickOnUserMessage() {
     setMessage({
@@ -192,7 +218,7 @@ Profile.propTypes = {
     lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    image: PropTypes.string,
+    portrait: PropTypes.string,
     about: PropTypes.string,
   }),
 }

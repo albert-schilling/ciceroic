@@ -7,5 +7,5 @@ const emptyProfile = {
   lastName: '',
   _id: '',
   about: '',
-  image: '',
+  portrait: '',
 }
