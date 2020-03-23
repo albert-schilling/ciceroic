@@ -1,4 +1,4 @@
-import { db } from './firebase'
+import { db, storage } from './firebase'
 
 function updateUser(profile) {
   db.collection('users')
@@ -27,6 +27,44 @@ function updateAbout(profile) {
     })
 }
 
+function uploadPortrait({
+  file,
+  filename,
+  profile,
+  setMessage,
+  message,
+  setProfile,
+}) {
+  const portraitReference = storage.ref('images/portraits/' + filename)
+  portraitReference
+    .put(file)
+    .then(snapshot => {
+      portraitReference
+        .getDownloadURL()
+        .then(url => {
+          setProfile({ ...profile, portrait: url })
+          updatePortrait(profile, url)
+        })
+        .catch(error => {
+          setMessage({
+            ...message,
+            visible: true,
+            text: `Sorry, there was an error uploading the file.`,
+          })
+          console.log('Error uploading file:', error)
+        })
+      console.log('Uploaded file succesfully.')
+    })
+    .catch(error => {
+      setMessage({
+        ...message,
+        visible: true,
+        text: `Sorry, there was an error uploading the file.`,
+      })
+      console.log('Error uploading file:', error)
+    })
+}
+
 function updatePortrait(profile, reference) {
   db.collection('users')
     .doc(profile._id)
@@ -41,4 +79,4 @@ function updatePortrait(profile, reference) {
     })
 }
 
-export { updateUser, updateAbout, updatePortrait }
+export { updateUser, updateAbout, uploadPortrait }

@@ -6,12 +6,9 @@ import DefaultButton from '../Inputs/Buttons/DefaultButton'
 import BroadButton from '../Inputs/Buttons/BroadButton'
 import BroadInput from '../Inputs/Buttons/BroadInput'
 import IconSignOut from '../Inputs/Icons/IconSignOut'
-import { updateUser } from '../../services/userServices'
+import { updateUser, uploadPortrait } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
-import useForm from '../../hooks/useForm'
 import UserMessage from '../UserMessage/UserMessage'
-import { updatePortrait } from '../../services/userServices'
-import { storage } from '../../services/firebase'
 
 export default function Profile({
   profile = {
@@ -161,7 +158,14 @@ export default function Profile({
     const fileSize = event.target.files[0].size / 1000
     const maximumSize = 2000
     fileSize < maximumSize
-      ? uploadPortrait(file, filename, profile)
+      ? uploadPortrait({
+          file,
+          filename,
+          profile,
+          setMessage,
+          message,
+          setProfile,
+        })
       : setMessage({
           ...message,
           visible: true,
@@ -171,38 +175,6 @@ export default function Profile({
     setLightbox(false)
   }
 
-  function uploadPortrait(file, filename, profile, setMessage) {
-    const portraitReference = storage.ref('images/portraits/' + filename)
-    portraitReference
-      .put(file)
-      .then(snapshot => {
-        portraitReference
-          .getDownloadURL()
-          .then(url => {
-            console.log('url', url)
-
-            setProfile({ ...profile, portrait: url })
-            updatePortrait(profile, url)
-          })
-          .catch(error => {
-            setMessage({
-              ...message,
-              visible: true,
-              text: `Sorry, there was an error uploading the file.`,
-            })
-            console.log('Error uploading file:', error)
-          })
-        console.log('Uploaded file succesfully.')
-      })
-      .catch(error => {
-        setMessage({
-          ...message,
-          visible: true,
-          text: `Sorry, there was an error uploading the file.`,
-        })
-        console.log('Error uploading file:', error)
-      })
-  }
   function handleClickOnUserMessage() {
     setMessage({
       ...message,
