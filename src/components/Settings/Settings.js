@@ -148,7 +148,7 @@ export default function Settings({
         <>
           <About>{profile.about}</About>
           <DefaultButton
-            text="Edit bio"
+            text="Edit"
             color="tertiary"
             callback={() => setEditAbout(true)}
           />
