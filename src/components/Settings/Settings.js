@@ -1,56 +1,45 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
-import { Main } from '../Standard/StandardComponents'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
-import BroadButton from '../Inputs/Buttons/BroadButton'
-import BroadInput from '../Inputs/Buttons/BroadInput'
-import IconSignOut from '../Inputs/Icons/IconSignOut'
+import React, { useState } from 'react'
+import styled from 'styled-components/macro'
 import {
   updateUser,
   uploadPortrait,
-  getUser,
+  deletePortrait,
 } from '../../services/userServices'
+import BroadButton from '../Inputs/Buttons/BroadButton'
+import BroadInput from '../Inputs/Buttons/BroadInput'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 import IconClose from '../Inputs/Icons/IconClose'
+import IconSignOut from '../Inputs/Icons/IconSignOut'
+import { Main } from '../Standard/StandardComponents'
 import UserMessage from '../UserMessage/UserMessage'
+import { useHistory } from 'react-router-dom'
 
 export default function Settings({
   profile = {
-    _id: '23p48qyfguisrhgfiu',
-    email: 'maxpower@heroes.world',
-    password: 'skdflksdjfgiu',
-    firstName: 'Max',
-    lastName: 'Power',
+    _id: '',
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
     portrait: '',
-    about:
-      'I joined Ciceroic because I might be a great hero but I am not a heroic speaker.',
+    about: '',
   },
   setProfile = () => {},
   logOut = () => {},
 }) {
   const [editAbout, setEditAbout] = useState(false)
   const [lightbox, setLightbox] = useState(false)
-  const [editPortrait, setEditPortrait] = useState(false)
+  const [confirmDeletePortrait, setConfirmDeletePortrait] = useState(false)
   const [message, setMessage] = useState({
     visible: false,
     text: '',
     focusRef: null,
   })
-  let { id } = useParams()
-  console.log('id', id)
-  useEffect(() => {
-    if (id !== undefined) {
-      console.log(id !== undefined)
-      getUser(id)
-      // .then(data => {
-      //   console.log('data', data)
-      //   // setProfile(data)
-      //   console.log('profile', profile)
-      // })
-      // .catch(error => console.log('Error retrieving user:', error))
-    }
-  }, [id])
+
+  const history = useHistory()
+
+  profile._id || history.push('/')
 
   return (
     <Main>
@@ -75,22 +64,49 @@ export default function Settings({
           </LightboxImage>
 
           <LightboxOptions>
-            <BroadButton
-              name="deletePortrait"
-              callback={handleClick}
-              text="Delete"
-              color="tertiary"
-              styling="m0"
-            />
-            <BroadInput
-              name="uploadPortrait"
-              callback={handleUpload}
-              text="Upload B"
-              color="primary"
-              styling="m0"
-              type="file"
-              accept="image/png, image/jpeg"
-            />
+            {confirmDeletePortrait ? (
+              <>
+                <LightboxMessage>
+                  Are you sure you would like to delete your portrait?
+                </LightboxMessage>
+                <BroadButton
+                  name="cancelDeletePortrait"
+                  callback={handleClick}
+                  text="Cancel"
+                  color="tertiary"
+                  styling="m0"
+                />
+                <BroadButton
+                  name="confirmDeletePortrait"
+                  callback={handleClick}
+                  text="Delete"
+                  color="secondary"
+                  styling="m0"
+                />
+              </>
+            ) : (
+              <>
+                {profile.portrait.length > 0 && (
+                  <BroadButton
+                    name="deletePortrait"
+                    callback={handleClick}
+                    text="Delete"
+                    color="tertiary"
+                    styling="m0"
+                  />
+                )}
+
+                <BroadInput
+                  name="uploadPortrait"
+                  callback={handleUpload}
+                  text="Upload"
+                  color="primary"
+                  styling="m0"
+                  type="file"
+                  accept="image/png, image/jpeg"
+                />
+              </>
+            )}
           </LightboxOptions>
         </Lightbox>
       ) : (
@@ -166,8 +182,15 @@ export default function Settings({
     }
 
     if (event.target.name === 'deletePortrait') {
-      setProfile({ ...profile, portrait: '' })
+      setConfirmDeletePortrait(true)
+    }
+    if (event.target.name === 'confirmDeletePortrait') {
+      deletePortrait(profile).then(setProfile({ ...profile, portrait: '' }))
+      setConfirmDeletePortrait(false)
       setLightbox(false)
+    }
+    if (event.target.name === 'cancelDeletePortrait') {
+      setConfirmDeletePortrait(false)
     }
   }
   function handleUpload(event) {
@@ -285,7 +308,16 @@ const LightboxImage = styled.section`
 
 const LightboxOptions = styled.section`
   display: grid;
-  grid-template: 1fr / 1fr 1fr;
+  grid-template: auto auto / 1fr 1fr;
+`
+
+const LightboxMessage = styled.p`
+  grid-column: span 2;
+  margin: 0;
+  padding: 12px;
+  background: var(--light-grey);
+  color: var(--secondary-highlight-color);
+  text-align: center;
 `
 
 const LightboxClose = styled.div`

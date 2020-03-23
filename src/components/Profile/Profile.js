@@ -33,7 +33,7 @@ export default function Profile({ history }) {
                 <IconClose color="#fff" callback={() => setLightbox(false)} />
               </LightboxClose>
               <LightboxImage>
-                <img
+                <Image
                   src={
                     foreignProfile.portrait.length > 0
                       ? foreignProfile.portrait
@@ -49,7 +49,7 @@ export default function Profile({ history }) {
             </Lightbox>
           ) : (
             <Portrait onClick={() => setLightbox(true)}>
-              <img
+              <Image
                 src={
                   foreignProfile.portrait.length > 0
                     ? foreignProfile.portrait
@@ -118,6 +118,10 @@ const LightboxImage = styled.section`
     width: auto;
     height: 100%;
   }
+`
+const Image = styled.img`
+  text-align: center;
+  align-self: center;
 `
 
 const LightboxClose = styled.div`

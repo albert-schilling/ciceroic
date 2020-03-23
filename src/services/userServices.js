@@ -97,4 +97,15 @@ function updatePortrait(profile, reference) {
     })
 }
 
-export { updateUser, updateAbout, uploadPortrait, getUser }
+function deletePortrait(profile) {
+  const portraitReference = storage.refFromURL(profile.portrait)
+  return portraitReference
+    .delete()
+    .then(snapshot => {
+      console.log('File succesfully deleted.')
+      updatePortrait(profile, '')
+    })
+    .catch(error => console.log('Error uploading file:', error))
+}
+
+export { updateUser, updateAbout, uploadPortrait, deletePortrait, getUser }
