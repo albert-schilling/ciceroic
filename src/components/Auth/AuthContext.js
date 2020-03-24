@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
-import { firebaseAuth } from '../../services/firebase'
+import { authentication } from '../../services/firebase'
 import { db } from '../../services/firebase'
 import { emptyProfile } from '../../data/emptyProfile'
 
@@ -10,7 +10,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
   const [user, setUser] = useState({})
 
   useEffect(() => {
-    firebaseAuth.onAuthStateChanged(user => {
+    authentication.onAuthStateChanged(user => {
       if (user) {
         setUser({
           _id: user.uid,
@@ -28,7 +28,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
 
   async function getUserInformation() {
     // console.log('Getting user information ...')
-    const user = await firebaseAuth.currentUser
+    const user = await authentication.currentUser
     await db
       .collection('users')
       .doc(user.uid)
@@ -50,7 +50,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
     // console.log('Signup called')
     try {
       event.preventDefault()
-      await firebaseAuth
+      await authentication
         .createUserWithEmailAndPassword(profile.email, profile.password)
         .then(res => {
           addUserToDB(res.user)
@@ -83,7 +83,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
   }
 
   async function updateUsersDisplayName() {
-    const user = await firebaseAuth.currentUser
+    const user = await authentication.currentUser
 
     user
       .updateProfile({
@@ -101,7 +101,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
   }
 
   async function sendEmailVerification() {
-    const user = await firebaseAuth.currentUser
+    const user = await authentication.currentUser
     user
       .sendEmailVerification()
       .then(() => {
@@ -115,7 +115,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
   async function logIn(event) {
     try {
       event.preventDefault()
-      await firebaseAuth.signInWithEmailAndPassword(
+      await authentication.signInWithEmailAndPassword(
         profile.email,
         profile.password
       )
@@ -128,7 +128,7 @@ function AuthProvider({ history, children, profile, setProfile }) {
   async function logOut(event) {
     try {
       event.preventDefault()
-      firebaseAuth.signOut()
+      authentication.signOut()
       setUser({})
       setProfile(emptyProfile)
       // console.log('User logged out. Profile resetted.')

@@ -8,6 +8,7 @@ export default function Button({
   autoFocus = false,
   type = 'button',
   color = 'primary',
+  disabled = 'false',
 }) {
   return (
     <ButtonStyled
@@ -16,6 +17,7 @@ export default function Button({
       autoFocus={autoFocus}
       onClick={callback}
       type={type}
+      disbaled={disabled}
     >
       {text}
     </ButtonStyled>
@@ -41,5 +43,9 @@ const ButtonStyled = styled.button`
   &.tertiary {
     background: var(--light-grey);
     color: var(--primary-font-color);
+  }
+  &.loading {
+    background: var(--light-grey);
+    color: #fff;
   }
 `

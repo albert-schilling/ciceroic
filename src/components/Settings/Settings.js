@@ -14,6 +14,8 @@ import IconSignOut from '../Inputs/Icons/IconSignOut'
 import { Main } from '../Standard/StandardComponents'
 import UserMessage from '../UserMessage/UserMessage'
 import { useHistory } from 'react-router-dom'
+import { authentication } from '../../services/firebase'
+import firebase from 'firebase/app'
 
 export default function Settings({
   profile = {
@@ -30,13 +32,20 @@ export default function Settings({
 }) {
   const [editAbout, setEditAbout] = useState(false)
   const [editPassword, setEditPassword] = useState(false)
+  const [allowNewPassword, setAllowNewPassword] = useState(false)
   const [lightbox, setLightbox] = useState(false)
   const [confirmDeletePortrait, setConfirmDeletePortrait] = useState(false)
+  const [waitingForServer, setWaitingForServer] = useState(false)
   const [message, setMessage] = useState({
     visible: false,
     text: '',
     focusRef: null,
   })
+  const [passwordMessage, setPasswordMessage] = useState({
+    visible: false,
+    text: '',
+  })
+  const [authenticationTries, setAuthenticationTries] = useState(0)
 
   const history = useHistory()
 
@@ -158,23 +167,87 @@ export default function Settings({
 
       <Paragraph>{profile.email}</Paragraph>
       {editPassword ? (
-        <form onSubmit={updatePassword}>
-          <Input name="oldPassword" type="password" />
-          <Input name="newPassword" type="password" />
-          <Input name="repeatNewPassword" type="password" />
+        <PasswordForm onSubmit={handleSubmitNewPassword}>
+          <PasswordLabel htmlFor="oldPassword">
+            Confirm current password:
+            <Password name="oldPassword" name="oldPassword" type="password" />
+            {authenticationTries === 3 && (
+              <PasswordLabel htmlFor="sendNewPassword">
+                Forgot your password?
+                {waitingForServer ? (
+                  <DefaultButton
+                    name="sendNewPassword"
+                    text="Send me a new password"
+                    color="loading"
+                    disabled="true"
+                  />
+                ) : (
+                  <DefaultButton
+                    name="sendNewPassword"
+                    text="Send me a new password"
+                    color="secondary"
+                    callback={handleClick}
+                  />
+                )}
+              </PasswordLabel>
+            )}
+          </PasswordLabel>
+          {allowNewPassword ? (
+            <>
+              <PasswordLabel htmlFor="newPassword">
+                New password:
+                <Password
+                  name="newPassword"
+                  name="newPassword"
+                  type="password"
+                />
+              </PasswordLabel>
+              <PasswordLabel htmlFor="repeatNewPassword">
+                Confirm new password:
+                <Password
+                  name="repeatNewPassword"
+                  name="repeatNewPassword"
+                  type="password"
+                />
+              </PasswordLabel>
+              <DefaultButton
+                name="confirmChangePassword"
+                text="Update Password"
+                color="primary"
+                type="submit"
+              />
+            </>
+          ) : (
+            <>
+              {waitingForServer ? (
+                <DefaultButton
+                  name="sentOldPassword"
+                  text="Update Password"
+                  color="loading"
+                  type="submit"
+                  disabled="true"
+                />
+              ) : (
+                <DefaultButton
+                  name="sentOldPassword"
+                  text="Update Password"
+                  color="primary"
+                  type="submit"
+                />
+              )}
+            </>
+          )}
+
           <DefaultButton
             name="cancelChangePassword"
             text="Cancel"
             color="tertiary"
             callback={handleClick}
           />
-          <DefaultButton
-            name="confirmChangePassword"
-            text="Update Password"
-            color="primary"
-            type="submit"
-          />
-        </form>
+          {passwordMessage.visible && (
+            <PasswordMessage>{passwordMessage.text}</PasswordMessage>
+          )}
+        </PasswordForm>
       ) : (
         <DefaultButton
           name="changePassword"
@@ -202,8 +275,6 @@ export default function Settings({
     setProfile({ ...profile, [event.target.name]: event.target.value })
   }
   function handleClick(event) {
-    console.log(event.target)
-
     event.preventDefault()
     if (event.target.name === 'updateAbout') {
       updateUser(profile)
@@ -221,16 +292,48 @@ export default function Settings({
     if (event.target.name === 'cancelDeletePortrait') {
       setConfirmDeletePortrait(false)
     }
+
     if (event.target.name === 'cancelChangePassword') {
-      setEditPassword(false)
+      setPasswordMessage({ visible: false, text: '' })
+      return setEditPassword(false)
+    }
+    if (event.target.name === 'sendNewPassword') {
+      setWaitingForServer(true)
+      authentication
+        .sendPasswordResetEmail(profile.email)
+        .then(() => {
+          setWaitingForServer(false)
+          setPasswordMessage({ visible: false, text: '' })
+          setEditPassword(false)
+          setMessage({
+            ...message,
+            visible: true,
+            text: `An email with a link to reset your password has been sent to ${profile.email}`,
+          })
+        })
+        .catch(error => {
+          setWaitingForServer(false)
+          setPasswordMessage({
+            visible: true,
+            text:
+              'Sorry, there was an error sending an email to reset your password. Please, try again later.',
+          })
+          console.log(error)
+        })
     }
   }
+
+  function handleSubmitNewPassword(event) {
+    event.preventDefault()
+    allowNewPassword ? updatePassword(event) : reauthenticate(event)
+  }
+
   function handleUpload(event) {
     event.persist()
     const filename = `user_${profile._id}_portrait_${event.target.files[0].name}`
     const file = event.target.files[0]
     const fileSize = event.target.files[0].size / 1000
-    const maximumSize = 2000
+    const maximumSize = 5000
     fileSize < maximumSize
       ? uploadPortrait({
           file,
@@ -255,31 +358,107 @@ export default function Settings({
       visible: false,
     })
   }
-
   function updatePassword(event) {
-    console.log(event.target.oldPassword.value)
+    const newPassword = event.target.newPassword
+    const repeatNewPassword = event.target.repeatNewPassword
+    if (newPassword.value.length === 0) {
+      newPassword.focus()
+      return setPasswordMessage({
+        visible: true,
+        text: 'Please, type in your new password.',
+      })
+    }
+    if (newPassword.value.length < 8) {
+      repeatNewPassword.focus()
+      return setPasswordMessage({
+        visible: true,
+        text:
+          'Your new password should at least have a length of 8 characters.',
+      })
+    }
+    if (repeatNewPassword.value.length === 0) {
+      repeatNewPassword.focus()
+      return setPasswordMessage({
+        visible: true,
+        text: 'Please, confirm your new password.',
+      })
+    }
+
+    if (newPassword.value !== repeatNewPassword.value) {
+      repeatNewPassword.focus()
+      return setPasswordMessage({
+        visible: true,
+        text: 'Your new password and its confirmation are not the same.',
+      })
+    }
+
+    authentication.currentUser
+      .updatePassword(newPassword.value)
+      .then(() => {
+        reauthenticateUserWithEmailAndPassword(profile.email, newPassword.value)
+
+        setPasswordMessage({
+          visible: false,
+          text: '',
+        })
+        setAllowNewPassword(false)
+        setEditPassword(false)
+
+        setMessage({
+          ...message,
+          visible: true,
+          text: `Your password has been successfully updated.`,
+        })
+      })
+      .catch(error => {
+        console.log(error)
+        setPasswordMessage({
+          visible: true,
+          text:
+            'Sorry, there was an error updating your password. Please, try again later.',
+        })
+      })
+  }
+  function reauthenticate(event) {
     event.preventDefault()
-    if (event.target.oldPassword.value.length === 0) {
-      event.target.oldPassword.focus()
-      return alert('Please, confirm your current password first.')
+    const oldPassword = event.target.oldPassword
+    if (oldPassword.value.length === 0) {
+      oldPassword.focus()
+      return setPasswordMessage({
+        visible: true,
+        text: 'Please, confirm your old password first.',
+      })
     }
-    // next the user needs to reauthenticate with his password. If he can, then he is allowed to reset a password using some kind of firebase function.
-    // firebasefunction to reauthenticate
-    // .then(res => some action upon success e.g. show fields to set new pw)
-    // .catch(error => {
-    // console.log('User could not reauthenticate', error)
-    // return alert('wrong password')
-    // })
+    reauthenticateUserWithEmailAndPassword(profile.email, oldPassword.value)
+  }
 
-    if (
-      event.target.newPassword.value !== event.target.repeatNewPassword.value
-    ) {
-      event.target.newPassword.focus()
-      return alert('The new password is not the same.')
-    }
-
-    console.log(event.target)
-    setEditPassword(false)
+  function reauthenticateUserWithEmailAndPassword(email, password) {
+    setWaitingForServer(true)
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      email,
+      password
+    )
+    authentication.currentUser
+      .reauthenticateWithCredential(credential)
+      .then(res => {
+        console.log(res)
+        setPasswordMessage({
+          visible: false,
+          text: '',
+        })
+        setWaitingForServer(false)
+        setAllowNewPassword(true)
+      })
+      .catch(error => {
+        error.code === 'auth/wrong-password' &&
+          setPasswordMessage({
+            visible: true,
+            text: 'Wrong password, please, try again.',
+          })
+        setWaitingForServer(false)
+        setAuthenticationTries(authenticationTries + 1)
+        console.log(error)
+      })
   }
 }
 
@@ -329,7 +508,7 @@ const Line = styled.p`
   margin: 12px 0;
 `
 
-const Input = styled.input`
+const Password = styled.input`
   margin: 0;
   border: 1px solid var(--light-grey);
   border-radius: 4px;
@@ -338,6 +517,13 @@ const Input = styled.input`
   font-size: 0.9rem;
   line-height: 1.4rem;
   font-weight: inherit;
+`
+const PasswordLabel = styled.label`
+  display: grid;
+  grid-template: auto auto / 1fr;
+  grid-gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
 `
 const AboutInput = styled.textarea`
   margin: 0;
@@ -397,4 +583,26 @@ const LightboxClose = styled.div`
   right: 8px;
   width: 40px;
   height: 40px;
+`
+
+const PasswordForm = styled.form`
+  display: flex;
+  flex-wrap: wrap;
+  > input {
+    order: 1;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  > button {
+    order: 3;
+    margin-right: 8px;
+  }
+`
+
+const PasswordMessage = styled.p`
+  order: 2;
+  width: 100%;
+  border: 1px solid var(--secondary-highlight-color);
+  padding: 20px;
+  color: var(--secondary-highlight-color);
 `

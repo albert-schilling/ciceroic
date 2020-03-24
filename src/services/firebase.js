@@ -17,9 +17,9 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 const db = firebase.firestore()
-const firebaseAuth = firebase.auth()
+const authentication = firebase.auth()
 const storage = firebase.storage()
 
-export { db, firebaseAuth, storage }
+export { db, authentication, storage }
 
 // export const speechesRef = db.collection('speeches')
