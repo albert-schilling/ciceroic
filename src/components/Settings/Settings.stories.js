@@ -1,12 +1,10 @@
 import React from 'react'
-import { mobile } from '../../common/storybookDecorator'
 import { action } from '@storybook/addon-actions'
 
 import Settings from './Settings'
 
 export default {
   title: 'Components/Settings',
-  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: Settings,
 }
 

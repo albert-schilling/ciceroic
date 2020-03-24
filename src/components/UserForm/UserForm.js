@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { AuthConsumer } from '../Auth/AuthContext'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
+import BroadButton from '../Inputs/Buttons/BroadButton'
 
 export default function UserForm({ profile, setProfile }) {
   return (
@@ -24,8 +24,9 @@ export default function UserForm({ profile, setProfile }) {
               value={profile.password}
               onChange={handleChange}
             />
-            <ButtonSection>
-              <DefaultButton
+
+            <ButtonRow>
+              <BroadButton
                 name="logIn"
                 callback={event => handleClick(event, logIn)}
                 text="Login"
@@ -36,7 +37,7 @@ export default function UserForm({ profile, setProfile }) {
               <NavLinkStyled name="signUp" to={'/signup'}>
                 Sign Up
               </NavLinkStyled>
-            </ButtonSection>
+            </ButtonRow>
           </Form>
         </>
       )}
@@ -57,21 +58,22 @@ const Form = styled.form`
 const Input = styled.input`
   font-size: 1rem;
 `
-const ButtonSection = styled.section`
-  display: flex;
-  justify-content: space-between;
+const ButtonRow = styled.section`
+  display: grid;
+  grid-gap: 8px;
+  grid-template: 1fr / 1fr 1fr;
 `
 
 const NavLinkStyled = styled(NavLink)`
-  margin: 20px 0 12px 0;
-  align-self: center;
-  width: max-content;
+  margin: 12px 0;
+  width: 100%;
   border: none;
   padding: 8px;
   text-align: center;
   font-size: 1rem;
   color: var(--inverse-primary-font-color);
   text-decoration: none;
+  align-self: center;
   cursor: pointer;
   background: var(--highlight-color);
 `
