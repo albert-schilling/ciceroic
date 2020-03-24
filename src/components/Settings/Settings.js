@@ -11,12 +11,18 @@ import BroadInput from '../Inputs/Buttons/BroadInput'
 import DefaultButton from '../Inputs/Buttons/DefaultButton'
 import IconClose from '../Inputs/Icons/IconClose'
 import IconSignOut from '../Inputs/Icons/IconSignOut'
-import { Main } from '../Standard/StandardComponents'
 import UserMessage from '../UserMessage/UserMessage'
 import { useHistory } from 'react-router-dom'
 import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
 
+const PasswordLabel = styled.label`
+  display: grid;
+  grid-template: auto auto / 1fr;
+  grid-gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+`
 export default function Settings({
   profile = {
     _id: '',
@@ -135,48 +141,53 @@ export default function Settings({
           />
         </Portrait>
       )}
+      <AboutSection>
+        <Name>
+          {profile.firstName} {profile.lastName}
+        </Name>
+        {editAbout ? (
+          <>
+            <AboutInput
+              name="about"
+              value={profile.about}
+              onChange={handleChange}
+              rows="5"
+            />
+            <DefaultButton
+              name="updateAbout"
+              callback={handleClick}
+              text="Done"
+              color="primary"
+            />
+          </>
+        ) : (
+          <>
+            <About>{profile.about}</About>
+            <DefaultButton
+              text="Edit"
+              color="tertiary"
+              callback={() => setEditAbout(true)}
+            />
+          </>
+        )}
+      </AboutSection>
+      <PasswordForm onSubmit={handleSubmitNewPassword}>
+        <Paragraph>Email: {profile.email}</Paragraph>
 
-      <Name>
-        {profile.firstName} {profile.lastName}
-      </Name>
-      {editAbout ? (
-        <>
-          <AboutInput
-            name="about"
-            value={profile.about}
-            onChange={handleChange}
-            rows="5"
-          />
-          <DefaultButton
-            name="updateAbout"
-            callback={handleClick}
-            text="Done"
-            color="primary"
-          />
-        </>
-      ) : (
-        <>
-          <About>{profile.about}</About>
-          <DefaultButton
-            text="Edit"
-            color="tertiary"
-            callback={() => setEditAbout(true)}
-          />
-        </>
-      )}
+        {editPassword ? (
+          <>
+            <PasswordLabel htmlFor="oldPassword">
+              Confirm current password:
+              <Password id="oldPassword" name="oldPassword" type="password" />
+            </PasswordLabel>
 
-      <Paragraph>{profile.email}</Paragraph>
-      {editPassword ? (
-        <PasswordForm onSubmit={handleSubmitNewPassword}>
-          <PasswordLabel htmlFor="oldPassword">
-            Confirm current password:
-            <Password name="oldPassword" name="oldPassword" type="password" />
             {authenticationTries === 3 && (
               <PasswordLabel htmlFor="sendNewPassword">
                 Forgot your password?
                 {waitingForServer ? (
                   <DefaultButton
                     name="sendNewPassword"
+                    id="sendNewPassword"
                     text="Send me a new password"
                     color="loading"
                     disabled="true"
@@ -184,6 +195,7 @@ export default function Settings({
                 ) : (
                   <DefaultButton
                     name="sendNewPassword"
+                    id="sendNewPassword"
                     text="Send me a new password"
                     color="secondary"
                     callback={handleClick}
@@ -191,71 +203,71 @@ export default function Settings({
                 )}
               </PasswordLabel>
             )}
-          </PasswordLabel>
-          {allowNewPassword ? (
-            <>
-              <PasswordLabel htmlFor="newPassword">
-                New password:
-                <Password
-                  name="newPassword"
-                  name="newPassword"
-                  type="password"
-                />
-              </PasswordLabel>
-              <PasswordLabel htmlFor="repeatNewPassword">
-                Confirm new password:
-                <Password
-                  name="repeatNewPassword"
-                  name="repeatNewPassword"
-                  type="password"
-                />
-              </PasswordLabel>
-              <DefaultButton
-                name="confirmChangePassword"
-                text="Update Password"
-                color="primary"
-                type="submit"
-              />
-            </>
-          ) : (
-            <>
-              {waitingForServer ? (
+            {allowNewPassword ? (
+              <>
+                <PasswordLabel htmlFor="newPassword">
+                  New password:
+                  <Password
+                    id="newPassword"
+                    name="newPassword"
+                    type="password"
+                  />
+                </PasswordLabel>
+                <PasswordLabel htmlFor="repeatNewPassword">
+                  Confirm new password:
+                  <Password
+                    id="repeatNewPassword"
+                    name="repeatNewPassword"
+                    type="password"
+                  />
+                </PasswordLabel>
                 <DefaultButton
-                  name="sentOldPassword"
-                  text="Update Password"
-                  color="loading"
-                  type="submit"
-                  disabled="true"
-                />
-              ) : (
-                <DefaultButton
-                  name="sentOldPassword"
+                  name="confirmChangePassword"
                   text="Update Password"
                   color="primary"
                   type="submit"
                 />
-              )}
-            </>
-          )}
+              </>
+            ) : (
+              <>
+                {waitingForServer ? (
+                  <DefaultButton
+                    name="sentOldPassword"
+                    text="Update Password"
+                    color="loading"
+                    type="submit"
+                    disabled="true"
+                  />
+                ) : (
+                  <DefaultButton
+                    name="sentOldPassword"
+                    text="Update Password"
+                    color="primary"
+                    type="submit"
+                  />
+                )}
+              </>
+            )}
 
+            <DefaultButton
+              name="cancelChangePassword"
+              text="Cancel"
+              color="tertiary"
+              callback={handleClick}
+            />
+            {passwordMessage.visible && (
+              <PasswordMessage>{passwordMessage.text}</PasswordMessage>
+            )}
+          </>
+        ) : (
           <DefaultButton
-            name="cancelChangePassword"
-            text="Cancel"
+            name="changePassword"
+            text="Change password"
             color="tertiary"
-            callback={handleClick}
+            callback={() => setEditPassword(true)}
           />
-          {passwordMessage.visible && (
-            <PasswordMessage>{passwordMessage.text}</PasswordMessage>
-          )}
-        </PasswordForm>
-      ) : (
-        <DefaultButton
-          name="changePassword"
-          text="Change password"
-          color="tertiary"
-          callback={() => setEditPassword(true)}
-        />
-      )}
+        )}
+      </PasswordForm>
 
       <Line>
         <IconSignOut
@@ -294,6 +306,7 @@ export default function Settings({
     }
 
     if (event.target.name === 'cancelChangePassword') {
+      setAllowNewPassword(false)
       setPasswordMessage({ visible: false, text: '' })
       return setEditPassword(false)
     }
@@ -474,6 +487,27 @@ Settings.propTypes = {
   }),
 }
 
+const Main = styled.main`
+  display: grid;
+  justify-self: center;
+  align-content: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 100px;
+  }
+
+  @media (min-width: 700px) {
+    display: grid;
+    grid-template-columns: auto 250px 400px auto;
+    grid-template-areas: '. portrait about .' '. password password .' '. logout logout .';
+    grid-gap: 40px;
+  }
+`
+
 const Portrait = styled.section`
   justify-self: center;
   display: flex;
@@ -486,6 +520,20 @@ const Portrait = styled.section`
   height: 150px;
   overflow: hidden;
   cursor: pointer;
+  @media (min-width: 700px) {
+    grid-area: portrait;
+    width: 250px;
+    height: 250px;
+  }
+`
+
+const AboutSection = styled.section`
+  display: grid;
+  grid-gap: 12px;
+  align-content: center;
+  @media (min-width: 700px) {
+    grid-area: about;
+  }
 `
 const Name = styled.h3`
   font-size: 1rem;
@@ -499,6 +547,7 @@ const About = styled.p`
 
 const Paragraph = styled.p`
   margin: 12px 0;
+  width: 100%;
 `
 const Line = styled.p`
   display: grid;
@@ -506,6 +555,9 @@ const Line = styled.p`
   grid-gap: 8px;
   align-items: center;
   margin: 12px 0;
+  @media (min-width: 700px) {
+    grid-area: logout;
+  }
 `
 
 const Password = styled.input`
@@ -518,13 +570,7 @@ const Password = styled.input`
   line-height: 1.4rem;
   font-weight: inherit;
 `
-const PasswordLabel = styled.label`
-  display: grid;
-  grid-template: auto auto / 1fr;
-  grid-gap: 8px;
-  width: 100%;
-  margin-bottom: 8px;
-`
+
 const AboutInput = styled.textarea`
   margin: 0;
   border: 1px solid var(--light-grey);
@@ -588,6 +634,7 @@ const LightboxClose = styled.div`
 const PasswordForm = styled.form`
   display: flex;
   flex-wrap: wrap;
+  height: max-content;
   > input {
     order: 1;
     width: 100%;
@@ -596,6 +643,9 @@ const PasswordForm = styled.form`
   > button {
     order: 3;
     margin-right: 8px;
+  }
+  @media (min-width: 700px) {
+    grid-area: password;
   }
 `
 

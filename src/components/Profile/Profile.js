@@ -4,7 +4,6 @@ import styled from 'styled-components/macro'
 import { emptyProfile } from '../../data/emptyProfile'
 import { getUser } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
-import { Main } from '../Standard/StandardComponents'
 
 export default function Profile({ history }) {
   const [lightbox, setLightbox] = useState(false)
@@ -63,15 +62,38 @@ export default function Profile({ history }) {
               />
             </Portrait>
           )}
-          <Name>
-            {foreignProfile.firstName} {foreignProfile.lastName}
-          </Name>
-          <About>{foreignProfile.about}</About>
+          <AboutSection>
+            <Name>
+              {foreignProfile.firstName} {foreignProfile.lastName}
+            </Name>
+            <About>{foreignProfile.about}</About>
+          </AboutSection>
         </>
       )}
     </Main>
   )
 }
+
+const Main = styled.main`
+  display: grid;
+  justify-self: center;
+  align-content: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 100px;
+  }
+
+  @media (min-width: 700px) {
+    display: grid;
+    grid-template-columns: auto 250px 400px auto;
+    grid-template-areas: '. portrait about .';
+    grid-gap: 40px;
+  }
+`
 
 const Portrait = styled.section`
   justify-self: center;
@@ -85,7 +107,21 @@ const Portrait = styled.section`
   height: 150px;
   overflow: hidden;
   cursor: pointer;
+  @media (min-width: 700px) {
+    grid-area: portrait;
+    width: 250px;
+    height: 250px;
+  }
 `
+const AboutSection = styled.section`
+  @media (min-width: 700px) {
+    grid-area: about;
+    display: grid;
+    grid-gap: 12px;
+    align-content: center;
+  }
+`
+
 const Name = styled.h3`
   font-size: 1rem;
   font-weight: 500;
@@ -136,6 +172,8 @@ const LightboxClose = styled.div`
 `
 
 const Spinner = styled.section`
+  position: absolute;
+  left: calc(50% - 20px);
   display: flex;
   justify-content: center;
   align-items: center;

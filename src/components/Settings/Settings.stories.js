@@ -11,7 +11,7 @@ export default {
 }
 
 const profile = {
-  id: '23p48qyfguisrhgfiu',
+  _id: '23p48qyfguisrhgfiu',
   email: 'maxpower@heroes.world',
   password: 'skdflksdjfgiu',
   firstName: 'Max',
@@ -22,5 +22,5 @@ const profile = {
 }
 
 export const DefaultSettings = () => {
-  return <Settings profile={profile} />
+  return <Settings profile={profile} logOut={action('Log out user.')} />
 }
