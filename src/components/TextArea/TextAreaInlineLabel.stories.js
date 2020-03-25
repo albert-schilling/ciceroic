@@ -1,24 +1,13 @@
 import React from 'react'
-import TextArea from './TextArea'
-
-const sectionStyles = {
-  padding: '20px',
-}
-
-const evaluation = {
-  dimensions: {},
-  evaluator: { firstName: '', lastName: '' },
-  date: '',
-  praise: '',
-  suggestions: '',
-}
+import TextAreaInlineLabel from './TextAreaInlineLabel'
+import { mobile } from '../../common/storybookDecorator'
 
 export default {
-  title: 'Components/Inputs/TextArea',
-  decorators: [storyFn => <section style={sectionStyles}>{storyFn()}</section>],
-  component: TextArea,
+  title: 'Components/Inputs/TextAreaInlineLabel',
+  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
+  component: TextAreaInlineLabel,
 }
 
-export const DefaultTextArea = () => {
-  return <TextArea title="Default TextArea" evaluation={evaluation} />
+export const DefaultTextAreaInlineLabel = () => {
+  return <TextAreaInlineLabel />
 }
