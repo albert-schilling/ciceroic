@@ -29,36 +29,49 @@ export default function UserForm({ profile, setProfile, history }) {
           name="email"
           placeholder="Enter your E-Mail"
           defaultValue={profile.email}
-          // pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"
-          // title="Valid email address"
+          onChange={handleChange}
+          value={profile.email}
         />
         <Input
           type="password"
           name="password"
           placeholder="Password"
           defaultValue={profile.password}
+          onChange={handleChange}
+          value={profile.password}
         />
-        <Input name="firstName" placeholder="Enter your first name" />
-        <Input name="lastName" placeholder="Enter your last name" />
+        <Input
+          name="firstName"
+          placeholder="Enter your first name"
+          onChange={handleChange}
+          value={profile.firstName}
+        />
+        <Input
+          name="lastName"
+          placeholder="Enter your last name"
+          onChange={handleChange}
+          value={profile.lastName}
+        />
 
-        {showResetPasswordButton && waitingForServer ? (
-          <DefaultButton
-            name="sendNewPassword"
-            id="sendNewPassword"
-            text="Send me a new password"
-            color="loading"
-            disabled="true"
-          />
-        ) : (
-          <DefaultButton
-            name="sendNewPassword"
-            id="sendNewPassword"
-            text="Send me a new password"
-            color="secondary"
-            callback={resetPassword}
-          />
-        )}
         {message.visible && <Message>{message.text}</Message>}
+        {showResetPasswordButton &&
+          (waitingForServer ? (
+            <BroadButton
+              name="sendNewPassword"
+              id="sendNewPassword"
+              text="Send me a new password"
+              color="loading"
+              disabled="true"
+            />
+          ) : (
+            <BroadButton
+              name="sendNewPassword"
+              id="sendNewPassword"
+              text="Send me a new password"
+              color="secondary"
+              callback={resetPassword}
+            />
+          ))}
         <ButtonRow>
           <BroadButton
             name="cancel"
@@ -85,34 +98,30 @@ export default function UserForm({ profile, setProfile, history }) {
   }
   function handleSubmit(event) {
     event.preventDefault()
+    setShowResetPasswordButton(false)
 
     const emailValidationPattern = new RegExp(/\S+@\S+\.\S+/)
     const nameValidationPattern = new RegExp(
       /^[\s\r\na-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒß-]+$/gm
     )
-    const testFirstName = nameValidationPattern.test(
-      event.target.firstName.value
-    )
-    const testLastName = nameValidationPattern.test(event.target.lastName.value)
+    const testFirstName = nameValidationPattern.test(profile.firstName)
+    const testLastName = nameValidationPattern.test(profile.lastName)
 
-    console.log('testFirstName', testFirstName)
-    console.log('testLastName', testLastName)
-
-    if (!emailValidationPattern.test(event.target.email.value)) {
+    if (!emailValidationPattern.test(profile.email)) {
       event.target.email.focus()
       return setMessage({
         visible: true,
         text: 'Please, enter a valid email address.',
       })
     }
-    if (event.target.password.value.length < 8) {
+    if (profile.email.length < 8) {
       event.target.password.focus()
       return setMessage({
         visible: true,
         text: 'Please, enter a valid password with at least 8 characters.',
       })
     }
-    if (event.target.firstName.value.length === 0) {
+    if (profile.firstName.length === 0) {
       event.target.firstName.focus()
       return setMessage({
         visible: true,
@@ -129,7 +138,7 @@ export default function UserForm({ profile, setProfile, history }) {
       })
     }
 
-    if (event.target.lastName.value.length === 0) {
+    if (profile.lastName.length === 0) {
       event.target.lastName.focus()
       return setMessage({
         visible: true,
@@ -149,12 +158,9 @@ export default function UserForm({ profile, setProfile, history }) {
       text: '',
     })
 
-    const email = event.target.email.value
-    const password = event.target.password.value
-    const firstName = event.target.firstName.value
-    const lastName = event.target.lastName.value
+    console.log('profile', profile)
 
-    signUp({ email, password, firstName, lastName })
+    signUp(profile)
       .then(res => {
         if (res.code === 'auth/email-already-in-use') {
           console.log(res)
@@ -189,8 +195,9 @@ export default function UserForm({ profile, setProfile, history }) {
         setMessage({
           ...message,
           visible: true,
-          text: `An email with a link to reset your password has been sent to ${profile.email}`,
+          text: `An email with a link to reset your password has been sent to ${profile.email}.`,
         })
+        setShowResetPasswordButton(false)
       })
       .catch(error => {
         setWaitingForServer(false)
