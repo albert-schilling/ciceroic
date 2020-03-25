@@ -4,12 +4,19 @@ import { AuthConsumer } from '../Auth/AuthContext'
 import BroadButton from '../Inputs/Buttons/BroadButton'
 import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
+import { withRouter } from 'react-router-dom'
+// import { signUp } from '../Auth/AuthContext'
+import { signUp } from '../../services/userServices'
+import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
 export default function UserForm({ profile, setProfile, history }) {
   const [message, setMessage] = useState({
     visible: false,
     text: '',
   })
+  const [waitingForServer, setWaitingForServer] = useState(false)
+  const [showResetPasswordButton, setShowResetPasswordButton] = useState(false)
+
   return (
     // <AuthConsumer>
     // {({ signUp }) => (
@@ -33,6 +40,24 @@ export default function UserForm({ profile, setProfile, history }) {
         />
         <Input name="firstName" placeholder="Enter your first name" />
         <Input name="lastName" placeholder="Enter your last name" />
+
+        {showResetPasswordButton && waitingForServer ? (
+          <DefaultButton
+            name="sendNewPassword"
+            id="sendNewPassword"
+            text="Send me a new password"
+            color="loading"
+            disabled="true"
+          />
+        ) : (
+          <DefaultButton
+            name="sendNewPassword"
+            id="sendNewPassword"
+            text="Send me a new password"
+            color="secondary"
+            callback={resetPassword}
+          />
+        )}
         {message.visible && <Message>{message.text}</Message>}
         <ButtonRow>
           <BroadButton
@@ -55,28 +80,23 @@ export default function UserForm({ profile, setProfile, history }) {
     // )}
     // </AuthConsumer>
   )
-  // function handleChange(event) {
-  //   setProfile({ ...profile, [event.target.name]: event.target.value.trim() })
-  // }
-  async function handleSubmit(event) {
+  function handleChange(event) {
+    setProfile({ ...profile, [event.target.name]: event.target.value })
+  }
+  function handleSubmit(event) {
     event.preventDefault()
-    console.log('event.target', event.target)
 
     const emailValidationPattern = new RegExp(/\S+@\S+\.\S+/)
-    // const nameValidationPattern = new RegExp(
-    //   /\pL\pN\pM\x2D\x{2010}-\x{2015}\x{2212}/
-    // )
-    // const nameValidationPattern = new RegExp(/^[\w&.\-]+$/)
-    const pCL =
-      'a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ'
     const nameValidationPattern = new RegExp(
-      `[${pCL}][${pCL}' ,"-]*[${pCL}'",]+`
+      /^[\s\r\na-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒß-]+$/gm
     )
+    const testFirstName = nameValidationPattern.test(
+      event.target.firstName.value
+    )
+    const testLastName = nameValidationPattern.test(event.target.lastName.value)
 
-    console.log(
-      'nameValidationPattern.test(event.target.firstName.value)',
-      nameValidationPattern.test(event.target.firstName.value)
-    )
+    console.log('testFirstName', testFirstName)
+    console.log('testLastName', testLastName)
 
     if (!emailValidationPattern.test(event.target.email.value)) {
       event.target.email.focus()
@@ -100,13 +120,15 @@ export default function UserForm({ profile, setProfile, history }) {
       })
     }
 
-    if (!nameValidationPattern.test(event.target.firstName.value)) {
+    if (!testFirstName) {
       event.target.firstName.focus()
       return setMessage({
         visible: true,
-        text: 'Any special characters except a hyphen "-" are not allowed.',
+        text:
+          'Any special characters in your first name except a hyphen "-" are not allowed.',
       })
     }
+
     if (event.target.lastName.value.length === 0) {
       event.target.lastName.focus()
       return setMessage({
@@ -115,30 +137,70 @@ export default function UserForm({ profile, setProfile, history }) {
       })
     }
 
-    if (!nameValidationPattern.test(event.target.lastName.value)) {
-      event.target.lastName.focus()
-      return setMessage({
-        visible: true,
-        text: 'Any special characters except a hyphen "-" are not allowed.',
-      })
-    }
+    // if (!testLastName) {
+    //   event.target.lastName.focus()
+    //   return setMessage({
+    //     visible: true,
+    //     text: 'Any special characters except a hyphen "-" are not allowed.',
+    //   })
+    // }
     setMessage({
       visible: false,
       text: '',
     })
 
-    // console.log('Signup called')
-    console.log('signup', event.target.email)
-    console.log('signup', profile)
-    // authentication
-    //   .createUserWithEmailAndPassword(profile.email, profile.password)
-    //   .then(res => {
-    //     console.log(res)
-    //     history.push('/')
-    //   })
-    //   .catch(function(error) {
-    //     console.error('Error creating new user: ', error)
-    //   })
+    const email = event.target.email.value
+    const password = event.target.password.value
+    const firstName = event.target.firstName.value
+    const lastName = event.target.lastName.value
+
+    signUp({ email, password, firstName, lastName })
+      .then(res => {
+        if (res.code === 'auth/email-already-in-use') {
+          console.log(res)
+          setShowResetPasswordButton(true)
+          return setMessage({
+            visible: true,
+            text:
+              'Sorry, this email address is already in use. Forgot your password?',
+          })
+        }
+        setMessage({
+          visible: true,
+          text: `Welcome to Ciceroic! 
+            You will be redirected .`,
+        })
+        setTimeout(history.push('/'), 3000)
+      })
+      .catch(error => {
+        console.log(
+          'Sorry, there was an error with the server. Please try again later.',
+          error
+        )
+      })
+  }
+
+  function resetPassword() {
+    setWaitingForServer(true)
+    authentication
+      .sendPasswordResetEmail(profile.email)
+      .then(() => {
+        setWaitingForServer(false)
+        setMessage({
+          ...message,
+          visible: true,
+          text: `An email with a link to reset your password has been sent to ${profile.email}`,
+        })
+      })
+      .catch(error => {
+        setWaitingForServer(false)
+        setMessage({
+          visible: true,
+          text:
+            'Sorry, there was an error sending an email to reset your password. Please, try again later.',
+        })
+        console.log(error)
+      })
   }
 }
 
@@ -157,11 +219,15 @@ const Form = styled.form`
 const Input = styled.input`
   margin: 0;
   border: 1px solid var(--light-grey);
-  border-radius: 4px;
+  border-radius: 0;
   padding: 8px 8px 4px 8px;
   font-family: inherit;
   font-size: 1rem;
   font-weight: inherit;
+  :focus,
+  :invalid {
+    box-shadow: 0 0 2px 2px var(--highlight-color);
+  }
 `
 
 const ButtonRow = styled.section`
@@ -175,4 +241,5 @@ const Message = styled.p`
   border: 1px solid var(--secondary-highlight-color);
   padding: 20px;
   color: var(--secondary-highlight-color);
+  line-height: 1.4rem;
 `

@@ -1,4 +1,4 @@
-import { db, storage } from './firebase'
+import { db, authentication, storage } from './firebase'
 
 function getUser(id) {
   // console.log('Getting user information ...')
@@ -15,6 +15,58 @@ function getUser(id) {
     })
     .catch(error => {
       console.error('Error writing document: ', error)
+    })
+}
+
+async function signUp({ email, password, firstName, lastName }) {
+  console.log('Signup called')
+  console.log('email', email)
+  return await authentication
+    .createUserWithEmailAndPassword(email, password)
+    .then(res => {
+      addUserToDB(res.user, firstName, lastName)
+      return res
+    })
+    .catch(function(error) {
+      console.error('Error creating new user: ', error)
+      return error
+    })
+}
+
+async function addUserToDB(user, firstName, lastName) {
+  return await db
+    .collection('users')
+    .doc(user.uid)
+    .set({
+      _id: user.uid,
+      firstName: firstName,
+      lastName: lastName,
+      email: user.email,
+      registered: new Date().getTime(),
+      emailVerified: user.emailVerified,
+    })
+    .then(function() {
+      console.log('User successfully stored in DB!')
+    })
+    .then(() => updateUsersDisplayName(firstName, lastName))
+    .catch(function(error) {
+      console.error('Error writing document: ', error)
+    })
+}
+
+async function updateUsersDisplayName(firstName, lastName) {
+  return await authentication.currentUser
+    .updateProfile({
+      displayName: `${firstName} ${lastName}`,
+    })
+    .then(() => {
+      console.log("User's display name successfully updated.")
+    })
+    .then(() => {
+      authentication.currentUser.sendEmailVerification()
+    })
+    .catch(error => {
+      console.error(`Error updating user's display name:`, error)
     })
 }
 
@@ -108,4 +160,11 @@ function deletePortrait(profile) {
     .catch(error => console.log('Error uploading file:', error))
 }
 
-export { updateUser, updateAbout, uploadPortrait, deletePortrait, getUser }
+export {
+  signUp,
+  updateUser,
+  updateAbout,
+  uploadPortrait,
+  deletePortrait,
+  getUser,
+}
