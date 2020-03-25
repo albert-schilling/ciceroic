@@ -70,6 +70,13 @@ async function updateUsersDisplayName(firstName, lastName) {
     })
 }
 
+async function logIn({ email, password }) {
+  return await authentication
+    .signInWithEmailAndPassword(email, password)
+    .then(res => res)
+    .catch(error => error)
+}
+
 function updateUser(profile) {
   db.collection('users')
     .doc(profile._id)
@@ -167,4 +174,5 @@ export {
   uploadPortrait,
   deletePortrait,
   getUser,
+  logIn,
 }

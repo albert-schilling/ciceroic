@@ -46,41 +46,6 @@ function AuthProvider({ history, children, profile, setProfile }) {
     setProfile(profile)
     // console.log('Updating profile:', profile)
   }
-  // async function signUp(event) {
-  //   // console.log('Signup called')
-  //   try {
-  //     event.preventDefault()
-  //     await authentication
-  //       .createUserWithEmailAndPassword(profile.email, profile.password)
-  //       .then(res => {
-  //         addUserToDB(res.user)
-  //       })
-  //       .catch(function(error) {
-  //         console.error('Error creating new user: ', error)
-  //       })
-  //     history.push('/')
-  //   } catch (err) {}
-  // }
-
-  async function addUserToDB(user) {
-    db.collection('users')
-      .doc(user.uid)
-      .set({
-        _id: user.uid,
-        firstName: profile.firstName,
-        lastName: profile.lastName,
-        email: user.email,
-        registered: new Date().getTime(),
-        emailVerified: user.emailVerified,
-      })
-      .then(function() {
-        // console.log('User successfully stored in DB!')
-      })
-      .then(() => updateUsersDisplayName())
-      .catch(function(error) {
-        console.error('Error writing document: ', error)
-      })
-  }
 
   async function updateUsersDisplayName() {
     const user = await authentication.currentUser
@@ -139,7 +104,6 @@ function AuthProvider({ history, children, profile, setProfile }) {
     <AuthContext.Provider
       value={{
         user,
-        signUp,
         logIn,
         logOut,
       }}
@@ -153,56 +117,4 @@ const AuthConsumer = AuthContext.Consumer
 
 export default withRouter(AuthProvider)
 
-async function signUp({ email, password, firstName, lastName }) {
-  console.log('Signup called')
-  console.log('email', email)
-  return await authentication
-    .createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      addUserToDB(res.user, firstName, lastName)
-      return res
-    })
-    .catch(function(error) {
-      console.error('Error creating new user: ', error)
-      return error
-    })
-}
-
-async function addUserToDB(user, firstName, lastName) {
-  return await db
-    .collection('users')
-    .doc(user.uid)
-    .set({
-      _id: user.uid,
-      firstName: firstName,
-      lastName: lastName,
-      email: user.email,
-      registered: new Date().getTime(),
-      emailVerified: user.emailVerified,
-    })
-    .then(function() {
-      console.log('User successfully stored in DB!')
-    })
-    .then(() => updateUsersDisplayName(firstName, lastName))
-    .catch(function(error) {
-      console.error('Error writing document: ', error)
-    })
-}
-
-async function updateUsersDisplayName(firstName, lastName) {
-  return await authentication.currentUser
-    .updateProfile({
-      displayName: `${firstName} ${lastName}`,
-    })
-    .then(() => {
-      console.log("User's display name successfully updated.")
-    })
-    .then(() => {
-      authentication.currentUser.sendEmailVerification()
-    })
-    .catch(error => {
-      console.error(`Error updating user's display name:`, error)
-    })
-}
-
-export { AuthConsumer, signUp }
+export { AuthConsumer }

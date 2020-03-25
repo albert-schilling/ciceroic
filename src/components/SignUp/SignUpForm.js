@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import { AuthConsumer } from '../Auth/AuthContext'
-import BroadButton from '../Inputs/Buttons/BroadButton'
 import { authentication } from '../../services/firebase'
-import firebase from 'firebase/app'
-import { withRouter } from 'react-router-dom'
-// import { signUp } from '../Auth/AuthContext'
 import { signUp } from '../../services/userServices'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
+import BroadButton from '../Inputs/Buttons/BroadButton'
 
 export default function UserForm({ profile, setProfile, history }) {
   const [message, setMessage] = useState({
@@ -18,8 +13,6 @@ export default function UserForm({ profile, setProfile, history }) {
   const [showResetPasswordButton, setShowResetPasswordButton] = useState(false)
 
   return (
-    // <AuthConsumer>
-    // {({ signUp }) => (
     <>
       <Claim>Become a great speaker like Cicero.</Claim>
       <p>Sign up. It's for free.</p>
@@ -90,8 +83,6 @@ export default function UserForm({ profile, setProfile, history }) {
         </ButtonRow>
       </Form>
     </>
-    // )}
-    // </AuthConsumer>
   )
   function handleChange(event) {
     setProfile({ ...profile, [event.target.name]: event.target.value })
@@ -114,7 +105,7 @@ export default function UserForm({ profile, setProfile, history }) {
         text: 'Please, enter a valid email address.',
       })
     }
-    if (profile.email.length < 8) {
+    if (profile.password.length < 8) {
       event.target.password.focus()
       return setMessage({
         visible: true,
@@ -222,6 +213,7 @@ const Form = styled.form`
   display: grid;
   grid-gap: 12px;
   width: 100%;
+  max-width: 400px;
 `
 const Input = styled.input`
   margin: 0;
