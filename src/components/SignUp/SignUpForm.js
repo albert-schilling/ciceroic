@@ -94,7 +94,7 @@ export default function UserForm({ profile, setProfile, history }) {
       /^[\s\r\na-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒß-]+$/gm
     )
     const testFirstName = nameValidationPattern.test(profile.firstName)
-    const testLastName = nameValidationPattern.test(profile.lastName)
+    // const testLastName = nameValidationPattern.test(profile.lastName)
 
     if (!emailValidationPattern.test(profile.email)) {
       event.target.email.focus()

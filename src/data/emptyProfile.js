@@ -1,5 +1,3 @@
-export { emptyProfile }
-
 const emptyProfile = {
   email: '',
   password: '',
@@ -9,3 +7,5 @@ const emptyProfile = {
   about: '',
   portrait: '',
 }
+
+export { emptyProfile }

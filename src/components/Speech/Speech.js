@@ -32,20 +32,9 @@ export default function Speech({
   const [activeTab, setActiveTab] = useState('')
 
   useEffect(() => {
-    getSpeech(id)
-      .then(res => {
-        setSpeech(res)
-        return res
-      })
-      .then(speech => {
-        const foundEvaluator = searchEvaluator({ user, speech })
-        if (foundEvaluator) {
-          const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
-          Object.assign(evaluation, foundEvaluation)
-          setEvaluation(evaluation)
-        }
-      })
-  }, [])
+    getSpeechFromDB(id)
+  }, [id])
+
   if (profile._id.length > 0) {
     return (
       <Main>
@@ -118,6 +107,21 @@ export default function Speech({
 
   function handleClick(ref) {
     setActiveTab(ref)
+  }
+  function getSpeechFromDB(id) {
+    getSpeech(id)
+      .then(res => {
+        setSpeech(res)
+        return res
+      })
+      .then(speech => {
+        const foundEvaluator = searchEvaluator({ user, speech })
+        if (foundEvaluator) {
+          const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
+          Object.assign(evaluation, foundEvaluation)
+          setEvaluation(evaluation)
+        }
+      })
   }
 }
 

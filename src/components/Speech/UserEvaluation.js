@@ -26,13 +26,7 @@ export default function UserEvaluation({
   const refs = [inputPraiseRef, inputSuggestionsRef]
 
   useEffect(() => {
-    const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
-    if (foundEvaluation != null) {
-      Object.assign(evaluation, foundEvaluation)
-      setEvaluation(evaluation)
-      setFoundEvaluator(true)
-    }
-    setEditMode(false)
+    prepareEvaluation({ user, speech })
   }, [user, speech])
 
   if (foundEvaluator && !editMode) {
@@ -75,5 +69,14 @@ export default function UserEvaluation({
       setEditMode,
       refs,
     })
+  }
+  function prepareEvaluation({ user, speech }) {
+    const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
+    if (foundEvaluation != null) {
+      Object.assign(evaluation, foundEvaluation)
+      setEvaluation(evaluation)
+      setFoundEvaluator(true)
+    }
+    setEditMode(false)
   }
 }

@@ -65,7 +65,7 @@ export default function SpeechEvaluationFooter({
 
   function checkIfUserVoted() {
     addVoteTypeIfMissing(voteTypes)
-    voteTypes.map(type => {
+    voteTypes.forEach(type => {
       const userVoted = evaluation[type].some(vote => vote.id === user._id)
       Object.assign(voted, { [type]: userVoted })
     })
