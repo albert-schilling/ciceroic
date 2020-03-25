@@ -5,12 +5,11 @@ import { emptyProfile } from '../../data/emptyProfile'
 import { getUser } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
 
-export default function Profile({ history }) {
+export default function Profile() {
   const [lightbox, setLightbox] = useState(false)
   let { id } = useParams()
   const [foreignProfile, setForeignProfile] = useState(emptyProfile)
   const [loading, setLoading] = useState(true)
-
   useEffect(() => {
     getUser(id)
       .then(res => setForeignProfile(res))

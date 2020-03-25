@@ -19,8 +19,6 @@ function getUser(id) {
 }
 
 async function signUp({ email, password, firstName, lastName }) {
-  console.log('Signup called')
-  console.log('email', email)
   return await authentication
     .createUserWithEmailAndPassword(email, password)
     .then(res => {
@@ -46,9 +44,9 @@ async function addUserToDB(user, firstName, lastName) {
       emailVerified: user.emailVerified,
     })
     .then(function() {
-      console.log('User successfully stored in DB!')
+      // console.log('User successfully stored in DB!')
+      updateUsersDisplayName(firstName, lastName)
     })
-    .then(() => updateUsersDisplayName(firstName, lastName))
     .catch(function(error) {
       console.error('Error writing document: ', error)
     })
@@ -60,7 +58,7 @@ async function updateUsersDisplayName(firstName, lastName) {
       displayName: `${firstName} ${lastName}`,
     })
     .then(() => {
-      console.log("User's display name successfully updated.")
+      // console.log("User's display name successfully updated.")
     })
     .then(() => {
       authentication.currentUser.sendEmailVerification()

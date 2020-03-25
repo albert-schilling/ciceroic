@@ -21,7 +21,6 @@ export default function UserForm({ profile, setProfile, history }) {
           type="email"
           name="email"
           placeholder="Enter your E-Mail"
-          defaultValue={profile.email}
           onChange={handleChange}
           value={profile.email}
         />
@@ -29,7 +28,6 @@ export default function UserForm({ profile, setProfile, history }) {
           type="password"
           name="password"
           placeholder="Password"
-          defaultValue={profile.password}
           onChange={handleChange}
           value={profile.password}
         />
@@ -149,12 +147,9 @@ export default function UserForm({ profile, setProfile, history }) {
       text: '',
     })
 
-    console.log('profile', profile)
-
     signUp(profile)
       .then(res => {
         if (res.code === 'auth/email-already-in-use') {
-          console.log(res)
           setShowResetPasswordButton(true)
           return setMessage({
             visible: true,

@@ -454,7 +454,6 @@ export default function Settings({
     authentication.currentUser
       .reauthenticateWithCredential(credential)
       .then(res => {
-        console.log(res)
         setPasswordMessage({
           visible: false,
           text: '',

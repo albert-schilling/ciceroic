@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Router, Switch } from 'react-router-dom'
+import { useHistory, Route, Router, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import history from './common/history'
@@ -15,20 +15,21 @@ import { emptyProfile } from './data/emptyProfile'
 import LandingPage from './components/LandingPage/LandingPage'
 import Profile from './components/Profile/Profile'
 import Settings from './components/Settings/Settings'
+
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
-
   const [profile, setProfile] = useState(emptyProfile)
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
   }, [setSpeeches, profile, setProfile])
+
   return (
     <AppBodyStyled>
       <GlobalStyle />
       <Router history={history}>
-        <AuthProvider profile={profile} setProfile={setProfile}>
+        <AuthProvider setProfile={setProfile}>
           <AuthConsumer>
             {({ user, logOut }) => (
               <>
@@ -53,11 +54,7 @@ function App() {
                     )}
                   </Route>
                   <Route exact path="/signup">
-                    <SignUp
-                      history={history}
-                      profile={profile}
-                      setProfile={setProfile}
-                    />
+                    <SignUp profile={profile} setProfile={setProfile} />
                   </Route>
                   <Route exact path="/speech/:id">
                     {user && user._id ? (
@@ -81,11 +78,10 @@ function App() {
                     )}
                   </Route>
                   <Route exact path="/profile/:id">
-                    <Profile history={history} />
+                    <Profile />
                   </Route>
                   <Route exact path="/settings/:id">
                     <Settings
-                      history={history}
                       profile={profile}
                       setProfile={setProfile}
                       logOut={logOut}
