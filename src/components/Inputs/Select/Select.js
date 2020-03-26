@@ -10,7 +10,6 @@ export default function Select({
   callback = () => {},
   value,
 }) {
-  console.log('options', options)
   const [option, setOption] = useState(placeholder)
   return (
     <SelectStyled

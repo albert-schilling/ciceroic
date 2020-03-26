@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { postSpeech, uploadSpeech } from '../services/speechServices'
 
 export default function useSpeech() {
   const [speeches, setSpeeches] = useState([])
@@ -52,6 +53,15 @@ export default function useSpeech() {
     return dimensions
   }
 
+  function submitSpeech({ speech, video }) {
+    console.log('submitSpeech called. speech:', speech, 'video:', video)
+    const storageFilename = `user_${speech.userId}_speech_${speech.filename}`
+    uploadSpeech(video, storageFilename).then(url => {
+      speech.url = url
+      postSpeech(speech)
+    })
+  }
+
   return {
     speech,
     setSpeech,
@@ -62,5 +72,6 @@ export default function useSpeech() {
     calculateAverageEvaluation,
     returnDimensionsFromAverage,
     returnDimensionsFromEvaluation,
+    submitSpeech,
   }
 }

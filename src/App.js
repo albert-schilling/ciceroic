@@ -21,6 +21,18 @@ function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const speechBasePath = '/videos/'
   const [profile, setProfile] = useState(emptyProfile)
+  const [newSpeech, setNewSpeech] = useState({
+    _id: '',
+    filename: '',
+    title: '',
+    speaker: ``,
+    description: '',
+    category: 'lecture',
+    date: '',
+    duration: '',
+    userId: ``,
+    url: '',
+  })
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
@@ -79,7 +91,12 @@ function App() {
                     )}
                   </Route>
                   <Route exact path="/upload/">
-                    <UploadForm />
+                    <UploadForm
+                      user={user}
+                      profile={profile}
+                      newSpeech={newSpeech}
+                      setNewSpeech={setNewSpeech}
+                    />
                   </Route>
                   <Route exact path="/profile/:id">
                     <Profile />

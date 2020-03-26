@@ -1,4 +1,4 @@
-import { db } from './firebase'
+import { db, storage } from './firebase'
 
 export function postSpeeches(speeches) {
   speeches.forEach(speech => {
@@ -69,4 +69,46 @@ export function patchSpeech(id, data) {
         return doc.data()
       }
     })
+}
+export function postSpeech(data) {
+  return db
+    .collection('speeches')
+    .add(data)
+    .then(doc => {
+      console.log('Doc. written with id:', doc.id)
+      return db
+        .collection('speeches')
+        .doc(doc.id)
+        .update({ _id: doc.id })
+        .then(res => {
+          console.log('Speech id successfully written. Speech:', res)
+          return res
+        })
+        .catch(error => console.error('Error updating document: ', error))
+    })
+    .catch(function(error) {
+      console.error('Error writing document: ', error)
+    })
+}
+
+export function uploadSpeech(file, filename) {
+  console.log('uploadSpeech called. File:', file, 'filename:', filename)
+  const speechReference = storage.ref('speeches/' + filename)
+  return speechReference
+    .put(file)
+    .then(snapshot => {
+      return speechReference
+        .getDownloadURL()
+        .then(url => {
+          console.log(
+            'File succesfully uploaded. Url:',
+            url,
+            'Snapshot:',
+            snapshot
+          )
+          return url
+        })
+        .catch(error => console.error('Error uploading file:', error))
+    })
+    .catch(error => console.error('Error uploading file:', error))
 }

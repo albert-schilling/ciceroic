@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import UploadForm from './UploadForm'
 import { mobile } from '../../common/storybookDecorator'
-import { emptyProfile } from '../../data/emptyProfile'
 
 export default {
   title: 'Components/UploadForm',
@@ -10,5 +9,22 @@ export default {
 }
 
 export const DefaultUploadForm = () => {
-  return <UploadForm title="Default UploadForm" profile={emptyProfile} />
+  const [newSpeech, setNewSpeech] = useState({
+    _id: '',
+    filename: '',
+    title: '',
+    speaker: `firstName lastName`,
+    description: '',
+    category: '',
+    date: '',
+    duration: '',
+    userId: `userID`,
+  })
+  return (
+    <UploadForm
+      title="Default UploadForm"
+      newSpeech={newSpeech}
+      setNewSpeech={setNewSpeech}
+    />
+  )
 }
