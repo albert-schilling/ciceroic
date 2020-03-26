@@ -10,6 +10,8 @@ export default function TextAreaInlineLabel({
   maxLength = 50,
   placeholder = 'Type here',
   reference,
+  callback = () => {},
+  value,
 }) {
   const [textArea, setTextArea] = useState('')
   return (
@@ -43,6 +45,7 @@ export default function TextAreaInlineLabel({
   function handleChange(event) {
     const maximumInput = event.target.value.slice(0, maxLength)
     setTextArea(maximumInput)
+    callback(event)
   }
 }
 const TextAreaContainer = styled.section`

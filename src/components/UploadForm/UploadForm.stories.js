@@ -1,6 +1,7 @@
 import React from 'react'
 import UploadForm from './UploadForm'
 import { mobile } from '../../common/storybookDecorator'
+import { emptyProfile } from '../../data/emptyProfile'
 
 export default {
   title: 'Components/UploadForm',
@@ -9,5 +10,5 @@ export default {
 }
 
 export const DefaultUploadForm = () => {
-  return <UploadForm title="Default UploadForm" />
+  return <UploadForm title="Default UploadForm" profile={emptyProfile} />
 }

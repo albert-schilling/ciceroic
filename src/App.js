@@ -15,6 +15,7 @@ import SpeechesList from './components/Speech/SpeechesList'
 import { emptyProfile } from './data/emptyProfile'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
+import UploadForm from './components/UploadForm/UploadForm'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -76,6 +77,9 @@ function App() {
                     ) : (
                       <LandingPage profile={profile} setProfile={setProfile} />
                     )}
+                  </Route>
+                  <Route exact path="/upload/">
+                    <UploadForm />
                   </Route>
                   <Route exact path="/profile/:id">
                     <Profile />
