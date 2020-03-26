@@ -37,7 +37,9 @@ const emptySpeech = {
   date: '',
   duration: '',
   userId: `userId`,
-  url: '',
+  fileUrl: '',
+  status: '',
+  uploadStatus: '',
 }
 
 export default function UploadForm({
@@ -51,8 +53,9 @@ export default function UploadForm({
     text: '',
     style: '',
   })
+  const [uploadProgress, setUploadProgress] = useState(0)
   const [waitingForServer, setWaitingForServer] = useState(false)
-  const [uploadInfo, setUploadInfo] = useState({
+  const [fileInfo, setFileInfo] = useState({
     visible: false,
     text: '',
     style: '',
@@ -70,6 +73,7 @@ export default function UploadForm({
         speaker: `${profile.firstName} ${profile.lastName}`,
       })
   }, [user, profile])
+
   return (
     <Main>
       <h2>Upload your speech!</h2>
@@ -83,7 +87,7 @@ export default function UploadForm({
           type="file"
           accept="video/webm, video/mp4"
         />
-        <Message message={uploadInfo} />
+        <Message message={fileInfo} />
         <TextAreaInlineLabel
           title="Title"
           name="title"
@@ -108,14 +112,17 @@ export default function UploadForm({
         />
         <Message message={message} />
         {waitingForServer ? (
-          <BroadButton
-            name="submitSpeech"
-            type="submit"
-            text="Your speech is being uploaded"
-            color="tertiary"
-            styling="m0"
-            disabled={true}
-          />
+          <>
+            <p>Upload Progress: {uploadProgress} %</p>
+            <BroadButton
+              name="submitSpeech"
+              type="submit"
+              text="Your speech is being uploaded"
+              color="tertiary"
+              styling="m0"
+              disabled={true}
+            />
+          </>
         ) : (
           <BroadButton
             name="submitSpeech"
@@ -148,7 +155,7 @@ export default function UploadForm({
         style: 'warning',
       })
     }
-    setUploadInfo({
+    setFileInfo({
       visible: true,
       text: `Filename: ${file.name}
       Size: ${(file.size / 1000000).toFixed(2)} mb
@@ -158,7 +165,7 @@ export default function UploadForm({
     setVideoFile(event.target.files[0])
     setNewSpeech({ ...newSpeech, filename: file.name })
   }
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.persist()
     event.preventDefault()
     if (newSpeech.filename.length === 0) {
@@ -194,9 +201,15 @@ export default function UploadForm({
     setWaitingForServer(true)
     event.target.submitSpeech.scrollIntoView()
     const submissionDate = new Date().getTime()
-    setNewSpeech({ ...newSpeech, date: submissionDate })
+    Object.assign(newSpeech, { date: submissionDate, status: 'submitted' })
+    setNewSpeech(newSpeech)
     console.log('speech before submission', newSpeech)
-    submitSpeech({ speech: newSpeech, video: videoFile })
+    await submitSpeech({
+      speech: newSpeech,
+      setSpeech: setNewSpeech,
+      video: videoFile,
+      setUploadProgress,
+    })
     console.log('speech submitted', newSpeech)
   }
 }

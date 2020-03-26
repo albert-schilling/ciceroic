@@ -31,7 +31,9 @@ function App() {
     date: '',
     duration: '',
     userId: ``,
-    url: '',
+    fileUrl: '',
+    status: '',
+    uploadStatus: '',
   })
 
   useEffect(() => {

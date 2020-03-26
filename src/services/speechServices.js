@@ -66,6 +66,7 @@ export function patchSpeech(id, data) {
     })
     .then(doc => {
       if (doc.exists) {
+        console.log('Speech succesfully patched. Speech:', doc.data())
         return doc.data()
       }
     })
@@ -76,15 +77,14 @@ export function postSpeech(data) {
     .add(data)
     .then(doc => {
       console.log('Doc. written with id:', doc.id)
-      return db
-        .collection('speeches')
+      db.collection('speeches')
         .doc(doc.id)
-        .update({ _id: doc.id })
+        .update({ _id: doc.id, uploadStatus: 'uploading' })
         .then(res => {
           console.log('Speech id successfully written. Speech:', res)
-          return res
         })
         .catch(error => console.error('Error updating document: ', error))
+      return doc.id
     })
     .catch(function(error) {
       console.error('Error writing document: ', error)
@@ -94,21 +94,6 @@ export function postSpeech(data) {
 export function uploadSpeech(file, filename) {
   console.log('uploadSpeech called. File:', file, 'filename:', filename)
   const speechReference = storage.ref('speeches/' + filename)
-  return speechReference
-    .put(file)
-    .then(snapshot => {
-      return speechReference
-        .getDownloadURL()
-        .then(url => {
-          console.log(
-            'File succesfully uploaded. Url:',
-            url,
-            'Snapshot:',
-            snapshot
-          )
-          return url
-        })
-        .catch(error => console.error('Error uploading file:', error))
-    })
-    .catch(error => console.error('Error uploading file:', error))
+
+  return speechReference.put(file)
 }
