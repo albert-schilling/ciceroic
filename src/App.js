@@ -19,7 +19,6 @@ import UploadForm from './components/UploadForm/UploadForm'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
-  const speechBasePath = '/videos/'
   const [profile, setProfile] = useState(emptyProfile)
   const [newSpeech, setNewSpeech] = useState({
     _id: '',
@@ -66,11 +65,23 @@ function App() {
                           <SpeechesList
                             speeches={speeches}
                             setSpeech={setSpeech}
-                            speechBasePath={speechBasePath}
                             activePage={activePage}
                             setActivePage={setActivePage}
-                            // speechId={speechId}
-                            // setSpeechId={setSpeechId}
+                            setSpeakerId={setSpeakerId}
+                            setShowProfile={setShowProfile}
+                            showProfile={showProfile}
+                          />
+                          <Speech
+                            speech={speech}
+                            setSpeech={setSpeech}
+                            profile={profile}
+                            setProfile={setProfile}
+                            user={user}
+                            activePage={activePage}
+                            setActivePage={setActivePage}
+                            setSpeakerId={setSpeakerId}
+                            setShowProfile={setShowProfile}
+                            showProfile={showProfile}
                           />
                           <UploadForm
                             history={history}
@@ -88,19 +99,6 @@ function App() {
                             logOut={logOut}
                             activePage={activePage}
                             setActivePage={setActivePage}
-                          />
-                          <Speech
-                            speech={speech}
-                            setSpeech={setSpeech}
-                            speechBasePath={speechBasePath}
-                            profile={profile}
-                            setProfile={setProfile}
-                            user={user}
-                            activePage={activePage}
-                            setActivePage={setActivePage}
-                            setSpeakerId={setSpeakerId}
-                            setShowProfile={setShowProfile}
-                            showProfile={showProfile}
                           />
                           <Profile
                             speakerId={speakerId}

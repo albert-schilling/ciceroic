@@ -7,8 +7,11 @@ import useDate from '../../hooks/useDate'
 export default function SpeechCard({
   speech,
   setSpeech,
-  speechBasePath,
   setActivePage = () => {},
+  showProfile = false,
+  setShowProfile = () => {},
+  speakerId = '',
+  setSpeakerId = () => {},
 }) {
   const { convertTimestampToDate } = useDate()
 
@@ -26,6 +29,9 @@ export default function SpeechCard({
         <SpeechDescription
           title={speech.title}
           speaker={speech.speaker}
+          speakerId={speech.userId}
+          setSpeakerId={setSpeakerId}
+          setShowProfile={setShowProfile}
           description={speech.description}
           category={
             speech.category &&

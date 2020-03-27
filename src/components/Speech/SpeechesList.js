@@ -5,14 +5,16 @@ import SpeechCard from './SpeechCard'
 export default function SpeechesList({
   speeches,
   setSpeech,
-  speechBasePath,
   activePage = '',
   setActivePage = () => {},
+  showProfile = false,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
 }) {
   return (
     <Section
       className={
-        activePage.length > 0
+        activePage.length > 0 || showProfile
           ? activePage === '/speech'
             ? 'hidden'
             : 'blur'
@@ -26,8 +28,11 @@ export default function SpeechesList({
               key={speech._id}
               speech={speech}
               setSpeech={setSpeech}
-              speechBasePath={speechBasePath}
               setActivePage={setActivePage}
+              speakerId={speech.userId}
+              setSpeakerId={setSpeakerId}
+              showProfile={showProfile}
+              setShowProfile={setShowProfile}
             />
           )
         })}

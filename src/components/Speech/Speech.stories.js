@@ -4,8 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import GlobalStyle from '../../common/GlobalStyle'
 import Speech from './Speech'
 
-const speechBasePath = '/videos/'
-
 const speech = {
   category: 'Lecture',
   date: 'Jun 27, 2014',
@@ -44,6 +42,4 @@ export default {
   component: Speech,
 }
 
-export const SpeechPage = () => (
-  <Speech speech={speech} speechBasePath={speechBasePath} />
-)
+export const SpeechPage = () => <Speech speech={speech} />

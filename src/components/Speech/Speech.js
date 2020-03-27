@@ -17,9 +17,9 @@ export default function Speech({
   user,
   activePage = '',
   setActivePage = () => {},
+  showProfile = false,
   setShowProfile = () => {},
   setSpeakerId = () => {},
-  showProfile = false,
 }) {
   const {
     evaluation,

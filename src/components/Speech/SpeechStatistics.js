@@ -13,19 +13,17 @@ export default function SpeechStatistics({ speech }) {
 
   return (
     <>
-      <SpeechStatisticsContainer>
-        {speech.evaluations ? (
-          <>
-            <Statistics dimensions={averageDimensions} />
+      {speech.evaluations ? (
+        <SpeechStatisticsContainer>
+          <Statistics dimensions={averageDimensions} />
 
-            <StatisticsLegend>
-              Total number of evaluations: {speech.evaluations.length}
-            </StatisticsLegend>
-          </>
-        ) : (
-          <p>There are no evaluations yet.</p>
-        )}
-      </SpeechStatisticsContainer>
+          <StatisticsLegend>
+            Total number of evaluations: {speech.evaluations.length}
+          </StatisticsLegend>
+        </SpeechStatisticsContainer>
+      ) : (
+        <p>There are no evaluations yet.</p>
+      )}
     </>
   )
 }
