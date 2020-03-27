@@ -11,8 +11,13 @@ export default function SpeechesList({
 }) {
   return (
     <Section
-      className={activePage.length > 0 && 'blur'}
-      className={activePage === '/speech' && 'blur'}
+      className={
+        activePage.length > 0
+          ? activePage === '/speech'
+            ? 'hidden'
+            : 'blur'
+          : ''
+      }
     >
       <SpeechesListContainer>
         {speeches.map(speech => {
@@ -36,6 +41,9 @@ const Section = styled.section`
   overflow-y: scroll;
   &.blur {
     filter: blur(2px);
+  }
+  &.hidden {
+    display: none;
   }
 `
 

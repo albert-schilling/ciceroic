@@ -37,7 +37,9 @@ function App() {
   })
 
   const [activePage, setActivePage] = useState('')
-  const [speechId, setSpeechId] = useState('')
+  const [speakerId, setSpeakerId] = useState('')
+  const [showProfile, setShowProfile] = useState(false)
+  console.log('showProfile in App', showProfile)
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
@@ -96,6 +98,15 @@ function App() {
                             user={user}
                             activePage={activePage}
                             setActivePage={setActivePage}
+                            setSpeakerId={setSpeakerId}
+                            setShowProfile={setShowProfile}
+                            showProfile={showProfile}
+                          />
+                          <Profile
+                            speakerId={speakerId}
+                            activePage={activePage}
+                            showProfile={showProfile}
+                            setShowProfile={setShowProfile}
                           />
                         </Main>
                       )
@@ -106,31 +117,6 @@ function App() {
                   <Route exact path="/signup">
                     <SignUp profile={profile} setProfile={setProfile} />
                   </Route>
-                  <Route exact path="/speech/:id">
-                    {user && user._id ? (
-                      speeches === undefined ? (
-                        <p style={{ padding: '20px' }}>
-                          Sorry, we cannot connect to the server. Please, try
-                          again later.
-                        </p>
-                      ) : (
-                        <Speech
-                          speech={speech}
-                          setSpeech={setSpeech}
-                          speechBasePath={speechBasePath}
-                          profile={profile}
-                          setProfile={setProfile}
-                          user={user}
-                        />
-                      )
-                    ) : (
-                      <LandingPage profile={profile} setProfile={setProfile} />
-                    )}
-                  </Route>
-                  <Route exact path="/profile/:id">
-                    <Profile />
-                  </Route>
-                  <Route exact path="/settings/:id"></Route>
                 </Switch>
                 <Footer
                   history={history}

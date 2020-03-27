@@ -9,6 +9,9 @@ export default function SpeechInformation({
   category,
   duration,
   date,
+  speakerId = '',
+  setSpeakerId = '',
+  setShowProfile = () => {},
 }) {
   const [visibility, setVisibility] = useState(false)
 
@@ -18,7 +21,7 @@ export default function SpeechInformation({
         <header>
           <SpeechTitle>{title}</SpeechTitle>
         </header>
-        <Speaker>{speaker}</Speaker>
+        <Speaker onClick={showProfile}>{speaker}</Speaker>
         <SpeechDescription
           className={visibility ? '' : 'hidden'}
           onClick={setVisibilityToTrueIfFalse}
@@ -37,6 +40,11 @@ export default function SpeechInformation({
   function setVisibilityToTrueIfFalse() {
     visibility || setVisibility(true)
   }
+  function showProfile(event) {
+    event.preventDefault()
+    setShowProfile(true)
+    setSpeakerId(speakerId)
+  }
 }
 
 const SpeechTitle = styled.h2`
@@ -52,6 +60,7 @@ const Container = styled.section`
 const Speaker = styled.h4`
   font-size: 1rem;
   font-weight: 500;
+  cursor: pointer;
 `
 
 const SpeechDescription = styled.p`

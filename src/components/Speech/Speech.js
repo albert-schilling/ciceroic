@@ -16,9 +16,11 @@ export default function Speech({
   setSpeech,
   profile,
   user,
-  speechId,
   activePage = '',
   setActivePage = () => {},
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
+  showProfile = false,
 }) {
   // let { id } = useParams()
 
@@ -40,7 +42,12 @@ export default function Speech({
 
   if (profile._id.length > 0) {
     return (
-      <Section className={activePage === '/speech' && 'visible'}>
+      <Section
+        className={
+          activePage === '/speech' ? (showProfile ? 'blur' : 'visible') : ''
+        }
+        // className={showProfile && 'blur'}
+      >
         <BackLink onClick={() => setActivePage('')}>
           <span>&#8612;</span>see all speeches
         </BackLink>
@@ -54,6 +61,9 @@ export default function Speech({
         <SpeechDescription
           title={speech.title}
           speaker={speech.speaker}
+          speakerId={speech.userId}
+          setSpeakerId={setSpeakerId}
+          setShowProfile={setShowProfile}
           description={speech.description}
           category={speech.category}
           duration={speech.duration}
@@ -143,6 +153,9 @@ const Section = styled.section`
   }
   &.visible {
     display: flex;
+  }
+  &.blur {
+    filter: blur(2px);
   }
   @media (min-width: 700px) {
     display: grid;

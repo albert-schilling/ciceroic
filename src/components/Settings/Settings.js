@@ -12,7 +12,6 @@ import DefaultButton from '../Inputs/Buttons/DefaultButton'
 import IconClose from '../Inputs/Icons/IconClose'
 import IconSignOut from '../Inputs/Icons/IconSignOut'
 import UserMessage from '../UserMessage/UserMessage'
-// import { useHistory } from 'react-router-dom'
 import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
 
@@ -54,10 +53,6 @@ export default function Settings({
     text: '',
   })
   const [authenticationTries, setAuthenticationTries] = useState(0)
-
-  // const history = useHistory()
-
-  // profile._id || history.push('/')
 
   return (
     <Section className={activePage === '/settings' && 'visible'}>
