@@ -2,9 +2,18 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import SpeechCard from './SpeechCard'
 
-export default function SpeechesList({ speeches, setSpeech, speechBasePath }) {
+export default function SpeechesList({
+  speeches,
+  setSpeech,
+  speechBasePath,
+  activePage = '',
+  setActivePage = () => {},
+}) {
   return (
-    <Main>
+    <Section
+      className={activePage.length > 0 && 'blur'}
+      className={activePage === '/speech' && 'blur'}
+    >
       <SpeechesListContainer>
         {speeches.map(speech => {
           return (
@@ -13,18 +22,21 @@ export default function SpeechesList({ speeches, setSpeech, speechBasePath }) {
               speech={speech}
               setSpeech={setSpeech}
               speechBasePath={speechBasePath}
+              setActivePage={setActivePage}
             />
           )
         })}
       </SpeechesListContainer>
-    </Main>
+    </Section>
   )
 }
 
-const Main = styled.main`
-  padding: 20px;
+const Section = styled.section`
   height: 100%;
   overflow-y: scroll;
+  &.blur {
+    filter: blur(2px);
+  }
 `
 
 const SpeechesListContainer = styled.section`

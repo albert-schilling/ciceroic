@@ -3,7 +3,12 @@ import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 import SpeechDescription from './SpeechDescription/SpeechDescription'
 
-export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
+export default function SpeechCard({
+  speech,
+  setSpeech,
+  speechBasePath,
+  setActivePage = () => {},
+}) {
   return (
     <SpeechCardBody role="region">
       {speech.filename === undefined ? (
@@ -23,15 +28,18 @@ export default function SpeechCard({ speech, setSpeech, speechBasePath }) {
           duration={speech.duration}
           date={speech.date}
         />
-        <SpeechEvaluationButton
-          onClick={() => setSpeech(speech)}
-          to={'/speech/' + speech._id}
-        >
+        <SpeechEvaluationButton onClick={goToSpeech}>
           Evaluate
         </SpeechEvaluationButton>
       </SpeechCardInformation>
     </SpeechCardBody>
   )
+
+  async function goToSpeech(event) {
+    event.preventDefault()
+    await setSpeech(speech)
+    setActivePage('/speech')
+  }
 }
 
 const SpeechCardBody = styled.article`
@@ -54,7 +62,7 @@ const SpeechCardInformation = styled.section`
   flex-direction: column;
 `
 
-const SpeechEvaluationButton = styled(NavLink)`
+const SpeechEvaluationButton = styled.a`
   margin: 16px 0 4px 0;
   align-self: center;
   width: max-content;
@@ -63,4 +71,5 @@ const SpeechEvaluationButton = styled(NavLink)`
   text-align: center;
   color: var(--inverse-primary-font-color);
   text-decoration: none;
+  cursor: pointer;
 `

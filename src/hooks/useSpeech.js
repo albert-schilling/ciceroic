@@ -4,7 +4,6 @@ import {
   patchSpeech,
   uploadSpeech,
 } from '../services/speechServices'
-import { storage } from '../services/firebase'
 import firebase from 'firebase/app'
 
 export default function useSpeech() {
@@ -86,17 +85,17 @@ export default function useSpeech() {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         setUploadProgress(progress)
-        console.log('Upload is ' + progress + '% done')
+        // console.log('Upload is ' + progress + '% done')
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             Object.assign(speech, { uploadStatus: 'paused' })
-            setSpeech(speech)
+            // setSpeech(speech)
             console.log('Upload is paused')
             break
           case firebase.storage.TaskState.RUNNING: // or 'running'
             Object.assign(speech, { uploadStatus: 'uploading' })
-            setSpeech(speech)
-            console.log('Upload is running')
+            // setSpeech(speech)
+            // console.log('Upload is running')
             break
         }
       },

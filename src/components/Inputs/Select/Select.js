@@ -25,7 +25,9 @@ export default function Select({
       ref={reference}
     >
       {options.map(option => (
-        <Option value={option.value}>{option.name}</Option>
+        <Option key={option.value} value={option.value}>
+          {option.name}
+        </Option>
       ))}
     </SelectStyled>
   )

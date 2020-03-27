@@ -9,6 +9,7 @@ export default function BroadInput({
   type = 'text',
   color = 'primary',
   styling = '',
+  disabled = false,
 }) {
   return (
     <>
@@ -21,7 +22,13 @@ export default function BroadInput({
       >
         {text}
       </Label>
-      <Input type="file" id={name} name={name} onChange={callback} />
+      <Input
+        type="file"
+        id={name}
+        name={name}
+        onChange={callback}
+        disabled={disabled}
+      />
     </>
   )
 }
@@ -53,7 +60,7 @@ const Label = styled.label`
   }
 `
 const Input = styled.input`
-  visibility: hidden;
+  display: none;
   width: 0;
   height: 0;
 `

@@ -1,29 +1,25 @@
 import React from 'react'
-import { AuthConsumer } from '../Auth/AuthContext'
-import { Router } from 'react-router-dom'
-import history from '../../common/history'
 import ProfileButton from '../Inputs/Icons/ProfileButton'
 import RecordIcon from '../Inputs/Icons/RecordIcon'
-import { useLocation } from 'react-router-dom'
+import IconProfile from '../Inputs/Icons/IconProfile'
 
-export default function Footer() {
-  const location = useLocation()
-
+export default function Footer({
+  user = {},
+  activePage = '',
+  setActivePage = () => {},
+}) {
   return (
-    <Router history={history}>
-      <AuthConsumer>
-        {({ user }) => (
-          <>
-            {user._id && (
-              <footer role="navigation" aria-label="Main">
-                <ProfileButton id={user._id} />
-                {location.pathname.includes('/settings') ||
-                  location.pathname.includes('/profile') || <RecordIcon />}
-              </footer>
-            )}
-          </>
-        )}
-      </AuthConsumer>
-    </Router>
+    <>
+      {user._id && (
+        <footer role="navigation" aria-label="Main">
+          {activePage === '' && (
+            <RecordIcon callback={() => setActivePage('/upload')} />
+          )}
+          {activePage === '' && (
+            <IconProfile callback={() => setActivePage('/settings')} />
+          )}
+        </footer>
+      )}
+    </>
   )
 }

@@ -36,6 +36,9 @@ function App() {
     uploadStatus: '',
   })
 
+  const [activePage, setActivePage] = useState('')
+  const [speechId, setSpeechId] = useState('')
+
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
   }, [setSpeeches, profile, setProfile])
@@ -58,11 +61,43 @@ function App() {
                           again later.
                         </p>
                       ) : (
-                        <SpeechesList
-                          speeches={speeches}
-                          setSpeech={setSpeech}
-                          speechBasePath={speechBasePath}
-                        />
+                        <Main>
+                          <SpeechesList
+                            speeches={speeches}
+                            setSpeech={setSpeech}
+                            speechBasePath={speechBasePath}
+                            activePage={activePage}
+                            setActivePage={setActivePage}
+                            // speechId={speechId}
+                            // setSpeechId={setSpeechId}
+                          />
+                          <UploadForm
+                            history={history}
+                            user={user}
+                            profile={profile}
+                            newSpeech={newSpeech}
+                            setNewSpeech={setNewSpeech}
+                            activePage={activePage}
+                            setActivePage={setActivePage}
+                          />
+                          <Settings
+                            profile={profile}
+                            setProfile={setProfile}
+                            logOut={logOut}
+                            activePage={activePage}
+                            setActivePage={setActivePage}
+                          />
+                          <Speech
+                            speech={speech}
+                            setSpeech={setSpeech}
+                            speechBasePath={speechBasePath}
+                            profile={profile}
+                            setProfile={setProfile}
+                            user={user}
+                            activePage={activePage}
+                            setActivePage={setActivePage}
+                          />
+                        </Main>
                       )
                     ) : (
                       <LandingPage profile={profile} setProfile={setProfile} />
@@ -92,26 +127,17 @@ function App() {
                       <LandingPage profile={profile} setProfile={setProfile} />
                     )}
                   </Route>
-                  <Route exact path="/upload/">
-                    <UploadForm
-                      user={user}
-                      profile={profile}
-                      newSpeech={newSpeech}
-                      setNewSpeech={setNewSpeech}
-                    />
-                  </Route>
                   <Route exact path="/profile/:id">
                     <Profile />
                   </Route>
-                  <Route exact path="/settings/:id">
-                    <Settings
-                      profile={profile}
-                      setProfile={setProfile}
-                      logOut={logOut}
-                    />
-                  </Route>
+                  <Route exact path="/settings/:id"></Route>
                 </Switch>
-                <Footer />
+                <Footer
+                  history={history}
+                  user={user}
+                  activePage={activePage}
+                  setActivePage={setActivePage}
+                />
               </>
             )}
           </AuthConsumer>
@@ -128,4 +154,8 @@ const AppBodyStyled = styled.div`
   grid-template: 60px auto max-content / 1fr;
   width: 100vw;
   height: 100vh;
+`
+
+const Main = styled.main`
+  position: relative;
 `

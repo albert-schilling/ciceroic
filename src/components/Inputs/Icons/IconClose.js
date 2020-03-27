@@ -6,6 +6,8 @@ export default function IconSignOut({
   width = '20px',
   height = '20px',
   color = null,
+  href = '',
+  position = 'topright',
 }) {
   return (
     <IconContainer
@@ -13,11 +15,12 @@ export default function IconSignOut({
       width={width}
       height={height}
       color={color}
+      className={position}
     >
       <svg
         aria-labelledby="CloseIconTitle CloseIconDescription"
-        width="20"
-        height="20"
+        width="40"
+        height="40"
         viewBox="0 0 20 20"
       >
         <title id="CloseIconTitle">Close</title>
@@ -35,11 +38,16 @@ export default function IconSignOut({
   )
 }
 
-const IconContainer = styled.a`
+const IconContainer = styled.div`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   width: ${props => props.width};
   height: ${props => props.height};
   cursor: pointer;
+  &.topright {
+    top: 12px;
+    right: 12px;
+  }
 `

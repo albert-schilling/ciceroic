@@ -16,8 +16,11 @@ export default function Speech({
   setSpeech,
   profile,
   user,
+  speechId,
+  activePage = '',
+  setActivePage = () => {},
 }) {
-  let { id } = useParams()
+  // let { id } = useParams()
 
   const {
     evaluation,
@@ -32,15 +35,15 @@ export default function Speech({
   const [activeTab, setActiveTab] = useState('')
 
   useEffect(() => {
-    getSpeechFromDB(id)
-  }, [id])
+    speech._id && getSpeechFromDB(speech._id)
+  }, [speech._id])
 
   if (profile._id.length > 0) {
     return (
-      <Main>
-        <NavLinkStyled exact to="/">
+      <Section className={activePage === '/speech' && 'visible'}>
+        <BackLink onClick={() => setActivePage('')}>
           <span>&#8612;</span>see all speeches
-        </NavLinkStyled>
+        </BackLink>
         {speech.filename === undefined ? (
           <p>Video not found.</p>
         ) : (
@@ -92,16 +95,16 @@ export default function Speech({
             handleClick={handleClickOnUserMessage}
           />
         )}
-      </Main>
+      </Section>
     )
   } else {
     return (
-      <Main>
-        <NavLinkStyled exact to="/">
+      <Section>
+        <BackLink onClick={() => setActivePage('')}>
           <span>&#8612;</span>see all speeches
-        </NavLinkStyled>
+        </BackLink>
         <p>Waiting on user data.</p>
-      </Main>
+      </Section>
     )
   }
 
@@ -125,14 +128,21 @@ export default function Speech({
   }
 }
 
-const Main = styled.main`
-  margin-bottom: 20px;
-  background: #fff;
+const Section = styled.section`
+  position: fixed;
+  top: 60px;
+  display: none;
+  flex-direction: column;
   padding: 20px;
-  height: 100%;
   overflow-y: scroll;
-  > section:last-child {
-    margin-bottom: 80px;
+  background: #fff;
+  height: 100vh;
+  width: 100%;
+  > *:last-child {
+    padding-bottom: 60px;
+  }
+  &.visible {
+    display: flex;
   }
   @media (min-width: 700px) {
     display: grid;
@@ -141,7 +151,7 @@ const Main = styled.main`
   }
 `
 
-const NavLinkStyled = styled(NavLink)`
+const BackLink = styled.a`
   grid-area: backLink;
   width: fit-content;
   height: fit-content;
@@ -150,6 +160,7 @@ const NavLinkStyled = styled(NavLink)`
   color: inherit;
   text-decoration: none;
   font-size: 0.8rem;
+  cursor: pointer;
   span {
     padding-top: 4px;
     margin-right: 4px;
