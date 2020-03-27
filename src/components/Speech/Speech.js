@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import useForm from '../../hooks/useForm'
 import { getSpeech } from '../../services/speechServices'
@@ -9,9 +8,9 @@ import CommunityEvaluations from './CommunityEvaluations'
 import SpeechStatistics from './SpeechStatistics'
 import UserEvaluation from './UserEvaluation'
 import SpeechDescription from './SpeechDescription/SpeechDescription'
+import useDate from '../../hooks/useDate'
 
 export default function Speech({
-  speechBasePath,
   speech,
   setSpeech,
   profile,
@@ -22,8 +21,6 @@ export default function Speech({
   setSpeakerId = () => {},
   showProfile = false,
 }) {
-  // let { id } = useParams()
-
   const {
     evaluation,
     setEvaluation,
@@ -35,88 +32,95 @@ export default function Speech({
   } = useForm()
 
   const [activeTab, setActiveTab] = useState('')
+  const { convertTimestampToDate } = useDate()
 
   useEffect(() => {
     speech._id && getSpeechFromDB(speech._id)
   }, [speech._id])
 
-  if (profile._id.length > 0) {
-    return (
-      <Section
-        className={
-          activePage === '/speech' ? (showProfile ? 'blur' : 'visible') : ''
-        }
-        // className={showProfile && 'blur'}
-      >
-        <BackLink onClick={() => setActivePage('')}>
-          <span>&#8612;</span>see all speeches
-        </BackLink>
-        {speech.filename === undefined ? (
-          <p>Video not found.</p>
-        ) : (
-          <VideoStyled role="img" controls>
-            <source src={speechBasePath + speech.filename} type="video/mp4" />
-          </VideoStyled>
-        )}
-        <SpeechDescription
-          title={speech.title}
-          speaker={speech.speaker}
-          speakerId={speech.userId}
-          setSpeakerId={setSpeakerId}
-          setShowProfile={setShowProfile}
-          description={speech.description}
-          category={speech.category}
-          duration={speech.duration}
-          date={speech.date}
-        />
-        <TabContainerStyled>
-          <Tab
-            handleClick={handleClick}
-            activeTab={activeTab}
-            active={true}
-            title="Feedback"
-          >
-            <UserEvaluation
-              speech={speech}
-              setSpeech={setSpeech}
-              user={user}
-              profile={profile}
-              message={message}
-              setMessage={setMessage}
-            />
-            <CommunityEvaluations
-              user={user}
-              profile={profile}
-              speech={speech}
-              setSpeech={setSpeech}
-            />
-          </Tab>
-          <Tab
-            handleClick={handleClick}
-            activeTab={activeTab}
-            title="Statistics"
-          >
-            <SpeechStatistics speech={speech} />
-          </Tab>
-        </TabContainerStyled>
-        {message.visible === true && (
-          <UserMessage
-            message={message}
-            handleClick={handleClickOnUserMessage}
+  return (
+    <>
+      {speech._id ? (
+        <Section
+          className={
+            activePage === '/speech'
+              ? showProfile
+                ? 'blur visible'
+                : 'visible'
+              : ''
+          }
+        >
+          <BackLink onClick={() => setActivePage('')}>
+            <span>&#8612;</span>see all speeches
+          </BackLink>
+          {speech.filename === undefined ? (
+            <p>Video not found.</p>
+          ) : (
+            <VideoStyled role="img" controls>
+              <source src={speech.fileUrl} type="video/mp4" />
+            </VideoStyled>
+          )}
+          <SpeechDescription
+            title={speech.title}
+            speaker={speech.speaker}
+            speakerId={speech.userId}
+            setSpeakerId={setSpeakerId}
+            setShowProfile={setShowProfile}
+            description={speech.description}
+            category={
+              speech.category &&
+              speech.category.charAt(0).toUpperCase() + speech.category.slice(1)
+            }
+            duration={speech.duration}
+            date={speech.date && convertTimestampToDate(speech.date)}
           />
-        )}
-      </Section>
-    )
-  } else {
-    return (
-      <Section>
-        <BackLink onClick={() => setActivePage('')}>
-          <span>&#8612;</span>see all speeches
-        </BackLink>
-        <p>Waiting on user data.</p>
-      </Section>
-    )
-  }
+          <TabContainerStyled>
+            <Tab
+              handleClick={handleClick}
+              activeTab={activeTab}
+              active={true}
+              title="Feedback"
+            >
+              <UserEvaluation
+                speech={speech}
+                setSpeech={setSpeech}
+                user={user}
+                profile={profile}
+                message={message}
+                setMessage={setMessage}
+              />
+              <CommunityEvaluations
+                user={user}
+                profile={profile}
+                speech={speech}
+                setSpeech={setSpeech}
+              />
+            </Tab>
+            <Tab
+              handleClick={handleClick}
+              activeTab={activeTab}
+              title="Statistics"
+            >
+              <SpeechStatistics speech={speech} />
+            </Tab>
+          </TabContainerStyled>
+          {message.visible === true && (
+            <UserMessage
+              message={message}
+              handleClick={handleClickOnUserMessage}
+            />
+          )}
+        </Section>
+      ) : (
+        <Section>
+          <BackLink onClick={() => setActivePage('')}>
+            <span>&#8612;</span>see all speeches
+          </BackLink>
+          <p>Waiting on user data.</p>
+        </Section>
+      )}
+    </>
+  )
 
   function handleClick(ref) {
     setActiveTab(ref)

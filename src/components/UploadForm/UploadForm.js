@@ -8,6 +8,7 @@ import { speechCategories } from '../../data/speechCategories'
 import Message from '../UserMessage/InsideMessage'
 import useSpeech from '../../hooks/useSpeech'
 import IconClose from '../Inputs/Icons/IconClose'
+import { getSpeeches } from '../../services/speechServices'
 
 const emptySpeech = {
   _id: '',
@@ -32,6 +33,7 @@ export default function UploadForm({
   history,
   activePage = '',
   setActivePage = () => {},
+  setSpeeches = () => {},
 }) {
   const [message, setMessage] = useState({
     visible: false,
@@ -61,7 +63,6 @@ export default function UploadForm({
   useEffect(() => {
     newSpeech.status === 'submitted' && setSubmitted(true)
   }, [newSpeech.status, newSpeech.uploadStatus])
-  console.log('activePage in UploadForm', activePage)
   return (
     <Section className={activePage === '/upload' && 'visible'}>
       <Wrapper>
@@ -226,14 +227,13 @@ export default function UploadForm({
     const submissionDate = new Date().getTime()
     Object.assign(newSpeech, { date: submissionDate, status: 'submitted' })
     setNewSpeech(newSpeech)
-    console.log('speech before submission', newSpeech)
     await submitSpeech({
       speech: newSpeech,
       setSpeech: setNewSpeech,
       video: videoFile,
       setUploadProgress,
     })
-    console.log('speech submitted', newSpeech)
+    getSpeeches().then(res => setSpeeches(res))
   }
 
   function resetSpeech(event) {
@@ -300,21 +300,16 @@ const StatisticsRangeContainer = styled.label`
   grid-gap: 8px;
   font-size: 0.9rem;
   border: 1px solid var(--primary-font-color);
-  border-radius: 14px;
+  border-radius: 0;
   height: 28px;
   padding: 2px;
   position: relative;
 `
 const StatisticsRangeFill = styled.span`
   height: 100%;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 0;
   border: transparent;
   background: var(--highlight-color);
-  border-top-right-radius: ${props =>
-    props.dimensionValue === 5 ? '10px' : 0};
-  border-bottom-right-radius: ${props =>
-    props.dimensionValue === 5 ? '10px' : 0};
   width: ${props => `${props.value}%`};
 `
 const StatisticsRangeNumber = styled.span`

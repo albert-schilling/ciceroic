@@ -10,24 +10,33 @@ export default function CommunityEvaluations({
 }) {
   const { setEvaluation } = useForm()
 
-  if (speech.hasOwnProperty('evaluations')) {
-    return speech.evaluations
-      .filter(evaluation => evaluation.evaluator.id !== user._id)
-      .map(evaluation => {
-        return (
-          <Evaluation
-            key={`Evaluation by ${evaluation.evaluator.firstName}`}
-            title={`Evaluation by ${evaluation.evaluator.firstName}`}
-            user={user}
-            evaluation={evaluation}
-            setEvaluation={setEvaluation}
-            profile={profile}
-            speech={speech}
-            setSpeech={setSpeech}
-          />
-        )
-      })
-  } else {
-    return <p>Waiting for data</p>
-  }
+  return (
+    <>
+      {speech.evaluations ? (
+        <>
+          {speech.evaluations
+            .filter(evaluation => evaluation.evaluator.id !== user._id)
+            .map(evaluation => (
+              <Evaluation
+                key={`Evaluation by ${evaluation.evaluator.firstName}`}
+                title={`Evaluation by ${evaluation.evaluator.firstName}`}
+                user={user}
+                evaluation={evaluation}
+                setEvaluation={setEvaluation}
+                profile={profile}
+                speech={speech}
+                setSpeech={setSpeech}
+              />
+            ))}
+        </>
+      ) : (
+        <>
+          <p>There are no evaluations yet.</p>
+          {speech.userId !== user._id && (
+            <p>Be the first to evaluate this speech!</p>
+          )}
+        </>
+      )}
+    </>
+  )
 }

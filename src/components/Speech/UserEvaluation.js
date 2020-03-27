@@ -28,8 +28,12 @@ export default function UserEvaluation({
   useEffect(() => {
     prepareEvaluation({ user, speech })
   }, [user, speech])
+  console.log('speech.userId', speech.userId, 'user.uid', user._id)
+  console.log('user', user)
 
-  if (foundEvaluator && !editMode) {
+  if (speech.userId === user._id) {
+    return <></>
+  } else if (foundEvaluator && !editMode) {
     return (
       <Evaluation
         title="Your evaluation"

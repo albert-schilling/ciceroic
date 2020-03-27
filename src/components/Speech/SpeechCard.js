@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 import SpeechDescription from './SpeechDescription/SpeechDescription'
+import useDate from '../../hooks/useDate'
 
 export default function SpeechCard({
   speech,
@@ -9,13 +10,15 @@ export default function SpeechCard({
   speechBasePath,
   setActivePage = () => {},
 }) {
+  const { convertTimestampToDate } = useDate()
+
   return (
     <SpeechCardBody role="region">
       {speech.filename === undefined ? (
         <p>Video loading</p>
       ) : (
         <SpeechCardVideo role="img" controls>
-          <source src={speechBasePath + speech.filename} type="video/mp4" />
+          <source src={speech.fileUrl} type="video/mp4" />
         </SpeechCardVideo>
       )}
 
@@ -24,9 +27,12 @@ export default function SpeechCard({
           title={speech.title}
           speaker={speech.speaker}
           description={speech.description}
-          category={speech.category}
+          category={
+            speech.category &&
+            speech.category.charAt(0).toUpperCase() + speech.category.slice(1)
+          }
           duration={speech.duration}
-          date={speech.date}
+          date={speech.date && convertTimestampToDate(speech.date)}
         />
         <SpeechEvaluationButton onClick={goToSpeech}>
           Evaluate

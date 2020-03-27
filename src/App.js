@@ -39,7 +39,6 @@ function App() {
   const [activePage, setActivePage] = useState('')
   const [speakerId, setSpeakerId] = useState('')
   const [showProfile, setShowProfile] = useState(false)
-  console.log('showProfile in App', showProfile)
 
   useEffect(() => {
     getSpeeches().then(res => setSpeeches(res))
@@ -81,6 +80,7 @@ function App() {
                             setNewSpeech={setNewSpeech}
                             activePage={activePage}
                             setActivePage={setActivePage}
+                            setSpeeches={setSpeeches}
                           />
                           <Settings
                             profile={profile}

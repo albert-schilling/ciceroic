@@ -23,8 +23,8 @@ export default function Evaluation({
   const { returnDimensionsFromEvaluation } = useSpeech()
 
   const { convertTimestampToDate } = useDate()
-  const timestamp = new Date(evaluation.date)
-  const date = convertTimestampToDate(timestamp)
+  console.log('evaluation.date in Evaluation', evaluation.date)
+  const date = evaluation.date && convertTimestampToDate(evaluation.date)
   const dimensions = returnDimensionsFromEvaluation(evaluation.dimensions)
   return (
     <EvaluationContainer>

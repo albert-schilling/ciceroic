@@ -31,7 +31,7 @@ export default function SpeechInformation({
         </SpeechDescription>
         <SpeechDetails>
           <small>{category}</small>
-          <small>{duration} min</small>
+          {duration && <small>{duration} min</small>}
           <small>{date}</small>
         </SpeechDetails>
       </Container>

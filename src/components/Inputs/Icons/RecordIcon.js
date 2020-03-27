@@ -7,7 +7,6 @@ export default function RecordIcon({
   height = '38.4px',
   color = null,
 }) {
-  console.log('callback in Record ICon:', callback)
   return (
     <IconContainer
       onClick={callback}
