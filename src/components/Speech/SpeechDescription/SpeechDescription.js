@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import FoldButton from '../../Inputs/Buttons/FoldButton'
 
 export default function SpeechInformation({
+  profile = {},
   title,
   speaker,
   description,
@@ -21,7 +22,14 @@ export default function SpeechInformation({
         <header>
           <SpeechTitle>{title}</SpeechTitle>
         </header>
-        <Speaker onClick={showProfile}>{speaker}</Speaker>
+
+        {profile._id && profile._id === speakerId ? (
+          <Speaker>{speaker}</Speaker>
+        ) : (
+          <Speaker className={'link'} onClick={showProfile}>
+            {speaker}
+          </Speaker>
+        )}
         <SpeechDescription
           className={visibility ? '' : 'hidden'}
           onClick={setVisibilityToTrueIfFalse}
@@ -60,7 +68,9 @@ const Container = styled.section`
 const Speaker = styled.h4`
   font-size: 1rem;
   font-weight: 500;
-  cursor: pointer;
+  &.link {
+    cursor: pointer;
+  }
 `
 
 const SpeechDescription = styled.p`

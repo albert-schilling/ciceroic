@@ -12,8 +12,9 @@ export default function SpeechEvaluationFooter({
   const [count, setCount] = useState(0)
 
   useEffect(() => {
+    console.log('useEffect in Ev. Footer called')
     setVoted(checkIfUserVoted())
-  }, [count])
+  }, [count, evaluation])
 
   return (
     <FooterContainer>

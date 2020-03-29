@@ -18,17 +18,23 @@ export default function Evaluation({
   profile,
   speech,
   setSpeech,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
 }) {
   const { handleVoteOnEvaluation } = useForm()
   const { returnDimensionsFromEvaluation } = useSpeech()
 
   const { convertTimestampToDate } = useDate()
-  console.log('evaluation.date in Evaluation', evaluation.date)
   const date = evaluation.date && convertTimestampToDate(evaluation.date)
   const dimensions = returnDimensionsFromEvaluation(evaluation.dimensions)
   return (
     <EvaluationContainer>
-      <EvaluationTitle>{title}</EvaluationTitle>
+      {evaluation.evaluator.id === user._id ? (
+        <EvaluationTitle>{title}</EvaluationTitle>
+      ) : (
+        <EvaluationTitle onClick={showProfile}>{title}</EvaluationTitle>
+      )}
+
       <Statistics dimensions={dimensions} />
       {evaluation.praise && (
         <Comment
@@ -73,6 +79,11 @@ export default function Evaluation({
       speech,
       setSpeech,
     })
+  }
+  function showProfile(event) {
+    event.preventDefault()
+    setShowProfile(true)
+    setSpeakerId(evaluation.evaluator.id)
   }
 }
 

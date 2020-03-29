@@ -8,7 +8,7 @@ export default function useForm() {
     Object.assign(initialValues, { [dimension.name]: 3 })
   )
 
-  const [evaluation, setEvaluation] = useState({
+  const emptyEvaluation = {
     dimensions: { ...initialValues },
     evaluator: { firstName: '', lastName: '', id: '' },
     date: '',
@@ -17,7 +17,9 @@ export default function useForm() {
     upvotes: [],
     downvotes: [],
     flags: [],
-  })
+  }
+
+  const [evaluation, setEvaluation] = useState(emptyEvaluation)
 
   const [message, setMessage] = useState({
     visible: false,
@@ -196,6 +198,7 @@ export default function useForm() {
   return {
     evaluation,
     setEvaluation,
+    emptyEvaluation,
     message,
     setMessage,
     submitEvaluation,

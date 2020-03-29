@@ -30,10 +30,10 @@ export default function UploadForm({
   setNewSpeech = () => {},
   user = {},
   profile = {},
-  history,
   activePage = '',
   setActivePage = () => {},
   setSpeeches = () => {},
+  setSpeech = () => {},
 }) {
   const [message, setMessage] = useState({
     visible: false,
@@ -125,26 +125,33 @@ export default function UploadForm({
                   2
                 )}%`}</StatisticsRangeNumber>
               </StatisticsRangeContainer>
-              <BroadButton
-                name="submitSpeech"
-                type="submit"
-                text={
-                  uploadProgress < 100
-                    ? `Your speech is ${newSpeech.uploadStatus}.`
-                    : 'Upload complete'
-                }
-                color="tertiary"
-                styling="m0"
-                disabled={true}
-              />
-              {uploadProgress === 100 && (
+              {uploadProgress < 100 && (
                 <BroadButton
-                  name="resetSpeech"
-                  callback={resetSpeech}
-                  text={'Upload another speech?'}
-                  color="primary"
+                  name="submitSpeech"
+                  type="submit"
+                  text={`Your speech is ${newSpeech.uploadStatus}.`}
+                  color="tertiary"
                   styling="m0"
+                  disabled={true}
                 />
+              )}
+              {uploadProgress === 100 && (
+                <ButtonRow>
+                  <BroadButton
+                    name="resetSpeech"
+                    callback={resetSpeech}
+                    text={'Upload another speech?'}
+                    color="secondary"
+                    styling="m0"
+                  />
+                  <BroadButton
+                    name="visitSpeech"
+                    callback={visitSpeech}
+                    text={'See speech'}
+                    color="primary"
+                    styling="m0"
+                  />
+                </ButtonRow>
               )}
             </>
           ) : (
@@ -220,7 +227,7 @@ export default function UploadForm({
     setMessage({
       visible: true,
       text: `Awesome! You have submitted your speech. 
-      Please, don't close this window until the speech is uploaded`,
+      Don't close this website until the speech is uploaded.`,
       style: '',
     })
     event.target.submitSpeech.scrollIntoView()
@@ -252,6 +259,12 @@ export default function UploadForm({
     setVideoFile(null)
     setSubmitted(false)
     setNewSpeech(emptySpeech)
+  }
+
+  function visitSpeech(event) {
+    event.preventDefault()
+    setSpeech(newSpeech)
+    setActivePage('/speech')
   }
 }
 
@@ -287,6 +300,12 @@ const Form = styled.form`
   display: grid;
   align-content: flex-start;
   grid-gap: 20px;
+`
+
+const ButtonRow = styled.section`
+  display: grid;
+  grid-gap: 8px;
+  grid-template: 1fr / 1fr 1fr;
 `
 
 const Paragraph = styled.p`

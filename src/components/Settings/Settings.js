@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import {
   updateUser,
@@ -14,6 +14,8 @@ import IconSignOut from '../Inputs/Icons/IconSignOut'
 import UserMessage from '../UserMessage/UserMessage'
 import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
+import SpeechCard from '../Speech/SpeechCard'
+import { getSpeechesByUser } from '../../services/speechServices'
 
 const PasswordLabel = styled.label`
   display: grid;
@@ -36,6 +38,11 @@ export default function Settings({
   logOut = () => {},
   activePage = '',
   setActivePage = () => {},
+
+  setSpeech,
+  showProfile = false,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
 }) {
   const [editAbout, setEditAbout] = useState(false)
   const [editPassword, setEditPassword] = useState(false)
@@ -53,6 +60,12 @@ export default function Settings({
     text: '',
   })
   const [authenticationTries, setAuthenticationTries] = useState(0)
+  const [speechesByUser, setSpeechesByUser] = useState([])
+
+  useEffect(() => {
+    profile._id &&
+      getSpeechesByUser(profile._id).then(res => setSpeechesByUser(res))
+  }, [profile._id])
 
   return (
     <Section className={activePage === '/settings' && 'visible'}>
@@ -269,12 +282,37 @@ export default function Settings({
           )}
         </PasswordForm>
 
+        {speechesByUser.length > 0 ? (
+          <>
+            {speechesByUser.map(speech => {
+              return (
+                <Speeches>
+                  <p>My speeches:</p>
+                  <SpeechCard
+                    key={speech._id}
+                    profile={profile}
+                    speech={speech}
+                    setSpeech={setSpeech}
+                    setActivePage={setActivePage}
+                    speakerId={speech.userId}
+                    setSpeakerId={setSpeakerId}
+                    showProfile={showProfile}
+                    setShowProfile={setShowProfile}
+                  />
+                </Speeches>
+              )
+            })}
+          </>
+        ) : (
+          <p>No speeches yet.</p>
+        )}
+
         <Line>
           <IconSignOut
             width="20px"
             height="24px"
             color="var(--secondary-font-color)"
-            callback={logOut}
+            callback={loggingOut}
           />
           Log out
         </Line>
@@ -476,6 +514,14 @@ export default function Settings({
         console.log(error)
       })
   }
+
+  function loggingOut(event) {
+    console.log('logging out')
+    event.preventDefault()
+    setShowProfile(false)
+    setActivePage('')
+    logOut(event)
+  }
 }
 
 Settings.propTypes = {
@@ -521,8 +567,8 @@ const Wrapper = styled.div`
 
   @media (min-width: 700px) {
     display: grid;
-    grid-template-columns: auto 250px 400px auto;
-    grid-template-areas: '. portrait about .' '. password password .' '. logout logout .';
+    grid-template-columns: auto 250px 400px auto auto;
+    grid-template-areas: '. portrait about .' '. password password .' '. logout logout .' '. speeches speeches .';
     grid-gap: 40px;
   }
 `
@@ -674,4 +720,8 @@ const PasswordMessage = styled.p`
   border: 1px solid var(--secondary-highlight-color);
   padding: 20px;
   color: var(--secondary-highlight-color);
+`
+
+const Speeches = styled.section`
+  grid-area: speeches;
 `

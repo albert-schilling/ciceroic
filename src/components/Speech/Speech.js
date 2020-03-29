@@ -35,6 +35,8 @@ export default function Speech({
   const { convertTimestampToDate } = useDate()
 
   useEffect(() => {
+    console.log('useEffect in Speech called')
+    console.log(evaluation)
     speech._id && getSpeechFromDB(speech._id)
   }, [speech._id])
 
@@ -62,6 +64,7 @@ export default function Speech({
           )}
           <SpeechDescription
             title={speech.title}
+            profile={profile}
             speaker={speech.speaker}
             speakerId={speech.userId}
             setSpeakerId={setSpeakerId}
@@ -112,12 +115,7 @@ export default function Speech({
           )}
         </Section>
       ) : (
-        <Section>
-          <BackLink onClick={() => setActivePage('')}>
-            <span>&#8612;</span>see all speeches
-          </BackLink>
-          <p>Waiting on user data.</p>
-        </Section>
+        <></>
       )}
     </>
   )
@@ -135,8 +133,10 @@ export default function Speech({
         const foundEvaluator = searchEvaluator({ user, speech })
         if (foundEvaluator) {
           const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
-          Object.assign(evaluation, foundEvaluation)
-          setEvaluation(evaluation)
+          // Object.assign(evaluation, foundEvaluation)
+          setEvaluation(foundEvaluation)
+        } else {
+          setEvaluation({})
         }
       })
   }
@@ -162,9 +162,11 @@ const Section = styled.section`
     filter: blur(2px);
   }
   @media (min-width: 700px) {
-    display: grid;
-    grid-template-areas: 'backLink backLink' 'video information' 'tab tab';
-    grid-gap: 12px;
+    &.visible {
+      display: grid;
+      grid-template-areas: 'backLink backLink' 'video information' 'tab tab';
+      grid-gap: 12px;
+    }
   }
 `
 

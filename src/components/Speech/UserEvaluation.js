@@ -15,12 +15,13 @@ export default function UserEvaluation({
   const {
     evaluation,
     setEvaluation,
+    emptyEvaluation,
     submitEvaluation,
     getEvaluationByCurrentUser,
   } = useForm()
 
   const { editMode, setEditMode } = useSpeech()
-  const [foundEvaluator, setFoundEvaluator] = useState('')
+  const [foundEvaluator, setFoundEvaluator] = useState(false)
   const inputPraiseRef = useRef(null)
   const inputSuggestionsRef = useRef(null)
   const refs = [inputPraiseRef, inputSuggestionsRef]
@@ -28,8 +29,6 @@ export default function UserEvaluation({
   useEffect(() => {
     prepareEvaluation({ user, speech })
   }, [user, speech])
-  console.log('speech.userId', speech.userId, 'user.uid', user._id)
-  console.log('user', user)
 
   if (speech.userId === user._id) {
     return <></>
@@ -77,9 +76,12 @@ export default function UserEvaluation({
   function prepareEvaluation({ user, speech }) {
     const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
     if (foundEvaluation != null) {
-      Object.assign(evaluation, foundEvaluation)
-      setEvaluation(evaluation)
+      // Object.assign(evaluation, foundEvaluation)
+      setEvaluation(foundEvaluation)
       setFoundEvaluator(true)
+    } else {
+      setFoundEvaluator(false)
+      setEvaluation(emptyEvaluation)
     }
     setEditMode(false)
   }

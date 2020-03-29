@@ -63,6 +63,7 @@ function App() {
                       ) : (
                         <Main>
                           <SpeechesList
+                            profile={profile}
                             speeches={speeches}
                             setSpeech={setSpeech}
                             activePage={activePage}
@@ -87,6 +88,7 @@ function App() {
                             history={history}
                             user={user}
                             profile={profile}
+                            setSpeech={setSpeech}
                             newSpeech={newSpeech}
                             setNewSpeech={setNewSpeech}
                             activePage={activePage}
@@ -99,10 +101,19 @@ function App() {
                             logOut={logOut}
                             activePage={activePage}
                             setActivePage={setActivePage}
+                            setSpeech={setSpeech}
+                            speakerId={speech.userId}
+                            setSpeakerId={setSpeakerId}
+                            showProfile={showProfile}
+                            setShowProfile={setShowProfile}
                           />
                           <Profile
-                            speakerId={speakerId}
+                            profile={profile}
                             activePage={activePage}
+                            setActivePage={setActivePage}
+                            setSpeech={setSpeech}
+                            speakerId={speakerId}
+                            setSpeakerId={setSpeakerId}
                             showProfile={showProfile}
                             setShowProfile={setShowProfile}
                           />

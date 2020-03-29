@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import SpeechCard from './SpeechCard'
 
 export default function SpeechesList({
+  profile = {},
   speeches,
   setSpeech,
   activePage = '',
@@ -26,6 +27,7 @@ export default function SpeechesList({
           return (
             <SpeechCard
               key={speech._id}
+              profile={profile}
               speech={speech}
               setSpeech={setSpeech}
               setActivePage={setActivePage}

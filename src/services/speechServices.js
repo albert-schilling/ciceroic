@@ -54,6 +54,15 @@ export function getSpeech(id) {
     .catch(error => console.error(error))
 }
 
+export function getSpeechesByUser(id) {
+  return db
+    .collection('speeches')
+    .where('userId', '==', id)
+    .get()
+    .then(snapshot => snapshot.docs.map(doc => doc.data()))
+    .catch(error => console.error(error))
+}
+
 export function patchSpeech(id, data) {
   db.collection('speeches')
     .doc(id)

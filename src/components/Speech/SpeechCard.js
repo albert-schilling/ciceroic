@@ -5,6 +5,7 @@ import SpeechDescription from './SpeechDescription/SpeechDescription'
 import useDate from '../../hooks/useDate'
 
 export default function SpeechCard({
+  profile = {},
   speech,
   setSpeech,
   setActivePage = () => {},
@@ -27,6 +28,7 @@ export default function SpeechCard({
 
       <SpeechCardInformation>
         <SpeechDescription
+          profile={profile}
           title={speech.title}
           speaker={speech.speaker}
           speakerId={speech.userId}
@@ -40,9 +42,16 @@ export default function SpeechCard({
           duration={speech.duration}
           date={speech.date && convertTimestampToDate(speech.date)}
         />
-        <SpeechEvaluationButton onClick={goToSpeech}>
-          Evaluate
-        </SpeechEvaluationButton>
+        {}
+        {profile._id && profile._id === speakerId ? (
+          <SpeechEvaluationButton onClick={goToSpeech}>
+            See evaluations
+          </SpeechEvaluationButton>
+        ) : (
+          <SpeechEvaluationButton onClick={goToSpeech}>
+            Evaluate
+          </SpeechEvaluationButton>
+        )}
       </SpeechCardInformation>
     </SpeechCardBody>
   )
@@ -50,6 +59,7 @@ export default function SpeechCard({
   async function goToSpeech(event) {
     event.preventDefault()
     await setSpeech(speech)
+    setShowProfile(false)
     setActivePage('/speech')
   }
 }
@@ -57,9 +67,8 @@ export default function SpeechCard({
 const SpeechCardBody = styled.article`
   background: #ffffff;
   border: 1px solid #eee;
-  border-radius: 4px;
+  border-radius: 0;
   padding: 12px;
-
   @media (min-width: 700px) {
     width: calc(50% - 4px);
   }

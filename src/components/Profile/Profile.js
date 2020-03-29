@@ -2,15 +2,23 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { getUser } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
+import SpeechCard from '../Speech/SpeechCard'
+import { getSpeechesByUser } from '../../services/speechServices'
 
 export default function Profile({
   speakerId = '',
+  setSpeakerId = () => {},
   showProfile = false,
   setShowProfile = () => {},
+  profile = {},
+  activePage = '',
+  setActivePage = () => {},
+  setSpeech,
 }) {
   const [lightbox, setLightbox] = useState(false)
   const [loading, setLoading] = useState(true)
   const [foreignProfile, setForeignProfile] = useState('')
+  const [speechesByUser, setSpeechesByUser] = useState([])
 
   useEffect(() => {
     speakerId.length > 0 &&
@@ -18,6 +26,8 @@ export default function Profile({
         .then(res => setForeignProfile(res))
         .then(() => setLoading(false))
         .catch(error => console.log('Error retrieving user:', error))
+    speakerId.length > 0 &&
+      getSpeechesByUser(speakerId).then(res => setSpeechesByUser(res))
   }, [speakerId])
   return (
     <Section className={showProfile && 'visible'}>
@@ -72,6 +82,30 @@ export default function Profile({
               </Name>
               <About>{foreignProfile.about}</About>
             </AboutSection>
+            {speechesByUser.length > 0 ? (
+              <>
+                {speechesByUser.map(speech => {
+                  return (
+                    <>
+                      <p>Speeches by {foreignProfile.firstName}:</p>
+                      <SpeechCard
+                        key={speech._id}
+                        profile={profile}
+                        speech={speech}
+                        setSpeech={setSpeech}
+                        setActivePage={setActivePage}
+                        speakerId={speech.userId}
+                        setSpeakerId={setSpeakerId}
+                        showProfile={showProfile}
+                        setShowProfile={setShowProfile}
+                      />
+                    </>
+                  )
+                })}
+              </>
+            ) : (
+              <p>No speeches yet.</p>
+            )}
           </>
         )}
       </Wrapper>
