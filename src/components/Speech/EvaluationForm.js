@@ -76,8 +76,7 @@ const SpeechEvaluationFormStyled = styled.form`
 `
 const SpeechEvaluationFormSection = styled.section`
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   justify-content: center;
   grid-gap: 24px;
 

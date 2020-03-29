@@ -28,7 +28,7 @@ export default function UserEvaluation({
 
   useEffect(() => {
     prepareEvaluation({ user, speech })
-  }, [user, speech])
+  }, [user, speech, foundEvaluator])
 
   if (speech.userId === user._id) {
     return <></>
@@ -59,6 +59,7 @@ export default function UserEvaluation({
 
   function handleSubmit(event) {
     submitEvaluation({
+      setFoundEvaluator,
       event,
       evaluation,
       setEvaluation,

@@ -71,8 +71,9 @@ export default function Profile({
                   onClick={() => setLightbox(true)}
                   style={{
                     backgroundImage: `url('${
-                      profile.portrait && profile.portrait.length > 0
-                        ? profile.portrait
+                      foreignProfile.portrait &&
+                      foreignProfile.portrait.length > 0
+                        ? foreignProfile.portrait
                         : '/images/default_protrait_cicero_001.jpg'
                     }')`,
                   }}

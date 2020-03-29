@@ -28,6 +28,7 @@ export default function useForm() {
   })
 
   const submitEvaluation = ({
+    setFoundEvaluator,
     event,
     evaluation,
     setEvaluation,
@@ -59,6 +60,7 @@ export default function useForm() {
       profile,
       user,
     })
+    setFoundEvaluator(true)
     setMessage({
       ...message,
       visible: true,
