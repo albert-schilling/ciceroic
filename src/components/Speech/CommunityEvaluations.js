@@ -19,7 +19,11 @@ export default function CommunityEvaluations({
           {speech.evaluations
             .filter(evaluation => evaluation.evaluator.id !== user._id)
             .sort((a, b) => {
-              return a.upvotes - a.downvotes - (b.upvotes - b.downvotes)
+              return (
+                b.upvotes.length -
+                b.downvotes.length -
+                (a.upvotes.length - a.downvotes.length)
+              )
             })
             .map(evaluation => (
               <Evaluation
