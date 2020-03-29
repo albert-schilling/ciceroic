@@ -7,6 +7,8 @@ export default function CommunityEvaluations({
   profile,
   speech,
   setSpeech,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
 }) {
   const { setEvaluation } = useForm()
 
@@ -16,6 +18,9 @@ export default function CommunityEvaluations({
         <>
           {speech.evaluations
             .filter(evaluation => evaluation.evaluator.id !== user._id)
+            .sort((a, b) => {
+              return a.upvotes - a.downvotes - (b.upvotes - b.downvotes)
+            })
             .map(evaluation => (
               <Evaluation
                 key={`Evaluation by ${evaluation.evaluator.firstName}`}
@@ -26,6 +31,8 @@ export default function CommunityEvaluations({
                 profile={profile}
                 speech={speech}
                 setSpeech={setSpeech}
+                setSpeakerId={setSpeakerId}
+                setShowProfile={setShowProfile}
               />
             ))}
         </>

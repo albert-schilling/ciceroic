@@ -32,7 +32,9 @@ export default function Evaluation({
       {evaluation.evaluator.id === user._id ? (
         <EvaluationTitle>{title}</EvaluationTitle>
       ) : (
-        <EvaluationTitle onClick={showProfile}>{title}</EvaluationTitle>
+        <EvaluationTitle onClick={showProfile} style={{ cursor: 'pointer' }}>
+          {title}
+        </EvaluationTitle>
       )}
 
       <Statistics dimensions={dimensions} />
@@ -84,6 +86,7 @@ export default function Evaluation({
     event.preventDefault()
     setShowProfile(true)
     setSpeakerId(evaluation.evaluator.id)
+    console.log('showProfile in Evaluation called')
   }
 }
 

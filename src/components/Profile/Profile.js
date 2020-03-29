@@ -40,48 +40,51 @@ export default function Profile({
           </Spinner>
         ) : (
           <>
-            {lightbox ? (
-              <Lightbox>
-                <LightboxClose>
-                  <IconClose color="#fff" callback={() => setLightbox(false)} />
-                </LightboxClose>
-                <LightboxImage>
-                  <Image
-                    src={
-                      foreignProfile.portrait.length > 0
-                        ? foreignProfile.portrait
+            <ProfileSection>
+              {lightbox ? (
+                <Lightbox>
+                  <LightboxClose>
+                    <IconClose
+                      color="#fff"
+                      callback={() => setLightbox(false)}
+                    />
+                  </LightboxClose>
+                  <LightboxImage>
+                    <Image
+                      src={
+                        foreignProfile.portrait &&
+                        foreignProfile.portrait.length > 0
+                          ? foreignProfile.portrait
+                          : '/images/default_protrait_cicero_001.jpg'
+                      }
+                      alt={
+                        foreignProfile.portrait &&
+                        foreignProfile.portrait.length > 0
+                          ? `Portrait by ${foreignProfile.firstName} ${foreignProfile.lastName}`
+                          : 'Default image of a user foreignProfile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
+                      }
+                    />
+                  </LightboxImage>
+                </Lightbox>
+              ) : (
+                <Portrait
+                  onClick={() => setLightbox(true)}
+                  style={{
+                    backgroundImage: `url('${
+                      profile.portrait && profile.portrait.length > 0
+                        ? profile.portrait
                         : '/images/default_protrait_cicero_001.jpg'
-                    }
-                    alt={
-                      foreignProfile.portrait.length > 0
-                        ? `Portrait by ${foreignProfile.firstName} ${foreignProfile.lastName}`
-                        : 'Default image of a user foreignProfile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
-                    }
-                  />
-                </LightboxImage>
-              </Lightbox>
-            ) : (
-              <Portrait onClick={() => setLightbox(true)}>
-                <Image
-                  src={
-                    foreignProfile.portrait.length > 0
-                      ? foreignProfile.portrait
-                      : '/images/default_protrait_cicero_001.jpg'
-                  }
-                  alt={
-                    foreignProfile.portrait.length > 0
-                      ? `Portrait by ${foreignProfile.firstName} ${foreignProfile.lastName}`
-                      : 'Default image of a user foreignProfile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
-                  }
+                    }')`,
+                  }}
                 />
-              </Portrait>
-            )}
-            <AboutSection>
-              <Name>
-                {foreignProfile.firstName} {foreignProfile.lastName}
-              </Name>
-              <About>{foreignProfile.about}</About>
-            </AboutSection>
+              )}
+              <AboutSection>
+                <Name>
+                  {foreignProfile.firstName} {foreignProfile.lastName}
+                </Name>
+                <About>{foreignProfile.about}</About>
+              </AboutSection>
+            </ProfileSection>
             {speechesByUser.length > 0 ? (
               <>
                 {speechesByUser.map(speech => {
@@ -131,6 +134,7 @@ const Section = styled.section`
 
 const Wrapper = styled.div`
   position: relative;
+  border: 1px solid var(--highlight-color);
   background: #fff;
   padding: 12px;
   display: grid;
@@ -141,20 +145,20 @@ const Wrapper = styled.div`
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
+`
 
+const ProfileSection = styled.section`
+  display: grid;
   @media (min-width: 700px) {
     display: grid;
-    grid-template-columns: auto 250px 400px auto;
-    grid-template-areas: '. portrait about .';
+    grid-template: auto / 1fr 1fr;
     grid-gap: 40px;
   }
 `
 
 const Portrait = styled.section`
+  background-size: cover;
   justify-self: center;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   margin: 0 0 20px 0;
   border: 2px solid var(--light-grey);
   border-radius: 50%;
@@ -163,14 +167,12 @@ const Portrait = styled.section`
   overflow: hidden;
   cursor: pointer;
   @media (min-width: 700px) {
-    grid-area: portrait;
     width: 250px;
     height: 250px;
   }
 `
 const AboutSection = styled.section`
   @media (min-width: 700px) {
-    grid-area: about;
     display: grid;
     grid-gap: 12px;
     align-content: center;

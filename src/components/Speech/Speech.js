@@ -97,6 +97,8 @@ export default function Speech({
                 profile={profile}
                 speech={speech}
                 setSpeech={setSpeech}
+                setSpeakerId={setSpeakerId}
+                setShowProfile={setShowProfile}
               />
             </Tab>
             <Tab
