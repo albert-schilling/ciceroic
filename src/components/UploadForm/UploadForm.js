@@ -286,6 +286,7 @@ const Section = styled.section`
 
 const Wrapper = styled.div`
   position: relative;
+  border: 1px solid var(--secondary-highlight-color);
   background: #fff;
   padding: 12px;
 `
