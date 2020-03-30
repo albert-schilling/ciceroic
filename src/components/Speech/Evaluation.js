@@ -101,8 +101,7 @@ const EvaluationContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   @media (min-width: 700px) {
-    max-width: 600px;
-    align-self: center;
+    align-self: flex-start;
   }
   p {
     line-height: 1.4rem;

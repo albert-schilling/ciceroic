@@ -72,36 +72,25 @@ export default function SpeechEvaluationForm({
 const SpeechEvaluationFormStyled = styled.form`
   display: grid;
   grid-gap: 20px;
-  margin: 20px 0;
+  margin-bottom: 20px;
+  border: 1px solid var(--highlight-color);
+  padding: 20px;
+  @media (min-width: 700px) {
+    /* margin: 0 0 20px 0; */
+  }
 `
 const SpeechEvaluationFormSection = styled.section`
   width: 100%;
   display: grid;
   justify-content: center;
   grid-gap: 24px;
-
-  label {
-    width: 100%;
-    grid-gap: 8px;
-    display: flex;
-    flex-direction: column;
-  }
-  input[type='text'] {
-    font-size: 1rem;
-  }
-  input[type='range'] {
-  }
-
   @media (min-width: 700px) {
     width: 100%;
     display: flex;
+    grid-gap: 0;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-
-    label {
-      width: calc(50% - 12px);
-    }
   }
 `
 

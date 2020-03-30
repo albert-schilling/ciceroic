@@ -9,7 +9,7 @@ export default function RangeInput({
 }) {
   return (
     <>
-      <label htmlFor={name} title={description}>
+      <Label htmlFor={name} title={description}>
         {name}: {evaluation.dimensions[name]}
         <input
           onChange={handleChange}
@@ -28,7 +28,7 @@ export default function RangeInput({
           <span>|</span>
           <span>|</span>
         </InputRangeScale>
-      </label>
+      </Label>
     </>
   )
   function handleChange(event) {
@@ -49,5 +49,35 @@ const InputRangeScale = styled.div`
     /* margin-top: -12px; */
     font-size: 0.4rem;
     color: var(--secondary-font-color);
+  }
+`
+
+const Label = styled.label`
+  display: grid;
+  grid-gap: 6px;
+  width: 100%;
+
+  input[type='text'] {
+    font-size: 1rem;
+  }
+
+  input[type='range'] {
+    -webkit-appearance: none;
+    background: transparent;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    margin-top: -6px;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    background: var(--secondary-highlight-color);
+  }
+  input[type='range']::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: var(--highlight-color);
+    border-radius: 2px;
   }
 `

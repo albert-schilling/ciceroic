@@ -51,4 +51,14 @@ const TabBody = styled.section`
   display: grid;
   grid-gap: 12px;
   justify-content: center;
+  @media (min-width: 700px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    > *:nth-child(n) {
+      width: calc(50% - 10px);
+      margin-bottom: 20px;
+    }
+  }
 `
