@@ -1,6 +1,6 @@
 import React from 'react'
+import { mobile } from '../../../common/storybookDecorator'
 import DefaultButton from './DefaultButton'
-import { mobile, desktop } from '../../common/storybookDecorator'
 
 export default {
   title: 'Components/Inputs/Buttons/DefaultButton',

@@ -69,7 +69,7 @@ export default function useForm() {
   function updateEvaluations({ evaluation, speech, setSpeech, profile, user }) {
     evaluation.evaluator.firstName = profile.firstName
     evaluation.evaluator.lastName = profile.lastName
-    evaluation.evaluator.id = profile.id
+    evaluation.evaluator.id = profile._id
     Object.assign(evaluation, { date: new Date().getTime() })
 
     speech.evaluations || Object.assign(speech, { evaluations: [] })
@@ -78,7 +78,7 @@ export default function useForm() {
 
     if (updatingExistingEvaluation) {
       const index = speech.evaluations.findIndex(
-        evaluation => evaluation.evaluator.id === profile.id
+        evaluation => evaluation.evaluator.id === profile._id
       )
       speech.evaluations.splice(index, 1, evaluation)
     } else {
@@ -107,7 +107,7 @@ export default function useForm() {
     const foundEvaluator =
       speech && speech.evaluations
         ? speech.evaluations.some(
-            evaluation => evaluation.evaluator.id === user.id
+            evaluation => evaluation.evaluator.id === user._id
           )
         : false
     return foundEvaluator
@@ -117,7 +117,7 @@ export default function useForm() {
     let foundEvaluation = {}
     speech && speech.evaluations
       ? (foundEvaluation = speech.evaluations.filter(
-          evaluation => evaluation.evaluator.id === user.id
+          evaluation => evaluation.evaluator.id === user._id
         )[0])
       : (foundEvaluation = null)
     return foundEvaluation
@@ -170,14 +170,14 @@ export default function useForm() {
 
     function toggleVoteInEvaluation() {
       const newVote = {
-        id: profile.id,
+        id: profile._id,
         firstName: profile.firstName,
         lastName: profile.lastName,
         date: new Date().getTime(),
       }
 
       const index = evaluation[voteType].findIndex(
-        vote => vote.id === profile.id
+        vote => vote.id === profile._id
       )
 
       index >= 0
@@ -187,7 +187,7 @@ export default function useForm() {
 
     function removeVoteInEvaluation(voteType) {
       const index = evaluation[voteType].findIndex(
-        vote => vote.id === profile.id
+        vote => vote.id === profile._id
       )
       index >= 0 && evaluation[voteType].splice(index, 1)
     }

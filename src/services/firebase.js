@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/firebase-storage'
 import 'firebase/auth'
 
 var firebaseConfig = {
@@ -16,8 +17,9 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 const db = firebase.firestore()
-const firebaseAuth = firebase.auth()
+const authentication = firebase.auth()
+const storage = firebase.storage()
 
-export { db, firebaseAuth }
+export { db, authentication, storage }
 
 // export const speechesRef = db.collection('speeches')

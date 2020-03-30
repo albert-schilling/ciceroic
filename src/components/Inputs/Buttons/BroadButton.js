@@ -1,23 +1,22 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function Button({
+export default function BroadButton({
   callback = () => {},
-  text = 'Default Button',
-  name = 'Default Button',
+  text = 'Broad Button',
+  name = 'Broad Button',
   autoFocus = false,
   type = 'button',
   color = 'primary',
-  disabled = 'false',
+  styling = '',
 }) {
   return (
     <ButtonStyled
-      className={color}
+      className={`${color} + ${styling}`}
       name={name}
       autoFocus={autoFocus}
       onClick={callback}
       type={type}
-      disbaled={disabled}
     >
       {text}
     </ButtonStyled>
@@ -26,7 +25,7 @@ export default function Button({
 
 const ButtonStyled = styled.button`
   margin: 12px 0;
-  width: max-content;
+  width: 100%;
   border: none;
   padding: 8px;
   text-align: center;
@@ -34,6 +33,9 @@ const ButtonStyled = styled.button`
   color: var(--inverse-primary-font-color);
   text-decoration: none;
   cursor: pointer;
+  &.m0 {
+    margin: 0;
+  }
   &.primary {
     background: var(--highlight-color);
   }
@@ -43,9 +45,5 @@ const ButtonStyled = styled.button`
   &.tertiary {
     background: var(--light-grey);
     color: var(--primary-font-color);
-  }
-  &.loading {
-    background: var(--light-grey);
-    color: #fff;
   }
 `

@@ -1,8 +1,15 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import SignUpForm from './SignUpForm'
+import { useHistory } from 'react-router-dom'
 
-export default function SignUp({ profile, setProfile, history }) {
+export default function SignUp({
+  profile,
+  setProfile,
+  // history
+}) {
+  const history = useHistory()
+
   return (
     <Main>
       <SignUpForm history={history} profile={profile} setProfile={setProfile} />

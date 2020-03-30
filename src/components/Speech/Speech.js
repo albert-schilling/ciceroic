@@ -46,7 +46,7 @@ export default function Speech({
         }
       })
   }, [])
-  if (profile.id.length > 0) {
+  if (profile._id.length > 0) {
     return (
       <Main>
         <NavLinkStyled exact to="/">
