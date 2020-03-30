@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import {
   updateUser,
@@ -12,9 +12,10 @@ import DefaultButton from '../Inputs/Buttons/DefaultButton'
 import IconClose from '../Inputs/Icons/IconClose'
 import IconSignOut from '../Inputs/Icons/IconSignOut'
 import UserMessage from '../UserMessage/UserMessage'
-import { useHistory } from 'react-router-dom'
 import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
+import SpeechCard from '../Speech/SpeechCard'
+import { getSpeechesByUser } from '../../services/speechServices'
 
 const PasswordLabel = styled.label`
   display: grid;
@@ -35,6 +36,13 @@ export default function Settings({
   },
   setProfile = () => {},
   logOut = () => {},
+  activePage = '',
+  setActivePage = () => {},
+
+  setSpeech,
+  showProfile = false,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
 }) {
   const [editAbout, setEditAbout] = useState(false)
   const [editPassword, setEditPassword] = useState(false)
@@ -52,236 +60,264 @@ export default function Settings({
     text: '',
   })
   const [authenticationTries, setAuthenticationTries] = useState(0)
+  const [speechesByUser, setSpeechesByUser] = useState([])
 
-  const history = useHistory()
-
-  profile._id || history.push('/')
+  useEffect(() => {
+    profile._id &&
+      getSpeechesByUser(profile._id).then(res => setSpeechesByUser(res))
+  }, [profile._id])
 
   return (
-    <Main>
-      {lightbox ? (
-        <Lightbox>
-          <LightboxClose>
-            <IconClose color="#fff" callback={() => setLightbox(false)} />
-          </LightboxClose>
-          <LightboxImage>
-            <img
-              src={
-                profile.portrait.length > 0
-                  ? profile.portrait
-                  : '/images/default_protrait_cicero_001.jpg'
-              }
-              alt={
-                profile.portrait.length > 0
-                  ? `Portrait by ${profile.firstName} ${profile.lastName}`
-                  : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
-              }
-            />
-          </LightboxImage>
-
-          <LightboxOptions>
-            {confirmDeletePortrait ? (
-              <>
-                <LightboxMessage>
-                  Are you sure you would like to delete your portrait?
-                </LightboxMessage>
-                <BroadButton
-                  name="cancelDeletePortrait"
-                  callback={handleClick}
-                  text="Cancel"
-                  color="tertiary"
-                  styling="m0"
+    <Section className={activePage === '/settings' && 'visible'}>
+      <Wrapper>
+        <IconClose position="topright" callback={() => setActivePage('')} />
+        <ProfileSection>
+          {lightbox ? (
+            <Lightbox>
+              <LightboxClose>
+                <IconClose color="#fff" callback={() => setLightbox(false)} />
+              </LightboxClose>
+              <LightboxImage>
+                <img
+                  src={
+                    profile.portrait && profile.portrait.length > 0
+                      ? profile.portrait
+                      : '/images/default_protrait_cicero_001.jpg'
+                  }
+                  alt={
+                    profile.portrait && profile.portrait.length > 0
+                      ? `Portrait by ${profile.firstName} ${profile.lastName}`
+                      : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
+                  }
                 />
-                <BroadButton
-                  name="confirmDeletePortrait"
-                  callback={handleClick}
-                  text="Delete"
-                  color="secondary"
-                  styling="m0"
-                />
-              </>
-            ) : (
-              <>
-                {profile.portrait.length > 0 && (
-                  <BroadButton
-                    name="deletePortrait"
-                    callback={handleClick}
-                    text="Delete"
-                    color="tertiary"
-                    styling="m0"
-                  />
-                )}
+              </LightboxImage>
 
-                <BroadInput
-                  name="uploadPortrait"
-                  callback={handleUpload}
-                  text="Upload"
-                  color="primary"
-                  styling="m0"
-                  type="file"
-                  accept="image/png, image/jpeg"
-                />
-              </>
-            )}
-          </LightboxOptions>
-        </Lightbox>
-      ) : (
-        <Portrait onClick={() => setLightbox(true)}>
-          <img
-            src={
-              profile.portrait.length > 0
-                ? profile.portrait
-                : '/images/default_protrait_cicero_001.jpg'
-            }
-            alt={
-              profile.portrait.length > 0
-                ? `Portrait by ${profile.firstName} ${profile.lastName}`
-                : 'Default image of a user profile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
-            }
-          />
-        </Portrait>
-      )}
-      <AboutSection>
-        <Name>
-          {profile.firstName} {profile.lastName}
-        </Name>
-        {editAbout ? (
-          <>
-            <AboutInput
-              name="about"
-              value={profile.about}
-              onChange={handleChange}
-              rows="5"
-            />
-            <DefaultButton
-              name="updateAbout"
-              callback={handleClick}
-              text="Done"
-              color="primary"
-            />
-          </>
-        ) : (
-          <>
-            <About>{profile.about}</About>
-            <DefaultButton
-              text="Edit"
-              color="tertiary"
-              callback={() => setEditAbout(true)}
-            />
-          </>
-        )}
-      </AboutSection>
-      <PasswordForm onSubmit={handleSubmitNewPassword}>
-        <Paragraph>Email: {profile.email}</Paragraph>
-
-        {editPassword ? (
-          <>
-            <PasswordLabel htmlFor="oldPassword">
-              Confirm current password:
-              <Password id="oldPassword" name="oldPassword" type="password" />
-            </PasswordLabel>
-
-            {authenticationTries === 3 && (
-              <PasswordLabel htmlFor="sendNewPassword">
-                Forgot your password?
-                {waitingForServer ? (
-                  <DefaultButton
-                    name="sendNewPassword"
-                    id="sendNewPassword"
-                    text="Send me a new password"
-                    color="loading"
-                    disabled="true"
-                  />
+              <LightboxOptions>
+                {confirmDeletePortrait ? (
+                  <>
+                    <LightboxMessage>
+                      Are you sure you would like to delete your portrait?
+                    </LightboxMessage>
+                    <BroadButton
+                      name="cancelDeletePortrait"
+                      callback={handleClick}
+                      text="Cancel"
+                      color="tertiary"
+                      styling="m0"
+                    />
+                    <BroadButton
+                      name="confirmDeletePortrait"
+                      callback={handleClick}
+                      text="Delete"
+                      color="secondary"
+                      styling="m0"
+                    />
+                  </>
                 ) : (
-                  <DefaultButton
-                    name="sendNewPassword"
-                    id="sendNewPassword"
-                    text="Send me a new password"
-                    color="secondary"
-                    callback={handleClick}
-                  />
+                  <>
+                    {profile.portrait && profile.portrait.length > 0 && (
+                      <BroadButton
+                        name="deletePortrait"
+                        callback={handleClick}
+                        text="Delete"
+                        color="tertiary"
+                        styling="m0"
+                      />
+                    )}
+
+                    <BroadInput
+                      name="uploadPortrait"
+                      callback={handleUpload}
+                      text="Upload"
+                      color="primary"
+                      styling="m0"
+                      type="file"
+                      accept="image/png, image/jpeg"
+                    />
+                  </>
                 )}
-              </PasswordLabel>
-            )}
-            {allowNewPassword ? (
+              </LightboxOptions>
+            </Lightbox>
+          ) : (
+            <Portrait
+              onClick={() => setLightbox(true)}
+              style={{
+                backgroundImage: `url('${
+                  profile.portrait && profile.portrait.length > 0
+                    ? profile.portrait
+                    : '/images/default_protrait_cicero_001.jpg'
+                }')`,
+              }}
+            />
+          )}
+          <AboutSection>
+            <Name>
+              {profile.firstName} {profile.lastName}
+            </Name>
+            {editAbout ? (
               <>
-                <PasswordLabel htmlFor="newPassword">
-                  New password:
-                  <Password
-                    id="newPassword"
-                    name="newPassword"
-                    type="password"
-                  />
-                </PasswordLabel>
-                <PasswordLabel htmlFor="repeatNewPassword">
-                  Confirm new password:
-                  <Password
-                    id="repeatNewPassword"
-                    name="repeatNewPassword"
-                    type="password"
-                  />
-                </PasswordLabel>
+                <AboutInput
+                  name="about"
+                  value={profile.about}
+                  onChange={handleChange}
+                  rows="5"
+                />
                 <DefaultButton
-                  name="confirmChangePassword"
-                  text="Update Password"
+                  name="updateAbout"
+                  callback={handleClick}
+                  text="Done"
                   color="primary"
-                  type="submit"
                 />
               </>
             ) : (
               <>
-                {waitingForServer ? (
+                <About>{profile.about}</About>
+                <DefaultButton
+                  text="Edit"
+                  color="tertiary"
+                  callback={() => setEditAbout(true)}
+                />
+              </>
+            )}
+          </AboutSection>
+        </ProfileSection>
+        <PasswordForm onSubmit={handleSubmitNewPassword}>
+          <Paragraph>Email: {profile.email}</Paragraph>
+
+          {editPassword ? (
+            <>
+              <PasswordLabel htmlFor="oldPassword">
+                Confirm current password:
+                <Password id="oldPassword" name="oldPassword" type="password" />
+              </PasswordLabel>
+
+              {authenticationTries === 3 && (
+                <PasswordLabel htmlFor="sendNewPassword">
+                  Forgot your password?
+                  {waitingForServer ? (
+                    <DefaultButton
+                      name="sendNewPassword"
+                      id="sendNewPassword"
+                      text="Send me a new password"
+                      color="loading"
+                      disabled="true"
+                    />
+                  ) : (
+                    <DefaultButton
+                      name="sendNewPassword"
+                      id="sendNewPassword"
+                      text="Send me a new password"
+                      color="secondary"
+                      callback={handleClick}
+                    />
+                  )}
+                </PasswordLabel>
+              )}
+              {allowNewPassword ? (
+                <>
+                  <PasswordLabel htmlFor="newPassword">
+                    New password:
+                    <Password
+                      id="newPassword"
+                      name="newPassword"
+                      type="password"
+                    />
+                  </PasswordLabel>
+                  <PasswordLabel htmlFor="repeatNewPassword">
+                    Confirm new password:
+                    <Password
+                      id="repeatNewPassword"
+                      name="repeatNewPassword"
+                      type="password"
+                    />
+                  </PasswordLabel>
                   <DefaultButton
-                    name="sentOldPassword"
-                    text="Update Password"
-                    color="loading"
-                    type="submit"
-                    disabled="true"
-                  />
-                ) : (
-                  <DefaultButton
-                    name="sentOldPassword"
+                    name="confirmChangePassword"
                     text="Update Password"
                     color="primary"
                     type="submit"
                   />
-                )}
-              </>
-            )}
+                </>
+              ) : (
+                <>
+                  {waitingForServer ? (
+                    <DefaultButton
+                      name="sentOldPassword"
+                      text="Update Password"
+                      color="loading"
+                      type="submit"
+                      disabled="true"
+                    />
+                  ) : (
+                    <DefaultButton
+                      name="sentOldPassword"
+                      text="Update Password"
+                      color="primary"
+                      type="submit"
+                    />
+                  )}
+                </>
+              )}
 
+              <DefaultButton
+                name="cancelChangePassword"
+                text="Cancel"
+                color="tertiary"
+                callback={handleClick}
+              />
+              {passwordMessage.visible && (
+                <PasswordMessage>{passwordMessage.text}</PasswordMessage>
+              )}
+            </>
+          ) : (
             <DefaultButton
-              name="cancelChangePassword"
-              text="Cancel"
+              name="changePassword"
+              text="Change password"
               color="tertiary"
-              callback={handleClick}
+              callback={() => setEditPassword(true)}
             />
-            {passwordMessage.visible && (
-              <PasswordMessage>{passwordMessage.text}</PasswordMessage>
-            )}
+          )}
+        </PasswordForm>
+        <Line>
+          <IconSignOut
+            width="20px"
+            height="24px"
+            color="var(--secondary-font-color)"
+            callback={loggingOut}
+          />
+          Log out
+        </Line>
+        {speechesByUser.length > 0 && (
+          <>
+            <p>My speeches:</p>
+            <Speeches>
+              {speechesByUser.map(speech => {
+                return (
+                  <SpeechCard
+                    key={speech._id}
+                    profile={profile}
+                    speech={speech}
+                    setSpeech={setSpeech}
+                    setActivePage={setActivePage}
+                    speakerId={speech.userId}
+                    setSpeakerId={setSpeakerId}
+                    showProfile={showProfile}
+                    setShowProfile={setShowProfile}
+                  />
+                )
+              })}
+            </Speeches>
           </>
-        ) : (
-          <DefaultButton
-            name="changePassword"
-            text="Change password"
-            color="tertiary"
-            callback={() => setEditPassword(true)}
+        )}
+
+        {message.visible && (
+          <UserMessage
+            message={message}
+            handleClick={handleClickOnUserMessage}
           />
         )}
-      </PasswordForm>
-
-      <Line>
-        <IconSignOut
-          width="20px"
-          height="24px"
-          color="var(--secondary-font-color)"
-          callback={logOut}
-        />
-        Log out
-      </Line>
-      {message.visible && (
-        <UserMessage message={message} handleClick={handleClickOnUserMessage} />
-      )}
-    </Main>
+      </Wrapper>
+    </Section>
   )
   function handleChange(event) {
     setProfile({ ...profile, [event.target.name]: event.target.value })
@@ -472,6 +508,14 @@ export default function Settings({
         console.log(error)
       })
   }
+
+  function loggingOut(event) {
+    console.log('logging out')
+    event.preventDefault()
+    setShowProfile(false)
+    setActivePage('')
+    logOut(event)
+  }
 }
 
 Settings.propTypes = {
@@ -486,7 +530,27 @@ Settings.propTypes = {
   }),
 }
 
-const Main = styled.main`
+const Section = styled.section`
+  position: fixed;
+  top: 0;
+  display: none;
+  align-content: flex-start;
+  grid-gap: 20px;
+  margin: 0;
+  padding: 80px 20px 20px 20px;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100%;
+  &.visible {
+    display: grid;
+  }
+`
+
+const Wrapper = styled.div`
+  position: relative;
+  border: 1px solid var(--secondary-highlight-color);
+  background: #fff;
+  padding: 12px;
   display: grid;
   justify-self: center;
   align-content: flex-start;
@@ -495,23 +559,20 @@ const Main = styled.main`
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
-  > *:last-child {
-    padding-bottom: 100px;
-  }
+`
 
+const ProfileSection = styled.section`
+  display: grid;
   @media (min-width: 700px) {
     display: grid;
-    grid-template-columns: auto 250px 400px auto;
-    grid-template-areas: '. portrait about .' '. password password .' '. logout logout .';
+    grid-template: auto / 1fr 1fr;
     grid-gap: 40px;
   }
 `
 
 const Portrait = styled.section`
+  background-size: cover;
   justify-self: center;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   margin: 0 0 20px 0;
   border: 2px solid var(--light-grey);
   border-radius: 50%;
@@ -520,7 +581,6 @@ const Portrait = styled.section`
   overflow: hidden;
   cursor: pointer;
   @media (min-width: 700px) {
-    grid-area: portrait;
     width: 250px;
     height: 250px;
   }
@@ -531,7 +591,7 @@ const AboutSection = styled.section`
   grid-gap: 12px;
   align-content: center;
   @media (min-width: 700px) {
-    grid-area: about;
+    /* grid-area: about; */
   }
 `
 const Name = styled.h3`
@@ -555,7 +615,7 @@ const Line = styled.p`
   align-items: center;
   margin: 12px 0;
   @media (min-width: 700px) {
-    grid-area: logout;
+    /* grid-area: logout; */
   }
 `
 
@@ -583,13 +643,14 @@ const AboutInput = styled.textarea`
 
 const Lightbox = styled.section`
   position: fixed;
+  left: 0;
+  top: 0;
   display: grid;
   grid-template: auto max-content / 1fr;
   width: 100%;
   height: 100%;
+  background: var(--primary-font-color);
   z-index: 2;
-  left: 0;
-  top: 0;
 `
 const LightboxImage = styled.section`
   display: flex;
@@ -643,9 +704,6 @@ const PasswordForm = styled.form`
     order: 3;
     margin-right: 8px;
   }
-  @media (min-width: 700px) {
-    grid-area: password;
-  }
 `
 
 const PasswordMessage = styled.p`
@@ -654,4 +712,18 @@ const PasswordMessage = styled.p`
   border: 1px solid var(--secondary-highlight-color);
   padding: 20px;
   color: var(--secondary-highlight-color);
+`
+
+const Speeches = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  > *:nth-child(n) {
+    margin-bottom: 12px;
+  }
+  @media (min-width: 700px) {
+    > *:nth-child(n) {
+      width: calc(50% - 6px);
+    }
+  }
 `

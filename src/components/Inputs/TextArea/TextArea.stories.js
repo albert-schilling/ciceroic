@@ -1,9 +1,6 @@
 import React from 'react'
 import TextArea from './TextArea'
-
-const sectionStyles = {
-  padding: '20px',
-}
+import { mobile } from '../../../common/storybookDecorator'
 
 const evaluation = {
   dimensions: {},
@@ -15,7 +12,7 @@ const evaluation = {
 
 export default {
   title: 'Components/Inputs/TextArea',
-  decorators: [storyFn => <section style={sectionStyles}>{storyFn()}</section>],
+  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: TextArea,
 }
 

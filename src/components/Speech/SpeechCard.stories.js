@@ -4,8 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import GlobalStyle from '../../common/GlobalStyle'
 import SpeechCard from './SpeechCard'
 
-const speechBasePath = '/videos/'
-
 const speech = {
   category: 'Lecture',
   date: 'Jun 27, 2014',
@@ -51,10 +49,6 @@ export default {
 
 export const StandardSpeechCard = () => (
   <div style={containerStyles}>
-    <SpeechCard
-      key={speech.id}
-      speech={speech}
-      speechBasePath={speechBasePath}
-    />
+    <SpeechCard key={speech.id} speech={speech} />
   </div>
 )

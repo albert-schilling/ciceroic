@@ -15,27 +15,24 @@ export default function UserEvaluation({
   const {
     evaluation,
     setEvaluation,
+    emptyEvaluation,
     submitEvaluation,
     getEvaluationByCurrentUser,
   } = useForm()
 
   const { editMode, setEditMode } = useSpeech()
-  const [foundEvaluator, setFoundEvaluator] = useState('')
+  const [foundEvaluator, setFoundEvaluator] = useState(false)
   const inputPraiseRef = useRef(null)
   const inputSuggestionsRef = useRef(null)
   const refs = [inputPraiseRef, inputSuggestionsRef]
 
   useEffect(() => {
-    const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
-    if (foundEvaluation != null) {
-      Object.assign(evaluation, foundEvaluation)
-      setEvaluation(evaluation)
-      setFoundEvaluator(true)
-    }
-    setEditMode(false)
-  }, [user, speech])
+    prepareEvaluation({ user, speech })
+  }, [user, speech, foundEvaluator])
 
-  if (foundEvaluator && !editMode) {
+  if (speech.userId === user._id) {
+    return <></>
+  } else if (foundEvaluator && !editMode) {
     return (
       <Evaluation
         title="Your evaluation"
@@ -62,6 +59,7 @@ export default function UserEvaluation({
 
   function handleSubmit(event) {
     submitEvaluation({
+      setFoundEvaluator,
       event,
       evaluation,
       setEvaluation,
@@ -75,5 +73,17 @@ export default function UserEvaluation({
       setEditMode,
       refs,
     })
+  }
+  function prepareEvaluation({ user, speech }) {
+    const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
+    if (foundEvaluation != null) {
+      // Object.assign(evaluation, foundEvaluation)
+      setEvaluation(foundEvaluation)
+      setFoundEvaluator(true)
+    } else {
+      setFoundEvaluator(false)
+      setEvaluation(emptyEvaluation)
+    }
+    setEditMode(false)
   }
 }

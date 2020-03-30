@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 export default function IconProfile({
@@ -39,11 +38,14 @@ export default function IconProfile({
   )
 }
 
-const IconContainer = styled.section`
+const IconContainer = styled.a`
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   width: ${props => props.width};
   height: ${props => props.height};
+  bottom: 20px;
+  right: 20px;
   cursor: pointer;
 `

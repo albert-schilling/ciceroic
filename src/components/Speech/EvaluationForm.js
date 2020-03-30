@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
 import RangeInput from '../Inputs/RangeInput'
-import TextArea from '../TextArea/TextArea'
+import TextArea from '../Inputs/TextArea/TextArea'
 import DefaultButton from '../Inputs/Buttons/DefaultButton'
 
 export default function SpeechEvaluationForm({
@@ -72,38 +72,18 @@ export default function SpeechEvaluationForm({
 const SpeechEvaluationFormStyled = styled.form`
   display: grid;
   grid-gap: 20px;
-  margin: 20px 0;
+  margin-bottom: 20px;
+  border: 1px solid var(--highlight-color);
+  padding: 20px;
+  @media (min-width: 700px) {
+    /* margin: 0 0 20px 0; */
+  }
 `
 const SpeechEvaluationFormSection = styled.section`
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  justify-content: stretch;
   grid-gap: 24px;
-
-  label {
-    width: 100%;
-    grid-gap: 8px;
-    display: flex;
-    flex-direction: column;
-  }
-  input[type='text'] {
-    font-size: 1rem;
-  }
-  input[type='range'] {
-  }
-
-  @media (min-width: 700px) {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-
-    label {
-      width: calc(50% - 12px);
-    }
-  }
 `
 
 const ButtonRow = styled.section`

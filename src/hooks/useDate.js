@@ -1,5 +1,6 @@
 export default function useDate() {
-  function convertTimestampToDate(timestamp) {
+  function convertTimestampToDate(timestampAsNumber = new Date().getTime()) {
+    const timestamp = new Date(timestampAsNumber)
     const weekday = new Intl.DateTimeFormat('en-US', {
       weekday: 'long',
     }).format(timestamp)

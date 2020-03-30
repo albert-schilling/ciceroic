@@ -9,14 +9,16 @@ export default function BroadButton({
   type = 'button',
   color = 'primary',
   styling = '',
+  disabled = false,
 }) {
   return (
     <ButtonStyled
-      className={`${color} + ${styling}`}
+      className={`${color} + ${styling} `}
       name={name}
       autoFocus={autoFocus}
       onClick={callback}
       type={type}
+      disabled={disabled}
     >
       {text}
     </ButtonStyled>
@@ -45,5 +47,8 @@ const ButtonStyled = styled.button`
   &.tertiary {
     background: var(--light-grey);
     color: var(--primary-font-color);
+  }
+  :disabled {
+    cursor: not-allowed;
   }
 `

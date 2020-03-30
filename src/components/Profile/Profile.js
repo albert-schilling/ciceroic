@@ -1,79 +1,143 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { emptyProfile } from '../../data/emptyProfile'
 import { getUser } from '../../services/userServices'
 import IconClose from '../Inputs/Icons/IconClose'
+import SpeechCard from '../Speech/SpeechCard'
+import { getSpeechesByUser } from '../../services/speechServices'
 
-export default function Profile() {
+export default function Profile({
+  speakerId = '',
+  setSpeakerId = () => {},
+  showProfile = false,
+  setShowProfile = () => {},
+  profile = {},
+  activePage = '',
+  setActivePage = () => {},
+  setSpeech,
+}) {
   const [lightbox, setLightbox] = useState(false)
-  let { id } = useParams()
-  const [foreignProfile, setForeignProfile] = useState(emptyProfile)
   const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    getUser(id)
-      .then(res => setForeignProfile(res))
-      .then(() => setLoading(false))
-      .catch(error => console.log('Error retrieving user:', error))
-  }, [id])
+  const [foreignProfile, setForeignProfile] = useState('')
+  const [speechesByUser, setSpeechesByUser] = useState([])
 
+  useEffect(() => {
+    speakerId.length > 0 &&
+      getUser(speakerId)
+        .then(res => setForeignProfile(res))
+        .then(() => setLoading(false))
+        .catch(error => console.log('Error retrieving user:', error))
+    speakerId.length > 0 &&
+      getSpeechesByUser(speakerId).then(res => setSpeechesByUser(res))
+  }, [speakerId])
   return (
-    <Main>
-      {loading ? (
-        <Spinner>
-          <SpinnerBalls />
-        </Spinner>
-      ) : (
-        <>
-          {lightbox ? (
-            <Lightbox>
-              <LightboxClose>
-                <IconClose color="#fff" callback={() => setLightbox(false)} />
-              </LightboxClose>
-              <LightboxImage>
-                <Image
-                  src={
-                    foreignProfile.portrait.length > 0
-                      ? foreignProfile.portrait
-                      : '/images/default_protrait_cicero_001.jpg'
-                  }
-                  alt={
-                    foreignProfile.portrait.length > 0
-                      ? `Portrait by ${foreignProfile.firstName} ${foreignProfile.lastName}`
-                      : 'Default image of a user foreignProfile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
-                  }
+    <Section className={showProfile && 'visible'}>
+      <Wrapper>
+        <IconClose position="topright" callback={() => setShowProfile(false)} />
+
+        {loading ? (
+          <Spinner>
+            <SpinnerBalls />
+          </Spinner>
+        ) : (
+          <>
+            <ProfileSection>
+              {lightbox ? (
+                <Lightbox>
+                  <LightboxClose>
+                    <IconClose
+                      color="#fff"
+                      callback={() => setLightbox(false)}
+                    />
+                  </LightboxClose>
+                  <LightboxImage>
+                    <Image
+                      src={
+                        foreignProfile.portrait &&
+                        foreignProfile.portrait.length > 0
+                          ? foreignProfile.portrait
+                          : '/images/default_protrait_cicero_001.jpg'
+                      }
+                      alt={
+                        foreignProfile.portrait &&
+                        foreignProfile.portrait.length > 0
+                          ? `Portrait by ${foreignProfile.firstName} ${foreignProfile.lastName}`
+                          : 'Default image of a user foreignProfile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
+                      }
+                    />
+                  </LightboxImage>
+                </Lightbox>
+              ) : (
+                <Portrait
+                  onClick={() => setLightbox(true)}
+                  style={{
+                    backgroundImage: `url('${
+                      foreignProfile.portrait &&
+                      foreignProfile.portrait.length > 0
+                        ? foreignProfile.portrait
+                        : '/images/default_protrait_cicero_001.jpg'
+                    }')`,
+                  }}
                 />
-              </LightboxImage>
-            </Lightbox>
-          ) : (
-            <Portrait onClick={() => setLightbox(true)}>
-              <Image
-                src={
-                  foreignProfile.portrait.length > 0
-                    ? foreignProfile.portrait
-                    : '/images/default_protrait_cicero_001.jpg'
-                }
-                alt={
-                  foreignProfile.portrait.length > 0
-                    ? `Portrait by ${foreignProfile.firstName} ${foreignProfile.lastName}`
-                    : 'Default image of a user foreignProfile on Ciceroic, showing Marcus Tullius Cicero, the great rhetorician from ancient Rome.'
-                }
-              />
-            </Portrait>
-          )}
-          <AboutSection>
-            <Name>
-              {foreignProfile.firstName} {foreignProfile.lastName}
-            </Name>
-            <About>{foreignProfile.about}</About>
-          </AboutSection>
-        </>
-      )}
-    </Main>
+              )}
+              <AboutSection>
+                <Name>
+                  {foreignProfile.firstName} {foreignProfile.lastName}
+                </Name>
+                <About>{foreignProfile.about}</About>
+              </AboutSection>
+            </ProfileSection>
+            {speechesByUser.length > 0 ? (
+              <>
+                {speechesByUser.map(speech => {
+                  return (
+                    <>
+                      <p>Speeches by {foreignProfile.firstName}:</p>
+                      <SpeechCard
+                        key={speech._id}
+                        profile={profile}
+                        speech={speech}
+                        setSpeech={setSpeech}
+                        setActivePage={setActivePage}
+                        speakerId={speech.userId}
+                        setSpeakerId={setSpeakerId}
+                        showProfile={showProfile}
+                        setShowProfile={setShowProfile}
+                      />
+                    </>
+                  )
+                })}
+              </>
+            ) : (
+              <p>No speeches yet.</p>
+            )}
+          </>
+        )}
+      </Wrapper>
+    </Section>
   )
 }
 
-const Main = styled.main`
+const Section = styled.section`
+  position: fixed;
+  top: 0;
+  display: none;
+  align-content: flex-start;
+  grid-gap: 20px;
+  margin: 0;
+  padding: 80px 20px 20px 20px;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100%;
+  &.visible {
+    display: grid;
+  }
+`
+
+const Wrapper = styled.div`
+  position: relative;
+  border: 1px solid var(--highlight-color);
+  background: #fff;
+  padding: 12px;
   display: grid;
   justify-self: center;
   align-content: flex-start;
@@ -82,23 +146,20 @@ const Main = styled.main`
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
-  > *:last-child {
-    padding-bottom: 100px;
-  }
+`
 
+const ProfileSection = styled.section`
+  display: grid;
   @media (min-width: 700px) {
     display: grid;
-    grid-template-columns: auto 250px 400px auto;
-    grid-template-areas: '. portrait about .';
+    grid-template: auto / 1fr 1fr;
     grid-gap: 40px;
   }
 `
 
 const Portrait = styled.section`
+  background-size: cover;
   justify-self: center;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   margin: 0 0 20px 0;
   border: 2px solid var(--light-grey);
   border-radius: 50%;
@@ -107,14 +168,12 @@ const Portrait = styled.section`
   overflow: hidden;
   cursor: pointer;
   @media (min-width: 700px) {
-    grid-area: portrait;
     width: 250px;
     height: 250px;
   }
 `
 const AboutSection = styled.section`
   @media (min-width: 700px) {
-    grid-area: about;
     display: grid;
     grid-gap: 12px;
     align-content: center;

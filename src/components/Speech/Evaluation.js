@@ -18,17 +18,25 @@ export default function Evaluation({
   profile,
   speech,
   setSpeech,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
 }) {
   const { handleVoteOnEvaluation } = useForm()
   const { returnDimensionsFromEvaluation } = useSpeech()
 
   const { convertTimestampToDate } = useDate()
-  const timestamp = new Date(evaluation.date)
-  const date = convertTimestampToDate(timestamp)
+  const date = evaluation.date && convertTimestampToDate(evaluation.date)
   const dimensions = returnDimensionsFromEvaluation(evaluation.dimensions)
   return (
     <EvaluationContainer>
-      <EvaluationTitle>{title}</EvaluationTitle>
+      {evaluation.evaluator.id === user._id ? (
+        <EvaluationTitle>{title}</EvaluationTitle>
+      ) : (
+        <EvaluationTitle onClick={showProfile} style={{ cursor: 'pointer' }}>
+          {title}
+        </EvaluationTitle>
+      )}
+
       <Statistics dimensions={dimensions} />
       {evaluation.praise && (
         <Comment
@@ -74,6 +82,12 @@ export default function Evaluation({
       setSpeech,
     })
   }
+  function showProfile(event) {
+    event.preventDefault()
+    setShowProfile(true)
+    setSpeakerId(evaluation.evaluator.id)
+    console.log('showProfile in Evaluation called')
+  }
 }
 
 const EvaluationContainer = styled.section`
@@ -87,8 +101,7 @@ const EvaluationContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   @media (min-width: 700px) {
-    max-width: 600px;
-    align-self: center;
+    align-self: flex-start;
   }
   p {
     line-height: 1.4rem;

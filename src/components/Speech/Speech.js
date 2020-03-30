@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import useForm from '../../hooks/useForm'
 import { getSpeech } from '../../services/speechServices'
@@ -9,16 +8,19 @@ import CommunityEvaluations from './CommunityEvaluations'
 import SpeechStatistics from './SpeechStatistics'
 import UserEvaluation from './UserEvaluation'
 import SpeechDescription from './SpeechDescription/SpeechDescription'
+import useDate from '../../hooks/useDate'
 
 export default function Speech({
-  speechBasePath,
   speech,
   setSpeech,
   profile,
   user,
+  activePage = '',
+  setActivePage = () => {},
+  showProfile = false,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
 }) {
-  let { id } = useParams()
-
   const {
     evaluation,
     setEvaluation,
@@ -30,8 +32,100 @@ export default function Speech({
   } = useForm()
 
   const [activeTab, setActiveTab] = useState('')
+  const { convertTimestampToDate } = useDate()
 
   useEffect(() => {
+    console.log('useEffect in Speech called')
+    console.log(evaluation)
+    speech._id && getSpeechFromDB(speech._id)
+  }, [speech._id])
+
+  return (
+    <>
+      {speech._id ? (
+        <Section
+          className={
+            activePage === '/speech'
+              ? showProfile
+                ? 'blur visible'
+                : 'visible'
+              : ''
+          }
+        >
+          <BackLink onClick={() => setActivePage('')}>
+            <span>&#8612;</span>see all speeches
+          </BackLink>
+          {speech.filename === undefined ? (
+            <p>Video not found.</p>
+          ) : (
+            <VideoStyled role="img" controls>
+              <source src={speech.fileUrl} type="video/mp4" />
+            </VideoStyled>
+          )}
+          <SpeechDescription
+            title={speech.title}
+            profile={profile}
+            speaker={speech.speaker}
+            speakerId={speech.userId}
+            setSpeakerId={setSpeakerId}
+            setShowProfile={setShowProfile}
+            description={speech.description}
+            category={
+              speech.category &&
+              speech.category.charAt(0).toUpperCase() + speech.category.slice(1)
+            }
+            duration={speech.duration}
+            date={speech.date && convertTimestampToDate(speech.date)}
+          />
+          <TabContainerStyled>
+            <Tab
+              handleClick={handleClick}
+              activeTab={activeTab}
+              active={true}
+              title="Feedback"
+            >
+              <UserEvaluation
+                speech={speech}
+                setSpeech={setSpeech}
+                user={user}
+                profile={profile}
+                message={message}
+                setMessage={setMessage}
+              />
+              <CommunityEvaluations
+                user={user}
+                profile={profile}
+                speech={speech}
+                setSpeech={setSpeech}
+                setSpeakerId={setSpeakerId}
+                setShowProfile={setShowProfile}
+              />
+            </Tab>
+            <Tab
+              handleClick={handleClick}
+              activeTab={activeTab}
+              title="Statistics"
+            >
+              <SpeechStatistics speech={speech} />
+            </Tab>
+          </TabContainerStyled>
+          {message.visible === true && (
+            <UserMessage
+              message={message}
+              handleClick={handleClickOnUserMessage}
+            />
+          )}
+        </Section>
+      ) : (
+        <></>
+      )}
+    </>
+  )
+
+  function handleClick(ref) {
+    setActiveTab(ref)
+  }
+  function getSpeechFromDB(id) {
     getSpeech(id)
       .then(res => {
         setSpeech(res)
@@ -41,103 +135,44 @@ export default function Speech({
         const foundEvaluator = searchEvaluator({ user, speech })
         if (foundEvaluator) {
           const foundEvaluation = getEvaluationByCurrentUser({ user, speech })
-          Object.assign(evaluation, foundEvaluation)
-          setEvaluation(evaluation)
+          // Object.assign(evaluation, foundEvaluation)
+          setEvaluation(foundEvaluation)
+        } else {
+          setEvaluation({})
         }
       })
-  }, [])
-  if (profile._id.length > 0) {
-    return (
-      <Main>
-        <NavLinkStyled exact to="/">
-          <span>&#8612;</span>see all speeches
-        </NavLinkStyled>
-        {speech.filename === undefined ? (
-          <p>Video not found.</p>
-        ) : (
-          <VideoStyled role="img" controls>
-            <source src={speechBasePath + speech.filename} type="video/mp4" />
-          </VideoStyled>
-        )}
-        <SpeechDescription
-          title={speech.title}
-          speaker={speech.speaker}
-          description={speech.description}
-          category={speech.category}
-          duration={speech.duration}
-          date={speech.date}
-        />
-        <TabContainerStyled>
-          <Tab
-            handleClick={handleClick}
-            activeTab={activeTab}
-            active={true}
-            title="Feedback"
-          >
-            <UserEvaluation
-              speech={speech}
-              setSpeech={setSpeech}
-              user={user}
-              profile={profile}
-              message={message}
-              setMessage={setMessage}
-            />
-            <CommunityEvaluations
-              user={user}
-              profile={profile}
-              speech={speech}
-              setSpeech={setSpeech}
-            />
-          </Tab>
-          <Tab
-            handleClick={handleClick}
-            activeTab={activeTab}
-            title="Statistics"
-          >
-            <SpeechStatistics speech={speech} />
-          </Tab>
-        </TabContainerStyled>
-        {message.visible === true && (
-          <UserMessage
-            message={message}
-            handleClick={handleClickOnUserMessage}
-          />
-        )}
-      </Main>
-    )
-  } else {
-    return (
-      <Main>
-        <NavLinkStyled exact to="/">
-          <span>&#8612;</span>see all speeches
-        </NavLinkStyled>
-        <p>Waiting on user data.</p>
-      </Main>
-    )
-  }
-
-  function handleClick(ref) {
-    setActiveTab(ref)
   }
 }
 
-const Main = styled.main`
-  margin-bottom: 20px;
-  background: #fff;
+const Section = styled.section`
+  position: fixed;
+  top: 60px;
+  display: none;
+  flex-direction: column;
   padding: 20px;
-  height: 100%;
   overflow-y: scroll;
-  > section:last-child {
-    margin-bottom: 80px;
+  background: #fff;
+  height: 100vh;
+  width: 100%;
+  > *:last-child {
+    padding-bottom: 60px;
+  }
+  &.visible {
+    display: flex;
+  }
+  &.blur {
+    filter: blur(2px);
   }
   @media (min-width: 700px) {
-    display: grid;
-    grid-template-areas: 'backLink backLink' 'video information' 'tab tab';
-    grid-gap: 12px;
+    &.visible {
+      display: grid;
+      grid-template-areas: 'backLink backLink' 'video information' 'tab tab';
+      grid-gap: 12px;
+    }
   }
 `
 
-const NavLinkStyled = styled(NavLink)`
+const BackLink = styled.a`
   grid-area: backLink;
   width: fit-content;
   height: fit-content;
@@ -146,6 +181,7 @@ const NavLinkStyled = styled(NavLink)`
   color: inherit;
   text-decoration: none;
   font-size: 0.8rem;
+  cursor: pointer;
   span {
     padding-top: 4px;
     margin-right: 4px;

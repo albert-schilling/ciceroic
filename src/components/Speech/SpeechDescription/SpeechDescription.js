@@ -3,12 +3,16 @@ import styled from 'styled-components/macro'
 import FoldButton from '../../Inputs/Buttons/FoldButton'
 
 export default function SpeechInformation({
+  profile = {},
   title,
   speaker,
   description,
   category,
   duration,
   date,
+  speakerId = '',
+  setSpeakerId = '',
+  setShowProfile = () => {},
 }) {
   const [visibility, setVisibility] = useState(false)
 
@@ -18,7 +22,14 @@ export default function SpeechInformation({
         <header>
           <SpeechTitle>{title}</SpeechTitle>
         </header>
-        <Speaker>{speaker}</Speaker>
+
+        {profile._id && profile._id === speakerId ? (
+          <Speaker>{speaker}</Speaker>
+        ) : (
+          <Speaker className={'link'} onClick={showProfile}>
+            {speaker}
+          </Speaker>
+        )}
         <SpeechDescription
           className={visibility ? '' : 'hidden'}
           onClick={setVisibilityToTrueIfFalse}
@@ -28,7 +39,7 @@ export default function SpeechInformation({
         </SpeechDescription>
         <SpeechDetails>
           <small>{category}</small>
-          <small>{duration} min</small>
+          {duration && <small>{duration} min</small>}
           <small>{date}</small>
         </SpeechDetails>
       </Container>
@@ -36,6 +47,11 @@ export default function SpeechInformation({
   )
   function setVisibilityToTrueIfFalse() {
     visibility || setVisibility(true)
+  }
+  function showProfile(event) {
+    event.preventDefault()
+    setShowProfile(true)
+    setSpeakerId(speakerId)
   }
 }
 
@@ -52,6 +68,9 @@ const Container = styled.section`
 const Speaker = styled.h4`
   font-size: 1rem;
   font-weight: 500;
+  &.link {
+    cursor: pointer;
+  }
 `
 
 const SpeechDescription = styled.p`

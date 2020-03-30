@@ -2,29 +2,56 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import SpeechCard from './SpeechCard'
 
-export default function SpeechesList({ speeches, setSpeech, speechBasePath }) {
+export default function SpeechesList({
+  profile = {},
+  speeches,
+  setSpeech,
+  activePage = '',
+  setActivePage = () => {},
+  showProfile = false,
+  setShowProfile = () => {},
+  setSpeakerId = () => {},
+}) {
   return (
-    <Main>
+    <Section
+      className={
+        activePage.length > 0 || showProfile
+          ? activePage === '/speech'
+            ? 'hidden'
+            : 'blur'
+          : ''
+      }
+    >
       <SpeechesListContainer>
         {speeches.map(speech => {
           return (
             <SpeechCard
               key={speech._id}
+              profile={profile}
               speech={speech}
               setSpeech={setSpeech}
-              speechBasePath={speechBasePath}
+              setActivePage={setActivePage}
+              speakerId={speech.userId}
+              setSpeakerId={setSpeakerId}
+              showProfile={showProfile}
+              setShowProfile={setShowProfile}
             />
           )
         })}
       </SpeechesListContainer>
-    </Main>
+    </Section>
   )
 }
 
-const Main = styled.main`
-  padding: 20px;
+const Section = styled.section`
   height: 100%;
   overflow-y: scroll;
+  &.blur {
+    filter: blur(2px);
+  }
+  &.hidden {
+    display: none;
+  }
 `
 
 const SpeechesListContainer = styled.section`
