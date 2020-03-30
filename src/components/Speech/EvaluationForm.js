@@ -82,16 +82,8 @@ const SpeechEvaluationFormStyled = styled.form`
 const SpeechEvaluationFormSection = styled.section`
   width: 100%;
   display: grid;
-  justify-content: center;
+  justify-content: stretch;
   grid-gap: 24px;
-  @media (min-width: 700px) {
-    width: 100%;
-    display: flex;
-    grid-gap: 0;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
 `
 
 const ButtonRow = styled.section`

@@ -46,7 +46,6 @@ const InputRangeScale = styled.div`
   display: flex;
   justify-content: space-between;
   span {
-    /* margin-top: -12px; */
     font-size: 0.4rem;
     color: var(--secondary-font-color);
   }
@@ -63,6 +62,7 @@ const Label = styled.label`
 
   input[type='range'] {
     -webkit-appearance: none;
+    -moz-appearance: none;
     background: transparent;
   }
   input[type='range']::-webkit-slider-thumb {
@@ -73,6 +73,21 @@ const Label = styled.label`
     border-radius: 8px;
     border: 1px solid #fff;
     background: var(--secondary-highlight-color);
+  }
+  input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    margin-top: -6px;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    background: var(--secondary-highlight-color);
+  }
+  input[type='range']::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: var(--highlight-color);
+    border-radius: 2px;
   }
   input[type='range']::-webkit-slider-runnable-track {
     width: 100%;

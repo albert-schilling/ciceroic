@@ -20,8 +20,7 @@ export default function Statistics({ dimensions }) {
 const StatisticsList = styled.ul`
   margin: 0 0 20px 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   grid-gap: 8px;
 `
 const StatisticsListItem = styled.li`
