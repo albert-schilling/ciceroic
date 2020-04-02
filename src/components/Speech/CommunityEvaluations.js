@@ -41,12 +41,7 @@ export default function CommunityEvaluations({
             ))}
         </>
       ) : (
-        <>
-          <p>There are no evaluations yet.</p>
-          {speech.userId !== user._id && (
-            <p>Be the first to evaluate this speech!</p>
-          )}
-        </>
+        <></>
       )}
     </>
   )
