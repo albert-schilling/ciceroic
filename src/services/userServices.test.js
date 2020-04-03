@@ -1,4 +1,4 @@
-import { getTestDB, clearTestDB, firebase } from '../spec/testDB'
+import { getTestDB, clearTestDB, firebase } from '../spec/setupFirebaseTestApp'
 import {
   signUp,
   updateUser,
