@@ -1,15 +1,41 @@
-API endpoint: http://localhost:8080
+[debug] [2020-04-03T10:53:55.761Z] ----------------------------------------------------------------------
+[debug] [2020-04-03T10:53:55.763Z] Command:       /Users/albertschilling/.nvm/versions/node/v12.14.1/bin/node /Users/albertschilling/.nvm/versions/node/v12.14.1/bin/firebase emulators:start --only firestore
+[debug] [2020-04-03T10:53:55.763Z] CLI Version:   7.14.0
+[debug] [2020-04-03T10:53:55.763Z] Platform:      darwin
+[debug] [2020-04-03T10:53:55.763Z] Node Version:  v12.14.1
+[debug] [2020-04-03T10:53:55.764Z] Time:          Fri Apr 03 2020 12:53:55 GMT+0200 (Central European Summer Time)
+[debug] [2020-04-03T10:53:55.764Z] ----------------------------------------------------------------------
+[debug] [2020-04-03T10:53:55.764Z] 
+[debug] [2020-04-03T10:53:55.772Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-03T10:53:55.772Z] > authorizing via signed-in user
+[info] i  emulators: Starting emulators: firestore
+[debug] [2020-04-03T10:53:55.807Z] [hub] writing locator at /var/folders/q2/jvlp4smd51jbg5_tlfj2c7480000gn/T/hub-ciceroic.json
+[info] ✔  hub: emulator hub started at http://localhost:4400
+[info] i  firestore: Serving ALL traffic (including WebChannel) on http://localhost:8080
+[warn] ⚠  firestore: Support for WebChannel on a separate port (8081) is DEPRECATED and will go away soon. Please use port above instead.
+[debug] [2020-04-03T10:53:55.823Z] Ignoring unsupported arg: projectId
+[debug] [2020-04-03T10:53:55.823Z] Ignoring unsupported arg: auto_download
+[debug] [2020-04-03T10:53:55.823Z] Starting firestore emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/albertschilling/.cache/firebase/emulators/cloud-firestore-emulator-v1.10.4.jar","--host","localhost","--port",8080,"--rules","/Users/albertschilling/Projects/capstone-project/firestore.rules","--webchannel_port",8081],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false}
+[info] i  firestore: firestore emulator logging to firestore-debug.log
+[debug] [2020-04-03T10:54:02.142Z] API endpoint: http://localhost:8080
+[debug] [2020-04-03T10:54:02.142Z] 
 If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
 
    export FIRESTORE_EMULATOR_HOST=localhost:8080
 
 Dev App Server is now running.
 
-Apr 03, 2020 1:16:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[info] ✔  firestore: firestore emulator started at http://localhost:8080
+[info] i  firestore: For testing set FIRESTORE_EMULATOR_HOST=localhost:8080
+[info] ✔  All emulators started, it is now safe to connect.
+[debug] [2020-04-03T11:16:20.866Z] Apr 03, 2020 1:16:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:37:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:37:03.961Z] Apr 03, 2020 1:37:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:37:04 PM io.netty.util.ReferenceCountUtil safeRelease
+
+[debug] [2020-04-03T11:37:04.828Z] Apr 03, 2020 1:37:04 PM io.netty.util.ReferenceCountUtil safeRelease
 WARNING: Failed to release a message: UnpooledSlicedByteBuf(freed)
 io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1
 	at io.netty.util.internal.ReferenceCountUpdater.toLiveRealRefCnt(ReferenceCountUpdater.java:74)
@@ -50,7 +76,8 @@ io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:830)
 
-Apr 03, 2020 1:37:05 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
+
+[debug] [2020-04-03T11:37:05.044Z] Apr 03, 2020 1:37:05 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
 WARNING: An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
 java.net.SocketException: Connection reset
 	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:345)
@@ -68,21 +95,29 @@ java.net.SocketException: Connection reset
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:830)
 
-Apr 03, 2020 1:38:01 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:38:01.860Z] Apr 03, 2020 1:38:01 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:40:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:40:24.277Z] Apr 03, 2020 1:40:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:41:08 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:41:08.470Z] Apr 03, 2020 1:41:08 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:42:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:42:13.337Z] Apr 03, 2020 1:42:13 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:43:55 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:43:55.134Z] Apr 03, 2020 1:43:55 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:44:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:44:07.077Z] Apr 03, 2020 1:44:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:44:44 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:44:44.060Z] Apr 03, 2020 1:44:44 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:44:44 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
+
+[debug] [2020-04-03T11:44:44.278Z] Apr 03, 2020 1:44:44 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
 WARNING: An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
 java.net.SocketException: Connection reset
 	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:345)
@@ -100,9 +135,11 @@ java.net.SocketException: Connection reset
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:830)
 
-Apr 03, 2020 1:45:10 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:45:10.417Z] Apr 03, 2020 1:45:10 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:45:10 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
+
+[debug] [2020-04-03T11:45:10.615Z] Apr 03, 2020 1:45:10 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
 WARNING: An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
 java.net.SocketException: Connection reset
 	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:345)
@@ -120,15 +157,20 @@ java.net.SocketException: Connection reset
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:830)
 
-Apr 03, 2020 1:45:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:45:24.042Z] Apr 03, 2020 1:45:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:47:52 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:47:52.743Z] Apr 03, 2020 1:47:52 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:48:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:48:47.146Z] Apr 03, 2020 1:48:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:48:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:48:47.207Z] Apr 03, 2020 1:48:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:48:47 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
+
+[debug] [2020-04-03T11:48:47.412Z] Apr 03, 2020 1:48:47 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
 WARNING: An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
 java.net.SocketException: Connection reset
 	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:345)
@@ -146,7 +188,10 @@ java.net.SocketException: Connection reset
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:830)
 
-Apr 03, 2020 1:48:54 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:48:54.296Z] Apr 03, 2020 1:48:54 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Apr 03, 2020 1:49:08 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+
+[debug] [2020-04-03T11:49:08.347Z] Apr 03, 2020 1:49:08 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
+
