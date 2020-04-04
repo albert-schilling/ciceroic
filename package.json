@@ -55,6 +55,7 @@
     "@storybook/preset-create-react-app": "1.5.2",
     "@storybook/react": "5.3.14",
     "cypress": "4.3.0",
-    "json-server": "0.16.1"
+    "json-server": "0.16.1",
+    "nyc": "15.0.1"
   }
 }

@@ -21,17 +21,19 @@ function getUser(id) {
 async function signUp({ email, password, firstName, lastName }) {
   return await authentication
     .createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      addUserToDB(res.user, firstName, lastName)
+    .then(async res => {
+      await addUserToDB({ db, user: res.user, firstName, lastName })
+      await updateUsersDisplayName({ firstName, lastName })
+      await authentication.currentUser.sendEmailVerification()
       return res
     })
-    .catch(function(error) {
+    .catch(error => {
       console.error('Error creating new user: ', error)
       return error
     })
 }
 
-async function addUserToDB(user, firstName, lastName) {
+async function addUserToDB({ db, user, firstName, lastName }) {
   return await db
     .collection('users')
     .doc(user.uid)
@@ -43,25 +45,21 @@ async function addUserToDB(user, firstName, lastName) {
       registered: new Date().getTime(),
       emailVerified: user.emailVerified,
     })
-    .then(function() {
+    .then(() => {
       // console.log('User successfully stored in DB!')
-      updateUsersDisplayName(firstName, lastName)
     })
-    .catch(function(error) {
+    .catch(error => {
       console.error('Error writing document: ', error)
     })
 }
 
-async function updateUsersDisplayName(firstName, lastName) {
+async function updateUsersDisplayName({ firstName, lastName }) {
   return await authentication.currentUser
     .updateProfile({
       displayName: `${firstName} ${lastName}`,
     })
     .then(() => {
       // console.log("User's display name successfully updated.")
-    })
-    .then(() => {
-      authentication.currentUser.sendEmailVerification()
     })
     .catch(error => {
       console.error(`Error updating user's display name:`, error)
@@ -167,6 +165,7 @@ function deletePortrait(profile) {
 
 export {
   signUp,
+  addUserToDB,
   updateUser,
   updateAbout,
   uploadPortrait,
