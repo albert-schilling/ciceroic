@@ -6,5 +6,4 @@ for (let i = 0; i < 10; i++) {
     [`users/${id}`]: { uid: id, email: `${id}@testing.de` },
   })
 }
-console.log('testdata in testdata', testData)
 export default testData

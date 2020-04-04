@@ -64,7 +64,7 @@ export default function Settings({
 
   useEffect(() => {
     profile._id &&
-      getSpeechesByUser(profile._id).then(res => setSpeechesByUser(res))
+      getSpeechesByUser(profile._id).then((res) => setSpeechesByUser(res))
   }, [profile._id])
 
   return (
@@ -291,7 +291,7 @@ export default function Settings({
           <>
             <p>My speeches:</p>
             <Speeches>
-              {speechesByUser.map(speech => {
+              {speechesByUser.map((speech) => {
                 return (
                   <SpeechCard
                     key={speech._id}
@@ -325,7 +325,7 @@ export default function Settings({
   function handleClick(event) {
     event.preventDefault()
     if (event.target.name === 'updateAbout') {
-      updateUser(profile)
+      updateUser({ profile })
       setEditAbout(false)
     }
 
@@ -360,7 +360,7 @@ export default function Settings({
             text: `An email with a link to reset your password has been sent to ${profile.email}`,
           })
         })
-        .catch(error => {
+        .catch((error) => {
           setWaitingForServer(false)
           setPasswordMessage({
             visible: true,
@@ -459,7 +459,7 @@ export default function Settings({
           text: `Your password has been successfully updated.`,
         })
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
         setPasswordMessage({
           visible: true,
@@ -489,7 +489,7 @@ export default function Settings({
     )
     authentication.currentUser
       .reauthenticateWithCredential(credential)
-      .then(res => {
+      .then((res) => {
         setPasswordMessage({
           visible: false,
           text: '',
@@ -497,7 +497,7 @@ export default function Settings({
         setWaitingForServer(false)
         setAllowNewPassword(true)
       })
-      .catch(error => {
+      .catch((error) => {
         error.code === 'auth/wrong-password' &&
           setPasswordMessage({
             visible: true,
