@@ -1,4 +1,4 @@
-import { getTestDB, clearTestDB, firebase } from '../spec/setupFirebaseTestApp'
+import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
 import testData from '../spec/testData'
 
 import {
@@ -35,6 +35,27 @@ afterAll(async () => {
   await clearTestDB()
 })
 
+describe('test getUser()', () => {
+  it('it returns an error if id is undefined', async () => {
+    const res = await getUser({ db, id })
+    console.log('res', res)
+    expect(res).toBe(false)
+    // expect(res.status).toHaveBeenCalledTimes(1)
+    // expect(res.status).toHaveBeenCalledWith(400)
+    // expect(userData._id).toEqual(id)
+  })
+  it('it gets the added user from db', async () => {
+    addUserToDB({
+      db,
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+    })
+    const userData = await getUser({ db, id })
+    expect(userData._id).toEqual(id)
+  })
+})
+
 describe('test signUp logic with signUp(), addUserToDB() and getUser()', () => {
   const signUp = jest.fn(({ db, user, firstName, lastName }) => {
     addUserToDB({ db, user, firstName, lastName })
@@ -60,5 +81,17 @@ describe('test updateUser()', () => {
     await updateUser({ db, profile: testUser })
     const userData = await getUser({ db, id })
     expect(userData.firstName).toEqual(newName)
+  })
+})
+
+// actually this function is not necessary instead merge can be used with update user
+describe('test updateAbout()', () => {
+  it('updates the about text of a user and retrieves the updated user', async () => {
+    const newAbout = 'New biography'
+    testUser._id = testUser.uid
+    testUser.about = newAbout
+    await updateAbout({ db, profile: testUser })
+    const userData = await getUser({ db, id })
+    expect(userData.about).toEqual(newAbout)
   })
 })

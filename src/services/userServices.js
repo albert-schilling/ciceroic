@@ -6,28 +6,27 @@ function getUser({ db = db, id }) {
     .collection('users')
     .doc(id)
     .get()
-    .then((doc) => {
+    .then(doc => {
       // console.log('User found in DB:', doc.exists)
       return doc.exists && doc.data()
     })
-    .then((data) => {
-      return data
-    })
-    .catch((error) => {
-      console.error('Error writing document: ', error)
+    .then(data => data)
+    .catch(error => {
+      console.error('Error getting user: ', error)
+      return error
     })
 }
 
 async function signUp({ email, password, firstName, lastName }) {
   return await authentication
     .createUserWithEmailAndPassword(email, password)
-    .then(async (res) => {
+    .then(async res => {
       await addUserToDB({ db, user: res.user, firstName, lastName })
       await updateUsersDisplayName({ firstName, lastName })
       await authentication.currentUser.sendEmailVerification()
       return res
     })
-    .catch((error) => {
+    .catch(error => {
       console.error('Error creating new user: ', error)
       return error
     })
@@ -48,9 +47,7 @@ async function addUserToDB({ db, user, firstName, lastName }) {
     .then(() => {
       // console.log('User successfully stored in DB.')
     })
-    .catch((error) => {
-      console.error('Error writing document: ', error)
-    })
+    .catch(error => console.error('Error writing document: ', error))
 }
 
 async function updateUsersDisplayName({ firstName, lastName }) {
@@ -61,43 +58,42 @@ async function updateUsersDisplayName({ firstName, lastName }) {
     .then(() => {
       // console.log("User's display name successfully updated.")
     })
-    .catch((error) => {
-      console.error(`Error updating user's display name:`, error)
-    })
+    .catch(error => console.error(`Error updating user's display name:`, error))
 }
 
 async function logIn({ email, password }) {
   return await authentication
     .signInWithEmailAndPassword(email, password)
-    .then((res) => res)
-    .catch((error) => error)
+    .then(res => res)
+    .catch(error => error)
 }
 
 function updateUser({ db = db, profile }) {
-  db.collection('users')
+  return db
+    .collection('users')
     .doc(profile._id)
-    .set({
-      ...profile,
-    })
-    .then(function () {
+    .set(
+      {
+        ...profile,
+      },
+      { merge: true }
+    )
+    .then(() => {
       // console.log('User successfully updated!')
     })
-    .catch(function (error) {
-      console.error('Error writing document: ', error)
-    })
+    .catch(error => console.error('Error writing document: ', error))
 }
-function updateAbout(profile) {
+
+function updateAbout({ db = db, profile }) {
   db.collection('users')
     .doc(profile._id)
     .update({
       about: profile.about,
     })
-    .then(function () {
+    .then(() => {
       // console.log('User successfully updated!')
     })
-    .catch(function (error) {
-      console.error('Error writing document: ', error)
-    })
+    .catch(error => console.error('Error writing document: ', error))
 }
 
 function uploadPortrait({
@@ -111,30 +107,30 @@ function uploadPortrait({
   const portraitReference = storage.ref('images/portraits/' + filename)
   portraitReference
     .put(file)
-    .then((snapshot) => {
+    .then(snapshot => {
       portraitReference
         .getDownloadURL()
-        .then((url) => {
+        .then(url => {
           setProfile({ ...profile, portrait: url })
           updatePortrait(profile, url)
         })
-        .catch((error) => {
+        .catch(error => {
           setMessage({
             ...message,
             visible: true,
             text: `Sorry, there was an error uploading the file.`,
           })
-          console.log('Error uploading file:', error)
+          console.error('Error uploading file:', error)
         })
       console.log('Uploaded file succesfully.')
     })
-    .catch((error) => {
+    .catch(error => {
       setMessage({
         ...message,
         visible: true,
         text: `Sorry, there was an error uploading the file.`,
       })
-      console.log('Error uploading file:', error)
+      console.error('Error uploading file:', error)
     })
 }
 
@@ -144,23 +140,19 @@ function updatePortrait(profile, reference) {
     .update({
       portrait: reference,
     })
-    .then(function () {
-      console.log('User portrait successfully updated!')
-    })
-    .catch(function (error) {
-      console.error('Error writing document: ', error)
-    })
+    .then(() => console.log('User portrait successfully updated!'))
+    .catch(error => console.error('Error writing document: ', error))
 }
 
 function deletePortrait(profile) {
   const portraitReference = storage.refFromURL(profile.portrait)
   return portraitReference
     .delete()
-    .then((snapshot) => {
+    .then(snapshot => {
       console.log('File succesfully deleted.')
       updatePortrait(profile, '')
     })
-    .catch((error) => console.log('Error uploading file:', error))
+    .catch(error => console.error('Error uploading file:', error))
 }
 
 export {
