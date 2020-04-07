@@ -57,10 +57,12 @@
     "acorn": "7.1.1",
     "cypress": "4.3.0",
     "json-server": "0.16.1",
+    "kind-of": "6.0.3",
     "minimist": "1.2.5"
   },
   "resolutions": {
     "minimist": "^1.2.5",
-    "acorn": "^7.1.1"
+    "acorn": "^7.1.1",
+    "kind-of": ">=6.0.3"
   }
 }
