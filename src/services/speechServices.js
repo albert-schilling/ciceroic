@@ -1,4 +1,5 @@
-import { db, storage } from './firebase'
+import * as firebase from './firebase'
+import { storage } from './firebase'
 
 export {
   getSpeeches,
@@ -9,7 +10,7 @@ export {
   patchSpeech,
 }
 
-function getSpeeches() {
+function getSpeeches({ db = firebase.db }) {
   return db
     .collection('speeches')
     .get()
@@ -17,7 +18,7 @@ function getSpeeches() {
     .catch(error => console.error(error))
 }
 
-function getSpeech(id) {
+function getSpeech({ db = firebase.db, id }) {
   return db
     .collection('speeches')
     .doc(id)
@@ -28,7 +29,7 @@ function getSpeech(id) {
     .catch(error => console.error(error))
 }
 
-function getSpeechesByUser(id) {
+function getSpeechesByUser({ db = firebase.db, id }) {
   return db
     .collection('speeches')
     .where('userId', '==', id)
@@ -37,10 +38,10 @@ function getSpeechesByUser(id) {
     .catch(error => console.error(error))
 }
 
-function patchSpeech(id, data) {
+function patchSpeech({ db = firebase.db, id, speech }) {
   db.collection('speeches')
     .doc(id)
-    .update(data)
+    .update(speech)
     .then(() => {
       return db
         .collection('speeches')
@@ -49,22 +50,22 @@ function patchSpeech(id, data) {
     })
     .then(doc => {
       if (doc.exists) {
-        console.log('Speech succesfully patched. Speech:', doc.data())
+        // console.log('Speech succesfully patched. Speech:', doc.data())
         return doc.data()
       }
     })
 }
-function postSpeech({ db = db, speech }) {
+function postSpeech({ db = firebase.db, speech }) {
   return db
     .collection('speeches')
     .add(speech)
     .then(doc => {
-      console.log('Doc. written with id:', doc.id)
+      // console.log('Doc. written with id:', doc.id)
       db.collection('speeches')
         .doc(doc.id)
         .update({ _id: doc.id, uploadStatus: 'uploading' })
         .then(res => {
-          console.log('Speech id successfully written. Speech:', res)
+          // console.log('Speech id successfully written. Speech:', res)
         })
         .catch(error => console.error('Error updating document: ', error))
       return doc.id
@@ -74,9 +75,8 @@ function postSpeech({ db = db, speech }) {
     })
 }
 
-function uploadSpeech(file, filename) {
-  console.log('uploadSpeech called. File:', file, 'filename:', filename)
+function uploadSpeech({ file, filename }) {
+  // console.log('uploadSpeech called. File:', file, 'filename:', filename)
   const speechReference = storage.ref('speeches/' + filename)
-
   return speechReference.put(file)
 }

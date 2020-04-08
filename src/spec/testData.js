@@ -19,7 +19,7 @@ for (let i = 0; i < 2; i++) {
       speaker: `speaker-of-video-${id}`,
       status: `submitted`,
       title: `title-of-video-${id}`,
-      userID: `${id}-${Math.floor(Math.random() * 1000)}`,
+      userId: `${id}-${Math.floor(Math.random() * 1000)}`,
       uploadStatus: 'uploaded',
     },
   })
