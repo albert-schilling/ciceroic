@@ -16,4 +16,5 @@ module.exports = {
   //     lines: 10,
   //   },
   // },
+  setupFiles: ['dotenv/config'],
 }
