@@ -7,7 +7,7 @@ import {
   patchSpeech,
 } from './speechServices'
 import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
-import testData from '../spec/testData'
+import { testSpeechData } from '../spec/testData'
 
 let db
 const userId = Math.floor(Math.random() * 1000)
@@ -27,7 +27,7 @@ const testSpeech = {
 beforeAll(async () => {
   db = await getTestDB(
     { uid: 'testuser', email: 'testuser@testing.com' },
-    testData
+    testSpeechData
   )
 })
 

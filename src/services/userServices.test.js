@@ -1,5 +1,4 @@
 import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
-import testData from '../spec/testData'
 import { addUser, updateUser, getUser } from './userServices'
 
 const id = Math.floor(Math.random() * 1000).toString()
@@ -16,10 +15,7 @@ const testUser = {
 let db
 
 beforeAll(async () => {
-  db = await getTestDB(
-    { uid: 'testuser', email: 'testuser@testing.com' },
-    testData
-  )
+  db = await getTestDB({ uid: 'testuser', email: 'testuser@testing.com' })
   addUser({
     db: db,
     user: testUser,

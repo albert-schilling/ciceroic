@@ -1,5 +1,5 @@
 import { getTestDB, clearTestDB, firebase } from './setupFirebaseTestApp'
-import testData from './testData'
+import { testUserData } from './testData'
 
 describe('test user collection', () => {
   let db
@@ -9,7 +9,7 @@ describe('test user collection', () => {
   beforeAll(async () => {
     db = await getTestDB(
       { uid: 'testuser', email: 'testuser@testing.com' },
-      testData
+      testUserData
     )
     ref = db.collection('users')
   })
@@ -19,13 +19,13 @@ describe('test user collection', () => {
   })
 
   it('check that the user collection has entries', async () => {
-    const size = await ref.get().then((snapshot) => snapshot.size)
+    const size = await ref.get().then(snapshot => snapshot.size)
     expect(size > 0).toBe(true)
   })
-  it('check that the user collection has the exact amount of entries as the testData', async () => {
-    const size = await ref.get().then((snapshot) => snapshot.size)
-    expect(size === Object.entries(testData).length).toBe(true)
+  it('check that the user collection has the exact amount of entries as the testUserData', async () => {
+    const size = await ref.get().then(snapshot => snapshot.size)
+    expect(size).toBe(10)
+    expect(Object.entries(testUserData).length).toBe(10)
+    expect(size === Object.entries(testUserData).length).toBe(true)
   })
-
-  // test addUseToDB
 })
