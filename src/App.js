@@ -40,7 +40,7 @@ function App() {
   const [showProfile, setShowProfile] = useState(false)
 
   useEffect(() => {
-    getSpeeches().then(res => setSpeeches(res))
+    getSpeeches({}).then(res => setSpeeches(res))
   }, [setSpeeches, profile, setProfile])
 
   return (

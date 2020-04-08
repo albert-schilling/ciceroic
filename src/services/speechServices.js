@@ -1,41 +1,15 @@
 import { db, storage } from './firebase'
 
-export function postSpeeches(speeches) {
-  speeches.forEach(speech => {
-    db.collection('speeches')
-      .add(speech)
-      .then(docRef => {
-        console.log('Document written with ID: ', docRef.id)
-        console.log('New Document: ', docRef)
-        const documentId = docRef.id
-        db.collection('speeches')
-          .doc(docRef.id)
-          .update({
-            _id: documentId,
-          })
-        return documentId
-      })
-      .then(documentId => {
-        db.collection('speeches')
-          .doc(documentId)
-          .get()
-          .then(doc => {
-            if (doc.exists) {
-              console.log(
-                'Newly created data coming back from firestore:',
-                doc.data()
-              )
-              return doc.data()
-            }
-          })
-      })
-      .catch(error => {
-        console.error('Error adding document: ', error)
-      })
-  })
+export {
+  getSpeeches,
+  getSpeech,
+  getSpeechesByUser,
+  uploadSpeech,
+  postSpeech,
+  patchSpeech,
 }
 
-export function getSpeeches() {
+function getSpeeches() {
   return db
     .collection('speeches')
     .get()
@@ -43,7 +17,7 @@ export function getSpeeches() {
     .catch(error => console.error(error))
 }
 
-export function getSpeech(id) {
+function getSpeech(id) {
   return db
     .collection('speeches')
     .doc(id)
@@ -54,7 +28,7 @@ export function getSpeech(id) {
     .catch(error => console.error(error))
 }
 
-export function getSpeechesByUser(id) {
+function getSpeechesByUser(id) {
   return db
     .collection('speeches')
     .where('userId', '==', id)
@@ -63,7 +37,7 @@ export function getSpeechesByUser(id) {
     .catch(error => console.error(error))
 }
 
-export function patchSpeech(id, data) {
+function patchSpeech(id, data) {
   db.collection('speeches')
     .doc(id)
     .update(data)
@@ -80,10 +54,10 @@ export function patchSpeech(id, data) {
       }
     })
 }
-export function postSpeech(data) {
+function postSpeech({ db = db, speech }) {
   return db
     .collection('speeches')
-    .add(data)
+    .add(speech)
     .then(doc => {
       console.log('Doc. written with id:', doc.id)
       db.collection('speeches')
@@ -100,7 +74,7 @@ export function postSpeech(data) {
     })
 }
 
-export function uploadSpeech(file, filename) {
+function uploadSpeech(file, filename) {
   console.log('uploadSpeech called. File:', file, 'filename:', filename)
   const speechReference = storage.ref('speeches/' + filename)
 

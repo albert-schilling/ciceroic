@@ -1,27 +1,38 @@
-import { db, authentication, storage } from './firebase'
+import * as firebase from './firebase'
+import { authentication, storage } from './firebase'
 
-function getUser({ db = db, id }) {
-  // console.log('Getting user information ...')
-  return db
-    .collection('users')
-    .doc(id)
-    .get()
-    .then(doc => {
-      // console.log('User found in DB:', doc.exists)
-      return doc.exists && doc.data()
-    })
-    .then(data => data)
-    .catch(error => {
-      console.error('Error getting user: ', error)
-      return error
-    })
+function getUser({ db = firebase.db, id }) {
+  try {
+    return db
+      .collection('users')
+      .doc(id)
+      .get()
+      .then(doc => {
+        // console.log('User found in DB:', doc.exists)
+        return doc.exists && doc.data()
+      })
+      .then(data => data)
+      .catch(error => {
+        console.error('Error getting user: ', error)
+        return error
+      })
+  } catch (error) {
+    console.error('Error getting user: ', error)
+    return error
+  }
 }
 
-async function signUp({ email, password, firstName, lastName }) {
+async function signUp({
+  db = firebase.db,
+  email,
+  password,
+  firstName,
+  lastName,
+}) {
   return await authentication
     .createUserWithEmailAndPassword(email, password)
     .then(async res => {
-      await addUserToDB({ db, user: res.user, firstName, lastName })
+      await addUser({ db, user: res.user, firstName, lastName })
       await updateUsersDisplayName({ firstName, lastName })
       await authentication.currentUser.sendEmailVerification()
       return res
@@ -32,7 +43,7 @@ async function signUp({ email, password, firstName, lastName }) {
     })
 }
 
-async function addUserToDB({ db, user, firstName, lastName }) {
+async function addUser({ db = firebase.db, user, firstName, lastName }) {
   return await db
     .collection('users')
     .doc(user.uid)
@@ -68,7 +79,7 @@ async function logIn({ email, password }) {
     .catch(error => error)
 }
 
-function updateUser({ db = db, profile }) {
+function updateUser({ db = firebase.db, profile }) {
   return db
     .collection('users')
     .doc(profile._id)
@@ -78,18 +89,6 @@ function updateUser({ db = db, profile }) {
       },
       { merge: true }
     )
-    .then(() => {
-      // console.log('User successfully updated!')
-    })
-    .catch(error => console.error('Error writing document: ', error))
-}
-
-function updateAbout({ db = db, profile }) {
-  db.collection('users')
-    .doc(profile._id)
-    .update({
-      about: profile.about,
-    })
     .then(() => {
       // console.log('User successfully updated!')
     })
@@ -111,8 +110,8 @@ function uploadPortrait({
       portraitReference
         .getDownloadURL()
         .then(url => {
+          updateUser({ profile: { ...profile, portrait: url } })
           setProfile({ ...profile, portrait: url })
-          updatePortrait(profile, url)
         })
         .catch(error => {
           setMessage({
@@ -134,34 +133,23 @@ function uploadPortrait({
     })
 }
 
-function updatePortrait(profile, reference) {
-  db.collection('users')
-    .doc(profile._id)
-    .update({
-      portrait: reference,
-    })
-    .then(() => console.log('User portrait successfully updated!'))
-    .catch(error => console.error('Error writing document: ', error))
-}
-
-function deletePortrait(profile) {
+function deletePortrait({ profile }) {
   const portraitReference = storage.refFromURL(profile.portrait)
   return portraitReference
     .delete()
     .then(snapshot => {
       console.log('File succesfully deleted.')
-      updatePortrait(profile, '')
+      updateUser({ profile: { ...profile, portrait: '' } })
     })
     .catch(error => console.error('Error uploading file:', error))
 }
 
 export {
   signUp,
-  addUserToDB,
+  logIn,
+  addUser,
+  getUser,
   updateUser,
-  updateAbout,
   uploadPortrait,
   deletePortrait,
-  getUser,
-  logIn,
 }

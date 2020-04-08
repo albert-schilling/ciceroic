@@ -60,7 +60,7 @@ export default function useSpeech() {
 
   async function submitSpeech({ speech, setSpeech, video, setUploadProgress }) {
     console.log('submitSpeech called. speech:', speech, 'video:', video)
-    const id = await postSpeech(speech)
+    const id = await postSpeech({ speech })
     console.log('Retrieved id from postSpeech:', id)
 
     const storageFilename = `user_${speech.userId}_speech_${id}_${speech.filename}`
