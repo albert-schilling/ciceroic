@@ -1,45 +1,62 @@
-import { render, act } from '@testing-library/react'
-import { getTestDB, clearTestDB } from './spec/setupFirebaseTestApp'
+import { render, act, wait } from '@testing-library/react'
+// import { getTestDB, clearTestDB } from './spec/setupFirebaseTestApp'
 import React from 'react'
 import App from './App'
-import { getSpeeches } from './services/speechServices'
-import testData from './spec/testData'
+import { postSpeech, getSpeeches } from './services/speechServices'
+// import testData from './spec/testData'
 
-let db
+// let db
 
-beforeAll(async () => {
-  db = await getTestDB(
-    { uid: 'testuser', email: 'testuser@testing.com' },
-    testData
-  )
-})
+// beforeAll(async () => {
+//   db = await getTestDB(
+//     { uid: 'testuser', email: 'testuser@testing.com' },
+//     testData
+//   )
+// })
 
-afterAll(async () => {
-  await clearTestDB()
-})
+// afterAll(async () => {
+//   await clearTestDB()
+// })
 
-test.skip('renders "Ciceroic"', async () => {
+const userId = Math.floor(Math.random() * 1000)
+const testSpeech = {
+  category: 'lecture',
+  date: 1585595452083,
+  description: `description-of-video`,
+  fileUrl: `url-to-video`,
+  filename: `filename-of-video`,
+  speaker: `speaker-of-video`,
+  status: `submitted`,
+  title: `title-of-video`,
+  userId,
+  uploadStatus: 'uploaded',
+}
+
+test('renders "Ciceroic"', async () => {
   let logo
   act(() => {
     const { getByRole } = render(<App />)
     logo = getByRole('banner')
   })
+
   expect(logo).toBeInTheDocument()
 })
 
 test.skip('renders all speeches from db', async () => {
-  let speeches
-  await act(() => {
+  // await postSpeech({ speech: testSpeech })
+  let cont
+  act(() => {
     const { container } = render(<App />)
-    speeches = container.querySelectorAll(
-      'article[class*="SpeechCard__SpeechCardBody"]'
-    )
+    cont = container
   })
-  let speechesFromDb
-  await act(async () => {
-    await new Promise(r => setTimeout(r, 2000))
-    speechesFromDb = await getSpeeches({ db })
-  })
+  await setTimeout(() => {}, 4000)
 
-  expect(speeches.length).toBe(speechesFromDb.length)
+  const speeches = cont.getElementsByTagName('article')
+  const speechesFromDb = await getSpeeches({
+    // db
+  })
+  expect(speeches).toBeDefined()
+  // expect(Array.isArray(speeches)).toBe(true)
+  // expect(speeches[0].className).toMatch(/SpeechCard__SpeechCardBody/)
+  expect(speeches.length).toEqual(speechesFromDb.length)
 })

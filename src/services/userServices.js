@@ -121,7 +121,7 @@ function uploadPortrait({
           })
           console.error('Error uploading file:', error)
         })
-      console.log('Uploaded file succesfully.')
+      // console.log('Uploaded file succesfully.')
     })
     .catch(error => {
       setMessage({
@@ -138,10 +138,34 @@ function deletePortrait({ profile }) {
   return portraitReference
     .delete()
     .then(snapshot => {
-      console.log('File succesfully deleted.')
+      // console.log('File succesfully deleted.')
       updateUser({ profile: { ...profile, portrait: '' } })
     })
     .catch(error => console.error('Error uploading file:', error))
+}
+
+function deleteAllUsers({ db = firebase.db } = {}) {
+  return db
+    .collection('users')
+    .get()
+    .then(snapshot => snapshot.docs.map(x => x.data()))
+    .then(users => {
+      return users.map(user => {
+        return db
+          .collection('users')
+          .doc(user._id)
+          .delete()
+          .then(() => {
+            // console.log(`User with id ${user._id} successfully deleted.`)
+            return `User with id ${user._id} successfully deleted.`
+          })
+          .catch(error => {
+            console.error('Error removing document: ', error)
+          })
+      })
+    })
+    .then(() => 'All Users successfully deleted.')
+    .catch(error => console.error(error))
 }
 
 export {
@@ -152,4 +176,5 @@ export {
   updateUser,
   uploadPortrait,
   deletePortrait,
+  deleteAllUsers,
 }

@@ -82,7 +82,7 @@ function postSpeech({ db = firebase.db, speech }) {
 }
 
 function uploadSpeech({ file, filename }) {
-  console.log('uploadSpeech called. File:', file, 'filename:', filename)
+  // console.log('uploadSpeech called. File:', file, 'filename:', filename)
   const speechReference = storage.ref('speeches/' + filename)
   return speechReference.put(file)
 }
@@ -118,8 +118,8 @@ function deleteAllSpeeches({ db = firebase.db } = {}) {
           .doc(speech._id)
           .delete()
           .then(() => {
-            console.log(`Speech with id ${id} successfully deleted.`)
-            return `Speech with id ${id} successfully deleted.`
+            // console.log(`Speech with id ${speech._id} successfully deleted.`)
+            return `Speech with id ${speech._id} successfully deleted.`
           })
           .catch(error => {
             console.error('Error removing document: ', error)

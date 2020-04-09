@@ -1,5 +1,6 @@
-import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
-import { addUser, updateUser, getUser } from './userServices'
+// setup and teardown of emulated test db from firebase/testing
+// import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
+import { addUser, updateUser, getUser, deleteAllUsers } from './userServices'
 
 const id = Math.floor(Math.random() * 1000).toString()
 const testUser = {
@@ -12,27 +13,31 @@ const testUser = {
   portrait: 'url-to-portrait',
 }
 
-let db
+// let db
 
 beforeAll(async () => {
-  db = await getTestDB({ uid: 'testuser', email: 'testuser@testing.com' })
-  addUser({
-    db: db,
-    user: testUser,
-    firstName: testUser.firstName,
-    lastName: testUser.lastName,
-  })
+  // emulated test db with firebase/testing -> setup db
+  // db = await getTestDB({ uid: 'testuser', email: 'testuser@testing.com' })
+  // addUser({
+  //   db: db,
+  //   user: testUser,
+  //   firstName: testUser.firstName,
+  //   lastName: testUser.lastName,
+  // })
+  await deleteAllUsers()
 })
 
 afterAll(async () => {
-  await clearTestDB()
+  // emulated test db with firebase/testing -> teardown db
+  // await clearTestDB()
 })
 
 describe('test getUser()', () => {
   it('it returns an error if id is undefined', async () => {
-    const res = await getUser({ db, id: undefined })
-    console.log('typeof', typeof res)
-
+    const res = await getUser({
+      // db,
+      id: undefined,
+    })
     expect(typeof res === 'object').toBe(true)
     expect(res instanceof Error).toBe(true)
     expect(res.name).toMatch(/FirebaseError/)
@@ -52,29 +57,47 @@ describe('test getUser()', () => {
       lastName: `${secondId}LastName`,
     }
     await addUser({
-      db,
+      // db,
       user: testUser2,
       firstName: testUser2.firstName,
       lastName: testUser2.lastName,
     })
-    const userData = await getUser({ db, id: secondId })
+    const userData = await getUser({
+      // db,
+      id: secondId,
+    })
     expect(userData._id).toEqual(secondId)
   })
 })
 
 describe('test signUp logic with signUp(), addUser() and getUser()', () => {
-  const signUp = jest.fn(({ db, user, firstName, lastName }) => {
-    addUser({ db, user, firstName, lastName })
-  })
+  const signUp = jest.fn(
+    ({
+      // db,
+      user,
+      firstName,
+      lastName,
+    }) => {
+      addUser({
+        // db,
+        user,
+        firstName,
+        lastName,
+      })
+    }
+  )
 
   it('signs up a user and checks its existance in the db user collection', async () => {
     await signUp({
-      db,
+      // db,
       user: testUser,
       firstName: testUser.firstName,
       lastName: testUser.lastName,
     })
-    const userData = await getUser({ db, id })
+    const userData = await getUser({
+      // db,
+      id,
+    })
     expect(userData._id).toEqual(id)
   })
 })
@@ -83,38 +106,100 @@ describe('test updateUser()', () => {
   it('updates the firstName of the user in db', async () => {
     const newName = 'updatedName'
     testUser.firstName = newName
-    await updateUser({ db, profile: testUser })
-    const userData = await getUser({ db, id })
+    await updateUser({
+      // db,
+      profile: testUser,
+    })
+    const userData = await getUser({
+      // db,
+      id,
+    })
     expect(userData.firstName).toEqual(newName)
   })
   it('adds or updates the url for the user portrait in db', async () => {
     const url = 'url-to-new-portrait'
-    await updateUser({ db, profile: { ...testUser, portrait: url } })
-    const userData = await getUser({ db, id })
+    await updateUser({
+      // db,
+      profile: { ...testUser, portrait: url },
+    })
+    const userData = await getUser({
+      // db,
+      id,
+    })
     expect(userData.portrait).toEqual(url)
   })
 })
 
 describe('test uploadPortrait()', () => {
-  const uploadPortrait = jest.fn(({ db, profile, url }) => {
-    updateUser({ db, profile: { ...profile, portrait: url } })
-  })
+  const uploadPortrait = jest.fn(
+    ({
+      // db,
+      profile,
+      url,
+    }) => {
+      updateUser({
+        // db,
+        profile: { ...profile, portrait: url },
+      })
+    }
+  )
 
   it('uploads a user portrait and set the url in db', async () => {
     const url = 'url-to-new-portrait'
-    await uploadPortrait({ db, profile: testUser, url: url })
-    const userData = await getUser({ db, id })
+    await uploadPortrait({
+      // db,
+      profile: testUser,
+      url: url,
+    })
+    const userData = await getUser({
+      // db,
+      id,
+    })
     expect(userData.portrait).toEqual(url)
   })
 })
 
 describe('test deletePortrait()', () => {
-  const deletePortrait = jest.fn(({ db, profile }) => {
-    updateUser({ db, profile: { ...profile, portrait: '' } })
-  })
+  const deletePortrait = jest.fn(
+    ({
+      // db,
+      profile,
+    }) => {
+      updateUser({
+        // db,
+        profile: { ...profile, portrait: '' },
+      })
+    }
+  )
   it('deletes a user portrait from storage and sets the url to empty string in db', async () => {
-    await deletePortrait({ db, profile: testUser })
-    const userData = await getUser({ db, id })
+    await deletePortrait({
+      // db,
+      profile: testUser,
+    })
+    const userData = await getUser({
+      // db,
+      id,
+    })
     expect(userData.portrait).toEqual('')
+  })
+})
+
+describe('test deleteAllUsers()', () => {
+  it('deletes all users from db', async () => {
+    await addUser({
+      // db,
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+    })
+
+    const userData = await getUser({
+      // db,
+      id,
+    })
+    expect(userData._id).toEqual(id)
+
+    const res = await deleteAllUsers()
+    expect(res).toMatch(/All Users successfully deleted./)
   })
 })
