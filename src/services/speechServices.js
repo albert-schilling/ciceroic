@@ -8,6 +8,7 @@ export {
   uploadSpeech,
   postSpeech,
   patchSpeech,
+  deleteSpeech,
 }
 
 function getSpeeches({ db = firebase.db } = {}) {
@@ -24,7 +25,11 @@ function getSpeech({ db = firebase.db, id }) {
     .doc(id)
     .get()
     .then(doc => {
-      return doc.data()
+      if (doc.exists) {
+        return doc.data()
+      } else {
+        return new Error('Speech not found.')
+      }
     })
     .catch(error => console.error(error))
 }
@@ -76,7 +81,27 @@ function postSpeech({ db = firebase.db, speech }) {
 }
 
 function uploadSpeech({ file, filename }) {
-  // console.log('uploadSpeech called. File:', file, 'filename:', filename)
+  console.log('uploadSpeech called. File:', file, 'filename:', filename)
   const speechReference = storage.ref('speeches/' + filename)
   return speechReference.put(file)
+}
+
+function deleteSpeech({ db = firebase.db, id, profile }) {
+  if (profile.firstName !== 'Cypress' || profile.lastName !== 'Cypress')
+    return new Error('Sorry, only the test user is allowed to delete a speech.')
+  try {
+    return db
+      .collection('speeches')
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log(`Speech with id ${id} successfully deleted.`)
+        return `Speech with id ${id} successfully deleted.`
+      })
+      .catch(error => {
+        console.error('Error removing document: ', error)
+      })
+  } catch (error) {
+    return error
+  }
 }
