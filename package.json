@@ -20,17 +20,17 @@
     "styled-components": "5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start dotenv_config_path=.env.test",
     "build": "react-scripts build",
     "deploy": "npm run build && firebase deploy --only hosting",
-    "test": "set CI=true && react-scripts test",
-    "test:watch": "react-scripts test",
-    "test:coverage": "set CI=true && react-scripts test --coverage --watchAll=false",
+    "test": "set CI=true && react-scripts test dotenv_config_path=.env.test",
+    "test:watch": "react-scripts test dotenv_config_path=.env.test",
+    "test:coverage": "set CI=true && react-scripts test --coverage --watchAll=false dotenv_config_path=.env.test",
     "istanbul": "open coverage/lcov-report/index.html",
     "firebase-emulator": "firebase emulators:start --only firestore",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 db.json",
-    "cypress": "cypress open",
+    "cypress": "cypress open dotenv_config_path=.env.test",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },

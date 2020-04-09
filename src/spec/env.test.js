@@ -1,4 +1,6 @@
 // unit tests for env file
+// require('dotenv').config({ path: __dirname + '../../.env.test' })
+
 describe('env', () => {
   it('should have a React App Api Key', () => {
     expect(process.env.REACT_APP_API_KEY).toBeDefined()
@@ -12,11 +14,11 @@ describe('env', () => {
   it('should have a React App Project ID', () => {
     expect(process.env.REACT_APP_PROJECT_ID).toBeDefined()
   })
-  it('Project ID should be ciceroic', () => {
-    expect(process.env.REACT_APP_PROJECT_ID).toEqual('ciceroic')
+  it('Project ID should be ciceroic-test', () => {
+    expect(process.env.REACT_APP_PROJECT_ID).toEqual('ciceroic-test')
   })
-  it('Project ID should not be some gibberish', () => {
-    expect(process.env.REACT_APP_PROJECT_ID).not.toEqual('some gibberish')
+  it('Project ID should not be ciceroic', () => {
+    expect(process.env.REACT_APP_PROJECT_ID).not.toEqual('ciceroic')
   })
 
   it('should have a React App Storage Bucket', () => {
