@@ -64,7 +64,7 @@ export default function Settings({
 
   useEffect(() => {
     profile._id &&
-      getSpeechesByUser(profile._id).then(res => setSpeechesByUser(res))
+      getSpeechesByUser({ id: profile._id }).then(res => setSpeechesByUser(res))
   }, [profile._id])
 
   return (

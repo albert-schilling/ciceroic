@@ -91,7 +91,7 @@ export default function useForm() {
 
     setSpeech(speech)
 
-    patchSpeech(speech._id, speech)
+    patchSpeech({ id: speech._id, speech })
   }
 
   function searchMissingInput({ refs, message, setMessage }) {
@@ -160,7 +160,7 @@ export default function useForm() {
 
     setSpeech(speech)
 
-    patchSpeech(speech._id, speech)
+    patchSpeech({ id: speech._id, speech })
 
     function addSingleVoteTypeIfMissing() {
       evaluation.hasOwnProperty(voteType) ||

@@ -38,7 +38,7 @@ test.skip('renders all speeches from db', async () => {
   let speechesFromDb
   await act(async () => {
     await new Promise(r => setTimeout(r, 2000))
-    speechesFromDb = await getSpeeches(db)
+    speechesFromDb = await getSpeeches({ db })
   })
 
   expect(speeches.length).toBe(speechesFromDb.length)

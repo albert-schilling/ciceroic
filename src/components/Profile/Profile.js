@@ -23,11 +23,11 @@ export default function Profile({
   useEffect(() => {
     speakerId.length > 0 &&
       getUser({ id: speakerId })
-        .then((res) => setForeignProfile(res))
+        .then(res => setForeignProfile(res))
         .then(() => setLoading(false))
-        .catch((error) => console.log('Error retrieving user:', error))
+        .catch(error => console.log('Error retrieving user:', error))
     speakerId.length > 0 &&
-      getSpeechesByUser(speakerId).then((res) => setSpeechesByUser(res))
+      getSpeechesByUser({ id: speakerId }).then(res => setSpeechesByUser(res))
   }, [speakerId])
   return (
     <Section className={showProfile && 'visible'}>
@@ -88,7 +88,7 @@ export default function Profile({
             </ProfileSection>
             {speechesByUser.length > 0 ? (
               <>
-                {speechesByUser.map((speech) => {
+                {speechesByUser.map(speech => {
                   return (
                     <>
                       <p>Speeches by {foreignProfile.firstName}:</p>

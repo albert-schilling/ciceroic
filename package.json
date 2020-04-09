@@ -20,17 +20,19 @@
     "styled-components": "5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start dotenv_config_path=.env.test",
+    "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:dev": "env-cmd -f .env.development react-scripts build",
     "deploy": "npm run build && firebase deploy --only hosting",
-    "test": "set CI=true && react-scripts test dotenv_config_path=.env.test",
-    "test:watch": "react-scripts test dotenv_config_path=.env.test",
-    "test:coverage": "set CI=true && react-scripts test --coverage --watchAll=false dotenv_config_path=.env.test",
+    "deploy:dev": "npm run build:dev && firebase deploy -P dev --only hosting",
+    "test": "dotenv_config_path=.env.development && set CI=true && react-scripts test ",
+    "test:watch": "dotenv_config_path=.env.development && react-scripts test",
+    "test:coverage": "dotenv_config_path=.env.development && set CI=true && react-scripts test --coverage --watchAll=false ",
     "istanbul": "open coverage/lcov-report/index.html",
     "firebase-emulator": "firebase emulators:start --only firestore",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 db.json",
-    "cypress": "cypress open dotenv_config_path=.env.test",
+    "cypress": "dotenv_config_path=.env.development && cypress open ",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -59,6 +61,7 @@
     "@storybook/preset-create-react-app": "1.5.2",
     "@storybook/react": "5.3.14",
     "cypress": "4.3.0",
+    "env-cmd": "10.1.0",
     "json-server": "0.16.1",
     "nyc": "15.0.1"
   }

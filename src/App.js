@@ -40,7 +40,7 @@ function App() {
   const [showProfile, setShowProfile] = useState(false)
 
   useEffect(() => {
-    getSpeeches({}).then(res => setSpeeches(res))
+    getSpeeches().then(res => setSpeeches(res))
   }, [setSpeeches, profile, setProfile])
 
   return (
@@ -57,8 +57,11 @@ function App() {
                     {user && user._id ? (
                       speeches === undefined ? (
                         <p style={{ padding: '20px' }}>
-                          Sorry, we cannot connect to the server. Please, try
-                          again later.
+                          There are no speeches uploaded, yet. Be the first to
+                          upload a speech!
+                          <br />
+                          Click the button in the bottom left corner to upload a
+                          speech.
                         </p>
                       ) : (
                         <Main>

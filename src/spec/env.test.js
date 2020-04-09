@@ -15,7 +15,7 @@ describe('env', () => {
     expect(process.env.REACT_APP_PROJECT_ID).toBeDefined()
   })
   it('Project ID should be ciceroic-test', () => {
-    expect(process.env.REACT_APP_PROJECT_ID).toEqual('ciceroic-test')
+    expect(process.env.REACT_APP_PROJECT_ID).toEqual('ciceroic-dev')
   })
   it('Project ID should not be ciceroic', () => {
     expect(process.env.REACT_APP_PROJECT_ID).not.toEqual('ciceroic')

@@ -10,7 +10,7 @@ export {
   patchSpeech,
 }
 
-function getSpeeches({ db = firebase.db }) {
+function getSpeeches({ db = firebase.db } = {}) {
   return db
     .collection('speeches')
     .get()
