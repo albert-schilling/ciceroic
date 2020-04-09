@@ -126,7 +126,7 @@ export default function Speech({
     setActiveTab(ref)
   }
   function getSpeechFromDB(id) {
-    getSpeech(id)
+    getSpeech({ id })
       .then(res => {
         setSpeech(res)
         return res

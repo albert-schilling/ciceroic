@@ -60,11 +60,11 @@ export default function useSpeech() {
 
   async function submitSpeech({ speech, setSpeech, video, setUploadProgress }) {
     console.log('submitSpeech called. speech:', speech, 'video:', video)
-    const id = await postSpeech(speech)
+    const id = await postSpeech({ speech })
     console.log('Retrieved id from postSpeech:', id)
 
     const storageFilename = `user_${speech.userId}_speech_${id}_${speech.filename}`
-    const upload = uploadSpeech(video, storageFilename)
+    const upload = uploadSpeech({ file: video, filename: storageFilename })
     console.log('Got response (upload) from uploadSpeech:', upload)
     Object.assign(speech, {
       _id: id,
@@ -113,7 +113,7 @@ export default function useSpeech() {
         Object.assign(speech, { uploadStatus: 'uploaded', fileUrl: url })
         setSpeech(speech)
         console.log('Uploading video successful. Speech:', speech)
-        patchSpeech(speech._id, speech)
+        patchSpeech({ id: speech._id, speech })
       }
     )
   }

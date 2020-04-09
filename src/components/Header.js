@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 export default function Header() {
   return (
     <HeaderStyled>
-      <h1 id="Ciceroic">
+      <h1 role="banner" id="Ciceroic">
         <svg
           aria-labelledby="CiceroicLogo CiceroicLogoDescription"
           role="img"

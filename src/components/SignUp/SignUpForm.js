@@ -147,7 +147,7 @@ export default function UserForm({ profile, setProfile, history }) {
       text: '',
     })
 
-    signUp(profile)
+    signUp({ ...profile })
       .then(res => {
         if (res.code === 'auth/email-already-in-use') {
           setShowResetPasswordButton(true)

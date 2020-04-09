@@ -1,54 +1,189 @@
-import { getSpeeches, patchSpeech } from './speechServices'
+import {
+  getSpeeches,
+  getSpeech,
+  getSpeechesByUser,
+  uploadSpeech,
+  postSpeech,
+  patchSpeech,
+  deleteSpeech,
+  deleteAllSpeeches,
+} from './speechServices'
 
-describe('getSpeeches', () => {
-  it('returns an array', () => {
-    expect(getSpeeches().then(res => Array.isArray(res))).resolves.toBe(true)
+// setup and teardown of emulated test db from firebase/testing
+// import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
+// import { testSpeechData } from '../spec/testData'
+
+import * as video from '../spec/test-video.mov'
+
+// let db
+const userId = Math.floor(Math.random() * 1000)
+const testSpeech = {
+  category: 'lecture',
+  date: 1585595452083,
+  description: `description-of-video`,
+  fileUrl: `url-to-video`,
+  filename: `filename-of-video`,
+  speaker: `speaker-of-video`,
+  status: `submitted`,
+  title: `title-of-video`,
+  userId,
+  uploadStatus: 'uploaded',
+}
+
+beforeAll(async () => {
+  // emulated test db with firebase/testing -> setup db
+  // db = await getTestDB(
+  //   { uid: 'testuser', email: 'testuser@testing.com' },
+  //   testSpeechData
+  // )
+  await deleteAllSpeeches()
+})
+
+afterAll(async () => {
+  // emulated test db with firebase/testing -> teardown db
+  // await clearTestDB()
+  // clear real db of dev project
+})
+
+describe('postSpeech() and getSpeech()', () => {
+  it('posts a speech in db', async () => {
+    const id = await postSpeech({
+      // db,
+      speech: testSpeech,
+    })
+    expect(typeof id).toEqual('string')
+    expect(id.length).toBeGreaterThan(0)
+  })
+
+  it('posts a speech and retrieves the speech by id', async () => {
+    const id = await postSpeech({
+      // db,
+      speech: testSpeech,
+    })
+    const retrievedSpeech = await getSpeech({
+      // db,
+      id,
+    })
+    expect(retrievedSpeech._id).toEqual(id)
+    expect(retrievedSpeech.category).toEqual('lecture')
+    expect(retrievedSpeech.userId).toEqual(userId)
   })
 })
 
-describe('patchSpeech', () => {
-  it.skip('patches an entry and gets back the updated array', async () => {
-    const speechNumber = Math.floor(Math.random() * 5 + 1)
-    const speech = await getSpeeches(speechNumber)
-    const randomFirstName = 'TestNr' + Math.floor(Math.random() * 1000000)
-    const randomLastName = 'TestNr' + Math.floor(Math.random() * 1000000)
-    const date = new Date().getTime()
-    const evaluation = {
-      dimensions: {
-        'Gestures And Facial Expressions': Math.floor(Math.random() * 5 + 1),
-        'Pronounciation and Vocal Variety': Math.floor(Math.random() * 5 + 1),
-        'Comprehensibility and Structure': Math.floor(Math.random() * 5 + 1),
-        'Stylistic Devices': Math.floor(Math.random() * 5 + 1),
-        'Credible and Convincing': Math.floor(Math.random() * 5 + 1),
-      },
-      evaluator: { firstName: randomFirstName, lastName: randomLastName },
-      date: date,
-    }
-    speech.evaluations.push(evaluation)
-
-    await patchSpeech(speechNumber, speech)
-    const updatedSpeech = await getSpeeches(speechNumber)
-    const updatedEvaluation =
-      updatedSpeech.evaluations[updatedSpeech.evaluations.length - 1]
-
-    expect(updatedEvaluation.evaluator.firstName === randomFirstName).toBe(true)
-    expect(updatedEvaluation.evaluator.lastName === randomLastName).toBe(true)
-    expect(updatedEvaluation.date === date).toBe(true)
+describe('getSpeeches()', () => {
+  it('returns an array if there are speeches', async () => {
+    const res = await getSpeeches({
+      // db
+    })
+    expect(Array.isArray(res)).toBe(true)
+    expect(res[0].description).toEqual('description-of-video')
   })
 })
 
-describe('patchSpeech', () => {
-  it.skip('delete all evaluations', async () => {
-    let speeches = await getSpeeches()
-    await speeches.forEach(speech => {
-      speech.evaluations = []
-      const id = speech.id
-      patchSpeech(id, speech)
+describe('patchSpeech()', () => {
+  it('posts a speech, then patches the speech and retrieves the updated speech', async () => {
+    const id = await postSpeech({
+      // db,
+      speech: testSpeech,
     })
-    speeches = await getSpeeches()
+    testSpeech.category = 'comedy'
+    await patchSpeech({
+      // db,
+      id,
+      speech: testSpeech,
+    })
+    const speechData = await getSpeech({
+      // db,
+      id,
+    })
+    expect(speechData.category).not.toEqual('lecture')
+    expect(speechData.category).toEqual(testSpeech.category)
+  })
+})
 
-    speeches.forEach(speech => {
-      expect(speech.evaluations.length).toBe(0)
+describe('getSpeeches()', () => {
+  it("posts a speech and then gets the user's speeches by his/her id", async () => {
+    const id = await postSpeech({
+      // db,
+      speech: testSpeech,
     })
+    const speeches = await getSpeechesByUser({
+      // db,
+      id: userId,
+    })
+    expect(typeof speeches).toEqual('object')
+    expect(Array.isArray(speeches)).toBe(true)
+    expect(speeches.length).toBeGreaterThan(0)
+    expect(speeches[0].userId).toEqual(userId)
+  })
+})
+
+// it is not possible to read a file in js due to security/privacy reasons
+describe.skip('uploadSpeech()', () => {
+  it("posts a speech and then gets the user's speeches by his/her id", async () => {
+    const res = await uploadSpeech({ file: video, filename: video.default })
+    expect(res).toBeDefined()
+  })
+})
+
+describe('deleteSpeech()', () => {
+  it("returns an error if firstname and lastname does not match 'Cypress'", async () => {
+    const res = await deleteSpeech({
+      id: 'randomId',
+      profile: { firstName: 'Any', lastName: 'User' },
+    })
+
+    expect(typeof res === 'object').toBe(true)
+    expect(res instanceof Error).toBe(true)
+    // expect(res.name).toMatch(/FirebaseError/)
+    expect(res.message).not.toMatch(/Some gibberish/)
+    expect(res.message).toMatch(
+      /Sorry, only the test user is allowed to delete a speech./
+    )
+  })
+
+  it('posts a speech and deletes it afterwards', async () => {
+    const id = await postSpeech({
+      // db,
+      speech: { ...testSpeech, title: 'delete-test' },
+    })
+    const retrievedSpeech = await getSpeech({
+      // db,
+      id,
+    })
+    expect(retrievedSpeech._id).toEqual(id)
+    expect(retrievedSpeech.userId).toEqual(userId)
+    let res = await deleteSpeech({
+      id,
+      profile: { firstName: 'Cypress', lastName: 'Cypress' },
+    })
+    expect(res).toMatch(/successfully deleted/)
+    // await setTimeout(() => {
+    //   ;() => {}
+    // }, 2000)
+    res = await getSpeech({
+      // db,
+      id,
+    })
+    expect(typeof res === 'object').toBe(true)
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/Speech not found/)
+  })
+})
+
+describe('deleteAllSpeeches()', () => {
+  it('posts one speech and deletes all speeches', async () => {
+    const id = await postSpeech({
+      // db,
+      speech: { ...testSpeech, title: 'delete-test' },
+    })
+    const retrievedSpeech = await getSpeech({
+      // db,
+      id,
+    })
+    expect(retrievedSpeech._id).toEqual(id)
+    expect(retrievedSpeech.userId).toEqual(userId)
+    const res = await deleteAllSpeeches()
+    expect(res).toMatch(/All speeches successfully deleted./)
   })
 })

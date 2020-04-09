@@ -95,7 +95,7 @@ export default function UserForm({ profile, setProfile }) {
       })
     }
     setWaitingForServer(true)
-    logIn(profile).then(res => {
+    logIn({ ...profile }).then(res => {
       if (res.code === 'auth/wrong-password') {
         setWaitingForServer(false)
         setAuthenticationTries(authenticationTries + 1)
@@ -119,7 +119,7 @@ export default function UserForm({ profile, setProfile }) {
         return setMessage({
           visible: true,
           text:
-            'Sorry, this email has not been found. If you are a new user, please, click the sign in button.',
+            'Sorry, this email has not been found. If you are a new user, please, click the "Sign Up"-button to register.',
         })
       }
     })

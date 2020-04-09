@@ -64,7 +64,7 @@ export default function Settings({
 
   useEffect(() => {
     profile._id &&
-      getSpeechesByUser(profile._id).then(res => setSpeechesByUser(res))
+      getSpeechesByUser({ id: profile._id }).then(res => setSpeechesByUser(res))
   }, [profile._id])
 
   return (
@@ -325,7 +325,7 @@ export default function Settings({
   function handleClick(event) {
     event.preventDefault()
     if (event.target.name === 'updateAbout') {
-      updateUser(profile)
+      updateUser({ profile })
       setEditAbout(false)
     }
 
@@ -333,7 +333,7 @@ export default function Settings({
       setConfirmDeletePortrait(true)
     }
     if (event.target.name === 'confirmDeletePortrait') {
-      deletePortrait(profile).then(setProfile({ ...profile, portrait: '' }))
+      deletePortrait({ profile }).then(setProfile({ ...profile, portrait: '' }))
       setConfirmDeletePortrait(false)
       setLightbox(false)
     }

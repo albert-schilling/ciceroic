@@ -86,7 +86,6 @@ export default function Evaluation({
     event.preventDefault()
     setShowProfile(true)
     setSpeakerId(evaluation.evaluator.id)
-    console.log('showProfile in Evaluation called')
   }
 }
 

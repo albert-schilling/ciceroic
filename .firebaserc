@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "ciceroic"
+    "default": "ciceroic",
+    "dev": "ciceroic-dev"
   }
 }

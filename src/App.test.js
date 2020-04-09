@@ -1,24 +1,62 @@
-import { render, act } from '@testing-library/react'
+import { render, act, wait } from '@testing-library/react'
+// import { getTestDB, clearTestDB } from './spec/setupFirebaseTestApp'
 import React from 'react'
 import App from './App'
-import { getSpeeches } from './services/speechServices'
+import { postSpeech, getSpeeches } from './services/speechServices'
+// import testData from './spec/testData'
+
+// let db
+
+// beforeAll(async () => {
+//   db = await getTestDB(
+//     { uid: 'testuser', email: 'testuser@testing.com' },
+//     testData
+//   )
+// })
+
+// afterAll(async () => {
+//   await clearTestDB()
+// })
+
+const userId = Math.floor(Math.random() * 1000)
+const testSpeech = {
+  category: 'lecture',
+  date: 1585595452083,
+  description: `description-of-video`,
+  fileUrl: `url-to-video`,
+  filename: `filename-of-video`,
+  speaker: `speaker-of-video`,
+  status: `submitted`,
+  title: `title-of-video`,
+  userId,
+  uploadStatus: 'uploaded',
+}
 
 test('renders "Ciceroic"', async () => {
-  const { getByText } = render(<App />)
-  const linkElement = getByText(/Ciceroic/i)
-  expect(linkElement).toBeInTheDocument()
-})
-
-test('renders all speeches from db', async () => {
-  const { container } = render(<App />)
-  let speechesFromDb
-  await act(async () => {
-    await new Promise(r => setTimeout(r, 2000))
-    speechesFromDb = await getSpeeches()
+  let logo
+  act(() => {
+    const { getByRole } = render(<App />)
+    logo = getByRole('banner')
   })
 
-  const speeches = container.querySelectorAll(
-    'article[class*="SpeechCard__SpeechCardBody"]'
-  )
-  expect(speeches.length).toBe(speechesFromDb.length)
+  expect(logo).toBeInTheDocument()
+})
+
+test.skip('renders all speeches from db', async () => {
+  // await postSpeech({ speech: testSpeech })
+  let cont
+  act(() => {
+    const { container } = render(<App />)
+    cont = container
+  })
+  await setTimeout(() => {}, 4000)
+
+  const speeches = cont.getElementsByTagName('article')
+  const speechesFromDb = await getSpeeches({
+    // db
+  })
+  expect(speeches).toBeDefined()
+  // expect(Array.isArray(speeches)).toBe(true)
+  // expect(speeches[0].className).toMatch(/SpeechCard__SpeechCardBody/)
+  expect(speeches.length).toEqual(speechesFromDb.length)
 })

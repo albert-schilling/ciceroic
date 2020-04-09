@@ -11,6 +11,10 @@ const speechCategories = [
     value: 'biography',
     name: 'Biography',
   },
+  {
+    value: 'pitch',
+    name: 'Pitch',
+  },
 ]
 
 export { speechCategories }

@@ -174,6 +174,17 @@ export default function UploadForm({
   function handleUpload(event) {
     event.persist()
     const file = event.target.files[0]
+    const fileSize = file.size / 1000000000
+    const maximumSize = 1
+    if (fileSize > maximumSize) {
+      return setMessage({
+        visible: true,
+        text: `Sorry, this file is too big: ${fileSize.toFixed(2)} GB. 
+        Maximum file size is ${maximumSize} GB.
+        Try to compress your video before uploading it.`,
+        style: 'warning',
+      })
+    }
     if (
       !(
         file.type.includes('video/mp4') ||

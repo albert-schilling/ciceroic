@@ -1,41 +1,18 @@
-import { db, storage } from './firebase'
+import * as firebase from './firebase'
+import { storage } from './firebase'
 
-export function postSpeeches(speeches) {
-  speeches.forEach(speech => {
-    db.collection('speeches')
-      .add(speech)
-      .then(docRef => {
-        console.log('Document written with ID: ', docRef.id)
-        console.log('New Document: ', docRef)
-        const documentId = docRef.id
-        db.collection('speeches')
-          .doc(docRef.id)
-          .update({
-            _id: documentId,
-          })
-        return documentId
-      })
-      .then(documentId => {
-        db.collection('speeches')
-          .doc(documentId)
-          .get()
-          .then(doc => {
-            if (doc.exists) {
-              console.log(
-                'Newly created data coming back from firestore:',
-                doc.data()
-              )
-              return doc.data()
-            }
-          })
-      })
-      .catch(error => {
-        console.error('Error adding document: ', error)
-      })
-  })
+export {
+  getSpeeches,
+  getSpeech,
+  getSpeechesByUser,
+  uploadSpeech,
+  postSpeech,
+  patchSpeech,
+  deleteSpeech,
+  deleteAllSpeeches,
 }
 
-export function getSpeeches() {
+function getSpeeches({ db = firebase.db } = {}) {
   return db
     .collection('speeches')
     .get()
@@ -43,18 +20,22 @@ export function getSpeeches() {
     .catch(error => console.error(error))
 }
 
-export function getSpeech(id) {
+function getSpeech({ db = firebase.db, id }) {
   return db
     .collection('speeches')
     .doc(id)
     .get()
     .then(doc => {
-      return doc.data()
+      if (doc.exists) {
+        return doc.data()
+      } else {
+        return new Error('Speech not found.')
+      }
     })
     .catch(error => console.error(error))
 }
 
-export function getSpeechesByUser(id) {
+function getSpeechesByUser({ db = firebase.db, id }) {
   return db
     .collection('speeches')
     .where('userId', '==', id)
@@ -63,10 +44,10 @@ export function getSpeechesByUser(id) {
     .catch(error => console.error(error))
 }
 
-export function patchSpeech(id, data) {
+function patchSpeech({ db = firebase.db, id, speech }) {
   db.collection('speeches')
     .doc(id)
-    .update(data)
+    .update(speech)
     .then(() => {
       return db
         .collection('speeches')
@@ -75,22 +56,22 @@ export function patchSpeech(id, data) {
     })
     .then(doc => {
       if (doc.exists) {
-        console.log('Speech succesfully patched. Speech:', doc.data())
+        // console.log('Speech succesfully patched. Speech:', doc.data())
         return doc.data()
       }
     })
 }
-export function postSpeech(data) {
+function postSpeech({ db = firebase.db, speech }) {
   return db
     .collection('speeches')
-    .add(data)
+    .add(speech)
     .then(doc => {
-      console.log('Doc. written with id:', doc.id)
+      // console.log('Doc. written with id:', doc.id)
       db.collection('speeches')
         .doc(doc.id)
         .update({ _id: doc.id, uploadStatus: 'uploading' })
         .then(res => {
-          console.log('Speech id successfully written. Speech:', res)
+          // console.log('Speech id successfully written. Speech:', res)
         })
         .catch(error => console.error('Error updating document: ', error))
       return doc.id
@@ -100,9 +81,51 @@ export function postSpeech(data) {
     })
 }
 
-export function uploadSpeech(file, filename) {
-  console.log('uploadSpeech called. File:', file, 'filename:', filename)
+function uploadSpeech({ file, filename }) {
+  // console.log('uploadSpeech called. File:', file, 'filename:', filename)
   const speechReference = storage.ref('speeches/' + filename)
-
   return speechReference.put(file)
+}
+
+function deleteSpeech({ db = firebase.db, id, profile }) {
+  if (profile.firstName !== 'Cypress' || profile.lastName !== 'Cypress')
+    return new Error('Sorry, only the test user is allowed to delete a speech.')
+  try {
+    return db
+      .collection('speeches')
+      .doc(id)
+      .delete()
+      .then(() => {
+        return `Speech with id ${id} successfully deleted.`
+      })
+      .catch(error => {
+        console.error('Error removing document: ', error)
+      })
+  } catch (error) {
+    return error
+  }
+}
+
+function deleteAllSpeeches({ db = firebase.db } = {}) {
+  return db
+    .collection('speeches')
+    .get()
+    .then(snapshot => snapshot.docs.map(x => x.data()))
+    .then(speeches => {
+      return speeches.map(speech => {
+        return db
+          .collection('speeches')
+          .doc(speech._id)
+          .delete()
+          .then(() => {
+            // console.log(`Speech with id ${speech._id} successfully deleted.`)
+            return `Speech with id ${speech._id} successfully deleted.`
+          })
+          .catch(error => {
+            console.error('Error removing document: ', error)
+          })
+      })
+    })
+    .then(() => 'All speeches successfully deleted.')
+    .catch(error => console.error(error))
 }
