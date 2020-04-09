@@ -9,6 +9,7 @@ export {
   postSpeech,
   patchSpeech,
   deleteSpeech,
+  deleteAllSpeeches,
 }
 
 function getSpeeches({ db = firebase.db } = {}) {
@@ -95,7 +96,6 @@ function deleteSpeech({ db = firebase.db, id, profile }) {
       .doc(id)
       .delete()
       .then(() => {
-        console.log(`Speech with id ${id} successfully deleted.`)
         return `Speech with id ${id} successfully deleted.`
       })
       .catch(error => {
@@ -104,4 +104,28 @@ function deleteSpeech({ db = firebase.db, id, profile }) {
   } catch (error) {
     return error
   }
+}
+
+function deleteAllSpeeches({ db = firebase.db } = {}) {
+  return db
+    .collection('speeches')
+    .get()
+    .then(snapshot => snapshot.docs.map(x => x.data()))
+    .then(speeches => {
+      return speeches.map(speech => {
+        return db
+          .collection('speeches')
+          .doc(speech._id)
+          .delete()
+          .then(() => {
+            console.log(`Speech with id ${id} successfully deleted.`)
+            return `Speech with id ${id} successfully deleted.`
+          })
+          .catch(error => {
+            console.error('Error removing document: ', error)
+          })
+      })
+    })
+    .then(() => 'All speeches successfully deleted.')
+    .catch(error => console.error(error))
 }
