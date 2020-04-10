@@ -1,18 +1,20 @@
 // setup and teardown of emulated test db from firebase/testing
 // import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
-import { addUser, updateUser, getUser, deleteAllUsers } from './userServices'
+import {
+  signUp,
+  addUser,
+  updateUser,
+  getUser,
+  deleteUser,
+  deleteAllUsers,
+  deleteUserFromAuthentication,
+  deleteUserFromDB,
+} from './userServices'
+import { getTestUser } from '../spec/testData'
+import { wait, waitFor } from '@testing-library/react'
 
-const id = Math.floor(Math.random() * 1000).toString()
-const testUser = {
-  _id: id,
-  uid: id,
-  email: `${id}@testing.de`,
-  firstName: `${id}FirstName`,
-  lastName: `${id}LastName`,
-  emailVerified: false,
-  portrait: 'url-to-portrait',
-}
-
+const testUser = getTestUser()
+const id = testUser._id
 // let db
 
 beforeAll(async () => {
@@ -24,7 +26,7 @@ beforeAll(async () => {
   //   firstName: testUser.firstName,
   //   lastName: testUser.lastName,
   // })
-  await deleteAllUsers()
+  // await deleteAllUsers()
 })
 
 afterAll(async () => {
@@ -47,26 +49,20 @@ describe('test getUser()', () => {
     // expect(res).toContain(/FirebaseError/)
   })
   it('it gets the added user from db', async () => {
-    const secondId = Math.floor(Math.random() * 1000).toString()
-    const testUser2 = {
-      _id: secondId,
-      uid: secondId,
-      email: `${secondId}@testing.de`,
-      emailVerified: false,
-      firstName: `${secondId}FirstName`,
-      lastName: `${secondId}LastName`,
-    }
+    const newTestUser = getTestUser()
+    const newId = newTestUser._id
+
     await addUser({
       // db,
-      user: testUser2,
-      firstName: testUser2.firstName,
-      lastName: testUser2.lastName,
+      user: newTestUser,
+      firstName: newTestUser.firstName,
+      lastName: newTestUser.lastName,
     })
     const userData = await getUser({
       // db,
-      id: secondId,
+      id: newId,
     })
-    expect(userData._id).toEqual(secondId)
+    expect(userData._id).toEqual(newId)
   })
 })
 
@@ -201,5 +197,36 @@ describe('test deleteAllUsers()', () => {
 
     const res = await deleteAllUsers()
     expect(res).toMatch(/All Users successfully deleted./)
+  })
+})
+
+describe.only('deleteUser() including authentication', () => {
+  const newUser = getTestUser()
+  let newId
+  it('signs up a user', async () => {
+    const res = await signUp({ ...newUser })
+    newId = res.user.uid
+  })
+  it('gets the new user from db', async () => {
+    const userData = await getUser({ id: newId })
+    expect(userData._id).toEqual(newId)
+    expect(userData.firstName).toEqual(newUser.firstName)
+  })
+  it.skip('deletes the new user from authentication', async () => {
+    const res = await deleteUserFromAuthentication()
+    expect(res).toBe(true)
+  })
+  it.skip('deletes the new user from db', async () => {
+    const res = await deleteUserFromDB({ id: newId })
+    expect(res).toMatch(/successfully deleted/)
+  })
+  it('deletes the new user from authentication and db in one step', async () => {
+    const res = await deleteUser({ id: newId })
+    expect(res).toMatch(/successfully deleted/)
+  })
+  it('checks if the user is removed from db', async () => {
+    const res = await getUser({ id: newId })
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/User not found in db!/)
   })
 })

@@ -127,7 +127,7 @@ describe.skip('uploadSpeech()', () => {
 })
 
 describe('deleteSpeech()', () => {
-  it("returns an error if firstname and lastname does not match 'Cypress'", async () => {
+  it("returns an error if firstname and lastname does not match 'testUser'", async () => {
     const res = await deleteSpeech({
       id: 'randomId',
       profile: { firstName: 'Any', lastName: 'User' },

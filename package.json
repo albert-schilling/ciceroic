@@ -32,8 +32,8 @@
     "firebase-emulator": "firebase emulators:start --only firestore",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 db.json",
-    "cypress:open": "dotenv_config_path=.env.development && cypress open",
-    "cypress:run": "dotenv_config_path=.env.development && cypress run",
+    "cypress:open": "env-cmd -f .env.development cypress open",
+    "cypress:run": "env-cmd -f .env.development cypress run",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },

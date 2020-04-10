@@ -9,9 +9,9 @@ function getUser({ db = firebase.db, id }) {
       .get()
       .then(doc => {
         // console.log('User found in DB:', doc.exists)
-        return doc.exists && doc.data()
+        if (!doc.exists) return new Error('User not found in db!')
+        return doc.data()
       })
-      .then(data => data)
       .catch(error => {
         console.error('Error getting user: ', error)
         return error
@@ -168,6 +168,42 @@ function deleteAllUsers({ db = firebase.db } = {}) {
     .catch(error => console.error(error))
 }
 
+async function deleteUser({ db = firebase.db, id }) {
+  try {
+    return (
+      (await deleteUserFromAuthentication()) &&
+      (await deleteUserFromDB({ id })) &&
+      'User successfully deleted.'
+    )
+  } catch (error) {
+    console.error('Error deleting user:', error)
+    return error
+  }
+}
+
+function deleteUserFromAuthentication({} = {}) {
+  const user = authentication.currentUser
+  return user
+    .delete()
+    .then(() => true)
+    .catch(error => {
+      console.error('Error removing user: ', error)
+    })
+}
+function deleteUserFromDB({ db = firebase.db, id }) {
+  return db
+    .collection('users')
+    .doc(id)
+    .delete()
+    .then(() => {
+      // console.log(`User with id ${user._id} successfully deleted.`)
+      return true
+    })
+    .catch(error => {
+      console.error('Error removing document: ', error)
+    })
+}
+
 export {
   signUp,
   logIn,
@@ -176,5 +212,8 @@ export {
   updateUser,
   uploadPortrait,
   deletePortrait,
+  deleteUser,
   deleteAllUsers,
+  deleteUserFromAuthentication,
+  deleteUserFromDB,
 }
