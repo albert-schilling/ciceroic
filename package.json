@@ -18,8 +18,8 @@
   },
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.development react-scripts start",
+    "build": "env-cmd -f .env.production react-scripts build",
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "deploy": "npm run build && firebase deploy --only hosting",
     "deploy:dev": "npm run build:dev && firebase deploy -P dev --only hosting",

@@ -155,7 +155,7 @@ describe('deleteSpeech()', () => {
     expect(retrievedSpeech.userId).toEqual(userId)
     let res = await deleteSpeech({
       id,
-      profile: { firstName: 'Cypress', lastName: 'Cypress' },
+      profile: { firstName: 'testUser', lastName: 'testUser' },
     })
     expect(res).toMatch(/successfully deleted/)
     // await setTimeout(() => {

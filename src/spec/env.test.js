@@ -14,7 +14,7 @@ describe('env', () => {
   it('should have a React App Project ID', () => {
     expect(process.env.REACT_APP_PROJECT_ID).toBeDefined()
   })
-  it('Project ID should be ciceroic-test', () => {
+  it('Project ID should be ciceroic-dev', () => {
     expect(process.env.REACT_APP_PROJECT_ID).toEqual('ciceroic-dev')
   })
   it('Project ID should not be ciceroic', () => {
@@ -29,8 +29,5 @@ describe('env', () => {
   })
   it('should have a React App App id', () => {
     expect(process.env.REACT_APP_APP_ID).toBeDefined()
-  })
-  it('should have a React App Measurement id', () => {
-    expect(process.env.REACT_APP_MEASUREMENT_ID).toBeDefined()
   })
 })

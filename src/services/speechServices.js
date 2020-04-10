@@ -90,7 +90,7 @@ function uploadSpeech({ file, filename }) {
 function deleteSpeech({ db = firebase.db, id, profile }) {
   if (
     !profile.firstName.includes('testUser') ||
-    profile.lastName.includes('testUser')
+    !profile.lastName.includes('testUser')
   )
     return new Error('Sorry, only the test user is allowed to delete a speech.')
   try {

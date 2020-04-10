@@ -1,22 +1,23 @@
 import { db } from '../services/firebase'
-import { addUser } from '../services/userServices'
-
+import { getTestUser } from '../spec/testData'
+import { addUser, getUser, deleteUserFromDB } from '../services/userServices'
 // setup and teardown of emulated test db from firebase/testing
 // import { getTestDB, clearTestDB, firebase } from './setupFirebaseTestApp'
 // import { testUserData } from './testData'
 
-const id = Math.floor(Math.random() * 1000).toString()
-const testUser = {
-  _id: id,
-  uid: id,
-  email: `${id}@testing.de`,
-  firstName: `${id}FirstName`,
-  lastName: `${id}LastName`,
-  emailVerified: false,
-  portrait: 'url-to-portrait',
-}
-
 describe('test user collection', () => {
+  const testUser = getTestUser()
+  const id = testUser._id
+  it('it adds a user to db', async () => {
+    await addUser({
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+    })
+    const userData = await getUser({ id })
+    expect(userData._id).toEqual(id)
+  })
+
   // let db
   // let ref
 
@@ -36,11 +37,6 @@ describe('test user collection', () => {
   })
 
   it('check that the user collection has entries', async () => {
-    await addUser({
-      user: testUser,
-      firstName: testUser.firstName,
-      lastName: testUser.lastName,
-    })
     const size = await db
       .collection('users')
       .get()
@@ -48,10 +44,21 @@ describe('test user collection', () => {
     expect(size > 0).toBe(true)
   })
 
-  it.skip('check that the user collection has the exact amount of entries as the testUserData', async () => {
-    const size = await ref.get().then(snapshot => snapshot.size)
-    expect(size).toBe(10)
-    expect(Object.entries(testUserData).length).toBe(10)
-    expect(size === Object.entries(testUserData).length).toBe(true)
+  it('check that the user collection has the exact amount of one user added to db during test', async () => {
+    const size = await db
+      .collection('users')
+      .get()
+      .then(snapshot => snapshot.size)
+    expect(size).toBe(1)
+  })
+
+  it('deletes the new user from db', async () => {
+    const res = await deleteUserFromDB({ id: id })
+    expect(res).toBe(true)
+  })
+  it('checks if the user is removed from db', async () => {
+    const res = await getUser({ id })
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/User not found in db!/)
   })
 })
