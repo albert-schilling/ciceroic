@@ -1,4 +1,4 @@
 {
   "baseUrl": "http://localhost:3000/",
-  "integrationFolder": "end-to-end"
+  "integrationFolder": "./cypress/end-to-end"
 }
