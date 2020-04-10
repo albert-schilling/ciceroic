@@ -3,8 +3,18 @@ describe('UI journey', () => {
     cy.visit('http://localhost:3000/')
   })
 
-  const user = Math.floor(Math.random() * 1000)
-  const name = `Cypress${user}`
+  function makeid(length) {
+    let result = ''
+    let characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length))
+    }
+    return result
+  }
+
+  const id = makeid(5)
+  const name = `Cypress-${id}`
 
   it.only('signs up a new user', () => {
     cy.wait(2000)
