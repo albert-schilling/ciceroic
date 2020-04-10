@@ -44,19 +44,17 @@ test('renders "Ciceroic"', async () => {
 
 test.skip('renders all speeches from db', async () => {
   // await postSpeech({ speech: testSpeech })
-  let cont
+  let speeches
   act(() => {
-    const { container } = render(<App />)
-    cont = container
+    const { findAllByTestId } = render(<App />)
+    speeches = findAllByTestId(/speech/)
   })
-  await setTimeout(() => {}, 4000)
 
-  const speeches = cont.getElementsByTagName('article')
   const speechesFromDb = await getSpeeches({
     // db
   })
   expect(speeches).toBeDefined()
-  // expect(Array.isArray(speeches)).toBe(true)
-  // expect(speeches[0].className).toMatch(/SpeechCard__SpeechCardBody/)
+  expect(Array.isArray(speeches)).toBe(true)
+  expect(speeches[0].className).toMatch(/SpeechCard__SpeechCardBody/)
   expect(speeches.length).toEqual(speechesFromDb.length)
 })

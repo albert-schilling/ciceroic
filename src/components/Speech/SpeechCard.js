@@ -17,7 +17,7 @@ export default function SpeechCard({
   const { convertTimestampToDate } = useDate()
 
   return (
-    <SpeechCardBody role="region">
+    <SpeechCardBody data-testid={`speech-${speech._id}`}>
       {speech.filename === undefined ? (
         <p>Video loading</p>
       ) : (
