@@ -3,6 +3,7 @@ module.exports = {
   testURL: 'http://localhost',
   collectCoverageFrom: [
     '**/src/**/*.js',
+    '**/src/**/*.stories.js',
     '!**/__tests__/**',
     '!**/node_modules/**',
     '!**/serviceWorker.js',

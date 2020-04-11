@@ -548,14 +548,12 @@ const Section = styled.section`
 
 const Wrapper = styled.div`
   position: relative;
-  border: 1px solid var(--secondary-highlight-color);
-  background: #fff;
-  padding: 12px;
   display: grid;
   justify-self: center;
   align-content: flex-start;
   height: 100%;
   width: 100%;
+  border: 1px solid var(--highlight-color);
   padding: 20px;
   background: #fff;
   overflow-y: scroll;

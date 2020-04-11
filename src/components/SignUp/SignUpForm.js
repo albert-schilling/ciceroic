@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import { authentication } from '../../services/firebase'
 import { signUp } from '../../services/userServices'
 import BroadButton from '../Inputs/Buttons/BroadButton'
+import PopUp from '../Interfaces/PopUp/PopUp'
 
 export default function UserForm({ profile, setProfile, history }) {
   const [message, setMessage] = useState({
@@ -43,6 +44,32 @@ export default function UserForm({ profile, setProfile, history }) {
           onChange={handleChange}
           value={profile.lastName}
         />
+        <RadioButton for="terms">
+          <input type="radio" id="terms" name="terms" value="terms" />
+          <RadioButtonText>
+            I have read and agree to the{' '}
+            <PopUp size={'medium'}>
+              {'Terms of use'}
+              {'Terms of use'}
+            </PopUp>{' '}
+            and{' '}
+            <PopUp size={'medium'}>
+              {'Privacy Policy'}
+              {'Privacy Policy'}
+            </PopUp>
+            .
+          </RadioButtonText>
+        </RadioButton>
+
+        <RadioButton for="newsletter">
+          <input
+            type="radio"
+            id="newsletter"
+            name="newsletter"
+            value="newsletter"
+          />
+          Yes, I would like to receive updates by email from Ciceroic.
+        </RadioButton>
 
         {message.visible && <Message>{message.text}</Message>}
         {showResetPasswordButton &&
@@ -222,6 +249,21 @@ const Input = styled.input`
   :invalid {
     box-shadow: 0 0 2px 2px var(--highlight-color);
   }
+`
+const RadioButton = styled.label`
+  line-height: 140%;
+  display: grid;
+  grid-template: auto / auto auto;
+  grid-gap: 8px;
+  align-items: flex-start;
+  > input:first-child {
+    margin-top: 4px;
+  }
+`
+
+const RadioButtonText = styled.p`
+  margin: 0;
+  line-height: 140%;
 `
 
 const ButtonRow = styled.section`
