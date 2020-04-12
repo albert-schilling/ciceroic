@@ -28,11 +28,20 @@ async function signUp({
   password,
   firstName,
   lastName,
+  terms = false,
+  newsletter = false,
 }) {
   return await authentication
     .createUserWithEmailAndPassword(email, password)
     .then(async res => {
-      await addUser({ db, user: res.user, firstName, lastName })
+      await addUser({
+        db,
+        user: res.user,
+        firstName,
+        lastName,
+        terms,
+        newsletter,
+      })
       await updateUsersDisplayName({ firstName, lastName })
       await authentication.currentUser.sendEmailVerification()
       return res
@@ -43,7 +52,14 @@ async function signUp({
     })
 }
 
-async function addUser({ db = firebase.db, user, firstName, lastName }) {
+async function addUser({
+  db = firebase.db,
+  user,
+  firstName,
+  lastName,
+  terms = false,
+  newsletter = false,
+}) {
   return await db
     .collection('users')
     .doc(user.uid)
@@ -54,6 +70,8 @@ async function addUser({ db = firebase.db, user, firstName, lastName }) {
       email: user.email,
       registered: new Date().getTime(),
       emailVerified: user.emailVerified,
+      terms,
+      newsletter,
     })
     .then(() => {
       // console.log('User successfully stored in DB.')

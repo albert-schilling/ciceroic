@@ -11,14 +11,19 @@ export default function Wrapper({
     <Background
       //  visible={visible}
       className={visible && 'visible'}
+      onClick={handleClick}
     >
-      <WrapperStyled size={size}>
-        <IconClose position="topright" callback={() => setVisibility(false)} />
+      <WrapperStyled size={size} onClick={event => event.stopPropagation()}>
+        <IconClose position="topright" callback={handleClick} />
 
         {children}
       </WrapperStyled>
     </Background>
   )
+  function handleClick(event) {
+    event.preventDefault()
+    setVisibility(false)
+  }
 }
 
 const Background = styled.section`
@@ -27,8 +32,8 @@ const Background = styled.section`
   left: 0;
   /* display: ${props => (props.hidden ? 'none' : 'grid')};
    */
-   display: none;
-  align-content: flex-start;
+  display: none;
+  align-content: center;
   margin: 0;
   padding: 80px 20px 20px 20px;
   overflow-y: scroll;

@@ -4,6 +4,9 @@ import { authentication } from '../../services/firebase'
 import { signUp } from '../../services/userServices'
 import BroadButton from '../Inputs/Buttons/BroadButton'
 import PopUp from '../Interfaces/PopUp/PopUp'
+import PrivacyPolicy from '../Content/PrivacyPolicy'
+import Imprint from '../Content/Imprint'
+import Terms from '../Content/Terms'
 
 export default function UserForm({ profile, setProfile, history }) {
   const [message, setMessage] = useState({
@@ -44,32 +47,41 @@ export default function UserForm({ profile, setProfile, history }) {
           onChange={handleChange}
           value={profile.lastName}
         />
-        <RadioButton for="terms">
-          <input type="radio" id="terms" name="terms" value="terms" />
-          <RadioButtonText>
+        <Checkbox for="terms">
+          <input
+            type="checkbox"
+            id="terms"
+            name="terms"
+            value="terms"
+            onChange={handleCheck}
+            checked={profile.terms}
+          />
+          <CheckboxText>
             I have read and agree to the{' '}
             <PopUp size={'medium'}>
               {'Terms of use'}
-              {'Terms of use'}
+              <Terms />
             </PopUp>{' '}
             and{' '}
             <PopUp size={'medium'}>
               {'Privacy Policy'}
-              {'Privacy Policy'}
+              <PrivacyPolicy />
             </PopUp>
             .
-          </RadioButtonText>
-        </RadioButton>
+          </CheckboxText>
+        </Checkbox>
 
-        <RadioButton for="newsletter">
+        <Checkbox for="newsletter">
           <input
-            type="radio"
+            type="checkbox"
             id="newsletter"
             name="newsletter"
             value="newsletter"
+            onChange={handleCheck}
+            checked={profile.newsletter}
           />
           Yes, I would like to receive updates by email from Ciceroic.
-        </RadioButton>
+        </Checkbox>
 
         {message.visible && <Message>{message.text}</Message>}
         {showResetPasswordButton &&
@@ -112,6 +124,11 @@ export default function UserForm({ profile, setProfile, history }) {
   function handleChange(event) {
     setProfile({ ...profile, [event.target.name]: event.target.value })
   }
+  function handleCheck(event) {
+    event.preventDefault()
+    setProfile({ ...profile, [event.target.name]: event.target.checked })
+  }
+
   function handleSubmit(event) {
     event.preventDefault()
     setShowResetPasswordButton(false)
@@ -161,6 +178,14 @@ export default function UserForm({ profile, setProfile, history }) {
         text: 'Please, enter your last name.',
       })
     }
+    if (!profile.terms) {
+      event.target.terms.focus()
+      return setMessage({
+        visible: true,
+        text:
+          'You have to agree to the terms of use and the privacy policy to join Ciceroic.',
+      })
+    }
 
     // if (!testLastName) {
     //   event.target.lastName.focus()
@@ -170,8 +195,10 @@ export default function UserForm({ profile, setProfile, history }) {
     //   })
     // }
     setMessage({
-      visible: false,
-      text: '',
+      visible: true,
+      style: 'confirmation',
+      text: `Welcome to Ciceroic! 
+      Your registration is going to be processed.`,
     })
 
     signUp({ ...profile })
@@ -186,6 +213,7 @@ export default function UserForm({ profile, setProfile, history }) {
         }
         setMessage({
           visible: true,
+          style: 'confirmation',
           text: `Welcome to Ciceroic! 
             You will be redirected .`,
         })
@@ -250,7 +278,7 @@ const Input = styled.input`
     box-shadow: 0 0 2px 2px var(--highlight-color);
   }
 `
-const RadioButton = styled.label`
+const Checkbox = styled.label`
   line-height: 140%;
   display: grid;
   grid-template: auto / auto auto;
@@ -261,7 +289,7 @@ const RadioButton = styled.label`
   }
 `
 
-const RadioButtonText = styled.p`
+const CheckboxText = styled.p`
   margin: 0;
   line-height: 140%;
 `

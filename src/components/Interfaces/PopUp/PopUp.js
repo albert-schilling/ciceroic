@@ -9,16 +9,21 @@ export default function PopUp({
   const [visibility, setVisibility] = useState(false)
   return (
     <>
-      <Button onClick={() => setVisibility(true)}>{children[0]}</Button>
+      <Button onClick={handleClick}>{children[0]}</Button>
       <Wrapper size={size} visible={visibility} setVisibility={setVisibility}>
         {children[1]}
       </Wrapper>
     </>
   )
+  function handleClick(event) {
+    event.preventDefault()
+    setVisibility(true)
+  }
 }
 
 const Button = styled.button`
   border: none;
+  padding: 0;
   background: none;
   font-size: inherit;
   font-family: inherit;
