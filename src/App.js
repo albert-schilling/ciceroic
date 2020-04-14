@@ -9,7 +9,7 @@ import Header from './components/Header'
 import LandingPage from './components/LandingPage/LandingPage'
 import Profile from './components/Profile/Profile'
 import Settings from './components/Settings/Settings'
-import SignUp from './components/SignUp/SignUp'
+import SignUpPage from './components/SignUp/SignUpPage'
 import Speech from './components/Speech/Speech'
 import SpeechesList from './components/Speech/SpeechesList'
 import { emptyProfile } from './data/emptyProfile'
@@ -129,7 +129,7 @@ function App() {
                     )}
                   </Route>
                   <Route exact path="/signup">
-                    <SignUp profile={profile} setProfile={setProfile} />
+                    <SignUpPage profile={profile} setProfile={setProfile} />
                   </Route>
                 </Switch>
                 <Navigation

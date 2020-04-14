@@ -153,6 +153,7 @@ const Form = styled.form`
   grid-gap: 12px;
   width: 100%;
   max-width: 400px;
+  padding: 20px;
   > * {
     margin: 0;
   }

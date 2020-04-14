@@ -539,6 +539,7 @@ Settings.propTypes = {
 }
 
 const Section = styled.section`
+  z-index: 2;
   position: fixed;
   top: 0;
   display: none;
@@ -559,7 +560,6 @@ const Wrapper = styled.div`
   position: relative;
   display: grid;
   align-content: flex-start;
-  height: 100%;
   width: 100%;
   max-width: 700px;
   border: 1px solid var(--highlight-color);

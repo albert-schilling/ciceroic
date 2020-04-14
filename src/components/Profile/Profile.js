@@ -129,6 +129,7 @@ const Section = styled.section`
   top: 0;
   display: none;
   align-content: flex-start;
+  justify-items: center;
   grid-gap: 20px;
   margin: 0;
   padding: 80px 20px 20px 20px;
@@ -143,9 +144,7 @@ const Section = styled.section`
 const Wrapper = styled.div`
   position: relative;
   display: grid;
-  justify-self: center;
   align-content: flex-start;
-  height: 100%;
   width: 100%;
   max-width: 700px;
   border: 1px solid var(--highlight-color);

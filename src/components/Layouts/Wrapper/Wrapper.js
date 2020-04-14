@@ -69,6 +69,6 @@ const Content = styled.div`
   padding: 20px;
   overflow-y: scroll;
   > p:last-child {
-    padding-bottom: 100px;
+    padding-bottom: 80px;
   }
 `
