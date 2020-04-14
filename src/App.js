@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
 import history from './common/history'
 import AuthProvider, { AuthConsumer } from './components/Auth/AuthContext'
-import Footer from './components/Footer/Footer'
+import Navigation from './components/Navigation/Navigation'
 import Header from './components/Header'
 import LandingPage from './components/LandingPage/LandingPage'
 import Profile from './components/Profile/Profile'
@@ -16,6 +16,7 @@ import { emptyProfile } from './data/emptyProfile'
 import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
 import UploadForm from './components/UploadForm/UploadForm'
+import Footer from './components/Footer/Footer'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -120,6 +121,7 @@ function App() {
                             showProfile={showProfile}
                             setShowProfile={setShowProfile}
                           />
+                          <Footer />
                         </Main>
                       )
                     ) : (
@@ -130,7 +132,7 @@ function App() {
                     <SignUp profile={profile} setProfile={setProfile} />
                   </Route>
                 </Switch>
-                <Footer
+                <Navigation
                   history={history}
                   user={user}
                   activePage={activePage}
@@ -149,11 +151,15 @@ export default App
 
 const AppBodyStyled = styled.div`
   display: grid;
-  grid-template: 60px auto max-content / 1fr;
+  grid-template: 60px auto / 1fr;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 `
 
 const Main = styled.main`
-  position: relative;
+  display: grid;
+  grid-template: auto auto / 1fr;
+  justify-items: center;
+  overflow-y: scroll;
 `

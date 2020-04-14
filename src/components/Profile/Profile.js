@@ -30,7 +30,11 @@ export default function Profile({
       getSpeechesByUser({ id: speakerId }).then(res => setSpeechesByUser(res))
   }, [speakerId])
   return (
-    <Section className={showProfile && 'visible'}>
+    <Section
+      className={showProfile && 'visible'}
+      onClick={handleClickOnContainer}
+      title="container"
+    >
       <Wrapper>
         <IconClose position="topright" callback={() => setShowProfile(false)} />
 
@@ -88,24 +92,22 @@ export default function Profile({
             </ProfileSection>
             {speechesByUser.length > 0 ? (
               <>
-                {speechesByUser.map(speech => {
-                  return (
-                    <>
-                      <p>Speeches by {foreignProfile.firstName}:</p>
-                      <SpeechCard
-                        key={speech._id}
-                        profile={profile}
-                        speech={speech}
-                        setSpeech={setSpeech}
-                        setActivePage={setActivePage}
-                        speakerId={speech.userId}
-                        setSpeakerId={setSpeakerId}
-                        showProfile={showProfile}
-                        setShowProfile={setShowProfile}
-                      />
-                    </>
-                  )
-                })}
+                <p>Speeches by {foreignProfile.firstName}:</p>
+                <Speeches>
+                  {speechesByUser.map(speech => (
+                    <SpeechCard
+                      key={speech._id}
+                      profile={profile}
+                      speech={speech}
+                      setSpeech={setSpeech}
+                      setActivePage={setActivePage}
+                      speakerId={speech.userId}
+                      setSpeakerId={setSpeakerId}
+                      showProfile={showProfile}
+                      setShowProfile={setShowProfile}
+                    />
+                  ))}
+                </Speeches>
               </>
             ) : (
               <p>No speeches yet.</p>
@@ -115,9 +117,14 @@ export default function Profile({
       </Wrapper>
     </Section>
   )
+  function handleClickOnContainer(event) {
+    event.persist()
+    event.target.title === 'container' && setShowProfile(false)
+  }
 }
 
 const Section = styled.section`
+  z-index: 2;
   position: fixed;
   top: 0;
   display: none;
@@ -125,7 +132,7 @@ const Section = styled.section`
   grid-gap: 20px;
   margin: 0;
   padding: 80px 20px 20px 20px;
-  overflow-y: scroll;
+  overflow: hidden;
   height: 100vh;
   width: 100%;
   &.visible {
@@ -140,10 +147,14 @@ const Wrapper = styled.div`
   align-content: flex-start;
   height: 100%;
   width: 100%;
+  max-width: 700px;
   border: 1px solid var(--highlight-color);
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 40px;
+  }
 `
 
 const ProfileSection = styled.section`
@@ -225,6 +236,20 @@ const LightboxClose = styled.div`
   right: 8px;
   width: 40px;
   height: 40px;
+`
+
+const Speeches = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  > *:nth-child(n) {
+    margin-bottom: 12px;
+  }
+  @media (min-width: 700px) {
+    > *:nth-child(n) {
+      width: calc(50% - 6px);
+    }
+  }
 `
 
 const Spinner = styled.section`

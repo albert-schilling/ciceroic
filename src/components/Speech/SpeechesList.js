@@ -45,7 +45,8 @@ export default function SpeechesList({
 
 const Section = styled.section`
   height: 100%;
-  overflow-y: scroll;
+  width: 100%;
+  max-width: 1200px;
   &.blur {
     filter: blur(2px);
   }
@@ -59,7 +60,6 @@ const SpeechesListContainer = styled.section`
   display: grid;
   grid-gap: 8px;
   @media (min-width: 700px) {
-    display: flex;
-    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
   }
 `

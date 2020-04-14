@@ -36,7 +36,7 @@ export default function RecordIcon({
 }
 
 const IconContainer = styled.a`
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

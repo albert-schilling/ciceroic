@@ -145,18 +145,13 @@ export default function Speech({
 }
 
 const Section = styled.section`
-  position: fixed;
-  top: 60px;
   display: none;
   flex-direction: column;
-  padding: 20px;
-  overflow-y: scroll;
-  background: #fff;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  > *:last-child {
-    padding-bottom: 60px;
-  }
+  max-width: 1200px;
+  padding: 20px;
+  background: #fff;
   &.visible {
     display: flex;
   }

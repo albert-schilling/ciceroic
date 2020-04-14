@@ -65,13 +65,11 @@ export default function SpeechCard({
 }
 
 const SpeechCardBody = styled.article`
-  background: #ffffff;
   border: 1px solid #eee;
   border-radius: 0;
   padding: 12px;
-  @media (min-width: 700px) {
-    width: calc(50% - 4px);
-  }
+  background: #ffffff;
+  width: 100%;
 `
 
 const SpeechCardVideo = styled.video`

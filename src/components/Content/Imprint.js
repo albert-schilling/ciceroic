@@ -1,5 +1,6 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import PopUp from '../Interfaces/PopUp/PopUp'
+import Terms from './Terms'
 
 export default function Imprint() {
   return (
@@ -18,13 +19,17 @@ export default function Imprint() {
         <br />
         Umsatzsteuer-Identifikationsnummer gem. § 27a UStG DE321509298
         <br />
-        Allgemeine Geschäftsbedingungen (AGB) von CICEORIC [LINK]
+        <PopUp size={'medium'}>
+          {'Allgemeine Geschäftsbedingungen (AGB) von CICEORIC'}
+          <Terms />
+        </PopUp>
       </p>
       <p>
         Alternative Streitbeilegung gemäß Art. 14 Abs. 1 ODR-VO und § 36 VSBG:
         Die Europäische Kommission stellt eine Plattform zur
-        Online-Streitbeilegung (OS) bereit, die du unter
+        Online-Streitbeilegung (OS) bereit, die du unter{' '}
         <a href="https://ec.europa.eu/consumers/odr">
+          {' '}
           https://ec.europa.eu/consumers/odr
         </a>
         findest. Zur Teilnahme an einem Streitbeilegungsverfahren vor einer

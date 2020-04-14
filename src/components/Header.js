@@ -55,11 +55,9 @@ const HeaderStyled = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: var(--primary-bg-color); */
+  width: 100%;
   background: var(--light-grey);
   color: var(--inverse-primary-font-color);
-  height: 100%;
-
   h1 {
     margin: 0;
     padding: 0;

@@ -68,7 +68,11 @@ export default function Settings({
   }, [profile._id])
 
   return (
-    <Section className={activePage === '/settings' && 'visible'}>
+    <Section
+      className={activePage === '/settings' && 'visible'}
+      onClick={handleClickOnContainer}
+      title="container"
+    >
       <Wrapper>
         <IconClose position="topright" callback={() => setActivePage('')} />
         <ProfileSection>
@@ -509,6 +513,10 @@ export default function Settings({
       })
   }
 
+  function handleClickOnContainer(event) {
+    event.persist()
+    event.target.title === 'container' && setActivePage('')
+  }
   function loggingOut(event) {
     console.log('logging out')
     event.preventDefault()
@@ -535,10 +543,11 @@ const Section = styled.section`
   top: 0;
   display: none;
   align-content: flex-start;
+  justify-items: center;
   grid-gap: 20px;
   margin: 0;
   padding: 80px 20px 20px 20px;
-  overflow-y: scroll;
+  overflow: hidden;
   height: 100vh;
   width: 100%;
   &.visible {
@@ -549,14 +558,17 @@ const Section = styled.section`
 const Wrapper = styled.div`
   position: relative;
   display: grid;
-  justify-self: center;
   align-content: flex-start;
   height: 100%;
   width: 100%;
+  max-width: 700px;
   border: 1px solid var(--highlight-color);
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 40px;
+  }
 `
 
 const ProfileSection = styled.section`

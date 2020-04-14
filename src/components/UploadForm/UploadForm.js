@@ -64,7 +64,11 @@ export default function UploadForm({
     newSpeech.status === 'submitted' && setSubmitted(true)
   }, [newSpeech.status, newSpeech.uploadStatus])
   return (
-    <Section className={activePage === '/upload' && 'visible'}>
+    <Section
+      className={activePage === '/upload' && 'visible'}
+      onClick={handleClickOnContainer}
+      title="container"
+    >
       <Wrapper>
         <IconClose position="topright" callback={() => setActivePage('')} />
 
@@ -102,7 +106,7 @@ export default function UploadForm({
               <TextAreaInlineLabel
                 title="Description"
                 name="description"
-                maxLength="250"
+                maxLength="500"
                 rows={5}
                 callback={handleChange}
                 value={newSpeech.description}
@@ -277,6 +281,10 @@ export default function UploadForm({
     setSpeech(newSpeech)
     setActivePage('/speech')
   }
+  function handleClickOnContainer(event) {
+    event.persist()
+    event.target.title === 'container' && setActivePage('')
+  }
 }
 
 const Section = styled.section`
@@ -284,10 +292,11 @@ const Section = styled.section`
   top: 0;
   display: none;
   align-content: flex-start;
+  justify-items: center;
   grid-gap: 20px;
   margin: 0;
   padding: 80px 20px 20px 20px;
-  overflow-y: scroll;
+  overflow: hidden;
   height: 100vh;
   width: 100%;
   &.visible {
@@ -299,7 +308,12 @@ const Wrapper = styled.div`
   position: relative;
   border: 1px solid var(--secondary-highlight-color);
   background: #fff;
-  padding: 12px;
+  padding: 20px;
+  max-width: 700px;
+  overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 40px;
+  }
 `
 
 const H2 = styled.h2`

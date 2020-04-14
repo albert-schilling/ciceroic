@@ -98,6 +98,7 @@ async function logIn({ email, password }) {
 }
 
 function updateUser({ db = firebase.db, profile }) {
+  console.log('profile in updateUser', profile)
   return db
     .collection('users')
     .doc(profile._id)

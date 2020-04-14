@@ -8,15 +8,12 @@ export default function Wrapper({
   size = 'small',
 }) {
   return (
-    <Background
-      //  visible={visible}
-      className={visible && 'visible'}
-      onClick={handleClick}
-    >
+    <Background className={visible && 'visible'} onClick={handleClick}>
       <WrapperStyled size={size} onClick={event => event.stopPropagation()}>
-        <IconClose position="topright" callback={handleClick} />
-
-        {children}
+        <Header>
+          <IconClose position="topright" callback={handleClick} />
+        </Header>
+        <Content>{children}</Content>
       </WrapperStyled>
     </Background>
   )
@@ -27,13 +24,13 @@ export default function Wrapper({
 }
 
 const Background = styled.section`
+  z-index: 2;
   position: fixed;
   top: 0;
   left: 0;
-  /* display: ${props => (props.hidden ? 'none' : 'grid')};
-   */
   display: none;
-  align-content: center;
+  align-content: flex-start;
+  justify-items: center;
   margin: 0;
   padding: 80px 20px 20px 20px;
   overflow-y: scroll;
@@ -47,14 +44,9 @@ const Background = styled.section`
 const WrapperStyled = styled.div`
   position: relative;
   display: grid;
-  justify-self: center;
-  align-content: flex-start;
+  grid-template: 60px auto / 1fr;
   height: 100%;
   width: 100%;
-  border: 1px solid var(--highlight-color);
-  padding: 20px;
-  background: #fff;
-  overflow-y: scroll;
   max-width: ${props => {
     return (
       (props.size === 'small' && '400px') ||
@@ -62,4 +54,21 @@ const WrapperStyled = styled.div`
       (props.size === 'large' && '1200px')
     )
   }};
+  border: 1px solid var(--highlight-color);
+  background: #fff;
+  overflow-y: scroll;
+  font-size: 1rem;
+  line-height: 140%;
+`
+
+const Header = styled.header`
+  background: linear-gradient(to bottom, #fff, rgba(#fff, 0));
+`
+
+const Content = styled.div`
+  padding: 20px;
+  overflow-y: scroll;
+  > p:last-child {
+    padding-bottom: 100px;
+  }
 `

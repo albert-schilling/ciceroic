@@ -25,7 +25,7 @@ const Button = styled.button`
   border: none;
   padding: 0;
   background: none;
-  font-size: inherit;
+  font-size: 1rem;
   font-family: inherit;
   font-weight: inherit;
   color: var(--highlight-color);
