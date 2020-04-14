@@ -1,9 +1,8 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 
 export default function PrivacyPolicy() {
   return (
-    <>
+    <section>
       <h2>Datenschutzbelehrung</h2>
       <p>
         Verantwortlicher für die Datenverarbeitung ist:
@@ -519,6 +518,6 @@ export default function PrivacyPolicy() {
         Zwecken des Direktmarketings erfolgt. Dann werden wir Ihre
         personenbezogenen Daten nicht weiter zu diesem Zweck verarbeiten.
       </p>
-    </>
+    </section>
   )
 }

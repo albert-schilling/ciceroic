@@ -67,6 +67,7 @@ export default function Settings({
       getSpeechesByUser({ id: profile._id }).then(res => setSpeechesByUser(res))
   }, [profile._id])
 
+  console.log('env in settings', process.env.NODE_ENV)
   return (
     <Section
       className={activePage === '/settings' && 'visible'}

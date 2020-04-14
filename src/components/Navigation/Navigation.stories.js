@@ -1,13 +1,13 @@
 import React from 'react'
-import Footer from './Footer'
+import Navigation from './Navigation'
 import { mobile } from '../../common/storybookDecorator'
 
 export default {
-  title: 'Components/Footer',
+  title: 'Components/Navigation',
   decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
-  component: Footer,
+  component: Navigation,
 }
 
-export const DefaultFooter = () => {
-  return <Footer user={{ _id: 'id123' }} />
+export const DefaultNavigation = () => {
+  return <Navigation user={{ _id: 'id123' }} />
 }

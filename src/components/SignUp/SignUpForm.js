@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { authentication } from '../../services/firebase'
 import { signUp } from '../../services/userServices'
+import PrivacyPolicy from '../Content/PrivacyPolicy'
+import Terms from '../Content/Terms'
 import BroadButton from '../Inputs/Buttons/BroadButton'
 import PopUp from '../Interfaces/PopUp/PopUp'
-import PrivacyPolicy from '../Content/PrivacyPolicy'
-import Imprint from '../Content/Imprint'
-import Terms from '../Content/Terms'
 
 export default function UserForm({ profile, setProfile, history }) {
   const [message, setMessage] = useState({

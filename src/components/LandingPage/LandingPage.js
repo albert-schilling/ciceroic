@@ -33,7 +33,7 @@ const LandingPageStyled = styled.section`
 `
 
 const Claim = styled.h2`
-  padding: 0 20px;
+  padding: 0;
   text-align: center;
   font-size: 1.2rem;
   line-height: 1.6rem;
