@@ -1,10 +1,11 @@
-import React from 'react'
 import { action } from '@storybook/addon-actions'
-
+import React from 'react'
+import { mobile } from '../../common/storybookDecorator'
 import Settings from './Settings'
 
 export default {
-  title: 'Components/Settings',
+  title: 'Components/Pages/Settings',
+  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: Settings,
 }
 
@@ -20,5 +21,11 @@ const profile = {
 }
 
 export const DefaultSettings = () => {
-  return <Settings profile={profile} logOut={action('Log out user.')} />
+  return (
+    <Settings
+      activePage={'/settings'}
+      profile={profile}
+      logOut={action('Log out user.')}
+    />
+  )
 }

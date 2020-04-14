@@ -16,6 +16,8 @@ import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
 import SpeechCard from '../Speech/SpeechCard'
 import { getSpeechesByUser } from '../../services/speechServices'
+import ConfirmedAction from '../Interfaces/ConfirmedAction/ConfirmedAction'
+import { deleteUser } from '../../services/userServices'
 
 const PasswordLabel = styled.label`
   display: grid;
@@ -54,6 +56,11 @@ export default function Settings({
     visible: false,
     text: '',
     focusRef: null,
+  })
+  const [deletionMessage, setDeletionMessage] = useState({
+    visible: false,
+    text: '',
+    style: 'warning',
   })
   const [passwordMessage, setPasswordMessage] = useState({
     visible: false,
@@ -283,6 +290,13 @@ export default function Settings({
             />
           )}
         </PasswordForm>
+        <ConfirmedAction
+          message={deletionMessage}
+          setMessage={setDeletionMessage}
+          submitText={'Delete Profile'}
+          submitColor={'secondary'}
+          callback={handleDeleteProfile}
+        />
         <Line>
           <IconSignOut
             width="20px"
@@ -524,6 +538,15 @@ export default function Settings({
     setShowProfile(false)
     setActivePage('')
     logOut(event)
+  }
+
+  function handleDeleteProfile(event) {
+    setDeletionMessage({
+      visible: true,
+      text: 'User has been successfully deleted. You will be logged out.',
+      style: 'warning',
+    })
+    deleteUser({ id: profile._id })
   }
 }
 

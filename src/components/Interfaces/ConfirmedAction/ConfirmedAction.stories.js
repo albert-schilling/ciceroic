@@ -1,7 +1,7 @@
+import { action } from '@storybook/addon-actions'
 import React from 'react'
 import { mobile } from '../../../common/storybookDecorator'
 import ConfirmedAction from './ConfirmedAction'
-import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Components/Interfaces/ConfirmedAction',
@@ -10,5 +10,14 @@ export default {
 }
 
 export const DefaultConfirmedAction = () => {
-  return <ConfirmedAction callback={action('Callback function invoked.')} />
+  return (
+    <ConfirmedAction
+      callback={action('Callback function invoked.')}
+      message={{
+        text: 'Update succesfull.',
+        visible: true,
+        style: 'confirmation',
+      }}
+    />
+  )
 }

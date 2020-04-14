@@ -188,10 +188,11 @@ function deleteAllUsers({ db = firebase.db } = {}) {
 }
 
 async function deleteUser({ db = firebase.db, id }) {
+  console.log('delete user called')
   try {
     return (
-      (await deleteUserFromAuthentication()) &&
       (await deleteUserFromDB({ id })) &&
+      (await deleteUserFromAuthentication()) &&
       'User successfully deleted.'
     )
   } catch (error) {
@@ -201,21 +202,28 @@ async function deleteUser({ db = firebase.db, id }) {
 }
 
 function deleteUserFromAuthentication({} = {}) {
+  console.log('deleteUserFromAuthentication entered')
+
   const user = authentication.currentUser
   return user
     .delete()
-    .then(() => true)
+    .then(() => {
+      console.log('user successfully removed from Auth')
+      return true
+    })
     .catch(error => {
       console.error('Error removing user: ', error)
     })
 }
 function deleteUserFromDB({ db = firebase.db, id }) {
+  console.log('deleteUserFromDB entered')
+
   return db
     .collection('users')
     .doc(id)
     .delete()
     .then(() => {
-      // console.log(`User with id ${user._id} successfully deleted.`)
+      console.log(`User with id ${id} successfully deleted.`)
       return true
     })
     .catch(error => {
