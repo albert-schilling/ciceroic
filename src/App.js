@@ -17,6 +17,7 @@ import useSpeech from './hooks/useSpeech'
 import { getSpeeches } from './services/speechServices'
 import UploadForm from './components/UploadForm/UploadForm'
 import Footer from './components/Footer/Footer'
+import Spinner from './components/Spinner/Spinner'
 
 function App() {
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
@@ -39,10 +40,14 @@ function App() {
   const [activePage, setActivePage] = useState('')
   const [speakerId, setSpeakerId] = useState('')
   const [showProfile, setShowProfile] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getSpeeches().then(res => setSpeeches(res))
-  }, [setSpeeches, profile, setProfile])
+    getSpeeches().then(res => {
+      setLoading(false)
+      setSpeeches(res)
+    })
+  }, [setSpeeches])
 
   return (
     <AppBodyStyled>
@@ -53,77 +58,87 @@ function App() {
             {({ user, logOut }) => (
               <>
                 <Header />
+
                 <Switch>
                   <Route exact path="/">
-                    {user && user._id ? (
-                      speeches === undefined ? (
-                        <p style={{ padding: '20px' }}>
-                          There are no speeches uploaded, yet. Be the first to
-                          upload a speech!
-                          <br />
-                          Click the button in the bottom left corner to upload a
-                          speech.
-                        </p>
-                      ) : (
-                        <Main>
-                          <SpeechesList
-                            profile={profile}
-                            speeches={speeches}
-                            setSpeech={setSpeech}
-                            activePage={activePage}
-                            setActivePage={setActivePage}
-                            setSpeakerId={setSpeakerId}
-                            setShowProfile={setShowProfile}
-                            showProfile={showProfile}
-                          />
-                          <Speech
-                            speech={speech}
-                            setSpeech={setSpeech}
-                            profile={profile}
-                            setProfile={setProfile}
-                            user={user}
-                            activePage={activePage}
-                            setActivePage={setActivePage}
-                            setSpeakerId={setSpeakerId}
-                            setShowProfile={setShowProfile}
-                            showProfile={showProfile}
-                          />
-                          <UploadForm
-                            history={history}
-                            user={user}
-                            profile={profile}
-                            setSpeech={setSpeech}
-                            newSpeech={newSpeech}
-                            setNewSpeech={setNewSpeech}
-                            activePage={activePage}
-                            setActivePage={setActivePage}
-                            setSpeeches={setSpeeches}
-                          />
-                          <Settings
-                            profile={profile}
-                            setProfile={setProfile}
-                            logOut={logOut}
-                            activePage={activePage}
-                            setActivePage={setActivePage}
-                            setSpeech={setSpeech}
-                            speakerId={speech.userId}
-                            setSpeakerId={setSpeakerId}
-                            showProfile={showProfile}
-                            setShowProfile={setShowProfile}
-                          />
-                          <Profile
-                            profile={profile}
-                            activePage={activePage}
-                            setActivePage={setActivePage}
-                            setSpeech={setSpeech}
-                            speakerId={speakerId}
-                            setSpeakerId={setSpeakerId}
-                            showProfile={showProfile}
-                            setShowProfile={setShowProfile}
-                          />
-                          <Footer />
-                        </Main>
-                      )
+                    {user?._id ? (
+                      <Main>
+                        {loading ? (
+                          <Spinner />
+                        ) : (
+                          <>
+                            {speeches?.length === 0 ? (
+                              <p style={{ padding: '20px' }}>
+                                There are no speeches uploaded, yet. Be the
+                                first to upload a speech!
+                                <br />
+                                Click the button in the bottom left corner to
+                                upload a speech.
+                              </p>
+                            ) : (
+                              <>
+                                <SpeechesList
+                                  profile={profile}
+                                  speeches={speeches}
+                                  setSpeech={setSpeech}
+                                  activePage={activePage}
+                                  setActivePage={setActivePage}
+                                  setSpeakerId={setSpeakerId}
+                                  setShowProfile={setShowProfile}
+                                  showProfile={showProfile}
+                                />
+                                <Speech
+                                  speech={speech}
+                                  setSpeech={setSpeech}
+                                  profile={profile}
+                                  setProfile={setProfile}
+                                  user={user}
+                                  activePage={activePage}
+                                  setActivePage={setActivePage}
+                                  setSpeakerId={setSpeakerId}
+                                  setShowProfile={setShowProfile}
+                                  showProfile={showProfile}
+                                />
+                              </>
+                            )}
+                          </>
+                        )}
+
+                        <UploadForm
+                          history={history}
+                          user={user}
+                          profile={profile}
+                          setSpeech={setSpeech}
+                          newSpeech={newSpeech}
+                          setNewSpeech={setNewSpeech}
+                          activePage={activePage}
+                          setActivePage={setActivePage}
+                          setSpeeches={setSpeeches}
+                        />
+                        <Settings
+                          profile={profile}
+                          setProfile={setProfile}
+                          logOut={logOut}
+                          activePage={activePage}
+                          setActivePage={setActivePage}
+                          setSpeech={setSpeech}
+                          speakerId={speech.userId}
+                          setSpeakerId={setSpeakerId}
+                          showProfile={showProfile}
+                          setShowProfile={setShowProfile}
+                        />
+                        <Profile
+                          profile={profile}
+                          activePage={activePage}
+                          setActivePage={setActivePage}
+                          setSpeech={setSpeech}
+                          speakerId={speakerId}
+                          setSpeakerId={setSpeakerId}
+                          showProfile={showProfile}
+                          setShowProfile={setShowProfile}
+                        />
+                        <Footer />
+                      </Main>
                     ) : (
                       <LandingPage profile={profile} setProfile={setProfile} />
                     )}

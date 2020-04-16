@@ -12,6 +12,7 @@ const FooterStyled = styled.footer`
   justify-self: center;
   width: 100%;
   max-width: 1200px;
+  height: max-content;
   padding: 40px 24px 200px;
   background: var(--light-grey);
   font-size: 80%;
