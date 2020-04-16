@@ -2,10 +2,68 @@ import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { authentication } from '../../services/firebase'
 import { signUp } from '../../services/userServices'
-import PrivacyPolicy from '../Content/PrivacyPolicy'
-import Terms from '../Content/Terms'
 import BroadButton from '../Inputs/Buttons/BroadButton'
 import PopUp from '../Interfaces/PopUp/PopUp'
+import PrivacyPolicy from '../Content/PrivacyPolicy'
+// const PrivacyPolicy = require('../Content/PrivacyPolicy')
+import Terms from '../Content/Terms'
+// const Terms = require('../Content/Terms')
+
+const Claim = styled.h2`
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  margin: 0;
+`
+
+const Form = styled.form`
+  display: grid;
+  grid-gap: 12px;
+  width: 100%;
+  max-width: 400px;
+`
+const Input = styled.input`
+  margin: 0;
+  border: 1px solid var(--light-grey);
+  border-radius: 0;
+  padding: 8px 8px 4px 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: inherit;
+  :focus,
+  :invalid {
+    box-shadow: 0 0 2px 2px var(--highlight-color);
+  }
+`
+const Checkbox = styled.label`
+  line-height: 140%;
+  display: grid;
+  grid-template: auto / auto auto;
+  grid-gap: 8px;
+  align-items: flex-start;
+  > input:first-child {
+    margin-top: 4px;
+  }
+`
+
+const CheckboxText = styled.p`
+  margin: 0;
+  line-height: 140%;
+`
+
+const ButtonRow = styled.section`
+  display: grid;
+  grid-gap: 8px;
+  grid-template: 1fr / 1fr 1fr;
+`
+
+const Message = styled.p`
+  width: 100%;
+  border: 1px solid var(--secondary-highlight-color);
+  padding: 20px;
+  color: var(--secondary-highlight-color);
+  line-height: 1.4rem;
+`
 
 export default function UserForm({ profile, setProfile, history }) {
   const [message, setMessage] = useState({
@@ -250,59 +308,3 @@ export default function UserForm({ profile, setProfile, history }) {
       })
   }
 }
-
-const Claim = styled.h2`
-  text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.6rem;
-  margin: 0;
-`
-
-const Form = styled.form`
-  display: grid;
-  grid-gap: 12px;
-  width: 100%;
-  max-width: 400px;
-`
-const Input = styled.input`
-  margin: 0;
-  border: 1px solid var(--light-grey);
-  border-radius: 0;
-  padding: 8px 8px 4px 8px;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: inherit;
-  :focus,
-  :invalid {
-    box-shadow: 0 0 2px 2px var(--highlight-color);
-  }
-`
-const Checkbox = styled.label`
-  line-height: 140%;
-  display: grid;
-  grid-template: auto / auto auto;
-  grid-gap: 8px;
-  align-items: flex-start;
-  > input:first-child {
-    margin-top: 4px;
-  }
-`
-
-const CheckboxText = styled.p`
-  margin: 0;
-  line-height: 140%;
-`
-
-const ButtonRow = styled.section`
-  display: grid;
-  grid-gap: 8px;
-  grid-template: 1fr / 1fr 1fr;
-`
-
-const Message = styled.p`
-  width: 100%;
-  border: 1px solid var(--secondary-highlight-color);
-  padding: 20px;
-  color: var(--secondary-highlight-color);
-  line-height: 1.4rem;
-`

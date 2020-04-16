@@ -77,9 +77,10 @@ export default function Settings({
   console.log('env in settings', process.env.NODE_ENV)
   return (
     <Section
+      data-cy="settings"
       className={activePage === '/settings' && 'visible'}
       onClick={handleClickOnContainer}
-      title="container"
+      id="settings"
     >
       <Wrapper>
         <IconClose position="topright" callback={() => setActivePage('')} />
@@ -169,12 +170,14 @@ export default function Settings({
             {editAbout ? (
               <>
                 <AboutInput
+                  data-cy="inputAbout"
                   name="about"
                   value={profile.about}
                   onChange={handleChange}
                   rows="5"
                 />
                 <DefaultButton
+                  dataCy="updateAbout"
                   name="updateAbout"
                   callback={handleClick}
                   text="Done"
@@ -183,9 +186,11 @@ export default function Settings({
               </>
             ) : (
               <>
-                <About>{profile.about}</About>
+                <About data-cy="about">{profile.about}</About>
                 <DefaultButton
+                  dataCy="editAbout"
                   text="Edit"
+                  name="editAbout"
                   color="tertiary"
                   callback={() => setEditAbout(true)}
                 />

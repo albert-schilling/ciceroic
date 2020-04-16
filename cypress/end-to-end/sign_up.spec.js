@@ -14,6 +14,7 @@ describe('UI journey', () => {
 
   const id = makeid(5)
   const name = `Cypress-${id}`
+  const about = 'Hi, I am Cypress and my purpose is to test this application.'
 
   it.only('signs up a new user', () => {
     cy.wait(2000)
@@ -56,6 +57,49 @@ describe('UI journey', () => {
       .focused()
       .type(name)
       .get('button[type=submit]')
-    // .click()
+      .click()
+      .get('form')
+      .contains(
+        'You have to agree to the terms of use and the privacy policy to join Ciceroic.'
+      )
+      .focused()
+      .click()
+      .get('form')
+      .submit()
+      .wait(4000)
+  })
+  it.only('accesses user settings and changes the about text/bio text', () => {
+    cy.wait(4000)
+      .get('a[data-cy=profile]')
+      .click()
+      .get('button[data-cy=editAbout]')
+      .click()
+      .get('[data-cy=settings]')
+      .contains('Done')
+      .get('textarea[data-cy=inputAbout]')
+      .type(about)
+      .get('button[data-cy=updateAbout]')
+      .click()
+      .get('[data-cy=about]')
+      .contains(about)
+      .wait(4000)
+  })
+  it.only('deletes profile and returns to the landing page', () => {
+    cy.wait(4000)
+      .get('a[data-cy=profile]')
+      .click()
+      .get('[data-cy=settings]')
+      .contains('Delete Profile')
+      .click()
+      .get('[data-cy=settings]')
+      .contains('Are you sure?')
+      .get('[data-cy=settings]')
+      .contains('Delete Profile')
+      .click()
+      .wait(2000)
+      .get('main')
+      .contains('Become a great speaker like Cicero')
+      .get('main')
+      .contains('Sign Up')
   })
 })

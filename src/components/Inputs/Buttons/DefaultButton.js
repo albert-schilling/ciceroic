@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function Button({
+  dataCy = 'defaultButton',
   callback = () => {},
   text = 'Default Button',
   name = 'Default Button',
@@ -12,6 +13,7 @@ export default function Button({
 }) {
   return (
     <ButtonStyled
+      data-cy={dataCy}
       className={color}
       name={name}
       autoFocus={autoFocus}

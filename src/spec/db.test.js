@@ -49,7 +49,17 @@ describe('test user collection', () => {
       .collection('users')
       .get()
       .then(snapshot => snapshot.size)
-    expect(size).toBe(1)
+
+    await addUser({
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+    })
+    const newSize = await db
+      .collection('users')
+      .get()
+      .then(snapshot => snapshot.size)
+    expect(newSize - size).toBe(1)
   })
 
   it('deletes the new user from db', async () => {

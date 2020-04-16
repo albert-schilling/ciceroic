@@ -98,7 +98,6 @@ async function logIn({ email, password }) {
 }
 
 function updateUser({ db = firebase.db, profile }) {
-  console.log('profile in updateUser', profile)
   return db
     .collection('users')
     .doc(profile._id)
@@ -188,7 +187,6 @@ function deleteAllUsers({ db = firebase.db } = {}) {
 }
 
 async function deleteUser({ db = firebase.db, id }) {
-  console.log('delete user called')
   try {
     return (
       (await deleteUserFromDB({ id })) &&
@@ -202,13 +200,11 @@ async function deleteUser({ db = firebase.db, id }) {
 }
 
 function deleteUserFromAuthentication({} = {}) {
-  console.log('deleteUserFromAuthentication entered')
-
   const user = authentication.currentUser
   return user
     .delete()
     .then(() => {
-      console.log('user successfully removed from Auth')
+      // console.log('User successfully removed from authentication.')
       return true
     })
     .catch(error => {
@@ -216,14 +212,12 @@ function deleteUserFromAuthentication({} = {}) {
     })
 }
 function deleteUserFromDB({ db = firebase.db, id }) {
-  console.log('deleteUserFromDB entered')
-
   return db
     .collection('users')
     .doc(id)
     .delete()
     .then(() => {
-      console.log(`User with id ${id} successfully deleted.`)
+      // console.log(`User with id ${id} successfully deleted.`)
       return true
     })
     .catch(error => {

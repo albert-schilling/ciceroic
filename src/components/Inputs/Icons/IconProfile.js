@@ -9,6 +9,8 @@ export default function IconProfile({
 }) {
   return (
     <IconContainer
+      role="link"
+      data-cy="profile"
       onClick={callback}
       width={width}
       height={height}

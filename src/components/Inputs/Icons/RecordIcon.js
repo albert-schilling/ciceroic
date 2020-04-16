@@ -9,6 +9,8 @@ export default function RecordIcon({
 }) {
   return (
     <IconContainer
+      role="link"
+      data-cy="record"
       onClick={callback}
       width={width}
       height={height}

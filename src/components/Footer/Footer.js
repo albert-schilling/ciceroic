@@ -1,19 +1,10 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import Imprint from '../Content/Imprint'
-import PopUp from '../Interfaces/PopUp/PopUp'
 
-export default function Footer({}) {
-  return (
-    <FooterStyled>
-      <Line />
-      <PopUp size={'medium'}>
-        {'Imprint'}
-        <Imprint />
-      </PopUp>
-    </FooterStyled>
-  )
-}
+import Imprint from '../Content/Imprint'
+// const Imprint = require('../Content/Imprint')
+import PopUp from '../Interfaces/PopUp/PopUp'
+// const PopUp = require('../Interfaces/PopUp/PopUp')
 
 const FooterStyled = styled.footer`
   display: grid;
@@ -31,3 +22,17 @@ const Line = styled.hr`
   width: 100%;
   margin: 20px;
 `
+
+console.log('process.env in footer', process.env.NODE_ENV)
+
+export default function Footer({}) {
+  return (
+    <FooterStyled>
+      <Line />
+      <PopUp size={'medium'}>
+        {'Imprint'}
+        <Imprint />
+      </PopUp>
+    </FooterStyled>
+  )
+}

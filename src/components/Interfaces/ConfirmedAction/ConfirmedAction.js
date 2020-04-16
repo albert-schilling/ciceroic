@@ -24,7 +24,7 @@ export default function ConfirmedAction({
           <DefaultButton
             text={cancelText}
             color="tertiary"
-            callback={() => setConfirmation(false)}
+            callback={handleCancel}
           />
           <DefaultButton
             type={'submit'}
@@ -44,8 +44,14 @@ export default function ConfirmedAction({
     </Container>
   )
   function handleClick(event) {
+    event.preventDefault()
     setMessage({ text: 'Are you sure?', visible: true, style: 'warning' })
     setConfirmation(true)
+  }
+  function handleCancel(event) {
+    event.preventDefault()
+    setMessage({ ...message, text: '', visible: false })
+    setConfirmation(false)
   }
   function handleSubmit(event) {
     event.preventDefault()
