@@ -9,6 +9,7 @@ export default function IconSignOut({
 }) {
   return (
     <IconContainer
+      data-cy="signOut"
       onClick={callback}
       width={width}
       height={height}

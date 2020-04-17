@@ -1,4 +1,4 @@
-describe('UI journey', () => {
+describe('Sign up and delete user', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/')
   })
@@ -66,22 +66,6 @@ describe('UI journey', () => {
       .click()
       .get('form')
       .submit()
-      .wait(4000)
-  })
-  it.only('accesses user settings and changes the about text/bio text', () => {
-    cy.wait(4000)
-      .get('a[data-cy=profile]')
-      .click()
-      .get('button[data-cy=editAbout]')
-      .click()
-      .get('[data-cy=settings]')
-      .contains('Done')
-      .get('textarea[data-cy=inputAbout]')
-      .type(about)
-      .get('button[data-cy=updateAbout]')
-      .click()
-      .get('[data-cy=about]')
-      .contains(about)
       .wait(4000)
   })
   it.only('deletes profile and returns to the landing page', () => {

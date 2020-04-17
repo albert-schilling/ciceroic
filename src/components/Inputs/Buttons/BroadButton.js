@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 
 export default function BroadButton({
   callback = () => {},
+  dataCy = 'broadButton',
   text = 'Broad Button',
   name = 'Broad Button',
   autoFocus = false,
@@ -13,6 +14,7 @@ export default function BroadButton({
 }) {
   return (
     <ButtonStyled
+      data-cy={dataCy}
       className={`${color} + ${styling} `}
       name={name}
       autoFocus={autoFocus}
