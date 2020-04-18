@@ -45,14 +45,15 @@ describe('Edit settings', () => {
   })
   it.skip('uploads and deletes a new user portrait', () => {
     cy.get('[data-cy=settings]')
+      .get('[data-cy=portrait]')
+      .click()
+      .get('[data-cy=settings]')
       .contains('Upload')
       .get('[data-cy=settings]')
       .get('[data-cy=uploadPortrait]')
       .attachFile('test-image.jpg', { force: true })
       .wait(4000)
       .get('[data-cy=closeLightbox')
-      .click()
-      .get('[data-cy=closeSettings]')
       .click()
   })
   it('signs out', () => {
