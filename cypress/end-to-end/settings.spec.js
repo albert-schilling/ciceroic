@@ -28,7 +28,7 @@ describe('Edit settings', () => {
       .wait(2000)
   })
 
-  it.only('accesses user settings, changes the about text/bio text, uploads and deletes a new user portrait', () => {
+  it('accesses user settings, changes the about text/bio text', () => {
     cy.get('[data-cy=profile]')
       .click()
       .get('[data-cy=editAbout]')
@@ -42,19 +42,20 @@ describe('Edit settings', () => {
       .click()
       .get('[data-cy=about]')
       .contains(about)
-      .get('[data-cy=portrait]')
-      .click()
-      .get('[data-cy=settings]')
+  })
+  it.skip('uploads and deletes a new user portrait', () => {
+    cy.get('[data-cy=settings]')
       .contains('Upload')
-      .attach_file('test-image.jpg', 'image/jpg')
-      .trigger('change', { force: true })
-      .wait(2000)
+      .get('[data-cy=settings]')
+      .get('[data-cy=uploadPortrait]')
+      .attachFile('test-image.jpg', { force: true })
+      .wait(4000)
       .get('[data-cy=closeLightbox')
       .click()
       .get('[data-cy=closeSettings]')
       .click()
   })
-  it.skip('signs out', () => {
+  it('signs out', () => {
     cy.get('[data-cy=signOut]')
       .click()
       .wait(2000)

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function BroadInput({
+  dataCy = 'broadInput',
   callback = () => {},
   text = 'Broad Input',
   name = 'Broad Input',
@@ -14,6 +15,7 @@ export default function BroadInput({
   return (
     <>
       <Label
+        data-cy={dataCy}
         className={`${color} + ${styling}`}
         name={name}
         autoFocus={autoFocus}

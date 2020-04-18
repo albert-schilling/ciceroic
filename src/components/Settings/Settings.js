@@ -120,6 +120,7 @@ export default function Settings({
                       Are you sure you would like to delete your portrait?
                     </LightboxMessage>
                     <BroadButton
+                      dataCy="cancelDeletePortrait"
                       name="cancelDeletePortrait"
                       callback={handleClick}
                       text="Cancel"
@@ -127,6 +128,7 @@ export default function Settings({
                       styling="m0"
                     />
                     <BroadButton
+                      dataCy="confirmDeletePortrait"
                       name="confirmDeletePortrait"
                       callback={handleClick}
                       text="Delete"
@@ -138,6 +140,7 @@ export default function Settings({
                   <>
                     {profile.portrait && profile.portrait.length > 0 && (
                       <BroadButton
+                        dataCy="deletePortrait"
                         name="deletePortrait"
                         callback={handleClick}
                         text="Delete"
@@ -147,6 +150,7 @@ export default function Settings({
                     )}
 
                     <BroadInput
+                      dataCy="uploadPortrait"
                       name="uploadPortrait"
                       callback={handleUpload}
                       text="Upload"
