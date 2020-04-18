@@ -1,5 +1,5 @@
 describe('Edit settings', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('http://localhost:3000/')
   })
 
@@ -28,27 +28,37 @@ describe('Edit settings', () => {
       .wait(2000)
   })
 
-  it('accesses user settings and changes the about text/bio text', () => {
-    cy.wait(2000)
-      .get('a[data-cy=profile]')
+  it.only('accesses user settings, changes the about text/bio text, uploads and deletes a new user portrait', () => {
+    cy.get('[data-cy=profile]')
       .click()
-      .get('button[data-cy=editAbout]')
+      .get('[data-cy=editAbout]')
       .click()
       .get('[data-cy=settings]')
       .contains('Done')
-      .get('textarea[data-cy=inputAbout]')
+      .get('[data-cy=inputAbout]')
       .clear()
       .type(about)
       .get('button[data-cy=updateAbout]')
       .click()
       .get('[data-cy=about]')
       .contains(about)
+      .get('[data-cy=portrait]')
+      .click()
+      .get('[data-cy=settings]')
+      .contains('Upload')
+      .attach_file('test-image.jpg', 'image/jpg')
+      .trigger('change', { force: true })
+      .wait(2000)
+      .get('[data-cy=closeLightbox')
+      .click()
+      .get('[data-cy=closeSettings]')
+      .click()
   })
-  it('signs out', () => {
-    cy.wait(2000)
-      .get('a[data-cy=profile]')
+  it.skip('signs out', () => {
+    cy.get('[data-cy=signOut]')
       .click()
-      .get('a[data-cy=signOut]')
-      .click()
+      .wait(2000)
+      .get('form')
+      .contains('Login')
   })
 })

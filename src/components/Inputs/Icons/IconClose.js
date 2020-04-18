@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function IconSignOut({
+  dataCy = 'close',
   callback = () => {},
   width = '20px',
   height = '20px',
@@ -11,6 +12,7 @@ export default function IconSignOut({
 }) {
   return (
     <IconContainer
+      data-cy={dataCy}
       onClick={callback}
       width={width}
       height={height}

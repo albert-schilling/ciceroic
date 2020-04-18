@@ -83,12 +83,20 @@ export default function Settings({
       id="settings"
     >
       <Wrapper>
-        <IconClose position="topright" callback={() => setActivePage('')} />
+        <IconClose
+          dataCy="closeSettings"
+          position="topright"
+          callback={() => setActivePage('')}
+        />
         <ProfileSection>
           {lightbox ? (
             <Lightbox>
               <LightboxClose>
-                <IconClose color="#fff" callback={() => setLightbox(false)} />
+                <IconClose
+                  dataCy="closeLightbox"
+                  color="#fff"
+                  callback={() => setLightbox(false)}
+                />
               </LightboxClose>
               <LightboxImage>
                 <img
@@ -153,6 +161,7 @@ export default function Settings({
             </Lightbox>
           ) : (
             <Portrait
+              data-cy="portrait"
               onClick={() => setLightbox(true)}
               style={{
                 backgroundImage: `url('${
