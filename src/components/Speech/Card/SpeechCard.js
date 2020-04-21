@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import SpeechDescription from './SpeechDescription/SpeechDescription'
-import Button from '../Inputs/Button/Button'
-import useDate from '../../hooks/useDate'
+import SpeechDescription from '../Description/SpeechDescription'
+import Button from '../../Inputs/Button/Button'
+import useDate from '../../../hooks/useDate'
 
 export default function SpeechCard({
   profile = {},
@@ -47,7 +47,7 @@ export default function SpeechCard({
             dataCy="evaluateSpeech"
             text="See evaluations"
             name="See evaluations"
-            styling="primary"
+            styling="primary center"
             callback={goToSpeech}
           />
         ) : (
@@ -55,7 +55,7 @@ export default function SpeechCard({
             dataCy="evaluateSpeech"
             text="Evaluate"
             name="Evaluate"
-            styling="primary"
+            styling="primary center"
             callback={goToSpeech}
           />
         )}
@@ -88,15 +88,3 @@ const SpeechCardInformation = styled.section`
   display: flex;
   flex-direction: column;
 `
-
-// const SpeechEvaluationButton = styled.a`
-//   margin: 16px 0 4px 0;
-//   align-self: center;
-//   width: max-content;
-//   padding: 8px;
-//   background: var(--primary-bg-color);
-//   text-align: center;
-//   color: var(--inverse-primary-font-color);
-//   text-decoration: none;
-//   cursor: pointer;
-// `

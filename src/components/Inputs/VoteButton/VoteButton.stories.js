@@ -1,19 +1,14 @@
 import React from 'react'
 import VoteButton from './VoteButton'
-
-const sectionStyles = {
-  padding: '20px',
-  width: '600px',
-  background: '#fff',
-  margin: '20px auto',
-}
+import { mobile } from '../../../common/storybookDecorator'
+import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Components/Inputs/Buttons/VoteButton',
-  decorators: [storyFn => <section style={sectionStyles}>{storyFn()}</section>],
+  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: VoteButton,
 }
 
 export const DefaultVoteButton = () => {
-  return <VoteButton />
+  return <VoteButton clickHandler={action('callback')} />
 }

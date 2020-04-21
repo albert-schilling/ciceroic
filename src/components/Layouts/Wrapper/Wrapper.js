@@ -33,7 +33,6 @@ const Background = styled.section`
   justify-items: center;
   margin: 0;
   padding: 80px 20px 20px 20px;
-  overflow-y: scroll;
   height: 100vh;
   width: 100%;
   &.visible {
@@ -56,7 +55,7 @@ const WrapperStyled = styled.div`
   }};
   border: 1px solid var(--highlight-color);
   background: #fff;
-  overflow-y: scroll;
+  overflow: hidden;
   font-size: 1rem;
   line-height: 140%;
 `

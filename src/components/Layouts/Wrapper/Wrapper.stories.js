@@ -1,8 +1,10 @@
 import React from 'react'
 import Wrapper from './Wrapper'
+import { mobile } from '../../../common/storybookDecorator'
 
 export default {
   title: 'Components/Layouts/Wrapper',
+  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: Wrapper,
 }
 

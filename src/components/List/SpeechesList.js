@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import SpeechCard from './SpeechCard'
+import SpeechCard from '../Speech/Card/SpeechCard'
 import Spinner from '../Spinner/Spinner'
 import { getSpeeches } from '../../services/speechServices'
-import { isModuleDeclaration } from 'babel-types'
 
 export default function SpeechesList({
   profile = {},
-  speeches,
-  setSpeeches,
-  setSpeech,
+  speeches = {},
+  setSpeeches = () => {},
+  setSpeech = () => {},
   activePage = '',
   setActivePage = () => {},
   modal = '',

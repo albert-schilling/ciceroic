@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components/macro'
 
 export default function Tab({
-  activeTab,
-  handleClick,
-  children,
-  title,
-  active,
+  activeTab = {},
+  handleClick = () => {},
+  children = {},
+  title = 'Default Tab Title',
+  active = true,
 }) {
   const reference = useRef(null)
   useEffect(() => {

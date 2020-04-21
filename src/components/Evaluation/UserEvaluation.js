@@ -5,12 +5,12 @@ import Evaluation from './Evaluation'
 import EvaluationForm from './EvaluationForm'
 
 export default function UserEvaluation({
-  speech,
-  setSpeech,
-  user,
-  profile,
-  message,
-  setMessage,
+  speech = {},
+  setSpeech = () => {},
+  user = {},
+  profile = {},
+  message = {},
+  setMessage = () => {},
 }) {
   const {
     evaluation,

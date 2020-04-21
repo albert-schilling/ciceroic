@@ -21,7 +21,8 @@ export default function TextArea({
   return (
     <TextAreaContainer>
       <TextAreaCounter className={textArea.length === maxLength && 'warning'}>
-        {textArea.length}/{maxLength}
+        {/* {textArea.length}/{maxLength} */}
+        maximum length: {maxLength}
       </TextAreaCounter>
       <TextAreaSection className={textArea.length === maxLength && 'warning'}>
         <TextAreaLabel id="textboxLabel" htmlFor={id}>

@@ -4,11 +4,7 @@ import SignUpForm from './SignUpForm'
 import { useHistory } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 
-export default function SignUpPage({
-  profile,
-  setProfile,
-  // history
-}) {
+export default function SignUpPage({ profile, setProfile }) {
   const history = useHistory()
 
   return (

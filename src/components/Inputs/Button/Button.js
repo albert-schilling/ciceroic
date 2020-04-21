@@ -55,4 +55,7 @@ const ButtonStyled = styled.button`
   &.full-width {
     width: 100%;
   }
+  &.center {
+    align-self: center;
+  }
 `

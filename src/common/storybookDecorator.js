@@ -3,7 +3,7 @@ const mobile = {
   placeItems: 'flex-start',
   margin: '20px auto',
   width: '400px',
-  height: '100vh',
+  height: '100%',
   padding: '20px',
   background: '#fff',
 }

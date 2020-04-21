@@ -21,6 +21,7 @@ const FooterStyled = styled.footer`
 const Line = styled.hr`
   color: var(--primary-font-color);
   width: 100%;
+  height: max-content;
   margin: 20px;
 `
 

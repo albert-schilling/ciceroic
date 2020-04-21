@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { getUser } from '../../services/userServices'
 import IconClose from '../Icons/IconClose'
-import SpeechCard from '../Speech/SpeechCard'
+import SpeechCard from '../Speech/Card/SpeechCard'
 import { getSpeechesByUser } from '../../services/speechServices'
 
 export default function Profile({
@@ -13,10 +13,14 @@ export default function Profile({
   modal = '',
   setModal = () => {},
   setSpeech,
+  useLoading = true,
+  exampleProfile = null,
 }) {
   const [lightbox, setLightbox] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [foreignProfile, setForeignProfile] = useState('')
+  const [loading, setLoading] = useState(useLoading)
+  const [foreignProfile, setForeignProfile] = useState(
+    exampleProfile && exampleProfile
+  )
   const [speechesByUser, setSpeechesByUser] = useState([])
 
   useEffect(() => {

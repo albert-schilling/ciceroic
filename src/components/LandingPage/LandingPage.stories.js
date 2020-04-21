@@ -3,7 +3,7 @@ import { mobile } from '../../common/storybookDecorator'
 import LandingPage from './LandingPage'
 
 export default {
-  title: 'Components/Interfaces/LandingPage',
+  title: 'Components/Pages/LandingPage',
   decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: LandingPage,
 }

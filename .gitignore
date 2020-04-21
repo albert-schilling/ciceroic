@@ -32,10 +32,6 @@ yarn-error.log*
 .cache
 node_modules
 
-videos
-public/videos
-src/videos
-
 src/components/DEV
 
 ./firebase

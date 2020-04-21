@@ -1,13 +1,10 @@
 import React from 'react'
 import TabContainer from './TabContainer'
-
-const sectionStyles = {
-  padding: '20px',
-}
+import { mobile } from '../../../common/storybookDecorator'
 
 export default {
-  title: 'Components/TabContainer',
-  decorators: [storyFn => <section style={sectionStyles}>{storyFn()}</section>],
+  title: 'Components/Interfaces/TabContainer',
+  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: TabContainer,
 }
 

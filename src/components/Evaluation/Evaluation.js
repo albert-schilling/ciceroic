@@ -5,19 +5,19 @@ import useForm from '../../hooks/useForm'
 import Button from '../Inputs/Button/Button'
 import Comment from './Comment'
 import EvaluationFooter from './EvaluationFooter'
-import Statistics from './Statistics'
+import Statistics from '../Speech/Statistics/Statistics'
 import useSpeech from '../../hooks/useSpeech'
 
 export default function Evaluation({
   title = 'Evaluation title:',
-  evaluation,
-  setEvaluation,
-  user,
-  editMode,
-  setEditMode,
-  profile,
-  speech,
-  setSpeech,
+  evaluation = {},
+  setEvaluation = () => {},
+  user = {},
+  editMode = false,
+  setEditMode = () => {},
+  profile = {},
+  speech = {},
+  setSpeech = () => {},
   setModal = () => {},
   setSpeakerId = () => {},
 }) {

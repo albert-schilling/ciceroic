@@ -1,19 +1,14 @@
 import React from 'react'
 import FoldButton from './FoldButton'
-
-const sectionStyles = {
-  padding: '20px',
-  width: '600px',
-  background: '#fff',
-  margin: '20px auto',
-}
+import { mobile } from '../../../common/storybookDecorator'
+import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Components/Inputs/Buttons/FoldButton',
-  decorators: [storyFn => <section style={sectionStyles}>{storyFn()}</section>],
+  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
   component: FoldButton,
 }
 
 export const DefaultFoldButton = () => {
-  return <FoldButton />
+  return <FoldButton callback={action('callback')} />
 }

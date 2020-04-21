@@ -1,20 +1,14 @@
 import { action } from '@storybook/addon-actions'
 import React from 'react'
 import { mobile } from '../../common/storybookDecorator'
-import SignUpForm from './SignUpForm'
+import SignUpPage from './SignUpPage'
 
 export default {
-  title: 'Components/Forms/SignUpForm',
+  title: 'Components/Pages/SignUpPage',
   decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
-  component: SignUpForm,
+  component: SignUpPage,
 }
 
 export const DefaultSignUpForm = () => {
-  return (
-    <SignUpForm
-      profile={{}}
-      setProfile={() => {}}
-      history={{ push: action('Go back to login screen') }}
-    />
-  )
+  return <SignUpPage profile={{}} setProfile={() => {}} />
 }

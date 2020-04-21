@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 
 export default function Comment({ header, content }) {
   return (
@@ -8,6 +9,11 @@ export default function Comment({ header, content }) {
       <CommentContent>{content}</CommentContent>
     </CommentBody>
   )
+}
+
+Comment.propTypes = {
+  header: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 }
 
 const CommentBody = styled.section`

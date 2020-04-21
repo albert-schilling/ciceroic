@@ -10,22 +10,20 @@ export default function Navigation({
 }) {
   return (
     <>
-      {user._id && (
+      {user.status === 'signedIn' && (
         <NavigationStyled role="navigation" aria-label="Main">
-          {user.status === 'signedIn' && (
-            <>
-              <IconRecord
-                callback={() => {
-                  modal === 'upload' ? setModal('') : setModal('upload')
-                }}
-              />
-              <IconProfile
-                callback={() => {
-                  modal === 'settings' ? setModal('') : setModal('settings')
-                }}
-              />
-            </>
-          )}
+          <>
+            <IconRecord
+              callback={() => {
+                modal === 'upload' ? setModal('') : setModal('upload')
+              }}
+            />
+            <IconProfile
+              callback={() => {
+                modal === 'settings' ? setModal('') : setModal('settings')
+              }}
+            />
+          </>
         </NavigationStyled>
       )}
     </>

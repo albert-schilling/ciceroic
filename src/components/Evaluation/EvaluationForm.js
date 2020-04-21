@@ -1,18 +1,18 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { evaluationDimensions } from '../../data/evaluationDimensions'
+import evaluationDimensions from '../../data/evaluationDimensions'
 import RangeInput from '../Inputs/RangeInput/RangeInput'
 import TextArea from '../Inputs/TextArea/TextArea'
 import Button from '../Inputs/Button/Button'
 
-export default function SpeechEvaluationForm({
-  evaluation,
-  setEvaluation,
-  handleSubmit,
-  editMode,
-  setEditMode,
-  inputPraiseRef,
-  inputSuggestionsRef,
+export default function EvaluationForm({
+  evaluation = {},
+  setEvaluation = () => {},
+  handleSubmit = () => {},
+  editMode = false,
+  setEditMode = () => {},
+  inputPraiseRef = {},
+  inputSuggestionsRef = {},
 }) {
   return (
     <SpeechEvaluationFormStyled onSubmit={handleSubmit}>

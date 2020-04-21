@@ -100,6 +100,7 @@ export default function UploadForm({
               <TextArea
                 title="Title"
                 name="title"
+                id="New Speech Title"
                 rows={1}
                 callback={handleChange}
                 initialValue={newSpeech.title}
@@ -107,6 +108,7 @@ export default function UploadForm({
               <TextArea
                 title="Description"
                 name="description"
+                id="New Speech Description"
                 maxLength="500"
                 rows={5}
                 callback={handleChange}

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import Statistics from './Statistics'
-import useSpeech from '../../hooks/useSpeech'
+import useSpeech from '../../../hooks/useSpeech'
 
 export default function SpeechStatistics({ speech }) {
   const {
