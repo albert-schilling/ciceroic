@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import UserForm from '../UserForm/UserForm'
+import SignInForm from '../SignInForm/SignInForm'
 import Footer from '../Footer/Footer'
 
 export default function LandingPage({ profile, setProfile }) {
@@ -9,7 +9,7 @@ export default function LandingPage({ profile, setProfile }) {
       <Main>
         <LandingPageStyled>
           <Claim>Become a great speaker like Cicero</Claim>
-          <UserForm profile={profile} setProfile={setProfile} />
+          <SignInForm profile={profile} setProfile={setProfile} />
         </LandingPageStyled>
 
         <Footer />

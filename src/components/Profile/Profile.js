@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { getUser } from '../../services/userServices'
-import IconClose from '../Inputs/Icons/IconClose'
+import IconClose from '../Icons/IconClose'
 import SpeechCard from '../Speech/SpeechCard'
 import { getSpeechesByUser } from '../../services/speechServices'
 
 export default function Profile({
   speakerId = '',
   setSpeakerId = () => {},
-  showProfile = false,
-  setShowProfile = () => {},
   profile = {},
-  activePage = '',
   setActivePage = () => {},
+  modal = '',
+  setModal = () => {},
   setSpeech,
 }) {
   const [lightbox, setLightbox] = useState(false)
@@ -31,12 +30,12 @@ export default function Profile({
   }, [speakerId])
   return (
     <Section
-      className={showProfile && 'visible'}
+      className={modal === 'profile' && 'visible'}
       onClick={handleClickOnContainer}
       title="container"
     >
       <Wrapper>
-        <IconClose position="topright" callback={() => setShowProfile(false)} />
+        <IconClose position="topright" callback={() => setModal('')} />
 
         {loading ? (
           <Spinner>
@@ -101,10 +100,9 @@ export default function Profile({
                       speech={speech}
                       setSpeech={setSpeech}
                       setActivePage={setActivePage}
+                      setModal={setModal}
                       speakerId={speech.userId}
                       setSpeakerId={setSpeakerId}
-                      showProfile={showProfile}
-                      setShowProfile={setShowProfile}
                     />
                   ))}
                 </Speeches>
@@ -119,12 +117,11 @@ export default function Profile({
   )
   function handleClickOnContainer(event) {
     event.persist()
-    event.target.title === 'container' && setShowProfile(false)
+    event.target.title === 'container' && setModal('')
   }
 }
 
 const Section = styled.section`
-  z-index: 2;
   position: fixed;
   top: 0;
   display: none;
@@ -132,10 +129,11 @@ const Section = styled.section`
   justify-items: center;
   grid-gap: 20px;
   margin: 0;
-  padding: 80px 20px 20px 20px;
-  overflow: hidden;
   height: 100vh;
   width: 100%;
+  padding: 80px 20px 20px 20px;
+  overflow: hidden;
+  z-index: 2;
   &.visible {
     display: grid;
   }

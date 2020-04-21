@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import useDate from '../../hooks/useDate'
 import useForm from '../../hooks/useForm'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
+import Button from '../Inputs/Button/Button'
 import Comment from './Comment'
 import EvaluationFooter from './EvaluationFooter'
 import Statistics from './Statistics'
@@ -18,7 +18,7 @@ export default function Evaluation({
   profile,
   speech,
   setSpeech,
-  setShowProfile = () => {},
+  setModal = () => {},
   setSpeakerId = () => {},
 }) {
   const { handleVoteOnEvaluation } = useForm()
@@ -52,13 +52,13 @@ export default function Evaluation({
       )}
       <EvaluationDate>Submitted: {date}.</EvaluationDate>
       {evaluation.evaluator.id === user._id ? (
-        <DefaultButton
+        <Button
           name="Edit evaluation"
           callback={() => {
             setEditMode(!editMode)
           }}
           text="Edit"
-          color="primary"
+          styling="primary"
         />
       ) : (
         <EvaluationFooter
@@ -84,7 +84,7 @@ export default function Evaluation({
   }
   function showProfile(event) {
     event.preventDefault()
-    setShowProfile(true)
+    setModal('profile')
     setSpeakerId(evaluation.evaluator.id)
   }
 }

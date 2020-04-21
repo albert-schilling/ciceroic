@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Route, Router, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import GlobalStyle from './common/GlobalStyle'
@@ -12,16 +12,17 @@ import Settings from './components/Settings/Settings'
 import SignUpPage from './components/SignUp/SignUpPage'
 import Speech from './components/Speech/Speech'
 import SpeechesList from './components/Speech/SpeechesList'
-import { emptyProfile } from './data/emptyProfile'
+import { initialProfile } from './data/initialProfile'
 import useSpeech from './hooks/useSpeech'
-import { getSpeeches } from './services/speechServices'
 import UploadForm from './components/UploadForm/UploadForm'
 import Footer from './components/Footer/Footer'
 import Spinner from './components/Spinner/Spinner'
 
 function App() {
+  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
-  const [profile, setProfile] = useState(emptyProfile)
+  const [profile, setProfile] = useState(initialProfile)
   const [newSpeech, setNewSpeech] = useState({
     _id: '',
     filename: '',
@@ -38,16 +39,8 @@ function App() {
   })
 
   const [activePage, setActivePage] = useState('')
+  const [modal, setModal] = useState('')
   const [speakerId, setSpeakerId] = useState('')
-  const [showProfile, setShowProfile] = useState(false)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    getSpeeches().then(res => {
-      setLoading(false)
-      setSpeeches(res)
-    })
-  }, [setSpeeches])
 
   return (
     <AppBodyStyled>
@@ -58,35 +51,28 @@ function App() {
             {({ user, logOut }) => (
               <>
                 <Header />
-
-                <Switch>
-                  <Route exact path="/">
-                    {user?._id ? (
-                      <Main>
-                        {loading ? (
-                          <Spinner />
-                        ) : (
-                          <>
-                            {speeches?.length === 0 ? (
-                              <p style={{ padding: '20px' }}>
-                                There are no speeches uploaded, yet. Be the
-                                first to upload a speech!
-                                <br />
-                                Click the button in the bottom left corner to
-                                upload a speech.
-                              </p>
-                            ) : (
-                              <>
-                                <SpeechesList
-                                  profile={profile}
-                                  speeches={speeches}
-                                  setSpeech={setSpeech}
-                                  activePage={activePage}
-                                  setActivePage={setActivePage}
-                                  setSpeakerId={setSpeakerId}
-                                  setShowProfile={setShowProfile}
-                                  showProfile={showProfile}
-                                />
+                {user.status === 'unclear' ? (
+                  <Spinner />
+                ) : (
+                  <>
+                    <Switch>
+                      <Route exact path="/">
+                        {user?._id ? (
+                          <Main>
+                            <>
+                              <SpeechesList
+                                profile={profile}
+                                speeches={speeches}
+                                setSpeeches={setSpeeches}
+                                setSpeech={setSpeech}
+                                activePage={activePage}
+                                setActivePage={setActivePage}
+                                setSpeakerId={setSpeakerId}
+                                modal={modal}
+                                setModal={setModal}
+                              />
+                              {console.log('activePage:', activePage)}
+                              {activePage === '/speech' && (
                                 <Speech
                                   speech={speech}
                                   setSpeech={setSpeech}
@@ -96,63 +82,62 @@ function App() {
                                   activePage={activePage}
                                   setActivePage={setActivePage}
                                   setSpeakerId={setSpeakerId}
-                                  setShowProfile={setShowProfile}
-                                  showProfile={showProfile}
+                                  modal={modal}
+                                  setModal={setModal}
                                 />
-                              </>
-                            )}
-                          </>
-                        )}
+                              )}
+                            </>
 
-                        <UploadForm
-                          history={history}
-                          user={user}
-                          profile={profile}
-                          setSpeech={setSpeech}
-                          newSpeech={newSpeech}
-                          setNewSpeech={setNewSpeech}
-                          activePage={activePage}
-                          setActivePage={setActivePage}
-                          setSpeeches={setSpeeches}
-                        />
-                        <Settings
-                          profile={profile}
-                          setProfile={setProfile}
-                          logOut={logOut}
-                          activePage={activePage}
-                          setActivePage={setActivePage}
-                          setSpeech={setSpeech}
-                          speakerId={speech.userId}
-                          setSpeakerId={setSpeakerId}
-                          showProfile={showProfile}
-                          setShowProfile={setShowProfile}
-                        />
-                        <Profile
-                          profile={profile}
-                          activePage={activePage}
-                          setActivePage={setActivePage}
-                          setSpeech={setSpeech}
-                          speakerId={speakerId}
-                          setSpeakerId={setSpeakerId}
-                          showProfile={showProfile}
-                          setShowProfile={setShowProfile}
-                        />
-                        <Footer />
-                      </Main>
-                    ) : (
-                      <LandingPage profile={profile} setProfile={setProfile} />
-                    )}
-                  </Route>
-                  <Route exact path="/signup">
-                    <SignUpPage profile={profile} setProfile={setProfile} />
-                  </Route>
-                </Switch>
-                <Navigation
-                  history={history}
-                  user={user}
-                  activePage={activePage}
-                  setActivePage={setActivePage}
-                />
+                            <UploadForm
+                              history={history}
+                              user={user}
+                              profile={profile}
+                              setSpeech={setSpeech}
+                              newSpeech={newSpeech}
+                              setNewSpeech={setNewSpeech}
+                              modal={modal}
+                              setModal={setModal}
+                              setActivePage={setActivePage}
+                              setSpeeches={setSpeeches}
+                            />
+                            <Settings
+                              profile={profile}
+                              setProfile={setProfile}
+                              logOut={logOut}
+                              modal={modal}
+                              setModal={setModal}
+                              setActivePage={setActivePage}
+                              setSpeech={setSpeech}
+                              speakerId={speech.userId}
+                              setSpeakerId={setSpeakerId}
+                            />
+                            <Profile
+                              profile={profile}
+                              modal={modal}
+                              setModal={setModal}
+                              setActivePage={setActivePage}
+                              setSpeech={setSpeech}
+                              speakerId={speakerId}
+                              setSpeakerId={setSpeakerId}
+                              modal={modal}
+                              setModal={setModal}
+                            />
+                            <Footer />
+                          </Main>
+                        ) : (
+                          <LandingPage
+                            profile={profile}
+                            setProfile={setProfile}
+                          />
+                        )}
+                      </Route>
+                      <Route exact path="/signup">
+                        <SignUpPage profile={profile} setProfile={setProfile} />
+                      </Route>
+                    </Switch>
+                    <Navigation user={user} modal={modal} setModal={setModal} />
+                  </>
+                )}
               </>
             )}
           </AuthConsumer>

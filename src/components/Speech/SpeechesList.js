@@ -1,45 +1,75 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import SpeechCard from './SpeechCard'
+import Spinner from '../Spinner/Spinner'
+import { getSpeeches } from '../../services/speechServices'
+import { isModuleDeclaration } from 'babel-types'
 
 export default function SpeechesList({
   profile = {},
   speeches,
+  setSpeeches,
   setSpeech,
   activePage = '',
   setActivePage = () => {},
-  showProfile = false,
-  setShowProfile = () => {},
+  modal = '',
+  setModal = () => {},
   setSpeakerId = () => {},
 }) {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getSpeeches().then(res => {
+      setLoading(false)
+      setSpeeches(res)
+    })
+  }, [setSpeeches])
+
   return (
-    <Section
-      className={
-        activePage.length > 0 || showProfile
-          ? activePage === '/speech'
-            ? 'hidden'
-            : 'blur'
-          : ''
-      }
-    >
-      <SpeechesListContainer>
-        {speeches.map(speech => {
-          return (
-            <SpeechCard
-              key={speech._id}
-              profile={profile}
-              speech={speech}
-              setSpeech={setSpeech}
-              setActivePage={setActivePage}
-              speakerId={speech.userId}
-              setSpeakerId={setSpeakerId}
-              showProfile={showProfile}
-              setShowProfile={setShowProfile}
-            />
-          )
-        })}
-      </SpeechesListContainer>
-    </Section>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {speeches?.length === 0 ? (
+            <p style={{ padding: '20px' }}>
+              There are no speeches uploaded, yet. Be the first to upload a
+              speech!
+              <br />
+              Click the button in the bottom left corner to upload a speech.
+            </p>
+          ) : (
+            <Section
+              className={
+                activePage.length > 0
+                  ? 'hidden'
+                  : modal.length > 0
+                  ? 'blur'
+                  : ''
+              }
+            >
+              <SpeechesListContainer>
+                {speeches.map(speech => {
+                  return (
+                    <SpeechCard
+                      key={speech._id}
+                      profile={profile}
+                      speech={speech}
+                      setSpeech={setSpeech}
+                      setActivePage={setActivePage}
+                      speakerId={speech.userId}
+                      setSpeakerId={setSpeakerId}
+                      modal={modal}
+                      setModal={setModal}
+                    />
+                  )
+                })}
+              </SpeechesListContainer>
+            </Section>
+          )}
+        </>
+      )}
+    </>
   )
 }
 

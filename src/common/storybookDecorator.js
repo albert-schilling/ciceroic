@@ -1,7 +1,6 @@
 const mobile = {
   display: 'grid',
-  gridTemplate: 'auto / 1fr',
-  justifyItems: 'center',
+  placeItems: 'flex-start',
   margin: '20px auto',
   width: '400px',
   height: '100vh',

@@ -17,12 +17,11 @@ export default function Speech({
   user,
   activePage = '',
   setActivePage = () => {},
-  showProfile = false,
-  setShowProfile = () => {},
+  modal = '',
+  setModal = () => {},
   setSpeakerId = () => {},
 }) {
   const {
-    evaluation,
     setEvaluation,
     message,
     setMessage,
@@ -35,10 +34,8 @@ export default function Speech({
   const { convertTimestampToDate } = useDate()
 
   useEffect(() => {
-    console.log('useEffect in Speech called')
-    console.log(evaluation)
     speech._id && getSpeechFromDB(speech._id)
-  }, [speech._id])
+  }, [])
 
   return (
     <>
@@ -46,7 +43,7 @@ export default function Speech({
         <Section
           className={
             activePage === '/speech'
-              ? showProfile
+              ? modal.length > 0
                 ? 'blur visible'
                 : 'visible'
               : ''
@@ -55,20 +52,23 @@ export default function Speech({
           <BackLink onClick={() => setActivePage('')}>
             <span>&#8612;</span>see all speeches
           </BackLink>
-          {speech.filename === undefined ? (
-            <p>Video not found.</p>
-          ) : (
+          {speech.filename === undefined && <p>Video not found.</p>}
+          {speech.uploadStatus === 'uploading' && (
+            <p>Video is being uploaded.</p>
+          )}
+          {speech.uploadStatus === 'uploaded' && (
             <VideoStyled role="img" controls>
               <source src={speech.fileUrl} type="video/mp4" />
             </VideoStyled>
           )}
+
           <SpeechDescription
             title={speech.title}
             profile={profile}
             speaker={speech.speaker}
             speakerId={speech.userId}
             setSpeakerId={setSpeakerId}
-            setShowProfile={setShowProfile}
+            setModal={setModal}
             description={speech.description}
             category={
               speech.category &&
@@ -98,7 +98,7 @@ export default function Speech({
                 speech={speech}
                 setSpeech={setSpeech}
                 setSpeakerId={setSpeakerId}
-                setShowProfile={setShowProfile}
+                setModal={setModal}
               />
             </Tab>
             <Tab
@@ -161,6 +161,7 @@ const Section = styled.section`
   @media (min-width: 700px) {
     &.visible {
       display: grid;
+      grid-template-columns: 1fr 1fr;
       grid-template-areas: 'backLink backLink' 'video information' 'tab tab';
       grid-gap: 12px;
     }

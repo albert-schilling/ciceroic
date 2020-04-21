@@ -1,21 +1,29 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import IconProfile from '../Inputs/Icons/IconProfile'
-import RecordIcon from '../Inputs/Icons/RecordIcon'
+import IconProfile from '../Icons/IconProfile'
+import IconRecord from '../Icons/IconRecord'
 
 export default function Navigation({
   user = {},
-  activePage = '',
-  setActivePage = () => {},
+  modal = '',
+  setModal = () => {},
 }) {
   return (
     <>
       {user._id && (
         <NavigationStyled role="navigation" aria-label="Main">
-          {activePage === '' && (
+          {user.status === 'signedIn' && (
             <>
-              <RecordIcon callback={() => setActivePage('/upload')} />
-              <IconProfile callback={() => setActivePage('/settings')} />
+              <IconRecord
+                callback={() => {
+                  modal === 'upload' ? setModal('') : setModal('upload')
+                }}
+              />
+              <IconProfile
+                callback={() => {
+                  modal === 'settings' ? setModal('') : setModal('settings')
+                }}
+              />
             </>
           )}
         </NavigationStyled>

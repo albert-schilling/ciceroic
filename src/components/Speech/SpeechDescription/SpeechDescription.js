@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import FoldButton from '../../Inputs/Buttons/FoldButton'
+import FoldButton from '../../Inputs/FoldButton/FoldButton'
 
 export default function SpeechInformation({
   profile = {},
@@ -12,7 +12,7 @@ export default function SpeechInformation({
   date,
   speakerId = '',
   setSpeakerId = '',
-  setShowProfile = () => {},
+  setModal = () => {},
 }) {
   const [visibility, setVisibility] = useState(false)
 
@@ -50,7 +50,7 @@ export default function SpeechInformation({
   }
   function showProfile(event) {
     event.preventDefault()
-    setShowProfile(true)
+    setModal('profile')
     setSpeakerId(speakerId)
   }
 }

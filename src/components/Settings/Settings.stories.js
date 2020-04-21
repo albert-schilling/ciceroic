@@ -23,7 +23,7 @@ const profile = {
 export const DefaultSettings = () => {
   return (
     <Settings
-      activePage={'/settings'}
+      modal={'settings'}
       profile={profile}
       logOut={action('Log out user.')}
     />

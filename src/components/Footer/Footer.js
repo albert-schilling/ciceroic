@@ -24,8 +24,6 @@ const Line = styled.hr`
   margin: 20px;
 `
 
-console.log('process.env in footer', process.env.NODE_ENV)
-
 export default function Footer({}) {
   return (
     <FooterStyled>

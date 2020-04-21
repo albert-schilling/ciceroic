@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import IconClose from '../../Inputs/Icons/IconClose'
+import IconClose from '../../Icons/IconClose'
 export default function Wrapper({
   children = <></>,
   visible = false,

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { evaluationDimensions } from '../../data/evaluationDimensions'
-import RangeInput from '../Inputs/RangeInput'
+import RangeInput from '../Inputs/RangeInput/RangeInput'
 import TextArea from '../Inputs/TextArea/TextArea'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
+import Button from '../Inputs/Button/Button'
 
 export default function SpeechEvaluationForm({
   evaluation,
@@ -32,41 +32,44 @@ export default function SpeechEvaluationForm({
       <TextArea
         title="Praise"
         name="praise"
-        maxlength={1000}
-        evaluation={evaluation}
-        setEvaluation={setEvaluation}
+        id="praise"
+        maxLength={1000}
+        initialValue={evaluation.praise}
+        callback={handleChange}
         reference={inputPraiseRef}
         key="Praise"
       />
       <TextArea
         title="Suggestions"
         name="suggestions"
-        maxlength={1000}
-        evaluation={evaluation}
-        setEvaluation={setEvaluation}
+        id="praise"
+        maxLength={1000}
+        initialValue={evaluation.suggestions}
+        callback={handleChange}
         reference={inputSuggestionsRef}
         key="Suggestions"
       />
       <ButtonRow>
         {editMode && (
-          <DefaultButton
+          <Button
             name="cancel"
             callback={() => {
               setEditMode(false)
             }}
             text="Cancel"
-            color="tertiary"
+            styling="tertiary"
           />
         )}
-        <DefaultButton
-          name="submit"
-          text="Submit"
-          color="primary"
-          type="submit"
-        />
+        <Button name="submit" text="Submit" styling="primary" type="submit" />
       </ButtonRow>
     </SpeechEvaluationFormStyled>
   )
+  function handleChange(event) {
+    setEvaluation({
+      ...evaluation,
+      [event.target.name]: event.target.value,
+    })
+  }
 }
 
 const SpeechEvaluationFormStyled = styled.form`

@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
+import Button from '../Inputs/Button/Button'
 
 export default function UserMessage({ message, handleClick }) {
   return (
     <MessageBody>
       <MessageText>{message.text}</MessageText>
 
-      <DefaultButton
+      <Button
         name="confirmation"
         callback={handleClick}
         text="Okay"
-        color="primary"
+        styling="primary"
         type="submit"
         autoFocus={true}
       />

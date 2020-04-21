@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { NavLink } from 'react-router-dom'
 import SpeechDescription from './SpeechDescription/SpeechDescription'
+import Button from '../Inputs/Button/Button'
 import useDate from '../../hooks/useDate'
 
 export default function SpeechCard({
@@ -9,8 +9,7 @@ export default function SpeechCard({
   speech,
   setSpeech,
   setActivePage = () => {},
-  showProfile = false,
-  setShowProfile = () => {},
+  setModal = () => {},
   speakerId = '',
   setSpeakerId = () => {},
 }) {
@@ -33,7 +32,7 @@ export default function SpeechCard({
           speaker={speech.speaker}
           speakerId={speech.userId}
           setSpeakerId={setSpeakerId}
-          setShowProfile={setShowProfile}
+          setModal={setModal}
           description={speech.description}
           category={
             speech.category &&
@@ -44,13 +43,21 @@ export default function SpeechCard({
         />
         {}
         {profile._id && profile._id === speakerId ? (
-          <SpeechEvaluationButton onClick={goToSpeech}>
-            See evaluations
-          </SpeechEvaluationButton>
+          <Button
+            dataCy="evaluateSpeech"
+            text="See evaluations"
+            name="See evaluations"
+            styling="primary"
+            callback={goToSpeech}
+          />
         ) : (
-          <SpeechEvaluationButton onClick={goToSpeech}>
-            Evaluate
-          </SpeechEvaluationButton>
+          <Button
+            dataCy="evaluateSpeech"
+            text="Evaluate"
+            name="Evaluate"
+            styling="primary"
+            callback={goToSpeech}
+          />
         )}
       </SpeechCardInformation>
     </SpeechCardBody>
@@ -58,9 +65,10 @@ export default function SpeechCard({
 
   async function goToSpeech(event) {
     event.preventDefault()
+    setActivePage('')
     await setSpeech(speech)
-    setShowProfile(false)
     setActivePage('/speech')
+    setModal('')
   }
 }
 
@@ -81,14 +89,14 @@ const SpeechCardInformation = styled.section`
   flex-direction: column;
 `
 
-const SpeechEvaluationButton = styled.a`
-  margin: 16px 0 4px 0;
-  align-self: center;
-  width: max-content;
-  padding: 8px;
-  background: var(--primary-bg-color);
-  text-align: center;
-  color: var(--inverse-primary-font-color);
-  text-decoration: none;
-  cursor: pointer;
-`
+// const SpeechEvaluationButton = styled.a`
+//   margin: 16px 0 4px 0;
+//   align-self: center;
+//   width: max-content;
+//   padding: 8px;
+//   background: var(--primary-bg-color);
+//   text-align: center;
+//   color: var(--inverse-primary-font-color);
+//   text-decoration: none;
+//   cursor: pointer;
+// `

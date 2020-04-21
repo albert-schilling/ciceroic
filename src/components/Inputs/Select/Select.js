@@ -3,12 +3,12 @@ import styled from 'styled-components/macro'
 
 export default function Select({
   name = 'default name',
-  id = 'defaultTextAreaInlineLabel',
+  id = 'defaultSelectId',
   placeholder = 'Select an option',
   reference,
   options = [{ name: 'default option', value: 'defaultOption' }],
   callback = () => {},
-  value,
+  initialValue,
 }) {
   const [option, setOption] = useState(placeholder)
   return (
@@ -21,7 +21,7 @@ export default function Select({
       id={id}
       placeholder={placeholder}
       onChange={handleChange}
-      value={value || option}
+      value={initialValue || option}
       ref={reference}
     >
       {options.map(option => (

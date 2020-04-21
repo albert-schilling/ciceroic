@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { authentication } from '../../services/firebase'
 import { db } from '../../services/firebase'
-import { emptyProfile } from '../../data/emptyProfile'
+import { initialProfile } from '../../data/initialProfile'
 
 const AuthContext = React.createContext()
 function AuthProvider({ children, setProfile }) {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({ status: 'unclear' })
   const history = useHistory()
 
   useEffect(() => {
@@ -15,12 +15,13 @@ function AuthProvider({ children, setProfile }) {
         setUser({
           _id: user.uid,
           email: user.email,
+          status: 'signedIn',
         })
         window.localStorage.setItem('uid', user.uid)
         getUserInformation()
       } else {
-        setUser({})
-        setProfile(emptyProfile)
+        setUser({ status: 'signedOut' })
+        setProfile(initialProfile)
         window.localStorage.removeItem('uid')
       }
     })
@@ -50,7 +51,7 @@ function AuthProvider({ children, setProfile }) {
       event.preventDefault()
       authentication.signOut()
       setUser({})
-      setProfile(emptyProfile)
+      setProfile(initialProfile)
       // console.log('User logged out. Profile resetted.')
       history.push('/')
     } catch (err) {}

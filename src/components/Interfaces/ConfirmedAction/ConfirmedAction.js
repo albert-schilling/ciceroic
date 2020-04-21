@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import DefaultButton from '../../Inputs/Buttons/DefaultButton'
+import Button from '../../Inputs/Button/Button'
 import InsideMessage from '../../UserMessage/InsideMessage'
 
 export default function ConfirmedAction({
@@ -21,22 +21,22 @@ export default function ConfirmedAction({
     <Container>
       {confirmation ? (
         <ButtonRow>
-          <DefaultButton
+          <Button
             text={cancelText}
-            color="tertiary"
+            styling="tertiary"
             callback={handleCancel}
           />
-          <DefaultButton
+          <Button
             type={'submit'}
             text={submitText}
-            color={submitColor}
+            styling={submitColor}
             callback={handleSubmit}
           />
         </ButtonRow>
       ) : (
-        <DefaultButton
+        <Button
           text={submitText}
-          color={submitColor}
+          styling={submitColor}
           callback={handleClick}
         />
       )}

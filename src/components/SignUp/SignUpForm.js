@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { authentication } from '../../services/firebase'
 import { signUp } from '../../services/userServices'
-import BroadButton from '../Inputs/Buttons/BroadButton'
+import Button from '../Inputs/Button/Button'
 import PopUp from '../Interfaces/PopUp/PopUp'
 import PrivacyPolicy from '../Content/PrivacyPolicy'
-// const PrivacyPolicy = require('../Content/PrivacyPolicy')
 import Terms from '../Content/Terms'
-// const Terms = require('../Content/Terms')
 
 const Claim = styled.h2`
   text-align: center;
@@ -143,35 +141,35 @@ export default function UserForm({ profile, setProfile, history }) {
         {message.visible && <Message>{message.text}</Message>}
         {showResetPasswordButton &&
           (waitingForServer ? (
-            <BroadButton
+            <Button
               name="sendNewPassword"
               id="sendNewPassword"
               text="Send me a new password"
-              color="loading"
+              styling="loading"
               disabled="true"
             />
           ) : (
-            <BroadButton
+            <Button
               name="sendNewPassword"
               id="sendNewPassword"
               text="Send me a new password"
-              color="secondary"
+              styling="secondary"
               callback={resetPassword}
             />
           ))}
         <ButtonRow>
-          <BroadButton
+          <Button
             name="cancel"
             callback={() => {
               history.push('/')
             }}
             text="Cancel"
-            color="tertiary"
+            styling="tertiary full-width"
           />
-          <BroadButton
+          <Button
             name="signUp"
             text="Sign Up"
-            color="primary"
+            styling="primary full-width"
             type="submit"
           />
         </ButtonRow>

@@ -7,7 +7,7 @@ export default function CommunityEvaluations({
   profile,
   speech,
   setSpeech,
-  setShowProfile = () => {},
+  setModal = () => {},
   setSpeakerId = () => {},
 }) {
   const { setEvaluation } = useForm()
@@ -36,7 +36,7 @@ export default function CommunityEvaluations({
                 speech={speech}
                 setSpeech={setSpeech}
                 setSpeakerId={setSpeakerId}
-                setShowProfile={setShowProfile}
+                setModal={setModal}
               />
             ))}
         </>

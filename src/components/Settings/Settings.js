@@ -6,11 +6,10 @@ import {
   uploadPortrait,
   deletePortrait,
 } from '../../services/userServices'
-import BroadButton from '../Inputs/Buttons/BroadButton'
-import BroadInput from '../Inputs/Buttons/BroadInput'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
-import IconClose from '../Inputs/Icons/IconClose'
-import IconSignOut from '../Inputs/Icons/IconSignOut'
+import Button from '../Inputs/Button/Button'
+import Input from '../Inputs/Input/Input'
+import IconClose from '../Icons/IconClose'
+import IconSignOut from '../Icons/IconSignOut'
 import UserMessage from '../UserMessage/UserMessage'
 import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
@@ -38,12 +37,10 @@ export default function Settings({
   },
   setProfile = () => {},
   logOut = () => {},
-  activePage = '',
   setActivePage = () => {},
-
+  modal = '',
+  setModal = () => {},
   setSpeech,
-  showProfile = false,
-  setShowProfile = () => {},
   setSpeakerId = () => {},
 }) {
   const [editAbout, setEditAbout] = useState(false)
@@ -74,19 +71,18 @@ export default function Settings({
       getSpeechesByUser({ id: profile._id }).then(res => setSpeechesByUser(res))
   }, [profile._id])
 
-  console.log('env in settings', process.env.NODE_ENV)
   return (
     <Section
       data-cy="settings"
-      className={activePage === '/settings' && 'visible'}
+      className={modal === 'settings' && 'visible'}
       onClick={handleClickOnContainer}
-      id="settings"
+      title="container"
     >
       <Wrapper>
         <IconClose
           dataCy="closeSettings"
           position="topright"
-          callback={() => setActivePage('')}
+          callback={() => setModal('')}
         />
         <ProfileSection>
           {lightbox ? (
@@ -119,37 +115,34 @@ export default function Settings({
                     <LightboxMessage>
                       Are you sure you would like to delete your portrait?
                     </LightboxMessage>
-                    <BroadButton
+                    <Button
                       dataCy="cancelDeletePortrait"
                       name="cancelDeletePortrait"
                       callback={handleClick}
                       text="Cancel"
-                      color="tertiary"
-                      styling="m0"
+                      styling="m0 tertiary"
                     />
-                    <BroadButton
+                    <Button
                       dataCy="confirmDeletePortrait"
                       name="confirmDeletePortrait"
                       callback={handleClick}
                       text="Delete"
-                      color="secondary"
-                      styling="m0"
+                      styling="m0 secondary"
                     />
                   </>
                 ) : (
                   <>
                     {profile.portrait && profile.portrait.length > 0 && (
-                      <BroadButton
+                      <Button
                         dataCy="deletePortrait"
                         name="deletePortrait"
                         callback={handleClick}
                         text="Delete"
-                        color="tertiary"
-                        styling="m0"
+                        styling="m0 tertiary"
                       />
                     )}
 
-                    <BroadInput
+                    <Input
                       dataCy="uploadPortrait"
                       name="uploadPortrait"
                       callback={handleUpload}
@@ -189,22 +182,22 @@ export default function Settings({
                   onChange={handleChange}
                   rows="5"
                 />
-                <DefaultButton
+                <Button
                   dataCy="updateAbout"
                   name="updateAbout"
                   callback={handleClick}
                   text="Done"
-                  color="primary"
+                  styling="primary"
                 />
               </>
             ) : (
               <>
                 <About data-cy="about">{profile.about}</About>
-                <DefaultButton
+                <Button
                   dataCy="editAbout"
                   text="Edit"
                   name="editAbout"
-                  color="tertiary"
+                  styling="tertiary"
                   callback={() => setEditAbout(true)}
                 />
               </>
@@ -225,19 +218,19 @@ export default function Settings({
                 <PasswordLabel htmlFor="sendNewPassword">
                   Forgot your password?
                   {waitingForServer ? (
-                    <DefaultButton
+                    <Button
                       name="sendNewPassword"
                       id="sendNewPassword"
                       text="Send me a new password"
-                      color="loading"
+                      styling="loading"
                       disabled="true"
                     />
                   ) : (
-                    <DefaultButton
+                    <Button
                       name="sendNewPassword"
                       id="sendNewPassword"
                       text="Send me a new password"
-                      color="secondary"
+                      styling="secondary"
                       callback={handleClick}
                     />
                   )}
@@ -261,38 +254,38 @@ export default function Settings({
                       type="password"
                     />
                   </PasswordLabel>
-                  <DefaultButton
+                  <Button
                     name="confirmChangePassword"
                     text="Update Password"
-                    color="primary"
+                    styling="primary"
                     type="submit"
                   />
                 </>
               ) : (
                 <>
                   {waitingForServer ? (
-                    <DefaultButton
+                    <Button
                       name="sentOldPassword"
                       text="Update Password"
-                      color="loading"
+                      styling="loading"
                       type="submit"
                       disabled="true"
                     />
                   ) : (
-                    <DefaultButton
+                    <Button
                       name="sentOldPassword"
                       text="Update Password"
-                      color="primary"
+                      styling="primary"
                       type="submit"
                     />
                   )}
                 </>
               )}
 
-              <DefaultButton
+              <Button
                 name="cancelChangePassword"
                 text="Cancel"
-                color="tertiary"
+                styling="tertiary"
                 callback={handleClick}
               />
               {passwordMessage.visible && (
@@ -300,10 +293,10 @@ export default function Settings({
               )}
             </>
           ) : (
-            <DefaultButton
+            <Button
               name="changePassword"
               text="Change password"
-              color="tertiary"
+              styling="tertiary"
               callback={() => setEditPassword(true)}
             />
           )}
@@ -338,8 +331,8 @@ export default function Settings({
                     setActivePage={setActivePage}
                     speakerId={speech.userId}
                     setSpeakerId={setSpeakerId}
-                    showProfile={showProfile}
-                    setShowProfile={setShowProfile}
+                    moda={modal}
+                    setModal={setModal}
                   />
                 )
               })}
@@ -548,12 +541,12 @@ export default function Settings({
 
   function handleClickOnContainer(event) {
     event.persist()
-    event.target.title === 'container' && setActivePage('')
+    event.target.title === 'container' && setModal('')
   }
   function loggingOut(event) {
     console.log('logging out')
     event.preventDefault()
-    setShowProfile(false)
+    setModal('')
     setActivePage('')
     logOut(event)
   }
