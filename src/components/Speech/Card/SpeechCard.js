@@ -17,9 +17,9 @@ export default function SpeechCard({
 
   return (
     <SpeechCardBody data-testid={`speech-${speech._id}`}>
-      {speech.filename === undefined ? (
-        <p>Video loading</p>
-      ) : (
+      {speech.filename === undefined && <p>Video not found.</p>}
+      {speech.uploadStatus === 'uploading' && <p>Video is being uploaded.</p>}
+      {speech.uploadStatus === 'uploaded' && (
         <SpeechCardVideo role="img" controls>
           <source src={speech.fileUrl} type="video/mp4" />
         </SpeechCardVideo>

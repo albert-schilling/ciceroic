@@ -13,4 +13,4 @@ const initialSpeech = {
   uploadStatus: '',
 }
 
-export { initialSpeech }
+export default initialSpeech

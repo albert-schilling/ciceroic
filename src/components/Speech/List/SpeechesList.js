@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import SpeechCard from '../Speech/Card/SpeechCard'
-import Spinner from '../Spinner/Spinner'
-import { getSpeeches } from '../../services/speechServices'
+import SpeechCard from '../Card/SpeechCard'
+import Spinner from '../../Spinner/Spinner'
+import { getSpeeches } from '../../../services/speechServices'
 
 export default function SpeechesList({
   profile = {},

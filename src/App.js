@@ -11,7 +11,7 @@ import Profile from './components/Profile/Profile'
 import Settings from './components/Settings/Settings'
 import SignUpPage from './components/SignUp/SignUpPage'
 import Speech from './components/Speech/Speech'
-import SpeechesList from './components/List/SpeechesList'
+import SpeechesList from './components/Speech/List/SpeechesList'
 import { initialProfile } from './data/initialProfile'
 import useSpeech from './hooks/useSpeech'
 import UploadForm from './components/UploadForm/UploadForm'
@@ -19,8 +19,6 @@ import Footer from './components/Footer/Footer'
 import Spinner from './components/Spinner/Spinner'
 
 function App() {
-  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-
   const { speeches, setSpeeches, speech, setSpeech } = useSpeech({})
   const [profile, setProfile] = useState(initialProfile)
   const [newSpeech, setNewSpeech] = useState({

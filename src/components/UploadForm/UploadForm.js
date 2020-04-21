@@ -5,28 +5,14 @@ import Select from '../Inputs/Select/Select'
 import Input from '../Inputs/Input/Input'
 import Button from '../Inputs/Button/Button'
 import { speechCategories } from '../../data/speechCategories'
-import Message from '../UserMessage/InsideMessage'
+import Message from '../UserMessage/InlineMessage'
 import useSpeech from '../../hooks/useSpeech'
 import IconClose from '../Icons/IconClose'
 import { getSpeeches } from '../../services/speechServices'
-
-const emptySpeech = {
-  _id: '',
-  filename: '',
-  title: '',
-  speaker: `firstName lastName`,
-  description: '',
-  category: 'lecture',
-  date: '',
-  duration: '',
-  userId: `userId`,
-  fileUrl: '',
-  status: '',
-  uploadStatus: '',
-}
+import initialSpeech from '../../data/initialSpeech'
 
 export default function UploadForm({
-  newSpeech = emptySpeech,
+  newSpeech = initialSpeech,
   setNewSpeech = () => {},
   user = {},
   profile = {},
@@ -272,7 +258,7 @@ export default function UploadForm({
     })
     setVideoFile(null)
     setSubmitted(false)
-    setNewSpeech(emptySpeech)
+    setNewSpeech(initialSpeech)
   }
 
   function visitSpeech(event) {

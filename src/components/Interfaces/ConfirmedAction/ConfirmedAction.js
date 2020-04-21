@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import Button from '../../Inputs/Button/Button'
-import InsideMessage from '../../UserMessage/InsideMessage'
+import InlineMessage from '../../UserMessage/InlineMessage'
 
 export default function ConfirmedAction({
   cancelText = 'Cancel',
@@ -40,7 +40,7 @@ export default function ConfirmedAction({
           callback={handleClick}
         />
       )}
-      {message.visible && <InsideMessage message={message} />}
+      {message.visible && <InlineMessage message={message} />}
     </Container>
   )
   function handleClick(event) {

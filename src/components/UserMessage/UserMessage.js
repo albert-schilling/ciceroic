@@ -2,7 +2,16 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import Button from '../Inputs/Button/Button'
 
-export default function UserMessage({ message, handleClick }) {
+export default function UserMessage({
+  message = {
+    visible: 'flex',
+    text: 'Hello, this is a message.',
+    buttonRef: null,
+    confirmHandler: () => {},
+    focusRef: null,
+  },
+  handleClick,
+}) {
   return (
     <MessageBody>
       <MessageText>{message.text}</MessageText>

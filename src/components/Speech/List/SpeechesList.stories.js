@@ -1,7 +1,7 @@
 import React from 'react'
 import SpeechesList from './SpeechesList'
-import { mobile } from '../../common/storybookDecorator'
-import exampleSpeech from '../../data/exampleSpeech'
+import { mobile } from '../../../common/storybookDecorator'
+import exampleSpeech from '../../../data/exampleSpeech'
 
 export default {
   title: 'Components/Speech/List',

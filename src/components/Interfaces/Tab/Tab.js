@@ -6,7 +6,7 @@ export default function Tab({
   handleClick = () => {},
   children = {},
   title = 'Default Tab Title',
-  active = true,
+  active = false,
 }) {
   const reference = useRef(null)
   useEffect(() => {
