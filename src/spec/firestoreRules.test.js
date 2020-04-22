@@ -1,6 +1,6 @@
 import { getTestDB, clearTestDB, firebase } from '../spec/setupFirebaseTestApp'
 
-describe('test database access if user is not logged in', () => {
+describe.skip('test database access if user is not logged in', () => {
   let db
   let ref
 
@@ -21,7 +21,7 @@ describe('test database access if user is not logged in', () => {
   })
 })
 
-describe('test database access if user is logged in', () => {
+describe.skip('test database access if user is logged in', () => {
   let db
   let ref
 

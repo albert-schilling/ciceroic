@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import TextAreaInlineLabel from '../Inputs/TextArea/TextAreaInlineLabel'
+import TextArea from '../Inputs/TextArea/TextArea'
 import Select from '../Inputs/Select/Select'
-import BroadInput from '../Inputs/Buttons/BroadInput'
-import BroadButton from '../Inputs/Buttons/BroadButton'
+import Input from '../Inputs/Input/Input'
+import Button from '../Inputs/Button/Button'
 import { speechCategories } from '../../data/speechCategories'
-import Message from '../UserMessage/InsideMessage'
+import Message from '../UserMessage/InlineMessage'
 import useSpeech from '../../hooks/useSpeech'
-import IconClose from '../Inputs/Icons/IconClose'
+import IconClose from '../Icons/IconClose'
 import { getSpeeches } from '../../services/speechServices'
-
-const emptySpeech = {
-  _id: '',
-  filename: '',
-  title: '',
-  speaker: `firstName lastName`,
-  description: '',
-  category: 'lecture',
-  date: '',
-  duration: '',
-  userId: `userId`,
-  fileUrl: '',
-  status: '',
-  uploadStatus: '',
-}
+import initialSpeech from '../../data/initialSpeech'
 
 export default function UploadForm({
-  newSpeech = emptySpeech,
+  newSpeech = initialSpeech,
   setNewSpeech = () => {},
   user = {},
   profile = {},
-  activePage = '',
   setActivePage = () => {},
+  modal = '',
+  setModal = () => {},
   setSpeeches = () => {},
   setSpeech = () => {},
 }) {
@@ -64,15 +51,19 @@ export default function UploadForm({
     newSpeech.status === 'submitted' && setSubmitted(true)
   }, [newSpeech.status, newSpeech.uploadStatus])
   return (
-    <Section className={activePage === '/upload' && 'visible'}>
+    <Section
+      className={modal === 'upload' && 'visible'}
+      onClick={handleClickOnContainer}
+      title="container"
+    >
       <Wrapper>
-        <IconClose position="topright" callback={() => setActivePage('')} />
+        <IconClose position="topright" callback={() => setModal('')} />
 
         <H2>Let's get started!</H2>
         <Form onSubmit={handleSubmit}>
           {!submitted && (
             <>
-              <BroadInput
+              <Input
                 name="uploadSpeech"
                 callback={handleUpload}
                 text="Upload video"
@@ -92,27 +83,29 @@ export default function UploadForm({
             </>
           ) : (
             <>
-              <TextAreaInlineLabel
+              <TextArea
                 title="Title"
                 name="title"
+                id="New Speech Title"
                 rows={1}
                 callback={handleChange}
-                value={newSpeech.title}
+                initialValue={newSpeech.title}
               />
-              <TextAreaInlineLabel
+              <TextArea
                 title="Description"
                 name="description"
-                maxLength="250"
+                id="New Speech Description"
+                maxLength="500"
                 rows={5}
                 callback={handleChange}
-                value={newSpeech.description}
+                initialValue={newSpeech.description}
               />
               <Select
                 name="category"
                 placeholder="Choose a category"
                 options={speechCategories}
                 callback={handleChange}
-                value={newSpeech.category}
+                initialValue={newSpeech.category}
               />
             </>
           )}
@@ -126,41 +119,37 @@ export default function UploadForm({
                 )}%`}</StatisticsRangeNumber>
               </StatisticsRangeContainer>
               {uploadProgress < 100 && (
-                <BroadButton
+                <Button
                   name="submitSpeech"
                   type="submit"
                   text={`Your speech is ${newSpeech.uploadStatus}.`}
-                  color="tertiary"
-                  styling="m0"
+                  styling="m0 tertiary full-width"
                   disabled={true}
                 />
               )}
               {uploadProgress === 100 && (
                 <ButtonRow>
-                  <BroadButton
+                  <Button
                     name="resetSpeech"
                     callback={resetSpeech}
                     text={'Upload another speech?'}
-                    color="secondary"
-                    styling="m0"
+                    styling="m0 secondary full-width"
                   />
-                  <BroadButton
+                  <Button
                     name="visitSpeech"
                     callback={visitSpeech}
                     text={'See speech'}
-                    color="primary"
-                    styling="m0"
+                    styling="m0 primary full-width"
                   />
                 </ButtonRow>
               )}
             </>
           ) : (
-            <BroadButton
+            <Button
               name="submitSpeech"
               type="submit"
               text="Submit your speech"
-              color="secondary"
-              styling="m0"
+              styling="m0 secondary full-width"
               disabled={false}
             />
           )}
@@ -269,13 +258,18 @@ export default function UploadForm({
     })
     setVideoFile(null)
     setSubmitted(false)
-    setNewSpeech(emptySpeech)
+    setNewSpeech(initialSpeech)
   }
 
   function visitSpeech(event) {
     event.preventDefault()
     setSpeech(newSpeech)
     setActivePage('/speech')
+    setModal('')
+  }
+  function handleClickOnContainer(event) {
+    event.persist()
+    event.target.title === 'container' && setModal('')
   }
 }
 
@@ -284,12 +278,14 @@ const Section = styled.section`
   top: 0;
   display: none;
   align-content: flex-start;
+  justify-items: center;
   grid-gap: 20px;
   margin: 0;
-  padding: 80px 20px 20px 20px;
-  overflow-y: scroll;
   height: 100vh;
   width: 100%;
+  padding: 80px 20px 20px 20px;
+  overflow: hidden;
+  z-index: 2;
   &.visible {
     display: grid;
   }
@@ -299,7 +295,12 @@ const Wrapper = styled.div`
   position: relative;
   border: 1px solid var(--secondary-highlight-color);
   background: #fff;
-  padding: 12px;
+  padding: 20px;
+  max-width: 700px;
+  overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 40px;
+  }
 `
 
 const H2 = styled.h2`

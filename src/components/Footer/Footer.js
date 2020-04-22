@@ -1,25 +1,35 @@
 import React from 'react'
-import ProfileButton from '../Inputs/Icons/ProfileButton'
-import RecordIcon from '../Inputs/Icons/RecordIcon'
-import IconProfile from '../Inputs/Icons/IconProfile'
+import styled from 'styled-components/macro'
+import Imprint from '../Content/Imprint'
+import Modal from '../Interfaces/Modal/Modal'
 
-export default function Footer({
-  user = {},
-  activePage = '',
-  setActivePage = () => {},
-}) {
+const FooterStyled = styled.footer`
+  display: grid;
+  justify-content: flex-start;
+  justify-self: center;
+  width: 100%;
+  max-width: 1200px;
+  height: max-content;
+  padding: 40px 24px 200px;
+  background: var(--light-grey);
+  font-size: 80%;
+`
+
+const Line = styled.hr`
+  color: var(--primary-font-color);
+  width: 100%;
+  height: max-content;
+  margin: 20px;
+`
+
+export default function Footer() {
   return (
-    <>
-      {user._id && (
-        <footer role="navigation" aria-label="Main">
-          {activePage === '' && (
-            <RecordIcon callback={() => setActivePage('/upload')} />
-          )}
-          {activePage === '' && (
-            <IconProfile callback={() => setActivePage('/settings')} />
-          )}
-        </footer>
-      )}
-    </>
+    <FooterStyled>
+      <Line />
+      <Modal size={'medium'}>
+        {'Imprint'}
+        <Imprint />
+      </Modal>
+    </FooterStyled>
   )
 }

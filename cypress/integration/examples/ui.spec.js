@@ -3,6 +3,74 @@ describe('UI journey', () => {
     cy.visit('http://localhost:3000/')
   })
 
+  it.only('signs up a new user', () => {
+    cy.wait(2000)
+      .get('button[type=submit]')
+      .click()
+      .wait(1000)
+      .get('form')
+      .contains('Please, enter your email address.')
+      .focused()
+      .type('cypress@ciceroic.com')
+      .get('button[type=submit]')
+      .click()
+      .wait(1000)
+      .get('form')
+      .contains('Please, enter your password.')
+      .focused()
+      .type('Cypress')
+      .get('button[type=submit]')
+      .click()
+      .wait(1000)
+      .get('form')
+      .contains(
+        'Sorry, this email has not been found. If you are a new user, please, click the "Sign Up"-button to register.'
+      )
+      .get('a[name=signUp]')
+      .click()
+      .wait(1000)
+      .get('button[type=submit]')
+      .click()
+      .get('form')
+      .contains('Please, enter a valid password with at least 8 characters.')
+      .focused()
+      .type('Cypress')
+      .wait(1000)
+      .get('button[type=submit]')
+      .click()
+      .get('form')
+      .contains('Please, enter your first name.')
+      .focused()
+      .type('Cypress')
+      .wait(1000)
+      .get('button[type=submit]')
+      .click()
+      .get('form')
+      .contains('Please, enter your last name.')
+      .focused()
+      .type('Cypress')
+      .wait(1000)
+      .get('button[type=submit]')
+      .click()
+
+    //   .get('input[name="first name"]')
+    //   .type('Cypress')
+
+    //     .get('form')
+    //     .then(form => {
+    //       const element = video.get(0)
+    //       element.muted = true
+    //       element.play()
+    //       return video
+    //     })
+    //     .wait(5000)
+    //     .get('video')
+    //     .then(video => {
+    //       const element = video.get(0)
+    //       element.pause()
+    //     })
+  })
+
   it('gets the first video element and plays and pauses it', () => {
     cy.wait(2000)
       .get('video')
@@ -19,7 +87,7 @@ describe('UI journey', () => {
         element.pause()
       })
   })
-  it.only('evaluates the first speech', () => {
+  it.skip('evaluates the first speech', () => {
     cy.wait(1000)
       .get('a')
       .first()

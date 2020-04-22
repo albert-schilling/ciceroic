@@ -1,12 +1,10 @@
 import React from 'react'
-import { mobile } from '../../common/storybookDecorator'
 import { action } from '@storybook/addon-actions'
 
 import Profile from './Profile'
 
 export default {
-  title: 'Components/Profile',
-  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
+  title: 'Components/Pages/Profile',
   component: Profile,
 }
 
@@ -22,5 +20,7 @@ const profile = {
 }
 
 export const DefaultProfile = () => {
-  return <Profile profile={profile} />
+  return (
+    <Profile modal={'profile'} useLoading={false} exampleProfile={profile} />
+  )
 }

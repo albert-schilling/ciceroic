@@ -1,30 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import UploadForm from './UploadForm'
 import { mobile } from '../../common/storybookDecorator'
 
+import initialSpeech from '../../data/initialSpeech'
+
 export default {
-  title: 'Components/UploadForm',
-  decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
+  title: 'Components/Forms/UploadForm',
   component: UploadForm,
 }
 
-export const DefaultUploadForm = () => {
-  const [newSpeech, setNewSpeech] = useState({
-    _id: '',
-    filename: '',
-    title: '',
-    speaker: `firstName lastName`,
-    description: '',
-    category: '',
-    date: '',
-    duration: '',
-    userId: `userID`,
-  })
-  return (
-    <UploadForm
-      title="Default UploadForm"
-      newSpeech={newSpeech}
-      setNewSpeech={setNewSpeech}
-    />
-  )
-}
+export const DefaultUploadForm = () => (
+  <UploadForm
+    title="Default UploadForm"
+    newSpeech={initialSpeech}
+    modal={'upload'}
+  />
+)

@@ -26,4 +26,29 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
-export { testUserData, testSpeechData }
+function getTestUser() {
+  const id = makeId(5)
+  const testUser = {
+    _id: id,
+    uid: id,
+    email: `testUser-${id}@ciceroic.com`,
+    password: `testUser-${id}-password`,
+    firstName: `testUser-${id}-firstName`,
+    lastName: `testUser-${id}-lastName`,
+    emailVerified: false,
+    portrait: 'url-to-portrait',
+  }
+
+  return testUser
+
+  function makeId(length) {
+    let id = ''
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    for (let i = 0; i < length; i++) {
+      id += characters.charAt(Math.floor(Math.random() * characters.length))
+    }
+    return id
+  }
+}
+
+export { getTestUser, testUserData, testSpeechData }

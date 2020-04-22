@@ -127,7 +127,7 @@ describe.skip('uploadSpeech()', () => {
 })
 
 describe('deleteSpeech()', () => {
-  it("returns an error if firstname and lastname does not match 'Cypress'", async () => {
+  it("returns an error if firstname and lastname does not match 'testUser'", async () => {
     const res = await deleteSpeech({
       id: 'randomId',
       profile: { firstName: 'Any', lastName: 'User' },
@@ -155,7 +155,7 @@ describe('deleteSpeech()', () => {
     expect(retrievedSpeech.userId).toEqual(userId)
     let res = await deleteSpeech({
       id,
-      profile: { firstName: 'Cypress', lastName: 'Cypress' },
+      profile: { firstName: 'testUser', lastName: 'testUser' },
     })
     expect(res).toMatch(/successfully deleted/)
     // await setTimeout(() => {

@@ -21,6 +21,7 @@ cypress/screenshots
 .env.development.local
 .env.test.local
 .env.test
+.env.production
 .env.production.local
 
 npm-debug.log*
@@ -30,10 +31,6 @@ yarn-error.log*
 .Cache
 .cache
 node_modules
-
-videos
-public/videos
-src/videos
 
 src/components/DEV
 

@@ -1,19 +1,16 @@
 // setup and teardown of emulated test db from firebase/testing
 // import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
-import { addUser, updateUser, getUser, deleteAllUsers } from './userServices'
-
-const id = Math.floor(Math.random() * 1000).toString()
-const testUser = {
-  _id: id,
-  uid: id,
-  email: `${id}@testing.de`,
-  firstName: `${id}FirstName`,
-  lastName: `${id}LastName`,
-  emailVerified: false,
-  portrait: 'url-to-portrait',
-}
-
-// let db
+import {
+  signUp,
+  addUser,
+  updateUser,
+  getUser,
+  deleteUser,
+  deleteAllUsers,
+  deleteUserFromAuthentication,
+  deleteUserFromDB,
+} from './userServices'
+import { getTestUser } from '../spec/testData'
 
 beforeAll(async () => {
   // emulated test db with firebase/testing -> setup db
@@ -24,7 +21,7 @@ beforeAll(async () => {
   //   firstName: testUser.firstName,
   //   lastName: testUser.lastName,
   // })
-  await deleteAllUsers()
+  // await deleteAllUsers()
 })
 
 afterAll(async () => {
@@ -33,69 +30,55 @@ afterAll(async () => {
 })
 
 describe('test getUser()', () => {
+  const testUser = getTestUser()
+  const id = testUser._id
   it('it returns an error if id is undefined', async () => {
-    const res = await getUser({
-      // db,
-      id: undefined,
-    })
+    const res = await getUser({ id: undefined })
     expect(typeof res === 'object').toBe(true)
     expect(res instanceof Error).toBe(true)
     expect(res.name).toMatch(/FirebaseError/)
     expect(res.message).toMatch(
       /requires its first argument to be of type non-empty string, but it was: undefined/
     )
-    // expect(res).toContain(/FirebaseError/)
   })
-  it('it gets the added user from db', async () => {
-    const secondId = Math.floor(Math.random() * 1000).toString()
-    const testUser2 = {
-      _id: secondId,
-      uid: secondId,
-      email: `${secondId}@testing.de`,
-      emailVerified: false,
-      firstName: `${secondId}FirstName`,
-      lastName: `${secondId}LastName`,
-    }
+  it('it gets the added user from db ', async () => {
     await addUser({
-      // db,
-      user: testUser2,
-      firstName: testUser2.firstName,
-      lastName: testUser2.lastName,
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
     })
-    const userData = await getUser({
-      // db,
-      id: secondId,
-    })
-    expect(userData._id).toEqual(secondId)
+    const userData = await getUser({ id })
+    expect(userData._id).toEqual(id)
+  })
+  it('deletes the new user from db', async () => {
+    const res = await deleteUserFromDB({ id })
+    expect(res).toBe(true)
+  })
+  it('checks if the user is removed from db', async () => {
+    const res = await getUser({ id })
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/User not found in db!/)
   })
 })
 
-describe('test signUp logic with signUp(), addUser() and getUser()', () => {
-  const signUp = jest.fn(
-    ({
-      // db,
+describe.skip('test mock signUp logic with signUp(), addUser() and getUser()', () => {
+  const testUser = getTestUser()
+  const id = testUser._id
+  const signUp = jest.fn(({ user, firstName, lastName }) => {
+    addUser({
       user,
       firstName,
       lastName,
-    }) => {
-      addUser({
-        // db,
-        user,
-        firstName,
-        lastName,
-      })
-    }
-  )
+    })
+  })
 
   it('signs up a user and checks its existance in the db user collection', async () => {
     await signUp({
-      // db,
       user: testUser,
       firstName: testUser.firstName,
       lastName: testUser.lastName,
     })
     const userData = await getUser({
-      // db,
       id,
     })
     expect(userData._id).toEqual(id)
@@ -103,15 +86,26 @@ describe('test signUp logic with signUp(), addUser() and getUser()', () => {
 })
 
 describe('test updateUser()', () => {
+  const testUser = getTestUser()
+  const id = testUser._id
+
+  it('it adds a user to db', async () => {
+    await addUser({
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+    })
+    const userData = await getUser({ id })
+    expect(userData._id).toEqual(id)
+  })
+
   it('updates the firstName of the user in db', async () => {
     const newName = 'updatedName'
     testUser.firstName = newName
     await updateUser({
-      // db,
       profile: testUser,
     })
     const userData = await getUser({
-      // db,
       id,
     })
     expect(userData.firstName).toEqual(newName)
@@ -119,14 +113,21 @@ describe('test updateUser()', () => {
   it('adds or updates the url for the user portrait in db', async () => {
     const url = 'url-to-new-portrait'
     await updateUser({
-      // db,
       profile: { ...testUser, portrait: url },
     })
     const userData = await getUser({
-      // db,
       id,
     })
     expect(userData.portrait).toEqual(url)
+  })
+  it('deletes the new user from db', async () => {
+    const res = await deleteUserFromDB({ id: id })
+    expect(res).toBe(true)
+  })
+  it('checks if the user is removed from db', async () => {
+    const res = await getUser({ id })
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/User not found in db!/)
   })
 })
 
@@ -143,6 +144,18 @@ describe('test uploadPortrait()', () => {
       })
     }
   )
+  const testUser = getTestUser()
+  const id = testUser._id
+
+  it('it adds a user to db', async () => {
+    await addUser({
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+    })
+    const userData = await getUser({ id })
+    expect(userData._id).toEqual(id)
+  })
 
   it('uploads a user portrait and set the url in db', async () => {
     const url = 'url-to-new-portrait'
@@ -156,6 +169,15 @@ describe('test uploadPortrait()', () => {
       id,
     })
     expect(userData.portrait).toEqual(url)
+  })
+  it('deletes the new user from db', async () => {
+    const res = await deleteUserFromDB({ id: id })
+    expect(res).toBe(true)
+  })
+  it('checks if the user is removed from db', async () => {
+    const res = await getUser({ id })
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/User not found in db!/)
   })
 })
 
@@ -171,6 +193,18 @@ describe('test deletePortrait()', () => {
       })
     }
   )
+  const testUser = getTestUser()
+  const id = testUser._id
+
+  it('it adds a user to db', async () => {
+    await addUser({
+      user: testUser,
+      firstName: testUser.firstName,
+      lastName: testUser.lastName,
+    })
+    const userData = await getUser({ id })
+    expect(userData._id).toEqual(id)
+  })
   it('deletes a user portrait from storage and sets the url to empty string in db', async () => {
     await deletePortrait({
       // db,
@@ -182,9 +216,18 @@ describe('test deletePortrait()', () => {
     })
     expect(userData.portrait).toEqual('')
   })
+  it('deletes the new user from db', async () => {
+    const res = await deleteUserFromDB({ id: id })
+    expect(res).toBe(true)
+  })
+  it('checks if the user is removed from db', async () => {
+    const res = await getUser({ id })
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/User not found in db!/)
+  })
 })
 
-describe('test deleteAllUsers()', () => {
+describe.skip('test deleteAllUsers()', () => {
   it('deletes all users from db', async () => {
     await addUser({
       // db,
@@ -201,5 +244,36 @@ describe('test deleteAllUsers()', () => {
 
     const res = await deleteAllUsers()
     expect(res).toMatch(/All Users successfully deleted./)
+  })
+})
+
+describe('signUp() and deleteUser() including authentication', () => {
+  const testUser = getTestUser()
+  let id
+  it('signs up a user', async () => {
+    const res = await signUp({ ...testUser })
+    id = res.user.uid
+  })
+  it('gets the new user from db', async () => {
+    const userData = await getUser({ id })
+    expect(userData._id).toEqual(id)
+    expect(userData.firstName).toEqual(testUser.firstName)
+  })
+  it.skip('deletes the new user from authentication', async () => {
+    const res = await deleteUserFromAuthentication()
+    expect(res).toBe(true)
+  })
+  it.skip('deletes the new user from db', async () => {
+    const res = await deleteUserFromDB({ id })
+    expect(res).toBe(true)
+  })
+  it('deletes the new user from authentication and db in one step', async () => {
+    const res = await deleteUser({ id })
+    expect(res).toMatch(/successfully deleted/)
+  })
+  it('checks if the user is removed from db', async () => {
+    const res = await getUser({ id })
+    expect(res instanceof Error).toBe(true)
+    expect(res.message).toMatch(/User not found in db!/)
   })
 })

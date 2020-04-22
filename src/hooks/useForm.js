@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { patchSpeech } from '../services/speechServices'
-import { evaluationDimensions } from '../data/evaluationDimensions'
+import evaluationDimensions from '../data/evaluationDimensions'
 
 export default function useForm() {
   const initialValues = {}

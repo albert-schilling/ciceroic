@@ -1,4 +1,4 @@
-export const evaluationDimensions = [
+const evaluationDimensions = [
   {
     name: 'Gestures And Facial Expressions',
     value: 3,
@@ -25,3 +25,5 @@ export const evaluationDimensions = [
     description: 'Use of body language to emphasise the content.',
   },
 ]
+
+export default evaluationDimensions

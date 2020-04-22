@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { getUser } from '../../services/userServices'
-import IconClose from '../Inputs/Icons/IconClose'
-import SpeechCard from '../Speech/SpeechCard'
+import IconClose from '../Icons/IconClose'
+import SpeechCard from '../Speech/Card/SpeechCard'
 import { getSpeechesByUser } from '../../services/speechServices'
 
 export default function Profile({
   speakerId = '',
   setSpeakerId = () => {},
-  showProfile = false,
-  setShowProfile = () => {},
   profile = {},
-  activePage = '',
   setActivePage = () => {},
+  modal = '',
+  setModal = () => {},
   setSpeech,
+  useLoading = true,
+  exampleProfile = null,
 }) {
   const [lightbox, setLightbox] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [foreignProfile, setForeignProfile] = useState('')
+  const [loading, setLoading] = useState(useLoading)
+  const [foreignProfile, setForeignProfile] = useState(
+    exampleProfile && exampleProfile
+  )
   const [speechesByUser, setSpeechesByUser] = useState([])
 
   useEffect(() => {
@@ -30,9 +33,13 @@ export default function Profile({
       getSpeechesByUser({ id: speakerId }).then(res => setSpeechesByUser(res))
   }, [speakerId])
   return (
-    <Section className={showProfile && 'visible'}>
+    <Section
+      className={modal === 'profile' && 'visible'}
+      onClick={handleClickOnContainer}
+      title="container"
+    >
       <Wrapper>
-        <IconClose position="topright" callback={() => setShowProfile(false)} />
+        <IconClose position="topright" callback={() => setModal('')} />
 
         {loading ? (
           <Spinner>
@@ -88,24 +95,21 @@ export default function Profile({
             </ProfileSection>
             {speechesByUser.length > 0 ? (
               <>
-                {speechesByUser.map(speech => {
-                  return (
-                    <>
-                      <p>Speeches by {foreignProfile.firstName}:</p>
-                      <SpeechCard
-                        key={speech._id}
-                        profile={profile}
-                        speech={speech}
-                        setSpeech={setSpeech}
-                        setActivePage={setActivePage}
-                        speakerId={speech.userId}
-                        setSpeakerId={setSpeakerId}
-                        showProfile={showProfile}
-                        setShowProfile={setShowProfile}
-                      />
-                    </>
-                  )
-                })}
+                <p>Speeches by {foreignProfile.firstName}:</p>
+                <Speeches>
+                  {speechesByUser.map(speech => (
+                    <SpeechCard
+                      key={speech._id}
+                      profile={profile}
+                      speech={speech}
+                      setSpeech={setSpeech}
+                      setActivePage={setActivePage}
+                      setModal={setModal}
+                      speakerId={speech.userId}
+                      setSpeakerId={setSpeakerId}
+                    />
+                  ))}
+                </Speeches>
               </>
             ) : (
               <p>No speeches yet.</p>
@@ -115,6 +119,10 @@ export default function Profile({
       </Wrapper>
     </Section>
   )
+  function handleClickOnContainer(event) {
+    event.persist()
+    event.target.title === 'container' && setModal('')
+  }
 }
 
 const Section = styled.section`
@@ -122,12 +130,14 @@ const Section = styled.section`
   top: 0;
   display: none;
   align-content: flex-start;
+  justify-items: center;
   grid-gap: 20px;
   margin: 0;
-  padding: 80px 20px 20px 20px;
-  overflow-y: scroll;
   height: 100vh;
   width: 100%;
+  padding: 80px 20px 20px 20px;
+  overflow: hidden;
+  z-index: 2;
   &.visible {
     display: grid;
   }
@@ -135,17 +145,17 @@ const Section = styled.section`
 
 const Wrapper = styled.div`
   position: relative;
-  border: 1px solid var(--highlight-color);
-  background: #fff;
-  padding: 12px;
   display: grid;
-  justify-self: center;
   align-content: flex-start;
-  height: 100%;
   width: 100%;
+  max-width: 700px;
+  border: 1px solid var(--highlight-color);
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 40px;
+  }
 `
 
 const ProfileSection = styled.section`
@@ -227,6 +237,20 @@ const LightboxClose = styled.div`
   right: 8px;
   width: 40px;
   height: 40px;
+`
+
+const Speeches = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  > *:nth-child(n) {
+    margin-bottom: 12px;
+  }
+  @media (min-width: 700px) {
+    > *:nth-child(n) {
+      width: calc(50% - 6px);
+    }
+  }
 `
 
 const Spinner = styled.section`

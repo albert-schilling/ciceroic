@@ -69,3 +69,7 @@ Evaluate the speeches of others according to specified dimensions and share your
 ## Further Technical Information
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+You need to install Firebase CLI 'npm install -g firebase-tools' and intialize it to use and deploy your firebase project.
+
+For more information check out the [firebase CLI documentation](https://firebase.google.com/docs/cli/).

@@ -9,9 +9,9 @@ function getUser({ db = firebase.db, id }) {
       .get()
       .then(doc => {
         // console.log('User found in DB:', doc.exists)
-        return doc.exists && doc.data()
+        if (!doc.exists) return new Error('User not found in db!')
+        return doc.data()
       })
-      .then(data => data)
       .catch(error => {
         console.error('Error getting user: ', error)
         return error
@@ -28,11 +28,20 @@ async function signUp({
   password,
   firstName,
   lastName,
+  terms = false,
+  newsletter = false,
 }) {
   return await authentication
     .createUserWithEmailAndPassword(email, password)
     .then(async res => {
-      await addUser({ db, user: res.user, firstName, lastName })
+      await addUser({
+        db,
+        user: res.user,
+        firstName,
+        lastName,
+        terms,
+        newsletter,
+      })
       await updateUsersDisplayName({ firstName, lastName })
       await authentication.currentUser.sendEmailVerification()
       return res
@@ -43,7 +52,14 @@ async function signUp({
     })
 }
 
-async function addUser({ db = firebase.db, user, firstName, lastName }) {
+async function addUser({
+  db = firebase.db,
+  user,
+  firstName,
+  lastName,
+  terms = false,
+  newsletter = false,
+}) {
   return await db
     .collection('users')
     .doc(user.uid)
@@ -54,6 +70,8 @@ async function addUser({ db = firebase.db, user, firstName, lastName }) {
       email: user.email,
       registered: new Date().getTime(),
       emailVerified: user.emailVerified,
+      terms,
+      newsletter,
     })
     .then(() => {
       // console.log('User successfully stored in DB.')
@@ -168,6 +186,45 @@ function deleteAllUsers({ db = firebase.db } = {}) {
     .catch(error => console.error(error))
 }
 
+async function deleteUser({ db = firebase.db, id }) {
+  try {
+    return (
+      (await deleteUserFromDB({ id })) &&
+      (await deleteUserFromAuthentication()) &&
+      'User successfully deleted.'
+    )
+  } catch (error) {
+    console.error('Error deleting user:', error)
+    return error
+  }
+}
+
+function deleteUserFromAuthentication() {
+  const user = authentication.currentUser
+  return user
+    .delete()
+    .then(() => {
+      // console.log('User successfully removed from authentication.')
+      return true
+    })
+    .catch(error => {
+      console.error('Error removing user: ', error)
+    })
+}
+function deleteUserFromDB({ db = firebase.db, id }) {
+  return db
+    .collection('users')
+    .doc(id)
+    .delete()
+    .then(() => {
+      // console.log(`User with id ${id} successfully deleted.`)
+      return true
+    })
+    .catch(error => {
+      console.error('Error removing document: ', error)
+    })
+}
+
 export {
   signUp,
   logIn,
@@ -176,5 +233,8 @@ export {
   updateUser,
   uploadPortrait,
   deletePortrait,
+  deleteUser,
   deleteAllUsers,
+  deleteUserFromAuthentication,
+  deleteUserFromDB,
 }

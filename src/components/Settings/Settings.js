@@ -6,16 +6,17 @@ import {
   uploadPortrait,
   deletePortrait,
 } from '../../services/userServices'
-import BroadButton from '../Inputs/Buttons/BroadButton'
-import BroadInput from '../Inputs/Buttons/BroadInput'
-import DefaultButton from '../Inputs/Buttons/DefaultButton'
-import IconClose from '../Inputs/Icons/IconClose'
-import IconSignOut from '../Inputs/Icons/IconSignOut'
+import Button from '../Inputs/Button/Button'
+import Input from '../Inputs/Input/Input'
+import IconClose from '../Icons/IconClose'
+import IconSignOut from '../Icons/IconSignOut'
 import UserMessage from '../UserMessage/UserMessage'
 import { authentication } from '../../services/firebase'
 import firebase from 'firebase/app'
-import SpeechCard from '../Speech/SpeechCard'
+import SpeechCard from '../Speech/Card/SpeechCard'
 import { getSpeechesByUser } from '../../services/speechServices'
+import ConfirmedAction from '../Interfaces/ConfirmedAction/ConfirmedAction'
+import { deleteUser } from '../../services/userServices'
 
 const PasswordLabel = styled.label`
   display: grid;
@@ -36,12 +37,10 @@ export default function Settings({
   },
   setProfile = () => {},
   logOut = () => {},
-  activePage = '',
   setActivePage = () => {},
-
+  modal = '',
+  setModal = () => {},
   setSpeech,
-  showProfile = false,
-  setShowProfile = () => {},
   setSpeakerId = () => {},
 }) {
   const [editAbout, setEditAbout] = useState(false)
@@ -54,6 +53,11 @@ export default function Settings({
     visible: false,
     text: '',
     focusRef: null,
+  })
+  const [deletionMessage, setDeletionMessage] = useState({
+    visible: false,
+    text: '',
+    style: 'warning',
   })
   const [passwordMessage, setPasswordMessage] = useState({
     visible: false,
@@ -68,14 +72,27 @@ export default function Settings({
   }, [profile._id])
 
   return (
-    <Section className={activePage === '/settings' && 'visible'}>
+    <Section
+      data-cy="settings"
+      className={modal === 'settings' && 'visible'}
+      onClick={handleClickOnContainer}
+      title="container"
+    >
       <Wrapper>
-        <IconClose position="topright" callback={() => setActivePage('')} />
+        <IconClose
+          dataCy="closeSettings"
+          position="topright"
+          callback={() => setModal('')}
+        />
         <ProfileSection>
           {lightbox ? (
             <Lightbox>
               <LightboxClose>
-                <IconClose color="#fff" callback={() => setLightbox(false)} />
+                <IconClose
+                  dataCy="closeLightbox"
+                  color="#fff"
+                  callback={() => setLightbox(false)}
+                />
               </LightboxClose>
               <LightboxImage>
                 <img
@@ -98,34 +115,35 @@ export default function Settings({
                     <LightboxMessage>
                       Are you sure you would like to delete your portrait?
                     </LightboxMessage>
-                    <BroadButton
+                    <Button
+                      dataCy="cancelDeletePortrait"
                       name="cancelDeletePortrait"
                       callback={handleClick}
                       text="Cancel"
-                      color="tertiary"
-                      styling="m0"
+                      styling="m0 tertiary"
                     />
-                    <BroadButton
+                    <Button
+                      dataCy="confirmDeletePortrait"
                       name="confirmDeletePortrait"
                       callback={handleClick}
                       text="Delete"
-                      color="secondary"
-                      styling="m0"
+                      styling="m0 secondary"
                     />
                   </>
                 ) : (
                   <>
                     {profile.portrait && profile.portrait.length > 0 && (
-                      <BroadButton
+                      <Button
+                        dataCy="deletePortrait"
                         name="deletePortrait"
                         callback={handleClick}
                         text="Delete"
-                        color="tertiary"
-                        styling="m0"
+                        styling="m0 tertiary"
                       />
                     )}
 
-                    <BroadInput
+                    <Input
+                      dataCy="uploadPortrait"
                       name="uploadPortrait"
                       callback={handleUpload}
                       text="Upload"
@@ -140,6 +158,7 @@ export default function Settings({
             </Lightbox>
           ) : (
             <Portrait
+              data-cy="portrait"
               onClick={() => setLightbox(true)}
               style={{
                 backgroundImage: `url('${
@@ -157,24 +176,28 @@ export default function Settings({
             {editAbout ? (
               <>
                 <AboutInput
+                  data-cy="inputAbout"
                   name="about"
                   value={profile.about}
                   onChange={handleChange}
                   rows="5"
                 />
-                <DefaultButton
+                <Button
+                  dataCy="updateAbout"
                   name="updateAbout"
                   callback={handleClick}
                   text="Done"
-                  color="primary"
+                  styling="primary"
                 />
               </>
             ) : (
               <>
-                <About>{profile.about}</About>
-                <DefaultButton
+                <About data-cy="about">{profile.about}</About>
+                <Button
+                  dataCy="editAbout"
                   text="Edit"
-                  color="tertiary"
+                  name="editAbout"
+                  styling="tertiary"
                   callback={() => setEditAbout(true)}
                 />
               </>
@@ -195,19 +218,19 @@ export default function Settings({
                 <PasswordLabel htmlFor="sendNewPassword">
                   Forgot your password?
                   {waitingForServer ? (
-                    <DefaultButton
+                    <Button
                       name="sendNewPassword"
                       id="sendNewPassword"
                       text="Send me a new password"
-                      color="loading"
+                      styling="loading"
                       disabled="true"
                     />
                   ) : (
-                    <DefaultButton
+                    <Button
                       name="sendNewPassword"
                       id="sendNewPassword"
                       text="Send me a new password"
-                      color="secondary"
+                      styling="secondary"
                       callback={handleClick}
                     />
                   )}
@@ -231,38 +254,38 @@ export default function Settings({
                       type="password"
                     />
                   </PasswordLabel>
-                  <DefaultButton
+                  <Button
                     name="confirmChangePassword"
                     text="Update Password"
-                    color="primary"
+                    styling="primary"
                     type="submit"
                   />
                 </>
               ) : (
                 <>
                   {waitingForServer ? (
-                    <DefaultButton
+                    <Button
                       name="sentOldPassword"
                       text="Update Password"
-                      color="loading"
+                      styling="loading"
                       type="submit"
                       disabled="true"
                     />
                   ) : (
-                    <DefaultButton
+                    <Button
                       name="sentOldPassword"
                       text="Update Password"
-                      color="primary"
+                      styling="primary"
                       type="submit"
                     />
                   )}
                 </>
               )}
 
-              <DefaultButton
+              <Button
                 name="cancelChangePassword"
                 text="Cancel"
-                color="tertiary"
+                styling="tertiary"
                 callback={handleClick}
               />
               {passwordMessage.visible && (
@@ -270,14 +293,21 @@ export default function Settings({
               )}
             </>
           ) : (
-            <DefaultButton
+            <Button
               name="changePassword"
               text="Change password"
-              color="tertiary"
+              styling="tertiary"
               callback={() => setEditPassword(true)}
             />
           )}
         </PasswordForm>
+        <ConfirmedAction
+          message={deletionMessage}
+          setMessage={setDeletionMessage}
+          submitText={'Delete Profile'}
+          submitColor={'secondary'}
+          callback={handleDeleteProfile}
+        />
         <Line>
           <IconSignOut
             width="20px"
@@ -301,8 +331,8 @@ export default function Settings({
                     setActivePage={setActivePage}
                     speakerId={speech.userId}
                     setSpeakerId={setSpeakerId}
-                    showProfile={showProfile}
-                    setShowProfile={setShowProfile}
+                    moda={modal}
+                    setModal={setModal}
                   />
                 )
               })}
@@ -509,12 +539,25 @@ export default function Settings({
       })
   }
 
+  function handleClickOnContainer(event) {
+    event.persist()
+    event.target.title === 'container' && setModal('')
+  }
   function loggingOut(event) {
     console.log('logging out')
     event.preventDefault()
-    setShowProfile(false)
+    setModal('')
     setActivePage('')
     logOut(event)
+  }
+
+  function handleDeleteProfile(event) {
+    setDeletionMessage({
+      visible: true,
+      text: 'User has been successfully deleted. You will be logged out.',
+      style: 'warning',
+    })
+    deleteUser({ id: profile._id })
   }
 }
 
@@ -531,14 +574,16 @@ Settings.propTypes = {
 }
 
 const Section = styled.section`
+  z-index: 2;
   position: fixed;
   top: 0;
   display: none;
   align-content: flex-start;
+  justify-items: center;
   grid-gap: 20px;
   margin: 0;
   padding: 80px 20px 20px 20px;
-  overflow-y: scroll;
+  overflow: hidden;
   height: 100vh;
   width: 100%;
   &.visible {
@@ -548,17 +593,17 @@ const Section = styled.section`
 
 const Wrapper = styled.div`
   position: relative;
-  border: 1px solid var(--secondary-highlight-color);
-  background: #fff;
-  padding: 12px;
   display: grid;
-  justify-self: center;
   align-content: flex-start;
-  height: 100%;
   width: 100%;
+  max-width: 700px;
+  border: 1px solid var(--highlight-color);
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
+  > *:last-child {
+    padding-bottom: 40px;
+  }
 `
 
 const ProfileSection = styled.section`

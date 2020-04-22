@@ -1,6 +1,5 @@
-import { withKnobs } from '@storybook/addon-knobs'
 import React from 'react'
-import GlobalStyle from '../../common/GlobalStyle'
+import { action } from '@storybook/addon-actions'
 import UserMessage from './UserMessage'
 
 const message = {
@@ -13,16 +12,12 @@ const message = {
 
 export default {
   title: 'Components/Message',
-  decorators: [
-    withKnobs,
-    storyFn => (
-      <>
-        <GlobalStyle />
-        {storyFn()}
-      </>
-    ),
-  ],
   component: UserMessage,
 }
 
-export const StandardUserMessage = () => <UserMessage message={message} />
+export const StandardUserMessage = () => (
+  <UserMessage
+    message={message}
+    handleClick={action('Confirm/close message.')}
+  />
+)

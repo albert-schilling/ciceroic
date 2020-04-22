@@ -1,6 +1,6 @@
 import React from 'react'
-import Footer from './Footer'
 import { mobile } from '../../common/storybookDecorator'
+import Footer from './Footer'
 
 export default {
   title: 'Components/Footer',
@@ -9,5 +9,5 @@ export default {
 }
 
 export const DefaultFooter = () => {
-  return <Footer user={{ _id: 'id123' }} />
+  return <Footer />
 }
