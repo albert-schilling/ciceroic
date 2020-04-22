@@ -1,5 +1,5 @@
 import React from 'react'
-import PopUp from '../Interfaces/PopUp/PopUp'
+import Modal from '../Interfaces/Modal/Modal'
 import Terms from './Terms'
 
 export default function Imprint() {
@@ -19,10 +19,10 @@ export default function Imprint() {
         <br />
         Umsatzsteuer-Identifikationsnummer gem. § 27a UStG DE321509298
         <br />
-        <PopUp size={'medium'}>
+        <Modal size={'medium'}>
           {'Allgemeine Geschäftsbedingungen (AGB) von CICEORIC'}
           <Terms />
-        </PopUp>
+        </Modal>
       </p>
       <p>
         Alternative Streitbeilegung gemäß Art. 14 Abs. 1 ODR-VO und § 36 VSBG:

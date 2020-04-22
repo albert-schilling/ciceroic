@@ -117,8 +117,6 @@ function App() {
                               setSpeech={setSpeech}
                               speakerId={speakerId}
                               setSpeakerId={setSpeakerId}
-                              modal={modal}
-                              setModal={setModal}
                             />
                             <Footer />
                           </Main>

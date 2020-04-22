@@ -199,7 +199,7 @@ async function deleteUser({ db = firebase.db, id }) {
   }
 }
 
-function deleteUserFromAuthentication({} = {}) {
+function deleteUserFromAuthentication() {
   const user = authentication.currentUser
   return user
     .delete()

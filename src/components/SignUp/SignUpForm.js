@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { authentication } from '../../services/firebase'
 import { signUp } from '../../services/userServices'
 import Button from '../Inputs/Button/Button'
-import PopUp from '../Interfaces/PopUp/PopUp'
+import Modal from '../Interfaces/Modal/Modal'
 import PrivacyPolicy from '../Content/PrivacyPolicy'
 import Terms from '../Content/Terms'
 
@@ -113,15 +113,15 @@ export default function UserForm({ profile, setProfile, history }) {
           />
           <CheckboxText>
             I have read and agree to the{' '}
-            <PopUp size={'medium'}>
+            <Modal size={'medium'}>
               {'Terms of use'}
               <Terms />
-            </PopUp>{' '}
+            </Modal>{' '}
             and{' '}
-            <PopUp size={'medium'}>
+            <Modal size={'medium'}>
               {'Privacy Policy'}
               <PrivacyPolicy />
-            </PopUp>
+            </Modal>
             .
           </CheckboxText>
         </Checkbox>

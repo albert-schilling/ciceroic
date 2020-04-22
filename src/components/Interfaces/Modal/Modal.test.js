@@ -1,9 +1,9 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 
-import PopUp from './PopUp'
-describe('PopUp', () => {
-  const { container } = render(<PopUp />)
+import Modal from './Modal'
+describe('Modal', () => {
+  const { container } = render(<Modal />)
   it('tests if the comp. shows anchor tag', () => {
     const anchor = container.querySelector('anchor')
     expect(container).toContainElement(anchor)

@@ -1,10 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-
 import Imprint from '../Content/Imprint'
-// const Imprint = require('../Content/Imprint')
-import PopUp from '../Interfaces/PopUp/PopUp'
-// const PopUp = require('../Interfaces/PopUp/PopUp')
+import Modal from '../Interfaces/Modal/Modal'
 
 const FooterStyled = styled.footer`
   display: grid;
@@ -25,14 +22,14 @@ const Line = styled.hr`
   margin: 20px;
 `
 
-export default function Footer({}) {
+export default function Footer() {
   return (
     <FooterStyled>
       <Line />
-      <PopUp size={'medium'}>
+      <Modal size={'medium'}>
         {'Imprint'}
         <Imprint />
-      </PopUp>
+      </Modal>
     </FooterStyled>
   )
 }

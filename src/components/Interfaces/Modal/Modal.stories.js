@@ -1,34 +1,34 @@
 import React from 'react'
 import { mobile } from '../../../common/storybookDecorator'
-import PopUp from './PopUp'
+import Modal from './Modal'
 
 export default {
-  title: 'Components/Interfaces/PopUp',
+  title: 'Components/Interfaces/Modal',
   decorators: [storyFn => <section style={mobile}>{storyFn()}</section>],
-  component: PopUp,
+  component: Modal,
 }
 
-export const SmallPopUp = () => {
+export const SmallModal = () => {
   return (
-    <PopUp size={'small'}>
+    <Modal size={'small'} storybook={true}>
       {'Click me'}
       {'Pop Up text in Small Wrapper with max-width: 400px'}
-    </PopUp>
+    </Modal>
   )
 }
-export const MediumPopUp = () => {
+export const MediumModal = () => {
   return (
-    <PopUp size={'medium'}>
+    <Modal size={'medium'}>
       {'Click me'}
       {'Pop Up text in Medium Wrapper with max-width: 700px'}
-    </PopUp>
+    </Modal>
   )
 }
-export const LargePopUp = () => {
+export const LargeModal = () => {
   return (
-    <PopUp size={'large'}>
+    <Modal size={'large'}>
       {'Click me'}
       {'Pop Up text in Large Wrapper with max-width: 1200px'}
-    </PopUp>
+    </Modal>
   )
 }
