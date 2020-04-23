@@ -258,7 +258,11 @@ export default function UploadForm({
     })
     setVideoFile(null)
     setSubmitted(false)
-    setNewSpeech(initialSpeech)
+    setNewSpeech({
+      ...newSpeech,
+      userId: user._id,
+      speaker: `${profile.firstName} ${profile.lastName}`,
+    })
   }
 
   function visitSpeech(event) {

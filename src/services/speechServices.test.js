@@ -36,7 +36,7 @@ beforeAll(async () => {
   //   { uid: 'testuser', email: 'testuser@testing.com' },
   //   testSpeechData
   // )
-  await deleteAllSpeeches()
+  // await deleteAllSpeeches()
 })
 
 afterAll(async () => {
@@ -171,7 +171,7 @@ describe('deleteSpeech()', () => {
   })
 })
 
-describe('deleteAllSpeeches()', () => {
+describe.skip('deleteAllSpeeches()', () => {
   it('posts one speech and deletes all speeches', async () => {
     const id = await postSpeech({
       // db,

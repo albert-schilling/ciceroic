@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components/macro'
 import Wrapper from '../../Layouts/Wrapper/Wrapper'
-import PropTypes from 'prop-types'
 
 const Portal = ({ children, storybook }) => {
   if (storybook && !document.getElementById('modal')) {
@@ -41,12 +40,6 @@ export default function Modal({
     console.log('HandleClick called')
     setVisibility(true)
   }
-}
-
-Modal.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
-  toggle: PropTypes.func.isRequired,
-  on: PropTypes.bool.isRequired,
 }
 
 const Button = styled.button`

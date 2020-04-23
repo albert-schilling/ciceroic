@@ -102,7 +102,7 @@ export default function UserForm({ profile, setProfile, history }) {
           onChange={handleChange}
           value={profile.lastName}
         />
-        <Checkbox for="terms">
+        <Checkbox htmlFor="terms">
           <input
             type="checkbox"
             id="terms"
@@ -126,7 +126,7 @@ export default function UserForm({ profile, setProfile, history }) {
           </CheckboxText>
         </Checkbox>
 
-        <Checkbox for="newsletter">
+        <Checkbox htmlFor="newsletter">
           <input
             type="checkbox"
             id="newsletter"
