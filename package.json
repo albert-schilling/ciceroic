@@ -21,7 +21,7 @@
     "start": "env-cmd -f .env.development react-scripts start",
     "build": "env-cmd -f .env.production react-scripts build",
     "build:dev": "env-cmd -f .env.development react-scripts build",
-    "deploy": "npm run build && firebase deploy -P default --only hosting",
+    "deploy:prod": "npm run build && firebase deploy -P default --only hosting",
     "deploy:dev": "npm run build:dev && firebase deploy -P dev --only hosting",
     "test": "set CI=true && env-cmd -f .env.development react-scripts test",
     "test:watch": "env-cmd -f .env.development react-scripts test --watch",
