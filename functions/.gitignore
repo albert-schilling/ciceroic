@@ -1,1 +1,7 @@
 node_modules/
+
+# env variables
+.env.development
+.env.production
+.env.development.yaml
+.env.production.yaml

@@ -6,8 +6,8 @@
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "deploy:prod": "firebase deploy -P default --only functions",
-    "deploy:dev": "firebase deploy -P dev --only functions",
+    "deploy:prod": "env-cmd -f .env.production firebase deploy -P default --only functions",
+    "deploy:dev": "env-cmd -f .env.development firebase deploy -P dev --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
