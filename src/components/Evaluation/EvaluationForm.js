@@ -33,7 +33,7 @@ export default function EvaluationForm({
         title="Praise"
         name="praise"
         id="praise"
-        maxLength={1000}
+        maxLength={5000}
         initialValue={evaluation.praise}
         callback={handleChange}
         reference={inputPraiseRef}
@@ -43,7 +43,7 @@ export default function EvaluationForm({
         title="Suggestions"
         name="suggestions"
         id="praise"
-        maxLength={1000}
+        maxLength={5000}
         initialValue={evaluation.suggestions}
         callback={handleChange}
         reference={inputSuggestionsRef}
