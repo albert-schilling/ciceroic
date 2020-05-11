@@ -137,7 +137,7 @@ const Section = styled.section`
   width: 100%;
   padding: 80px 20px 20px 20px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 20;
   &.visible {
     display: grid;
   }
@@ -206,7 +206,7 @@ const Lightbox = styled.section`
   grid-template: auto max-content / 1fr;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 20;
   left: 0;
   top: 0;
 `

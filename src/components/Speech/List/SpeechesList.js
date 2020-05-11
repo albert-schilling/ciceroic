@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import SpeechCard from '../Card/SpeechCard'
+import Slider from '../../Slider/Slider'
 import Spinner from '../../Spinner/Spinner'
 import { getSpeeches } from '../../../services/speechServices'
 
@@ -47,7 +48,53 @@ export default function SpeechesList({
                   : ''
               }
             >
-              <SpeechesListContainer>
+              <Slider
+                title={'Evaluation required'}
+                speeches={[...speeches].sort((a, b) => {
+                  if (
+                    a.evaluations === undefined ||
+                    b.evaluations === undefined
+                  ) {
+                    return a
+                  } else {
+                    return a.evaluations.length > b.evaluations.length
+                  }
+                })}
+                setSpeech={setSpeech}
+                setActivePage={setActivePage}
+                setModal={setModal}
+              />
+              <Slider
+                title={'Lecture'}
+                speeches={speeches.filter(
+                  speech => speech.category === 'lecture'
+                )}
+                setSpeech={setSpeech}
+                setActivePage={setActivePage}
+                setModal={setModal}
+              />
+              <Slider
+                title={'Comedy'}
+                speeches={speeches.filter(
+                  speech => speech.category === 'comedy'
+                )}
+                setSpeech={setSpeech}
+                setActivePage={setActivePage}
+                setModal={setModal}
+              />
+              {speeches.filter(speech => speech.category === 'pitch').length >
+                0 && (
+                <Slider
+                  title={'Pitch'}
+                  speeches={speeches.filter(
+                    speech => speech.category === 'pitch'
+                  )}
+                  setSpeech={setSpeech}
+                  setActivePage={setActivePage}
+                  setModal={setModal}
+                />
+              )}
+              {/* <SpeechesListContainer>
                 {speeches.map(speech => {
                   return (
                     <SpeechCard
@@ -63,7 +110,7 @@ export default function SpeechesList({
                     />
                   )
                 })}
-              </SpeechesListContainer>
+              </SpeechesListContainer> */}
             </Section>
           )}
         </>
@@ -73,9 +120,13 @@ export default function SpeechesList({
 }
 
 const Section = styled.section`
+  display: grid;
+  grid-gap: 8px;
+  margin-bottom: 20px;
   height: 100%;
   width: 100%;
   max-width: 1200px;
+  padding: 0 12px;
   &.blur {
     filter: blur(2px);
   }

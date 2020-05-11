@@ -36,6 +36,7 @@ const NavigationStyled = styled.nav`
   justify-self: center;
   width: 100%;
   max-width: 1200px;
+  z-index: 10;
   @media (min-width: 1200px) {
     left: calc(50% - 600px);
   }

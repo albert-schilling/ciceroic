@@ -285,7 +285,7 @@ const Section = styled.section`
   width: 100%;
   padding: 80px 20px 20px 20px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 20;
   &.visible {
     display: grid;
   }

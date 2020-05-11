@@ -24,7 +24,7 @@ export default function Wrapper({
 }
 
 const Background = styled.section`
-  z-index: 2;
+  z-index: 20;
   position: fixed;
   top: 0;
   left: 0;

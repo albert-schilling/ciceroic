@@ -575,7 +575,7 @@ Settings.propTypes = {
 }
 
 const Section = styled.section`
-  z-index: 2;
+  z-index: 20;
   position: fixed;
   top: 0;
   display: none;
@@ -696,7 +696,7 @@ const Lightbox = styled.section`
   width: 100%;
   height: 100%;
   background: var(--primary-font-color);
-  z-index: 2;
+  z-index: 20;
 `
 const LightboxImage = styled.section`
   display: flex;
