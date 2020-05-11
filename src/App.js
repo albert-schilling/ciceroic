@@ -55,7 +55,7 @@ function App() {
                   <>
                     <Switch>
                       <Route exact path="/">
-                        {user?._id ? (
+                        {user?._id && profile?._id ? (
                           <Main>
                             <>
                               <SpeechesList
@@ -69,7 +69,6 @@ function App() {
                                 modal={modal}
                                 setModal={setModal}
                               />
-                              {console.log('activePage:', activePage)}
                               {activePage === '/speech' && (
                                 <Speech
                                   speech={speech}

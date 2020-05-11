@@ -22,7 +22,9 @@ export default function Modal({
   const [visibility, setVisibility] = useState(false)
   return (
     <>
-      <Button onClick={handleClick}>{children[0]}</Button>
+      <Button data-testid="modalButton" onClick={handleClick}>
+        {children[0]}
+      </Button>
       {visibility && (
         <Portal storybook={storybook}>
           <Wrapper
@@ -38,15 +40,13 @@ export default function Modal({
   )
   function handleClick(event) {
     event.preventDefault()
-    console.log('HandleClick called')
     setVisibility(true)
   }
 }
 
 Modal.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
-  toggle: PropTypes.func.isRequired,
-  on: PropTypes.bool.isRequired,
+  children: PropTypes.any.isRequired,
+  size: PropTypes.string,
 }
 
 const Button = styled.button`

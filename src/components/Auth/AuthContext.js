@@ -46,7 +46,7 @@ function AuthProvider({ children, setProfile }) {
   }
 
   async function logOut(event) {
-    console.log('logout called')
+    // console.log('logout called')
     try {
       event.preventDefault()
       authentication.signOut()

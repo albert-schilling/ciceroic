@@ -59,20 +59,20 @@ export default function useSpeech() {
   }
 
   async function submitSpeech({ speech, setSpeech, video, setUploadProgress }) {
-    console.log('submitSpeech called. speech:', speech, 'video:', video)
+    // console.log('submitSpeech called. speech:', speech, 'video:', video)
     const id = await postSpeech({ speech })
-    console.log('Retrieved id from postSpeech:', id)
+    // console.log('Retrieved id from postSpeech:', id)
 
     const storageFilename = `user_${speech.userId}_speech_${id}_${speech.filename}`
     const upload = uploadSpeech({ file: video, filename: storageFilename })
-    console.log('Got response (upload) from uploadSpeech:', upload)
+    // console.log('Got response (upload) from uploadSpeech:', upload)
     Object.assign(speech, {
       _id: id,
       uploadStatus: 'uploading',
       status: 'submitted',
     })
     setSpeech(speech)
-    console.log('Speech after upload started:', speech)
+    // console.log('Speech after upload started:', speech)
 
     // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
@@ -86,11 +86,12 @@ export default function useSpeech() {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         setUploadProgress(progress)
         // console.log('Upload is ' + progress + '% done')
+        // eslint-disable-next-line default-case
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             Object.assign(speech, { uploadStatus: 'paused' })
             // setSpeech(speech)
-            console.log('Upload is paused')
+            // console.log('Upload is paused')
             break
           case firebase.storage.TaskState.RUNNING: // or 'running'
             Object.assign(speech, { uploadStatus: 'uploading' })
@@ -112,7 +113,7 @@ export default function useSpeech() {
 
         Object.assign(speech, { uploadStatus: 'uploaded', fileUrl: url })
         setSpeech(speech)
-        console.log('Uploading video successful. Speech:', speech)
+        // console.log('Uploading video successful. Speech:', speech)
         patchSpeech({ id: speech._id, speech })
       }
     )

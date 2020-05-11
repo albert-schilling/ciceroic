@@ -1,13 +1,46 @@
 import { db } from '../services/firebase'
 import { getTestUser } from '../spec/testData'
-import { addUser, getUser, deleteUserFromDB } from '../services/userServices'
+import {
+  signUp,
+  addUser,
+  getUser,
+  deleteUser,
+  deleteUserFromDB,
+} from '../services/userServices'
+const testUser = getTestUser()
+let testUserId
+
 // setup and teardown of emulated test db from firebase/testing
 // import { getTestDB, clearTestDB, firebase } from './setupFirebaseTestApp'
 // import { testUserData } from './testData'
 
+// Applies only to tests in this describe block
+beforeAll(async () => {
+  // emulated test db with firebase/testing -> setup db
+  // db = await getTestDB(
+  //   { uid: 'testuser', email: 'testuser@testing.com' },
+  //   testUserData
+  // )
+  // ref = db.collection('users')
+
+  const res = await signUp({ ...testUser })
+  testUserId = res.user.uid
+})
+
+afterAll(async () => {
+  // emulated test db with firebase/testing -> teardown db
+  // await clearTestDB()
+
+  await deleteUser({ testUserId })
+})
+
 describe('test user collection', () => {
   const testUser = getTestUser()
   const id = testUser._id
+
+  // let db
+  // let ref
+
   it('it adds a user to db', async () => {
     await addUser({
       user: testUser,
@@ -16,24 +49,6 @@ describe('test user collection', () => {
     })
     const userData = await getUser({ id })
     expect(userData._id).toEqual(id)
-  })
-
-  // let db
-  // let ref
-
-  // Applies only to tests in this describe block
-  beforeAll(async () => {
-    // emulated test db with firebase/testing -> setup db
-    // db = await getTestDB(
-    //   { uid: 'testuser', email: 'testuser@testing.com' },
-    //   testUserData
-    // )
-    // ref = db.collection('users')
-  })
-
-  afterAll(async () => {
-    // emulated test db with firebase/testing -> teardown db
-    // await clearTestDB()
   })
 
   it('check that the user collection has entries', async () => {
@@ -49,6 +64,8 @@ describe('test user collection', () => {
       .collection('users')
       .get()
       .then(snapshot => snapshot.size)
+
+    const testUser = getTestUser()
 
     await addUser({
       user: testUser,

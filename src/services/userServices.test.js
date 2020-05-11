@@ -12,6 +12,9 @@ import {
 } from './userServices'
 import { getTestUser } from '../spec/testData'
 
+const testUser = getTestUser()
+let testUserId
+
 beforeAll(async () => {
   // emulated test db with firebase/testing -> setup db
   // db = await getTestDB({ uid: 'testuser', email: 'testuser@testing.com' })
@@ -22,11 +25,14 @@ beforeAll(async () => {
   //   lastName: testUser.lastName,
   // })
   // await deleteAllUsers()
+  const res = await signUp({ ...testUser })
+  testUserId = res.user.uid
 })
 
 afterAll(async () => {
   // emulated test db with firebase/testing -> teardown db
   // await clearTestDB()
+  await deleteUser({ testUserId })
 })
 
 describe('test getUser()', () => {
@@ -259,15 +265,12 @@ describe('signUp() and deleteUser() including authentication', () => {
     expect(userData._id).toEqual(id)
     expect(userData.firstName).toEqual(testUser.firstName)
   })
-  it.skip('deletes the new user from authentication', async () => {
-    const res = await deleteUserFromAuthentication()
-    expect(res).toBe(true)
-  })
-  it.skip('deletes the new user from db', async () => {
+
+  it('deletes the new user from db', async () => {
     const res = await deleteUserFromDB({ id })
     expect(res).toBe(true)
   })
-  it('deletes the new user from authentication and db in one step', async () => {
+  it.skip('deletes the new user from authentication and db in one step', async () => {
     const res = await deleteUser({ id })
     expect(res).toMatch(/successfully deleted/)
   })
@@ -275,5 +278,9 @@ describe('signUp() and deleteUser() including authentication', () => {
     const res = await getUser({ id })
     expect(res instanceof Error).toBe(true)
     expect(res.message).toMatch(/User not found in db!/)
+  })
+  it('deletes the new user from authentication', async () => {
+    const res = await deleteUserFromAuthentication()
+    expect(res).toBe(true)
   })
 })

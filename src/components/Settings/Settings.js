@@ -301,13 +301,16 @@ export default function Settings({
             />
           )}
         </PasswordForm>
-        <ConfirmedAction
-          message={deletionMessage}
-          setMessage={setDeletionMessage}
-          submitText={'Delete Profile'}
-          submitColor={'secondary'}
-          callback={handleDeleteProfile}
-        />
+        {process.env.NODE_ENV === 'development' && (
+          <ConfirmedAction
+            message={deletionMessage}
+            setMessage={setDeletionMessage}
+            submitText={'Delete Profile'}
+            submitColor={'secondary'}
+            callback={handleDeleteProfile}
+          />
+        )}
+
         <Line>
           <IconSignOut
             width="20px"
@@ -544,7 +547,6 @@ export default function Settings({
     event.target.title === 'container' && setModal('')
   }
   function loggingOut(event) {
-    console.log('logging out')
     event.preventDefault()
     setModal('')
     setActivePage('')
@@ -567,7 +569,6 @@ Settings.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
     portrait: PropTypes.string,
     about: PropTypes.string,
   }),

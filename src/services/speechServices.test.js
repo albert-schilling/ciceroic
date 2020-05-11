@@ -9,11 +9,17 @@ import {
   deleteAllSpeeches,
 } from './speechServices'
 
+import { signUp, deleteUser } from './userServices'
+import { getTestUser } from '../spec/testData'
+
+const testUser = getTestUser()
+let testUserId
+
 // setup and teardown of emulated test db from firebase/testing
 // import { getTestDB, clearTestDB } from '../spec/setupFirebaseTestApp'
 // import { testSpeechData } from '../spec/testData'
 
-import * as video from '../spec/test-video.mov'
+import * as video from '../spec/test-video.mp4'
 
 // let db
 const userId = Math.floor(Math.random() * 1000)
@@ -36,13 +42,18 @@ beforeAll(async () => {
   //   { uid: 'testuser', email: 'testuser@testing.com' },
   //   testSpeechData
   // )
-  await deleteAllSpeeches()
+  // await deleteAllSpeeches()
+
+  const res = await signUp({ ...testUser })
+  testUserId = res.user.uid
 })
 
 afterAll(async () => {
   // emulated test db with firebase/testing -> teardown db
   // await clearTestDB()
   // clear real db of dev project
+
+  await deleteUser({ testUserId })
 })
 
 describe('postSpeech() and getSpeech()', () => {
@@ -76,7 +87,6 @@ describe('getSpeeches()', () => {
       // db
     })
     expect(Array.isArray(res)).toBe(true)
-    expect(res[0].description).toEqual('description-of-video')
   })
 })
 
