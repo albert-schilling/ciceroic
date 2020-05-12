@@ -121,7 +121,9 @@ export default function useSpeech() {
 
   function returnCategories(speeches) {
     return speeches.reduce((categories, current) => {
-      if (!categories.includes(current.category)) {
+      if (!current.category) {
+        return categories
+      } else if (!categories.includes(current.category)) {
         return [...categories, current.category]
       } else {
         return categories
@@ -129,26 +131,32 @@ export default function useSpeech() {
     }, [])
   }
   function shortenArray(array, length) {
-    const finalLength = length > array.length ? array.length : length
+    if (length > array.length) {
+      return array
+    }
     const shortenedArray = []
-    for (let i = 0; i < finalLength; i++) {
+    for (let i = 0; i < length; i++) {
       shortenedArray.push(array[i])
     }
     return shortenedArray
   }
   function sortAccordingToEvaluations(speeches) {
+    if (speeches.length === 0) {
+      return []
+    }
     return [...speeches].sort((a, b) => {
-      const lengthB = b.evaluations ? b.evaluations.length : 0
       const lengthA = a.evaluations ? a.evaluations.length : 0
-      return lengthA > lengthB
+      const lengthB = b.evaluations ? b.evaluations.length : 0
+      return lengthA - lengthB
     })
   }
   function sortAccordingToDate(speeches) {
     return [...speeches].sort((a, b) => {
-      return a.date < b.date
+      return b.date - a.date
     })
   }
   function capitalizeString(string) {
+    if (string.length === 0) return ''
     return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
