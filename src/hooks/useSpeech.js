@@ -119,6 +119,39 @@ export default function useSpeech() {
     )
   }
 
+  function returnCategories(speeches) {
+    return speeches.reduce((categories, current) => {
+      if (!categories.includes(current.category)) {
+        return [...categories, current.category]
+      } else {
+        return categories
+      }
+    }, [])
+  }
+  function shortenArray(array, length) {
+    const finalLength = length > array.length ? array.length : length
+    const shortenedArray = []
+    for (let i = 0; i < finalLength; i++) {
+      shortenedArray.push(array[i])
+    }
+    return shortenedArray
+  }
+  function sortAccordingToEvaluations(speeches) {
+    return [...speeches].sort((a, b) => {
+      const lengthB = b.evaluations ? b.evaluations.length : 0
+      const lengthA = a.evaluations ? a.evaluations.length : 0
+      return lengthA > lengthB
+    })
+  }
+  function sortAccordingToDate(speeches) {
+    return [...speeches].sort((a, b) => {
+      return a.date < b.date
+    })
+  }
+  function capitalizeString(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
   return {
     speech,
     setSpeech,
@@ -130,5 +163,10 @@ export default function useSpeech() {
     returnDimensionsFromAverage,
     returnDimensionsFromEvaluation,
     submitSpeech,
+    shortenArray,
+    sortAccordingToEvaluations,
+    returnCategories,
+    sortAccordingToDate,
+    capitalizeString,
   }
 }

@@ -58,6 +58,7 @@ const WrapperStyled = styled.div`
   overflow: hidden;
   font-size: 1rem;
   line-height: 140%;
+  box-shadow: 0 0 40px #666;
 `
 
 const Header = styled.header`

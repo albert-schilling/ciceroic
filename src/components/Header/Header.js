@@ -58,6 +58,8 @@ const HeaderStyled = styled.header`
   width: 100%;
   background: var(--light-grey);
   color: var(--inverse-primary-font-color);
+  box-shadow: 0 0 12px #333;
+  z-index: 20;
   h1 {
     margin: 0;
     padding: 0;

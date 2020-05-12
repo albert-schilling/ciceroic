@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import SpeechCard from '../Card/SpeechCard'
 import Slider from '../../Slider/Slider'
 import Spinner from '../../Spinner/Spinner'
 import { getSpeeches } from '../../../services/speechServices'
+import useSpeech from '../../../hooks/useSpeech'
 
 export default function SpeechesList({
-  profile = {},
   speeches = {},
   setSpeeches = () => {},
   setSpeech = () => {},
@@ -14,9 +13,15 @@ export default function SpeechesList({
   setActivePage = () => {},
   modal = '',
   setModal = () => {},
-  setSpeakerId = () => {},
 }) {
   const [loading, setLoading] = useState(true)
+  const {
+    shortenArray,
+    sortAccordingToDate,
+    sortAccordingToEvaluations,
+    returnCategories,
+    capitalizeString,
+  } = useSpeech()
 
   useEffect(() => {
     getSpeeches().then(res => {
@@ -50,67 +55,32 @@ export default function SpeechesList({
             >
               <Slider
                 title={'Evaluation required'}
-                speeches={[...speeches].sort((a, b) => {
-                  if (
-                    a.evaluations === undefined ||
-                    b.evaluations === undefined
-                  ) {
-                    return a
-                  } else {
-                    return a.evaluations.length > b.evaluations.length
-                  }
-                })}
+                speeches={shortenArray(sortAccordingToEvaluations(speeches), 5)}
                 setSpeech={setSpeech}
                 setActivePage={setActivePage}
                 setModal={setModal}
               />
               <Slider
-                title={'Lecture'}
-                speeches={speeches.filter(
-                  speech => speech.category === 'lecture'
-                )}
+                title={'Recent Speeches'}
+                speeches={shortenArray(sortAccordingToDate(speeches), 5)}
                 setSpeech={setSpeech}
                 setActivePage={setActivePage}
                 setModal={setModal}
               />
-              <Slider
-                title={'Comedy'}
-                speeches={speeches.filter(
-                  speech => speech.category === 'comedy'
-                )}
-                setSpeech={setSpeech}
-                setActivePage={setActivePage}
-                setModal={setModal}
-              />
-              {speeches.filter(speech => speech.category === 'pitch').length >
-                0 && (
-                <Slider
-                  title={'Pitch'}
-                  speeches={speeches.filter(
-                    speech => speech.category === 'pitch'
-                  )}
-                  setSpeech={setSpeech}
-                  setActivePage={setActivePage}
-                  setModal={setModal}
-                />
-              )}
-              {/* <SpeechesListContainer>
-                {speeches.map(speech => {
-                  return (
-                    <SpeechCard
-                      key={speech._id}
-                      profile={profile}
-                      speech={speech}
-                      setSpeech={setSpeech}
-                      setActivePage={setActivePage}
-                      speakerId={speech.userId}
-                      setSpeakerId={setSpeakerId}
-                      modal={modal}
-                      setModal={setModal}
-                    />
-                  )
-                })}
-              </SpeechesListContainer> */}
+              {returnCategories(speeches).map(category => {
+                return (
+                  <Slider
+                    key={`slider-${category}`}
+                    title={category && capitalizeString(category)}
+                    speeches={speeches.filter(
+                      speech => speech.category === category
+                    )}
+                    setSpeech={setSpeech}
+                    setActivePage={setActivePage}
+                    setModal={setModal}
+                  />
+                )
+              })}
             </Section>
           )}
         </>
@@ -131,15 +101,8 @@ const Section = styled.section`
     filter: blur(2px);
   }
   &.hidden {
-    display: none;
-  }
-`
-
-const SpeechesListContainer = styled.section`
-  margin-bottom: 20px;
-  display: grid;
-  grid-gap: 8px;
-  @media (min-width: 700px) {
-    grid-template-columns: 1fr 1fr;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
   }
 `

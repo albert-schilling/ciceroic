@@ -8,23 +8,23 @@ export default function SpeechThumbnail({
   setModal = () => {},
 }) {
   return (
-    <SpeechThumbnailBody
+    <Container
       data-testid={`speech-thumbnail-${speech._id}`}
       onClick={goToSpeech}
     >
       {speech.filename === undefined && <p>Video not found.</p>}
       {speech.uploadStatus === 'uploading' && <p>Video is being uploaded.</p>}
       {speech.uploadStatus === 'uploaded' && (
-        <SpeechThumbnailVideo role="img" controls>
+        <Video role="img" controls>
           <source src={speech.fileUrl} type="video/mp4" />
-        </SpeechThumbnailVideo>
+        </Video>
       )}
 
-      <SpeechThumbnailInformation>
-        <SpeechTitle>{speech.title}</SpeechTitle>
+      <Description>
+        <Title>{speech.title}</Title>
         <Speaker>{speech.speaker}</Speaker>
-      </SpeechThumbnailInformation>
-    </SpeechThumbnailBody>
+      </Description>
+    </Container>
   )
 
   async function goToSpeech(event) {
@@ -36,33 +36,36 @@ export default function SpeechThumbnail({
   }
 }
 
-const SpeechThumbnailBody = styled.article`
+const Container = styled.article`
   width: 200px;
   min-width: 200px;
   max-width: 200px;
   border: 1px solid #eee;
   border-radius: 0;
-  padding: 12px;
   background: #ffffff;
   cursor: pointer;
 `
 
-const SpeechThumbnailVideo = styled.video`
+const Video = styled.video`
   width: 100%;
   height: auto;
 `
-const SpeechThumbnailInformation = styled.section`
+const Description = styled.section`
   display: flex;
   flex-direction: column;
 `
 
-const SpeechTitle = styled.h2`
-  font-size: 1.4rem;
+const Title = styled.h3`
+  padding: 0 12px;
+  font-size: 1.2rem;
   font-weight: 500;
-  line-height: 1.8rem;
+  line-height: 1.2rem;
 `
 
 const Speaker = styled.h4`
+  margin-top: 0;
+
+  padding: 0 12px;
   font-size: 1rem;
   font-weight: 500;
 `

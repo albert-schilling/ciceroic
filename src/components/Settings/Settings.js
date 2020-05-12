@@ -602,6 +602,7 @@ const Wrapper = styled.div`
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
+  box-shadow: 0 0 40px #888;
   > *:last-child {
     padding-bottom: 40px;
   }
