@@ -7,24 +7,22 @@ export default function SpeechThumbnail({
   setActivePage = () => {},
   setModal = () => {},
 }) {
-  return (
+  return speech.filename && speech.uploadStatus === 'uploaded' ? (
     <Container
       data-testid={`speech-thumbnail-${speech._id}`}
       onClick={goToSpeech}
     >
-      {speech.filename === undefined && <p>Video not found.</p>}
-      {speech.uploadStatus === 'uploading' && <p>Video is being uploaded.</p>}
-      {speech.uploadStatus === 'uploaded' && (
-        <Video role="img" controls>
-          <source src={speech.fileUrl} type="video/mp4" />
-        </Video>
-      )}
+      <Video role="img" controls>
+        <source src={speech.fileUrl} type="video/mp4" />
+      </Video>
 
       <Description>
         <Title>{speech.title}</Title>
         <Speaker>{speech.speaker}</Speaker>
       </Description>
     </Container>
+  ) : (
+    <></>
   )
 
   async function goToSpeech(event) {
@@ -50,6 +48,7 @@ const Video = styled.video`
   width: 100%;
   height: auto;
 `
+
 const Description = styled.section`
   display: flex;
   flex-direction: column;
@@ -64,7 +63,6 @@ const Title = styled.h3`
 
 const Speaker = styled.h4`
   margin-top: 0;
-
   padding: 0 12px;
   font-size: 1rem;
   font-weight: 500;
