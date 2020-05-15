@@ -575,7 +575,7 @@ Settings.propTypes = {
 }
 
 const Section = styled.section`
-  z-index: 2;
+  z-index: 20;
   position: fixed;
   top: 0;
   display: none;
@@ -602,6 +602,7 @@ const Wrapper = styled.div`
   padding: 20px;
   background: #fff;
   overflow-y: scroll;
+  box-shadow: 0 0 40px #888;
   > *:last-child {
     padding-bottom: 40px;
   }
@@ -696,7 +697,7 @@ const Lightbox = styled.section`
   width: 100%;
   height: 100%;
   background: var(--primary-font-color);
-  z-index: 2;
+  z-index: 20;
 `
 const LightboxImage = styled.section`
   display: flex;

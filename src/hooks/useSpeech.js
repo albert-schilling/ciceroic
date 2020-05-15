@@ -119,6 +119,55 @@ export default function useSpeech() {
     )
   }
 
+  function returnCategories(speeches) {
+    return speeches.reduce((categories, current) => {
+      if (!current.category) {
+        return categories
+      } else if (!categories.includes(current.category)) {
+        return [...categories, current.category]
+      } else {
+        return categories
+      }
+    }, [])
+  }
+  function shortenArray(array, length) {
+    if (!Array.isArray(array) || !typeof length === 'number') {
+      return new TypeError(
+        'Wrong arguments. First parameter should be Array, second number.'
+      )
+    }
+    if (length > array.length || length > 0) {
+      return array
+    }
+    if (length === 0) {
+      return []
+    }
+    const shortenedArray = []
+    for (let i = 0; i < length; i++) {
+      shortenedArray.push(array[i])
+    }
+    return shortenedArray
+  }
+  function sortAccordingToEvaluations(speeches) {
+    if (speeches.length === 0) {
+      return []
+    }
+    return [...speeches].sort((a, b) => {
+      const lengthA = a.evaluations ? a.evaluations.length : 0
+      const lengthB = b.evaluations ? b.evaluations.length : 0
+      return lengthA - lengthB
+    })
+  }
+  function sortAccordingToDate(speeches) {
+    return [...speeches].sort((a, b) => {
+      return b.date - a.date
+    })
+  }
+  function capitalizeString(string) {
+    if (string.length === 0) return ''
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
   return {
     speech,
     setSpeech,
@@ -130,5 +179,10 @@ export default function useSpeech() {
     returnDimensionsFromAverage,
     returnDimensionsFromEvaluation,
     submitSpeech,
+    shortenArray,
+    sortAccordingToEvaluations,
+    returnCategories,
+    sortAccordingToDate,
+    capitalizeString,
   }
 }

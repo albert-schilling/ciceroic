@@ -285,7 +285,7 @@ const Section = styled.section`
   width: 100%;
   padding: 80px 20px 20px 20px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 20;
   &.visible {
     display: grid;
   }
@@ -298,6 +298,8 @@ const Wrapper = styled.div`
   padding: 20px;
   max-width: 700px;
   overflow-y: scroll;
+  box-shadow: 0 0 40px #666;
+
   > *:last-child {
     padding-bottom: 40px;
   }

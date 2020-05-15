@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     --primary-bg-color: #003;
     --secondary-bg-color: #a00;
     --light-grey: #eee;
+    --grey: #bbb;
     --primary-font-color: #111;
     --secondary-font-color: #888;
     --inverse-primary-font-color: #fff;

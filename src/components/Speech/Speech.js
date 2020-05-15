@@ -35,6 +35,10 @@ export default function Speech({
 
   useEffect(() => {
     speech._id && getSpeechFromDB(speech._id)
+    return () => {
+      setSpeech({})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -70,10 +74,7 @@ export default function Speech({
             setSpeakerId={setSpeakerId}
             setModal={setModal}
             description={speech.description}
-            category={
-              speech.category &&
-              speech.category.charAt(0).toUpperCase() + speech.category.slice(1)
-            }
+            category={speech.category && capitalizeString(speech.category)}
             duration={speech.duration}
             date={speech.date && convertTimestampToDate(speech.date)}
           />
@@ -141,6 +142,9 @@ export default function Speech({
           setEvaluation({})
         }
       })
+  }
+  function capitalizeString(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 }
 

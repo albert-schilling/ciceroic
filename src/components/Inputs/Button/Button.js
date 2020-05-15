@@ -9,6 +9,7 @@ export default function Button({
   autoFocus = false,
   styling = 'primary',
   disabled = false,
+  type = 'button',
 }) {
   return (
     <ButtonStyled
@@ -18,6 +19,7 @@ export default function Button({
       autoFocus={autoFocus}
       onClick={callback}
       disabled={disabled}
+      type={type}
     >
       {text}
     </ButtonStyled>

@@ -6,8 +6,8 @@ import useDate from '../../../hooks/useDate'
 
 export default function SpeechCard({
   profile = {},
-  speech,
-  setSpeech,
+  speech = {},
+  setSpeech = () => {},
   setActivePage = () => {},
   setModal = () => {},
   speakerId = '',
