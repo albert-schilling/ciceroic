@@ -131,8 +131,16 @@ export default function useSpeech() {
     }, [])
   }
   function shortenArray(array, length) {
-    if (length > array.length) {
+    if (!Array.isArray(array) || !typeof length === 'number') {
+      return new TypeError(
+        'Wrong arguments. First parameter should be Array, second number.'
+      )
+    }
+    if (length > array.length || length > 0) {
       return array
+    }
+    if (length === 0) {
+      return []
     }
     const shortenedArray = []
     for (let i = 0; i < length; i++) {

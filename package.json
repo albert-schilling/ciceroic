@@ -23,7 +23,7 @@
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "deploy": "npm run build && firebase deploy -P default --only hosting",
     "deploy:dev": "npm run build:dev && firebase deploy -P dev --only hosting",
-    "test": "set CI=true && env-cmd -f .env.development react-scripts test --detectOpenHandles",
+    "test": "set CI=true && env-cmd -f .env.development react-scripts test --detectOpenHandles --runInBand --silent",
     "test:watch": "env-cmd -f .env.development react-scripts test --watch",
     "test:e2e": "npm-run-all --parallel --race start cypress:run",
     "test:e2e:dev": "npm-run-all --parallel build:dev start cypress:open",

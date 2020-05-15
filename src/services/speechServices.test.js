@@ -20,6 +20,7 @@ let testUserId
 // import { testSpeechData } from '../spec/testData'
 
 import * as video from '../spec/test-video.mp4'
+import { wait } from '@testing-library/react'
 
 // let db
 const userId = Math.floor(Math.random() * 1000)
@@ -96,12 +97,14 @@ describe('patchSpeech()', () => {
       // db,
       speech: testSpeech,
     })
+
     testSpeech.category = 'comedy'
     await patchSpeech({
       // db,
       id,
       speech: testSpeech,
     })
+
     const speechData = await getSpeech({
       // db,
       id,
@@ -117,6 +120,7 @@ describe('getSpeeches()', () => {
       // db,
       speech: testSpeech,
     })
+
     const speeches = await getSpeechesByUser({
       // db,
       id: userId,
@@ -157,6 +161,7 @@ describe('deleteSpeech()', () => {
       // db,
       speech: { ...testSpeech, title: 'delete-test' },
     })
+
     const retrievedSpeech = await getSpeech({
       // db,
       id,
@@ -167,6 +172,7 @@ describe('deleteSpeech()', () => {
       id,
       profile: { firstName: 'testUser', lastName: 'testUser' },
     })
+
     expect(res).toMatch(/successfully deleted/)
     // await setTimeout(() => {
     //   ;() => {}
@@ -187,6 +193,7 @@ describe('deleteAllSpeeches()', () => {
       // db,
       speech: { ...testSpeech, title: 'delete-test' },
     })
+
     const retrievedSpeech = await getSpeech({
       // db,
       id,

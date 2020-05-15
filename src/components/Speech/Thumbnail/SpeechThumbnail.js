@@ -49,23 +49,27 @@ const Video = styled.video`
   height: 150px;
   object-fit: cover;
   object-position: center top;
+  overflow: hidden;
 `
 
 const Description = styled.section`
   display: flex;
   flex-direction: column;
+  padding: 0 12px;
 `
 
 const Title = styled.h3`
-  padding: 0 12px;
   font-size: 1.2rem;
   font-weight: 500;
-  line-height: 1.2rem;
+  line-height: 1.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `
 
 const Speaker = styled.h4`
   margin-top: 0;
-  padding: 0 12px;
   font-size: 1rem;
   font-weight: 500;
 `

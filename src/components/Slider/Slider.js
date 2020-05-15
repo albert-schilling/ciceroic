@@ -38,6 +38,7 @@ export default function Slider({
       <Title>{title}</Title>
       <Carousel>
         <Button
+          data-testid={`slider-button-left-${title}`}
           style={{ left: 0 }}
           ref={buttonLeftRef}
           onClick={e => {
@@ -49,7 +50,11 @@ export default function Slider({
           {'<'}
         </Button>
         <Stage>
-          <Content ref={contentRef} transition={transition}>
+          <Content
+            ref={contentRef}
+            transition={transition}
+            data-testid={`slider-content-${title}`}
+          >
             {speeches?.map(speech => (
               <SpeechThumbnail
                 key={speech._id}
@@ -62,6 +67,7 @@ export default function Slider({
           </Content>
         </Stage>
         <Button
+          data-testid={`slider-button-right-${title}`}
           style={{ right: 0 }}
           ref={buttonRightRef}
           onClick={e => {
@@ -109,6 +115,7 @@ const Title = styled.h2`
   width: max-content;
   padding: 8px;
   font-size: 1.4rem;
+  line-height: 1.8rem;
   z-index: 2;
   box-shadow: 4px 4px 8px #333;
 `

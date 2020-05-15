@@ -126,7 +126,7 @@ describe('sortAccordingToEvaluations', () => {
   })
 })
 
-describe('shortenArray', () => {
+describe.only('shortenArray', () => {
   const { shortenArray } = renderCustomHook(useSpeech)
 
   it('tests if array gets shortened correctly', () => {
@@ -150,5 +150,27 @@ describe('shortenArray', () => {
     const shortenedArray = shortenArray(shortArray, newLength)
     expect(shortenedArray.length).toEqual(shortArray.length)
     expect(shortenedArray).toEqual(shortArray)
+  })
+  it('tests if the same array gets returned if the required length is < 0', () => {
+    const shortArray = [Math.random(), Math.random(), Math.random()]
+    expect(shortArray.length).toEqual(3)
+    const falseLength = -2
+    const sameArray = shortenArray(shortArray, falseLength)
+    expect(sameArray.length).toEqual(shortArray.length)
+    expect(sameArray).toEqual(shortArray)
+  })
+  it('tests if an empty array gets returned if the required length is 0', () => {
+    const shortArray = [Math.random(), Math.random(), Math.random()]
+    expect(shortArray.length).toEqual(3)
+    const zeroLength = 0
+    const emptyArray = shortenArray(shortArray, zeroLength)
+    expect(emptyArray.length).toEqual(0)
+    expect(emptyArray).toEqual([])
+  })
+  it.only('tests if an error gets returned if the arguments given are not of the correct type', () => {
+    const object = {}
+    const length = 'two'
+    const response = shortenArray(object, length)
+    expect(typeof response).toEqual(typeof new TypeError())
   })
 })
